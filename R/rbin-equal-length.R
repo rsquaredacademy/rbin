@@ -66,10 +66,16 @@ rbin_equal_length <- function(data = NULL, response = NULL, predictor = NULL, bi
     )
 
   sym_sign <- c(rep("<", (bins - 1)), ">")
+
+  len_fbin <- length(u_freq)
+  fbin <- u_freq[-len_fbin]
+  l_fbin <- length(fbin)
+  fbin2 <- c(fbin, fbin[l_fbin])
+
   
   intervals <-
-    tibble(sym_sign, u_freq) %>%
-    mutate(cut_point = paste(sym_sign, u_freq)) %>%
+    tibble(sym_sign, fbin2) %>%
+    mutate(cut_point = paste(sym_sign, fbin2)) %>%
     select(cut_point)
 
   result <- list(bins = bind_cols(intervals, k))
