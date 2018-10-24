@@ -8,8 +8,7 @@
 #' @param bins Number of bins.
 #'
 #' @examples
-#' library(blorr)
-#' rbin_equal_freq(bank_marketing, y, age, 20)
+#' rbin_equal_freq(marketing_bank, y, age, 10)
 #'
 #' @importFrom dplyr arrange mutate group_by summarise pull select bind_cols
 #' @importFrom magrittr %>% divide_by subtract multiply_by use_series

@@ -11,8 +11,9 @@
 #' @param max_val the high border, all values being larger than this will be replaced by this value. The default is set to the 95%-quantile of predictor.
 #'
 #' @examples
-#' library(blorr)
-#' rbin_winsorize(bank_marketing, y, age, 20, winsor_rate = 0.05)
+#' rbin_winsorize(marketing_bank, y, age, 20, winsor_rate = 0.05)
+#'
+#' @importFrom DescTools Winsorize
 #'
 #' @export
 #'

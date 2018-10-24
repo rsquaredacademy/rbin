@@ -20,7 +20,6 @@ rbin_equal_length(data = NULL, response = NULL, predictor = NULL,
 Bin continuous variables using the equal length binning method.
 }
 \examples{
-library(blorr)
-rbin_equal_length(bank_marketing, y, age, 20)
+rbin_equal_length(marketing_bank, y, age, 10)
 
 }

@@ -26,7 +26,6 @@ rbin_winsorize(data = NULL, response = NULL, predictor = NULL,
 Bin continuous variables using winsorized method.
 }
 \examples{
-library(blorr)
-rbin_winsorize(bank_marketing, y, age, 20, winsor_rate = 0.05)
+rbin_winsorize(marketing_bank, y, age, 20, winsor_rate = 0.05)
 
 }

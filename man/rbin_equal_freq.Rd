@@ -20,7 +20,6 @@ rbin_equal_freq(data = NULL, response = NULL, predictor = NULL,
 Bin continuous variables using the equal frequency binning method.
 }
 \examples{
-library(blorr)
-rbin_equal_freq(bank_marketing, y, age, 20)
+rbin_equal_freq(marketing_bank, y, age, 10)
 
 }

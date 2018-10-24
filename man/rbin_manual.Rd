@@ -20,7 +20,6 @@ rbin_manual(data = NULL, response = NULL, predictor = NULL,
 Bin continuous variables manually.
 }
 \examples{
-library(blorr)
-rbin_manual(bank_marketing, y, age, c(29, 31, 34, 36, 39, 42, 46, 51, 56))
+rbin_manual(marketing_bank, y, age, c(29, 31, 34, 36, 39, 42, 46, 51, 56))
 
 }

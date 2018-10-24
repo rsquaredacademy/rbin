@@ -8,8 +8,7 @@
 #' @param bins Number of bins.
 #'
 #' @examples
-#' library(blorr)
-#' rbin_equal_length(bank_marketing, y, age, 20)
+#' rbin_equal_length(marketing_bank, y, age, 10)
 #'
 #' @importFrom magrittr set_colnames
 #'

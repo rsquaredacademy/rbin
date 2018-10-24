@@ -1,0 +1,68 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+# rbin
+
+> Tools for binning continuous variables
+
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/report)](https://cran.r-project.org/package=rbin) 
+[![Travis-CI Build Status](https://travis-ci.org/rsquaredacademy/rbin.svg?branch=master)](https://travis-ci.org/rsquaredacademy/rbin) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/rsquaredacademy/rbin?branch=master&svg=true)](https://ci.appveyor.com/project/aravindhebbali/rbin) [![Coverage status](https://codecov.io/gh/rsquaredacademy/rbin/branch/master/graph/badge.svg)](https://codecov.io/github/rsquaredacademy/rbin?branch=master)  ![](https://img.shields.io/badge/lifecycle-experimental-orange.svg)
+
+## Installation
+
+rbin is not available on CRAN yet. You can install the development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("rsquaredacademy/rbin")
+```
+## Usage
+
+```{r, echo=FALSE, message=FALSE}
+library(rbin)
+```
+
+### Manual Binning
+
+```{r manual}
+rbin_manual(marketing_bank, y, age, c(29, 31, 34, 36, 39, 42, 46, 51, 56))
+```
+
+### Quantile Binning
+
+```{r quantile}
+rbin_quantiles(marketing_bank, y, age, 10)
+```
+
+### Winsorized Binning
+
+```{r winsorize}
+rbin_winsorize(marketing_bank, y, age, 10, winsor_rate = 0.05)
+```
+
+### Equal Length Binning
+
+```{r equal_length}
+rbin_equal_length(marketing_bank, y, age, 10)
+```
+
+### Equal Frequency Binning
+
+```{r eqal_freq}
+rbin_equal_freq(marketing_bank, y, age, 10)
+```
+
+## Community Guidelines
+
+Please note that the [34m'rbin'[39m project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this project, you agree to abide by its terms.

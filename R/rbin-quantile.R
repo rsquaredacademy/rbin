@@ -8,8 +8,7 @@
 #' @param bins Number of bins
 #'
 #' @examples
-#' library(blorr)
-#' rbin_quantiles(bank_marketing, y, age, 10)
+#' rbin_quantiles(marketing_bank, y, age, 10)
 #'
 #'
 #' @export

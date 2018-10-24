@@ -8,8 +8,7 @@
 #' @param cut_points Cut points for binning.
 #'
 #' @examples
-#' library(blorr)
-#' rbin_manual(bank_marketing, y, age, c(29, 31, 34, 36, 39, 42, 46, 51, 56))
+#' rbin_manual(marketing_bank, y, age, c(29, 31, 34, 36, 39, 42, 46, 51, 56))
 #'
 #' @importFrom purrr prepend
 #'
