@@ -55,7 +55,7 @@ rbin_equal_freq.default <- function(data = NULL, response = NULL, predictor = NU
   bin_rep <-
     bins %>%
     subtract(1) %>%
-    seq_len() %>%
+    seq_len(.) %>%
     rep(each = bin_length) %>%
     c(rep(residual, residual))
 
