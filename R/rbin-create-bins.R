@@ -9,8 +9,8 @@
 #' @return \code{data} with dummy variables.
 #'
 #' @examples
-#' k <- rbin_manual(bm, y, age, c(29, 31, 34, 36, 39, 42, 46, 51, 56))
-#' rbin_create(bm, age, k)
+#' k <- rbin_manual(marketing_bank, y, age, c(29, 31, 34, 36, 39, 42, 46, 51, 56))
+#' rbin_create(marketing_bank, age, k)
 #'
 #' @importFrom recipes recipe step_dummy prep bake
 #'
