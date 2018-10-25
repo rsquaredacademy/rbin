@@ -6,7 +6,8 @@
 ^\.travis\.yml$
 ^codecov\.yml$
 ^appveyor\.yml$
-^CONDUCT\.md$
+^CODE_OF_CONDUCT\.md$
+^LICENSE\.md$
 ^_pkgdown\.yml$
 ^docs$
 ^debug\.log$
