@@ -23,4 +23,5 @@ Imports:
     stats,
     tibble
 Suggests:
-    covr    
+    covr,
+    testthat
