@@ -11,19 +11,19 @@
 #' @param max_val the high border, all values being larger than this will be replaced by this value. The default is set to the 95 percent quantile of predictor.
 #'
 #' @examples
-#' rbin_winsorize(marketing_bank, y, age, 20, winsor_rate = 0.05)
+#' rbin_winsorize(marketing_bank, y, age, 10, winsor_rate = 0.05)
 #'
 #' @importFrom DescTools Winsorize
 #'
 #' @export
 #'
-rbin_winsorize <- function(data = NULL, response = NULL, predictor = NULL, bins = 20, 
+rbin_winsorize <- function(data = NULL, response = NULL, predictor = NULL, bins = 10, 
 	winsor_rate = 0.05, min_val = NULL, max_val = NULL) UseMethod("rbin_winsorize")
 
 
 #' @export
 #'
-rbin_winsorize.default <- function(data = NULL, response = NULL, predictor = NULL, bins = 20, 
+rbin_winsorize.default <- function(data = NULL, response = NULL, predictor = NULL, bins = 10, 
 	winsor_rate = 0.05, min_val = NULL, max_val = NULL) {
 
   resp <- enquo(response)

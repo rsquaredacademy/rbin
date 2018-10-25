@@ -14,11 +14,11 @@
 #'
 #' @export
 #'
-rbin_equal_length <- function(data = NULL, response = NULL, predictor = NULL, bins = 20) UseMethod("rbin_equal_length")
+rbin_equal_length <- function(data = NULL, response = NULL, predictor = NULL, bins = 10) UseMethod("rbin_equal_length")
 
 #' @export
 #'
-rbin_equal_length <- function(data = NULL, response = NULL, predictor = NULL, bins = 20) {
+rbin_equal_length <- function(data = NULL, response = NULL, predictor = NULL, bins = 10) {
 
   resp <- enquo(response)
   pred <- enquo(predictor)
