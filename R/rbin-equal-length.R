@@ -8,7 +8,11 @@
 #' @param bins Number of bins.
 #'
 #' @examples
-#' rbin_equal_length(marketing_bank, y, age, 10)
+#' bins <- rbin_equal_length(marketing_bank, y, age, 10)
+#' bins
+#'
+#' # plot
+#' plot(bins)
 #'
 #' @importFrom magrittr set_colnames
 #'
@@ -58,6 +62,20 @@ print.rbin_equal_length <- function(x, ...) {
     print()
 }
 
+#' @rdname rbin_equal_length
+#' @importFrom ggplot2 ggplot geom_line xlab ylab aes ggtitle geom_point
+#' @export
+#'
+plot.rbin_equal_length <- function(x, ...) {
+
+  x %>%
+    use_series(bins) %>%
+    ggplot() +
+    geom_line(aes(x = bin, y = woe)) +
+    geom_point(aes(x = bin, y = woe)) +
+    xlab("Bins") + ylab("WoE") + ggtitle("WoE Trend")
+
+}
 
 el_freq <- function(byd, bins) {
 

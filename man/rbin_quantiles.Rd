@@ -2,10 +2,13 @@
 % Please edit documentation in R/rbin-quantile.R
 \name{rbin_quantiles}
 \alias{rbin_quantiles}
+\alias{plot.rbin_quantiles}
 \title{Quantile binning}
 \usage{
 rbin_quantiles(data = NULL, response = NULL, predictor = NULL,
   bins = 10)
+
+\method{plot}{rbin_quantiles}(x, ...)
 }
 \arguments{
 \item{data}{A \code{data.frame} or \code{tibble}.}
@@ -20,6 +23,10 @@ rbin_quantiles(data = NULL, response = NULL, predictor = NULL,
 Bin continuous variables using quantiles
 }
 \examples{
-rbin_quantiles(marketing_bank, y, age, 10)
+bins <- rbin_quantiles(marketing_bank, y, age, 10)
+bins
+
+# plot
+plot(bins)
 
 }

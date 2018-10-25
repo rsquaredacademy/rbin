@@ -2,10 +2,13 @@
 % Please edit documentation in R/rbin-winsorize.R
 \name{rbin_winsorize}
 \alias{rbin_winsorize}
+\alias{plot.rbin_winsorize}
 \title{Winsorized binning}
 \usage{
 rbin_winsorize(data = NULL, response = NULL, predictor = NULL,
   bins = 10, winsor_rate = 0.05, min_val = NULL, max_val = NULL)
+
+\method{plot}{rbin_winsorize}(x, ...)
 }
 \arguments{
 \item{data}{A \code{data.frame} or \code{tibble}.}
@@ -26,6 +29,10 @@ rbin_winsorize(data = NULL, response = NULL, predictor = NULL,
 Bin continuous variables using winsorized method.
 }
 \examples{
-rbin_winsorize(marketing_bank, y, age, 10, winsor_rate = 0.05)
+bins <- rbin_winsorize(marketing_bank, y, age, 10, winsor_rate = 0.05)
+bins
+
+# plot
+plot(bins)
 
 }

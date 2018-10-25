@@ -23,7 +23,8 @@ Usage
 ### Manual Binning
 
 ``` r
-rbin_manual(marketing_bank, y, age, c(29, 31, 34, 36, 39, 42, 46, 51, 56))
+bins <- rbin_manual(marketing_bank, y, age, c(29, 31, 34, 36, 39, 42, 46, 51, 56))
+bins 
 #> # A tibble: 10 x 7
 #>    cut_point bin_count  good   bad good_rate      woe         iv
 #>    <chr>         <int> <int> <int>     <dbl>    <dbl>      <dbl>
@@ -36,13 +37,19 @@ rbin_manual(marketing_bank, y, age, c(29, 31, 34, 36, 39, 42, 46, 51, 56))
 #>  7 < 46            449    47   402    0.105   0.0993  0.000942  
 #>  8 < 51            521    40   481    0.0768  0.440   0.0188    
 #>  9 < 56            445    49   396    0.110   0.0426  0.000176  
-#> 10 > 56            470    89   381    0.189  -0.593   0.0456
+#> 10 >= 56           470    89   381    0.189  -0.593   0.0456
+
+# plot
+plot(bins)
 ```
+
+<img src="tools/README-manual-1.png" width="100%" />
 
 ### Quantile Binning
 
 ``` r
-rbin_quantiles(marketing_bank, y, age, 10)
+bins <- rbin_quantiles(marketing_bank, y, age, 10)
+bins 
 #> # A tibble: 10 x 7
 #>    cut_point bin_count  good   bad good_rate      woe         iv
 #>    <chr>         <int> <int> <int>     <dbl>    <dbl>      <dbl>
@@ -55,13 +62,19 @@ rbin_quantiles(marketing_bank, y, age, 10)
 #>  7 < 46            449    47   402    0.105   0.0993  0.000942  
 #>  8 < 51            521    40   481    0.0768  0.440   0.0188    
 #>  9 < 56            445    49   396    0.110   0.0426  0.000176  
-#> 10 > 56            470    89   381    0.189  -0.593   0.0456
+#> 10 >= 56           470    89   381    0.189  -0.593   0.0456
+
+# plot
+plot(bins)
 ```
+
+<img src="tools/README-quantile-1.png" width="100%" />
 
 ### Winsorized Binning
 
 ``` r
-rbin_winsorize(marketing_bank, y, age, 10, winsor_rate = 0.05)
+bins <- rbin_winsorize(marketing_bank, y, age, 10, winsor_rate = 0.05)
+bins 
 #> # A tibble: 10 x 7
 #>    cut_point bin_count  good   bad good_rate    woe       iv
 #>    <chr>         <int> <int> <int>     <dbl>  <dbl>    <dbl>
@@ -74,13 +87,19 @@ rbin_winsorize(marketing_bank, y, age, 10, winsor_rate = 0.05)
 #>  7 < 49.4          281    22   259    0.0783  0.419 0.00927 
 #>  8 < 52.6          309    32   277    0.104   0.111 0.000811
 #>  9 < 55.8          244    25   219    0.102   0.123 0.000781
-#> 10 > 55.8          470    89   381    0.189  -0.593 0.0456
+#> 10 >= 55.8         470    89   381    0.189  -0.593 0.0456
+
+# plot
+plot(bins)
 ```
+
+<img src="tools/README-winsorize-1.png" width="100%" />
 
 ### Equal Length Binning
 
 ``` r
-rbin_equal_length(marketing_bank, y, age, 10)
+bins <- rbin_equal_length(marketing_bank, y, age, 10)
+bins 
 #> # A tibble: 10 x 7
 #>    cut_point bin_count  good   bad good_rate     woe       iv
 #>    <chr>         <int> <int> <int>     <dbl>   <dbl>    <dbl>
@@ -93,37 +112,13 @@ rbin_equal_length(marketing_bank, y, age, 10)
 #>  7 < 64.2          229    43   186    0.188  -0.582  0.0214  
 #>  8 < 70.8           34    12    22    0.353  -1.44   0.0255  
 #>  9 < 77.4           25    13    12    0.52   -2.13   0.0471  
-#> 10 > 77.4           15     4    11    0.267  -1.04   0.00517
+#> 10 >= 77.4          15     4    11    0.267  -1.04   0.00517
+
+# plot
+plot(bins)
 ```
 
-### Equal Frequency Binning
-
-``` r
-rbin_equal_freq(marketing_bank, y, age, 10)
-#> # A tibble: 20 x 8
-#>    lower_cut upper_cut bin_count  good   bad good_rate      woe         iv
-#>        <int>     <int>     <int> <int> <int>     <dbl>    <dbl>      <dbl>
-#>  1        18        27       226    48   178    0.212  -0.736   0.0356    
-#>  2        27        29       226    29   197    0.128  -0.131   0.000904  
-#>  3        29        30       226    28   198    0.124  -0.0909  0.000428  
-#>  4        30        31       226    25   201    0.111   0.0374  0.0000690 
-#>  5        31        33       226    26   200    0.115  -0.00679 0.00000231
-#>  6        33        34       226    18   208    0.0796  0.400   0.00686   
-#>  7        34        35       226    25   201    0.111   0.0374  0.0000690 
-#>  8        35        36       226    20   206    0.0885  0.285   0.00364   
-#>  9        36        37       226    26   200    0.115  -0.00679 0.00000231
-#> 10        37        39       226    21   205    0.0929  0.231   0.00245   
-#> 11        39        40       226     9   217    0.0398  1.14    0.0418    
-#> 12        40        42       226    28   198    0.124  -0.0909  0.000428  
-#> 13        42        44       226    19   207    0.0841  0.341   0.00510   
-#> 14        44        46       226    24   202    0.106   0.0832  0.000335  
-#> 15        46        48       226    15   211    0.0664  0.597   0.0141    
-#> 16        48        51       226    19   207    0.0841  0.341   0.00510   
-#> 17        51        53       226    25   201    0.111   0.0374  0.0000690 
-#> 18        53        56       226    25   201    0.111   0.0374  0.0000690 
-#> 19        56        58       226    21   205    0.0929  0.231   0.00245   
-#> 20        59        84       227    66   161    0.291  -1.16    0.101
-```
+<img src="tools/README-equal_length-1.png" width="100%" />
 
 Community Guidelines
 --------------------

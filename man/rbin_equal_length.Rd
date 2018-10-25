@@ -2,10 +2,13 @@
 % Please edit documentation in R/rbin-equal-length.R
 \name{rbin_equal_length}
 \alias{rbin_equal_length}
+\alias{plot.rbin_equal_length}
 \title{Equal length binning}
 \usage{
 rbin_equal_length(data = NULL, response = NULL, predictor = NULL,
   bins = 10)
+
+\method{plot}{rbin_equal_length}(x, ...)
 }
 \arguments{
 \item{data}{A \code{data.frame} or \code{tibble}.}
@@ -20,6 +23,10 @@ rbin_equal_length(data = NULL, response = NULL, predictor = NULL,
 Bin continuous variables using the equal length binning method.
 }
 \examples{
-rbin_equal_length(marketing_bank, y, age, 10)
+bins <- rbin_equal_length(marketing_bank, y, age, 10)
+bins
+
+# plot
+plot(bins)
 
 }

@@ -2,10 +2,13 @@
 % Please edit documentation in R/rbin-manual.R
 \name{rbin_manual}
 \alias{rbin_manual}
+\alias{plot.rbin_manual}
 \title{Manual binning}
 \usage{
 rbin_manual(data = NULL, response = NULL, predictor = NULL,
   cut_points = NULL)
+
+\method{plot}{rbin_manual}(x, ...)
 }
 \arguments{
 \item{data}{A \code{data.frame} or \code{tibble}.}
@@ -20,6 +23,10 @@ rbin_manual(data = NULL, response = NULL, predictor = NULL,
 Bin continuous variables manually.
 }
 \examples{
-rbin_manual(marketing_bank, y, age, c(29, 31, 34, 36, 39, 42, 46, 51, 56))
+bins <- rbin_manual(marketing_bank, y, age, c(29, 31, 34, 36, 39, 42, 46, 51, 56))
+bins
+
+# plot
+plot(bins)
 
 }

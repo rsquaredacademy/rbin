@@ -98,7 +98,8 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <div id="manual-binning" class="section level3">
 <h3 class="hasAnchor">
 <a href="#manual-binning" class="anchor"></a>Manual Binning</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/rbin_manual.html">rbin_manual</a></span>(marketing_bank, y, age, <span class="kw">c</span>(<span class="dv">29</span>, <span class="dv">31</span>, <span class="dv">34</span>, <span class="dv">36</span>, <span class="dv">39</span>, <span class="dv">42</span>, <span class="dv">46</span>, <span class="dv">51</span>, <span class="dv">56</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bins &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbin_manual.html">rbin_manual</a></span>(marketing_bank, y, age, <span class="kw">c</span>(<span class="dv">29</span>, <span class="dv">31</span>, <span class="dv">34</span>, <span class="dv">36</span>, <span class="dv">39</span>, <span class="dv">42</span>, <span class="dv">46</span>, <span class="dv">51</span>, <span class="dv">56</span>))
+bins 
 <span class="co">#&gt; # A tibble: 10 x 7</span>
 <span class="co">#&gt;    cut_point bin_count  good   bad good_rate      woe         iv</span>
 <span class="co">#&gt;    &lt;chr&gt;         &lt;int&gt; &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;</span>
@@ -111,12 +112,17 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <span class="co">#&gt;  7 &lt; 46            449    47   402    0.105   0.0993  0.000942  </span>
 <span class="co">#&gt;  8 &lt; 51            521    40   481    0.0768  0.440   0.0188    </span>
 <span class="co">#&gt;  9 &lt; 56            445    49   396    0.110   0.0426  0.000176  </span>
-<span class="co">#&gt; 10 &gt; 56            470    89   381    0.189  -0.593   0.0456</span></code></pre></div>
+<span class="co">#&gt; 10 &gt;= 56           470    89   381    0.189  -0.593   0.0456</span>
+
+<span class="co"># plot</span>
+<span class="kw">plot</span>(bins)</code></pre></div>
+<p><img src="tools/README-manual-1.png" width="100%"></p>
 </div>
 <div id="quantile-binning" class="section level3">
 <h3 class="hasAnchor">
 <a href="#quantile-binning" class="anchor"></a>Quantile Binning</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/rbin_quantiles.html">rbin_quantiles</a></span>(marketing_bank, y, age, <span class="dv">10</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bins &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbin_quantiles.html">rbin_quantiles</a></span>(marketing_bank, y, age, <span class="dv">10</span>)
+bins 
 <span class="co">#&gt; # A tibble: 10 x 7</span>
 <span class="co">#&gt;    cut_point bin_count  good   bad good_rate      woe         iv</span>
 <span class="co">#&gt;    &lt;chr&gt;         &lt;int&gt; &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;</span>
@@ -129,12 +135,17 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <span class="co">#&gt;  7 &lt; 46            449    47   402    0.105   0.0993  0.000942  </span>
 <span class="co">#&gt;  8 &lt; 51            521    40   481    0.0768  0.440   0.0188    </span>
 <span class="co">#&gt;  9 &lt; 56            445    49   396    0.110   0.0426  0.000176  </span>
-<span class="co">#&gt; 10 &gt; 56            470    89   381    0.189  -0.593   0.0456</span></code></pre></div>
+<span class="co">#&gt; 10 &gt;= 56           470    89   381    0.189  -0.593   0.0456</span>
+
+<span class="co"># plot</span>
+<span class="kw">plot</span>(bins)</code></pre></div>
+<p><img src="tools/README-quantile-1.png" width="100%"></p>
 </div>
 <div id="winsorized-binning" class="section level3">
 <h3 class="hasAnchor">
 <a href="#winsorized-binning" class="anchor"></a>Winsorized Binning</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/rbin_winsorize.html">rbin_winsorize</a></span>(marketing_bank, y, age, <span class="dv">10</span>, <span class="dt">winsor_rate =</span> <span class="fl">0.05</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bins &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbin_winsorize.html">rbin_winsorize</a></span>(marketing_bank, y, age, <span class="dv">10</span>, <span class="dt">winsor_rate =</span> <span class="fl">0.05</span>)
+bins 
 <span class="co">#&gt; # A tibble: 10 x 7</span>
 <span class="co">#&gt;    cut_point bin_count  good   bad good_rate    woe       iv</span>
 <span class="co">#&gt;    &lt;chr&gt;         &lt;int&gt; &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;</span>
@@ -147,12 +158,17 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <span class="co">#&gt;  7 &lt; 49.4          281    22   259    0.0783  0.419 0.00927 </span>
 <span class="co">#&gt;  8 &lt; 52.6          309    32   277    0.104   0.111 0.000811</span>
 <span class="co">#&gt;  9 &lt; 55.8          244    25   219    0.102   0.123 0.000781</span>
-<span class="co">#&gt; 10 &gt; 55.8          470    89   381    0.189  -0.593 0.0456</span></code></pre></div>
+<span class="co">#&gt; 10 &gt;= 55.8         470    89   381    0.189  -0.593 0.0456</span>
+
+<span class="co"># plot</span>
+<span class="kw">plot</span>(bins)</code></pre></div>
+<p><img src="tools/README-winsorize-1.png" width="100%"></p>
 </div>
 <div id="equal-length-binning" class="section level3">
 <h3 class="hasAnchor">
 <a href="#equal-length-binning" class="anchor"></a>Equal Length Binning</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/rbin_equal_length.html">rbin_equal_length</a></span>(marketing_bank, y, age, <span class="dv">10</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bins &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbin_equal_length.html">rbin_equal_length</a></span>(marketing_bank, y, age, <span class="dv">10</span>)
+bins 
 <span class="co">#&gt; # A tibble: 10 x 7</span>
 <span class="co">#&gt;    cut_point bin_count  good   bad good_rate     woe       iv</span>
 <span class="co">#&gt;    &lt;chr&gt;         &lt;int&gt; &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;</span>
@@ -165,35 +181,11 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <span class="co">#&gt;  7 &lt; 64.2          229    43   186    0.188  -0.582  0.0214  </span>
 <span class="co">#&gt;  8 &lt; 70.8           34    12    22    0.353  -1.44   0.0255  </span>
 <span class="co">#&gt;  9 &lt; 77.4           25    13    12    0.52   -2.13   0.0471  </span>
-<span class="co">#&gt; 10 &gt; 77.4           15     4    11    0.267  -1.04   0.00517</span></code></pre></div>
-</div>
-<div id="equal-frequency-binning" class="section level3">
-<h3 class="hasAnchor">
-<a href="#equal-frequency-binning" class="anchor"></a>Equal Frequency Binning</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/rbin_equal_freq.html">rbin_equal_freq</a></span>(marketing_bank, y, age, <span class="dv">10</span>)
-<span class="co">#&gt; # A tibble: 20 x 8</span>
-<span class="co">#&gt;    lower_cut upper_cut bin_count  good   bad good_rate      woe         iv</span>
-<span class="co">#&gt;        &lt;int&gt;     &lt;int&gt;     &lt;int&gt; &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt;  1        18        27       226    48   178    0.212  -0.736   0.0356    </span>
-<span class="co">#&gt;  2        27        29       226    29   197    0.128  -0.131   0.000904  </span>
-<span class="co">#&gt;  3        29        30       226    28   198    0.124  -0.0909  0.000428  </span>
-<span class="co">#&gt;  4        30        31       226    25   201    0.111   0.0374  0.0000690 </span>
-<span class="co">#&gt;  5        31        33       226    26   200    0.115  -0.00679 0.00000231</span>
-<span class="co">#&gt;  6        33        34       226    18   208    0.0796  0.400   0.00686   </span>
-<span class="co">#&gt;  7        34        35       226    25   201    0.111   0.0374  0.0000690 </span>
-<span class="co">#&gt;  8        35        36       226    20   206    0.0885  0.285   0.00364   </span>
-<span class="co">#&gt;  9        36        37       226    26   200    0.115  -0.00679 0.00000231</span>
-<span class="co">#&gt; 10        37        39       226    21   205    0.0929  0.231   0.00245   </span>
-<span class="co">#&gt; 11        39        40       226     9   217    0.0398  1.14    0.0418    </span>
-<span class="co">#&gt; 12        40        42       226    28   198    0.124  -0.0909  0.000428  </span>
-<span class="co">#&gt; 13        42        44       226    19   207    0.0841  0.341   0.00510   </span>
-<span class="co">#&gt; 14        44        46       226    24   202    0.106   0.0832  0.000335  </span>
-<span class="co">#&gt; 15        46        48       226    15   211    0.0664  0.597   0.0141    </span>
-<span class="co">#&gt; 16        48        51       226    19   207    0.0841  0.341   0.00510   </span>
-<span class="co">#&gt; 17        51        53       226    25   201    0.111   0.0374  0.0000690 </span>
-<span class="co">#&gt; 18        53        56       226    25   201    0.111   0.0374  0.0000690 </span>
-<span class="co">#&gt; 19        56        58       226    21   205    0.0929  0.231   0.00245   </span>
-<span class="co">#&gt; 20        59        84       227    66   161    0.291  -1.16    0.101</span></code></pre></div>
+<span class="co">#&gt; 10 &gt;= 77.4          15     4    11    0.267  -1.04   0.00517</span>
+
+<span class="co"># plot</span>
+<span class="kw">plot</span>(bins)</code></pre></div>
+<p><img src="tools/README-equal_length-1.png" width="100%"></p>
 </div>
 </div>
 <div id="community-guidelines" class="section level2">

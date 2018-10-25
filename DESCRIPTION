@@ -17,6 +17,7 @@ RoxygenNote: 6.0.1
 Imports: 
 	DescTools,
     dplyr,
+    ggplot2,
     magrittr,
     purrr,
     rlang,

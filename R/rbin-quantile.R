@@ -8,7 +8,11 @@
 #' @param bins Number of bins
 #'
 #' @examples
-#' rbin_quantiles(marketing_bank, y, age, 10)
+#' bins <- rbin_quantiles(marketing_bank, y, age, 10)
+#' bins
+#'
+#' # plot
+#' plot(bins)
 #'
 #' @importFrom stats quantile 
 #'
@@ -56,6 +60,20 @@ print.rbin_quantiles <- function(x, ...) {
     use_series(bins) %>%
     select(cut_point, bin_count, good, bad, good_rate, woe, iv) %>%
     print()
+}
+
+#' @rdname rbin_quantiles
+#' @export
+#'
+plot.rbin_quantiles <- function(x, ...) {
+
+  x %>%
+    use_series(bins) %>%
+    ggplot() +
+    geom_line(aes(x = bin, y = woe)) +
+    geom_point(aes(x = bin, y = woe)) +
+    xlab("Bins") + ylab("WoE") + ggtitle("WoE Trend")
+
 }
 
 

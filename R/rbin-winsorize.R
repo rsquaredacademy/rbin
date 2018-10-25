@@ -11,7 +11,11 @@
 #' @param max_val the high border, all values being larger than this will be replaced by this value. The default is set to the 95 percent quantile of predictor.
 #'
 #' @examples
-#' rbin_winsorize(marketing_bank, y, age, 10, winsor_rate = 0.05)
+#' bins <- rbin_winsorize(marketing_bank, y, age, 10, winsor_rate = 0.05)
+#' bins
+#'
+#' # plot
+#' plot(bins)
 #'
 #' @importFrom DescTools Winsorize
 #'
@@ -68,4 +72,18 @@ print.rbin_winsorize <- function(x, ...) {
     use_series(bins) %>%
     select(cut_point, bin_count, good, bad, good_rate, woe, iv) %>%
     print()
+}
+
+#' @rdname rbin_winsorize
+#' @export
+#'
+plot.rbin_winsorize <- function(x, ...) {
+
+  x %>%
+    use_series(bins) %>%
+    ggplot() +
+    geom_line(aes(x = bin, y = woe)) +
+    geom_point(aes(x = bin, y = woe)) +
+    xlab("Bins") + ylab("WoE") + ggtitle("WoE Trend")
+
 }
