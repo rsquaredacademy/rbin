@@ -18,6 +18,8 @@ rbin_equal_length(data = NULL, response = NULL, predictor = NULL,
 \item{predictor}{Predictor variable.}
 
 \item{bins}{Number of bins.}
+
+\item{x}{An object of class \code{rbin_equal_length}.}
 }
 \description{
 Bin continuous variables using the equal length binning method.

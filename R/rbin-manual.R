@@ -6,6 +6,7 @@
 #' @param response Response variable.
 #' @param predictor Predictor variable.
 #' @param cut_points Cut points for binning.
+#' @param x An object of class \code{rbin_manual}.
 #'
 #' @examples
 #' bins <- rbin_manual(marketing_bank, y, age, c(29, 31, 34, 36, 39, 42, 46, 51, 56))

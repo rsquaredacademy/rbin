@@ -6,6 +6,7 @@
 #' @param response Response variable.
 #' @param predictor Predictor variable.
 #' @param bins Number of bins.
+#' @param x An object of class \code{rbin_equal_length}.
 #'
 #' @examples
 #' bins <- rbin_equal_length(marketing_bank, y, age, 10)

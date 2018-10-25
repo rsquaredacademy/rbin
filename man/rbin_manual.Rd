@@ -18,6 +18,8 @@ rbin_manual(data = NULL, response = NULL, predictor = NULL,
 \item{predictor}{Predictor variable.}
 
 \item{cut_points}{Cut points for binning.}
+
+\item{x}{An object of class \code{rbin_manual}.}
 }
 \description{
 Bin continuous variables manually.

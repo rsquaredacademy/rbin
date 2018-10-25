@@ -17,7 +17,9 @@ rbin_quantiles(data = NULL, response = NULL, predictor = NULL,
 
 \item{predictor}{Predictor variable.}
 
-\item{bins}{Number of bins}
+\item{bins}{Number of bins.}
+
+\item{x}{An object of class \code{rbin_quantiles}.}
 }
 \description{
 Bin continuous variables using quantiles

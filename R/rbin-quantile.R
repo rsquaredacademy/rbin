@@ -5,7 +5,8 @@
 #' @param data A \code{data.frame} or \code{tibble}.
 #' @param response Response variable.
 #' @param predictor Predictor variable.
-#' @param bins Number of bins
+#' @param bins Number of bins.
+#' @param x An object of class \code{rbin_quantiles}.
 #'
 #' @examples
 #' bins <- rbin_quantiles(marketing_bank, y, age, 10)
