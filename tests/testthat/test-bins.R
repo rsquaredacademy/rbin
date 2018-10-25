@@ -24,3 +24,10 @@ test_that("equal frequency binning works as expected", {
   k <- rbin_equal_freq(marketing_bank, y, age, 10)
   expect_equal(sum(k$bins$bin_count), 4521)
 })
+
+test_that("output from rbin_create is as expected as expected", {
+  k <- rbin_manual(bm, y, age, c(29, 31, 34, 36, 39, 42, 46, 51, 56))
+  out <- rbin_create(bm, age, k)
+  expect_equal(ncol(out), 26)
+})  
+

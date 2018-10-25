@@ -41,6 +41,8 @@ reference:
   - rbin_winsorize
   - rbin_equal_length
   - rbin_equal_freq
+  - rbin_create
+  - rbin
 
 - title: Data
 

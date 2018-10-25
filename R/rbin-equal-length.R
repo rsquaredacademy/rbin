@@ -41,7 +41,7 @@ rbin_equal_length <- function(data = NULL, response = NULL, predictor = NULL, bi
   sym_sign  <- c(rep("<", (bins - 1)), ">=")
   fbin2     <- f_bin(u_freq)  
   intervals <- create_intervals(sym_sign, fbin2)
-  result    <- list(bins = bind_cols(intervals, k))
+  result    <- list(bins = bind_cols(intervals, k), lower_cut = l_freq, upper_cut = u_freq)
 
   class(result) <- c("rbin_equal_length", "tibble", "data.frame")
   return(result)
