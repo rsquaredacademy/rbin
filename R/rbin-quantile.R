@@ -38,7 +38,7 @@ rbin_quantiles <- function(data = NULL, response = NULL, predictor = NULL, bins 
   }
 
   k         <- bin_create(bm)
-  sym_sign  <- c(rep("<", (bins - 1)), ">")
+  sym_sign  <- c(rep("<", (bins - 1)), ">=")
   fbin2     <- f_bin(u_freq)  
   intervals <- create_intervals(sym_sign, fbin2)
   result    <- list(bins = bind_cols(intervals, k))
