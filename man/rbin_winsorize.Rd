@@ -18,9 +18,9 @@ rbin_winsorize(data = NULL, response = NULL, predictor = NULL,
 
 \item{winsor_rate}{A value from 0.0 to 0.5.}
 
-\item{min_val}{the low border, all values being lower than this will be replaced by this value. The default is set to the 5%-quantile of predictor.}
+\item{min_val}{the low border, all values being lower than this will be replaced by this value. The default is set to the 5 percent quantile of predictor.}
 
-\item{max_val}{the high border, all values being larger than this will be replaced by this value. The default is set to the 95%-quantile of predictor.}
+\item{max_val}{the high border, all values being larger than this will be replaced by this value. The default is set to the 95 percent quantile of predictor.}
 }
 \description{
 Bin continuous variables using winsorized method.

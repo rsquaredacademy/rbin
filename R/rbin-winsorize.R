@@ -7,8 +7,8 @@
 #' @param predictor Predictor variable.
 #' @param bins Number of bins.
 #' @param winsor_rate A value from 0.0 to 0.5.
-#' @param min_val the low border, all values being lower than this will be replaced by this value. The default is set to the 5%-quantile of predictor.
-#' @param max_val the high border, all values being larger than this will be replaced by this value. The default is set to the 95%-quantile of predictor.
+#' @param min_val the low border, all values being lower than this will be replaced by this value. The default is set to the 5 percent quantile of predictor.
+#' @param max_val the high border, all values being larger than this will be replaced by this value. The default is set to the 95 percent quantile of predictor.
 #'
 #' @examples
 #' rbin_winsorize(marketing_bank, y, age, 20, winsor_rate = 0.05)

@@ -22,5 +22,4 @@ Bin continuous variables using quantiles
 \examples{
 rbin_quantiles(marketing_bank, y, age, 10)
 
-
 }

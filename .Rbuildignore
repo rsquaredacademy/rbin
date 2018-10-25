@@ -1,5 +1,12 @@
-^CODE_OF_CONDUCT\.md$
-^README\.Rmd$
-^LICENSE\.md$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^README\.Rmd$
+^README-.*\.png$
+^cran-comments\.md$
+^\.travis\.yml$
+^codecov\.yml$
+^appveyor\.yml$
+^CONDUCT\.md$
+^_pkgdown\.yml$
+^docs$
+^debug\.log$

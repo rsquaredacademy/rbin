@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 ```
 # rbin
 
-> Tools for binning continuous variables
+> Tools for binning data
 
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/report)](https://cran.r-project.org/package=rbin) 
 [![Travis-CI Build Status](https://travis-ci.org/rsquaredacademy/rbin.svg?branch=master)](https://travis-ci.org/rsquaredacademy/rbin) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/rsquaredacademy/rbin?branch=master&svg=true)](https://ci.appveyor.com/project/aravindhebbali/rbin) [![Coverage status](https://codecov.io/gh/rsquaredacademy/rbin/branch/master/graph/badge.svg)](https://codecov.io/github/rsquaredacademy/rbin?branch=master)  ![](https://img.shields.io/badge/lifecycle-experimental-orange.svg)
@@ -65,4 +65,4 @@ rbin_equal_freq(marketing_bank, y, age, 10)
 
 ## Community Guidelines
 
-Please note that the [34m'rbin'[39m project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this project, you agree to abide by its terms.
+Please note that the [34m'rbin'[39m project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this project, you agree to abide by its terms.

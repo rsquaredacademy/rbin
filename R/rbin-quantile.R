@@ -10,6 +10,7 @@
 #' @examples
 #' rbin_quantiles(marketing_bank, y, age, 10)
 #'
+#' @importFrom stats quantile 
 #'
 #' @export
 #'
