@@ -26,6 +26,8 @@ rbin_winsorize(data = NULL, response = NULL, predictor = NULL,
 \item{max_val}{the high border, all values being larger than this will be replaced by this value. The default is set to the 95 percent quantile of predictor.}
 
 \item{x}{An object of class \code{rbin_winsorize}.}
+
+\item{...}{further arguments passed to or from other methods.}
 }
 \description{
 Bin continuous variables using winsorized method.

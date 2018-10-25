@@ -10,6 +10,7 @@
 #' @param min_val the low border, all values being lower than this will be replaced by this value. The default is set to the 5 percent quantile of predictor.
 #' @param max_val the high border, all values being larger than this will be replaced by this value. The default is set to the 95 percent quantile of predictor.
 #' @param x An object of class \code{rbin_winsorize}.
+#' @param ... further arguments passed to or from other methods.
 #'
 #' @examples
 #' bins <- rbin_winsorize(marketing_bank, y, age, 10, winsor_rate = 0.05)

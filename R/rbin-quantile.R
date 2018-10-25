@@ -7,6 +7,7 @@
 #' @param predictor Predictor variable.
 #' @param bins Number of bins.
 #' @param x An object of class \code{rbin_quantiles}.
+#' @param ... further arguments passed to or from other methods.
 #'
 #' @examples
 #' bins <- rbin_quantiles(marketing_bank, y, age, 10)

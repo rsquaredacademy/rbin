@@ -20,6 +20,8 @@ rbin_quantiles(data = NULL, response = NULL, predictor = NULL,
 \item{bins}{Number of bins.}
 
 \item{x}{An object of class \code{rbin_quantiles}.}
+
+\item{...}{further arguments passed to or from other methods.}
 }
 \description{
 Bin continuous variables using quantiles

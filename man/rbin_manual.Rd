@@ -20,6 +20,8 @@ rbin_manual(data = NULL, response = NULL, predictor = NULL,
 \item{cut_points}{Cut points for binning.}
 
 \item{x}{An object of class \code{rbin_manual}.}
+
+\item{...}{further arguments passed to or from other methods.}
 }
 \description{
 Bin continuous variables manually.

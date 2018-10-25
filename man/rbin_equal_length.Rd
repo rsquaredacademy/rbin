@@ -20,6 +20,8 @@ rbin_equal_length(data = NULL, response = NULL, predictor = NULL,
 \item{bins}{Number of bins.}
 
 \item{x}{An object of class \code{rbin_equal_length}.}
+
+\item{...}{further arguments passed to or from other methods.}
 }
 \description{
 Bin continuous variables using the equal length binning method.
