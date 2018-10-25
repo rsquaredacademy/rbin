@@ -5,7 +5,7 @@
 \title{Winsorized binning}
 \usage{
 rbin_winsorize(data = NULL, response = NULL, predictor = NULL,
-  bins = 20, winsor_rate = 0.05, min_val = NULL, max_val = NULL)
+  bins = 10, winsor_rate = 0.05, min_val = NULL, max_val = NULL)
 }
 \arguments{
 \item{data}{A \code{data.frame} or \code{tibble}.}
@@ -26,6 +26,6 @@ rbin_winsorize(data = NULL, response = NULL, predictor = NULL,
 Bin continuous variables using winsorized method.
 }
 \examples{
-rbin_winsorize(marketing_bank, y, age, 20, winsor_rate = 0.05)
+rbin_winsorize(marketing_bank, y, age, 10, winsor_rate = 0.05)
 
 }

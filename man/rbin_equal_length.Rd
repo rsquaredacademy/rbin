@@ -5,7 +5,7 @@
 \title{Equal length binning}
 \usage{
 rbin_equal_length(data = NULL, response = NULL, predictor = NULL,
-  bins = 20)
+  bins = 10)
 }
 \arguments{
 \item{data}{A \code{data.frame} or \code{tibble}.}

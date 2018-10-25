@@ -5,7 +5,7 @@
 \title{Equal frequency binning}
 \usage{
 rbin_equal_freq(data = NULL, response = NULL, predictor = NULL,
-  bins = 20)
+  bins = 10)
 }
 \arguments{
 \item{data}{A \code{data.frame} or \code{tibble}.}
