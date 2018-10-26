@@ -155,19 +155,31 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>bins</span> <span class='kw'>&lt;-</span> <span class='fu'>rbin_manual</span>(<span class='no'>marketing_bank</span>, <span class='no'>y</span>, <span class='no'>age</span>, <span class='fu'>c</span>(<span class='fl'>29</span>, <span class='fl'>31</span>, <span class='fl'>34</span>, <span class='fl'>36</span>, <span class='fl'>39</span>, <span class='fl'>42</span>, <span class='fl'>46</span>, <span class='fl'>51</span>, <span class='fl'>56</span>))
-<span class='no'>bins</span></div><div class='output co'>#&gt; # A tibble: 10 x 7
-#&gt;    cut_point bin_count  good   bad good_rate      woe         iv
-#&gt;    &lt;chr&gt;         &lt;int&gt; &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
-#&gt;  1 &lt; 29            410    71   339    0.173  -0.484   0.0255    
-#&gt;  2 &lt; 31            313    41   272    0.131  -0.155   0.00176   
-#&gt;  3 &lt; 34            567    55   512    0.0970  0.184   0.00395   
-#&gt;  4 &lt; 36            396    45   351    0.114   0.00712 0.00000443
-#&gt;  5 &lt; 39            519    47   472    0.0906  0.260   0.00701   
-#&gt;  6 &lt; 42            431    33   398    0.0766  0.443   0.0158    
-#&gt;  7 &lt; 46            449    47   402    0.105   0.0993  0.000942  
-#&gt;  8 &lt; 51            521    40   481    0.0768  0.440   0.0188    
-#&gt;  9 &lt; 56            445    49   396    0.110   0.0426  0.000176  
-#&gt; 10 &gt;= 56           470    89   381    0.189  -0.593   0.0456    </div><div class='input'>
+<span class='no'>bins</span></div><div class='output co'>#&gt; Binning Summary
+#&gt; ---------------------------
+#&gt; Method               Manual 
+#&gt; Response             y 
+#&gt; Predictor            age 
+#&gt; Bins                 10 
+#&gt; Count                4521 
+#&gt; Goods                517 
+#&gt; Bads                 4004 
+#&gt; Information Value    0.12 
+#&gt; 
+#&gt; 
+#&gt; # A tibble: 10 x 6
+#&gt;    cut_point bin_count  good   bad      woe         iv
+#&gt;    &lt;chr&gt;         &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;dbl&gt;      &lt;dbl&gt;
+#&gt;  1 &lt; 29            410    71   339 -0.484   0.0255    
+#&gt;  2 &lt; 31            313    41   272 -0.155   0.00176   
+#&gt;  3 &lt; 34            567    55   512  0.184   0.00395   
+#&gt;  4 &lt; 36            396    45   351  0.00712 0.00000443
+#&gt;  5 &lt; 39            519    47   472  0.260   0.00701   
+#&gt;  6 &lt; 42            431    33   398  0.443   0.0158    
+#&gt;  7 &lt; 46            449    47   402  0.0993  0.000942  
+#&gt;  8 &lt; 51            521    40   481  0.440   0.0188    
+#&gt;  9 &lt; 56            445    49   396  0.0426  0.000176  
+#&gt; 10 &gt;= 56           470    89   381 -0.593   0.0456    </div><div class='input'>
 <span class='co'># plot</span>
 <span class='fu'>plot</span>(<span class='no'>bins</span>)</div><div class='img'><img src='rbin_manual-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>

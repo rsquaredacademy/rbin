@@ -29,6 +29,11 @@ rbin_manual <- function(data = NULL, response = NULL, predictor = NULL, cut_poin
   resp <- enquo(response)
   pred <- enquo(predictor)
 
+  var_names <- 
+    data %>%
+    select(!! resp, !! pred) %>%
+    names()
+
   bm <-
     data %>%
     select(!! resp, !! pred) %>%
@@ -48,7 +53,7 @@ rbin_manual <- function(data = NULL, response = NULL, predictor = NULL, cut_poin
   sym_sign  <- c(rep("<", (bins - 1)), ">=")
   fbin2     <- f_bin(u_freq)  
   intervals <- create_intervals(sym_sign, fbin2)
-  result    <- list(bins = bind_cols(intervals, k), lower_cut = l_freq, upper_cut = u_freq)
+  result    <- list(bins = bind_cols(intervals, k), method = "Manual", vars = var_names)
 
   class(result) <- c("rbin_manual", "tibble", "data.frame")
   return(result)
@@ -59,9 +64,12 @@ rbin_manual <- function(data = NULL, response = NULL, predictor = NULL, cut_poin
 #' @export
 #'
 print.rbin_manual <- function(x, ...) {
+
+  rbin_print(x)
+  cat("\n\n")
   x %>%
     use_series(bins) %>%
-    select(cut_point, bin_count, good, bad, good_rate, woe, iv) %>%
+    select(cut_point, bin_count, good, bad, woe, iv) %>%
     print()
 }
 
