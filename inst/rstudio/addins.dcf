@@ -1,0 +1,4 @@
+Name: Bin Variables
+Description: Manually bin continuous variables using weight of evidence.
+Binding: rbinAddin
+Interactive: true

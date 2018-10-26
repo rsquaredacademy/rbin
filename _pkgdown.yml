@@ -43,6 +43,7 @@ reference:
   - rbin_equal_freq
   - rbin_create
   - rbin
+  - rbinAddin
 
 - title: Data
 
