@@ -153,7 +153,7 @@ rbinAddin <- function() {
 	    if(is.null(inFile1())) {
 	        return(NULL)
 	    } else {
-	        read.csv(inFile1()$datapath,
+	        utils::read.csv(inFile1()$datapath,
 	            header = input$header,
 	            sep = input$sep,
 	            quote = input$quote)
@@ -217,7 +217,7 @@ rbinAddin <- function() {
 	})
 
 	output$woe <- shiny::renderPlot({
-	  plot(compute_bins())
+	  graphics::plot(compute_bins())
 	})
 
 	create_woe <- shiny::reactive({
@@ -229,7 +229,7 @@ rbinAddin <- function() {
 	      paste(input$file_name, ".csv", sep = "")
 	    },
 	    content = function(file) {
-	      write.csv(create_woe(), file, row.names = FALSE)
+	      utils::write.csv(create_woe(), file, row.names = FALSE)
 	    }
 	  )
 
@@ -238,7 +238,7 @@ rbinAddin <- function() {
 	    paste(input$bins_name, ".csv", sep = "")
 	  },
 	  content = function(file) {
-	    write.csv(compute_bins(), file, row.names = FALSE)
+	    utils::write.csv(compute_bins(), file, row.names = FALSE)
 	  }
 	)
 
@@ -247,7 +247,7 @@ rbinAddin <- function() {
 	    paste0(input$plot_name, ".png")
 	  },
 	  content = function(file) {
-	    ggplot2::ggsave(file, plot(compute_bins()), width = 16, height = 10.4)
+	    ggplot2::ggsave(file, graphics::plot(compute_bins()), width = 16, height = 10.4)
 	  }
 	)
 

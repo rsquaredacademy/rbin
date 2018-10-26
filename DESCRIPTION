@@ -19,6 +19,7 @@ Imports:
     dplyr,
     ggplot2,
     glue,
+    graphics,
     magrittr,
     miniUI,
     purrr,
@@ -26,7 +27,8 @@ Imports:
     rlang,
     shiny,
     stats,
-    tibble
+    tibble,
+    utils
 Suggests:
     covr,
     testthat

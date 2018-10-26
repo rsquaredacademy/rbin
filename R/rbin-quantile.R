@@ -52,7 +52,8 @@ rbin_quantiles <- function(data = NULL, response = NULL, predictor = NULL, bins 
   sym_sign  <- c(rep("<", (bins - 1)), ">=")
   fbin2     <- f_bin(u_freq)  
   intervals <- create_intervals(sym_sign, fbin2)
-  result    <- list(bins = bind_cols(intervals, k), method = "Quantile", vars = var_names)
+  result    <- list(bins = bind_cols(intervals, k), method = "Quantile", vars = var_names,
+                    lower_cut = l_freq, upper_cut = u_freq)
 
   class(result) <- c("rbin_quantiles", "tibble", "data.frame")
   return(result)
