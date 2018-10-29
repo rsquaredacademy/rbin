@@ -70,3 +70,6 @@ freq_bin_create <- function(bm, bin_rep) {
     )
 
 }
+
+
+

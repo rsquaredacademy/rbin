@@ -43,7 +43,15 @@ reference:
   - rbin_equal_freq
   - rbin_create
   - rbin
+  - rbin_factor
+  - rbin_factor_combine
+  - rbin_factor_create
+
+- title: Addins
+
+  contents:
   - rbinAddin
+  - rbinFactorAddin
 
 - title: Data
 

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • rbin</title>
+<title>Factor binning — rbin_factor • rbin</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,7 +30,10 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Factor binning — rbin_factor" />
+
+<meta property="og:description" content="Weight of evidence and information value for categorical data." />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -46,7 +49,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
@@ -101,132 +104,79 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Factor binning</h1>
+    <small class="dont-index">Source: <a href='https://github.com/rsquaredacademy/rbin/blob/master/R/rbin-factor.R'><code>R/rbin-factor.R</code></a></small>
+    <div class="hidden name"><code>rbin_factor.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    
+    <p>Weight of evidence and information value for categorical data.</p>
+    
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>rbin_factor</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>response</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>predictor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-binning" class="hasAnchor"><a href="#section-binning" class="anchor"></a>Binning</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="rbin_manual.html">rbin_manual()</a></code> <code><a href="rbin_manual.html">plot(<i>&lt;rbin_manual&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Manual binning</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="rbin_quantiles.html">rbin_quantiles()</a></code> <code><a href="rbin_quantiles.html">plot(<i>&lt;rbin_quantiles&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Quantile binning</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="rbin_winsorize.html">rbin_winsorize()</a></code> <code><a href="rbin_winsorize.html">plot(<i>&lt;rbin_winsorize&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Winsorized binning</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="rbin_equal_length.html">rbin_equal_length()</a></code> <code><a href="rbin_equal_length.html">plot(<i>&lt;rbin_equal_length&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Equal length binning</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="rbin_equal_freq.html">rbin_equal_freq()</a></code> </p>
-        </td>
-        <td><p>Equal frequency binning</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="rbin_create.html">rbin_create()</a></code> </p>
-        </td>
-        <td><p>Create dummy variables</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="rbin.html">rbin</a></code> </p>
-        </td>
-        <td><p><code>rbin</code> package</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="rbin_factor.html">rbin_factor()</a></code> <code><a href="rbin_factor.html">plot(<i>&lt;rbin_factor&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Factor binning</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="rbin_factor_combine.html">rbin_factor_combine()</a></code> </p>
-        </td>
-        <td><p>Combine levels</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="rbin_factor_create.html">rbin_factor_create()</a></code> </p>
-        </td>
-        <td><p>Create dummy variables</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-addins" class="hasAnchor"><a href="#section-addins" class="anchor"></a>Addins</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="rbinAddin.html">rbinAddin()</a></code> </p>
-        </td>
-        <td><p>Bin variables</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="rbinFactorAddin.html">rbinFactorAddin()</a></code> </p>
-        </td>
-        <td><p>Custom binning</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-data" class="hasAnchor"><a href="#section-data" class="anchor"></a>Data</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="marketing_bank.html">marketing_bank</a></code> </p>
-        </td>
-        <td><p>Bank marketing data set</p></td>
-      </tr>
-    </tbody>
+<span class='co'># S3 method for rbin_factor</span>
+<span class='fu'>plot</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>data</th>
+      <td><p>A <code>data.frame</code> or <code>tibble</code>.</p></td>
+    </tr>
+    <tr>
+      <th>response</th>
+      <td><p>Response variable.</p></td>
+    </tr>
+    <tr>
+      <th>predictor</th>
+      <td><p>Predictor variable.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>further arguments passed to or from other methods.</p></td>
+    </tr>
     </table>
-  </div>
+    
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>bins</span> <span class='kw'>&lt;-</span> <span class='fu'>rbin_factor</span>(<span class='no'>marketing_bank</span>, <span class='no'>y</span>, <span class='no'>education</span>)
+<span class='no'>bins</span></div><div class='output co'>#&gt; Binning Summary
+#&gt; ---------------------------
+#&gt; Method               Custom 
+#&gt; Response             y 
+#&gt; Predictor            education 
+#&gt; Levels               4 
+#&gt; Count                4521 
+#&gt; Goods                517 
+#&gt; Bads                 4004 
+#&gt; Information Value    0.05 
+#&gt; 
+#&gt; 
+#&gt; # A tibble: 4 x 6
+#&gt;   level     bin_count  good   bad    woe      iv
+#&gt;   &lt;fct&gt;         &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+#&gt; 1 tertiary       1299   195  1104 -0.313 0.0318 
+#&gt; 2 secondary      2352   231  2121  0.170 0.0141 
+#&gt; 3 unknown         179    25   154 -0.229 0.00227
+#&gt; 4 primary         691    66   625  0.201 0.00572</div><div class='input'>
+<span class='co'># plot</span>
+<span class='fu'>plot</span>(<span class='no'>bins</span>)</div><div class='img'><img src='rbin_factor-1.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-binning">Binning</a></li>
-      <li><a href="#section-addins">Addins</a></li>
-      <li><a href="#section-data">Data</a></li>
+      <li><a href="#arguments">Arguments</a></li>
+            
+      <li><a href="#examples">Examples</a></li>
     </ul>
+
   </div>
 </div>
 
