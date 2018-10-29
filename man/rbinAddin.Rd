@@ -2,7 +2,7 @@
 % Please edit documentation in R/rbin-addins.R
 \name{rbinAddin}
 \alias{rbinAddin}
-\title{Bin Variables}
+\title{Bin variables}
 \usage{
 rbinAddin()
 }

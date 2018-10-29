@@ -48,7 +48,7 @@ rbin_manual <- function(data = NULL, response = NULL, predictor = NULL, cut_poin
   for (i in seq_len(bins)) {
     bm$bin[bm$predictor >= l_freq[i] & bm$predictor < u_freq[i]] <- i
   }
-
+  
   k         <- bin_create(bm)
   sym_sign  <- c(rep("<", (bins - 1)), ">=")
   fbin2     <- f_bin(u_freq)  
