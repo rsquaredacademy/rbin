@@ -15,6 +15,6 @@ if (getRversion() >= "2.15.1") {
                            "cut_point", "dist_diff", "good", "good_dist",
                            "good_rate", "iv", "li", "lower_cut", "n",
                            "predictor2", "quantile", "ui", "upper_cut", "woe", "binned",
-                           "bad_dist", "predictor", "response"
+                           "bad_dist", "predictor", "response", "level", "archived", "temp"
   ))
 }

@@ -452,7 +452,7 @@ rbinFactorAddin <- function() {
 
 	})
 
-	observeEvent(input$select_vars, {
+	shiny::observeEvent(input$select_vars, {
 
 		shiny::updateSelectInput(
 	  	session,
@@ -463,27 +463,27 @@ rbinFactorAddin <- function() {
 
 	})
 
-	selected_levs <- reactive({
+	selected_levs <- shiny::reactive({
 		out <- input$sel_cat
 		return(out)
 	})
 
 	new_comb <- shiny::eventReactive(input$create_bins, {
-		rbin_factor_combine(data1(), !! sym(as.character(input$pred_var)), selected_levs(), input$new_lev)
+		rbin_factor_combine(data1(), !! rlang::sym(as.character(input$pred_var)), selected_levs(), input$new_lev)
 	})
 
 	woe_man <- shiny::eventReactive(input$create_bins, {
-		rbin_factor(new_comb(), !! sym(as.character(input$resp_var)), !! sym(as.character(input$pred_var)))
+		rbin_factor(new_comb(), !! rlang::sym(as.character(input$resp_var)), !! rlang::sym(as.character(input$pred_var)))
 	})
 
-	down_bins <- reactive({
+	down_bins <- shiny::reactive({
 		woe_man() %>%
 		  use_series(bins) %>%
 		  select(level, bin_count, good, bad, woe, iv)
 	})
 
 	woe_plot <- shiny::eventReactive(input$create_bins, {
-		graphics::plot(rbin_factor(new_comb(), !! sym(as.character(input$resp_var)), !! sym(as.character(input$pred_var))))
+		graphics::plot(rbin_factor(new_comb(), !! rlang::sym(as.character(input$resp_var)), !! rlang::sym(as.character(input$pred_var))))
 	})
 
 	output$woe_manual <- shiny::renderPrint({
@@ -495,7 +495,7 @@ rbinFactorAddin <- function() {
 	})
 
 	create_woe <- shiny::reactive({
-	  rbin_factor_create(new_comb(), !! sym(as.character(input$pred_var)))
+	  rbin_factor_create(new_comb(), !! rlang::sym(as.character(input$pred_var)))
 	})
 
 	output$download_woe <- shiny::downloadHandler(

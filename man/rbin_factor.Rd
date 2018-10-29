@@ -16,6 +16,8 @@ rbin_factor(data = NULL, response = NULL, predictor = NULL)
 
 \item{predictor}{Predictor variable.}
 
+\item{x}{An object of class \code{rbin_factor}.}
+
 \item{...}{further arguments passed to or from other methods.}
 }
 \description{

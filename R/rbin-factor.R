@@ -53,6 +53,7 @@ rbin_factor_combine <- function(data, var, new_var, new_name) {
 #' @param data A \code{data.frame} or \code{tibble}.
 #' @param response Response variable.
 #' @param predictor Predictor variable.
+#' @param x An object of class \code{rbin_factor}.
 #' @param ... further arguments passed to or from other methods.
 #'
 #' @examples
