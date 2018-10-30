@@ -12,7 +12,7 @@ rbin_factor_create(data, predictor)
 \item{predictor}{Variable for which dummy variables must be created.}
 }
 \value{
-\code{data} with dummy variables.
+A \code{tibble} with dummy variables.
 }
 \description{
 Create dummy variables for categorical data.

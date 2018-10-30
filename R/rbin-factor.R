@@ -4,8 +4,10 @@
 #'
 #' @param data A \code{data.frame} or \code{tibble}.
 #' @param var An object of class \code{factor}.
-#' @param new_var A character vector.
+#' @param new_var A character vector; it should include the names of the levels to be combined.
 #' @param new_name Name of the combined level.
+#'
+#' @return A \code{tibble}.
 #'
 #' @examples
 #' upper <- c("secondary", "tertiary")
@@ -152,7 +154,7 @@ plot.rbin_factor <- function(x, ...) {
 #' @param data A \code{data.frame} or \code{tibble}.
 #' @param predictor Variable for which dummy variables must be created.
 #'
-#' @return \code{data} with dummy variables.
+#' @return A \code{tibble} with dummy variables.
 #'
 #' @examples
 #' upper <- c("secondary", "tertiary")

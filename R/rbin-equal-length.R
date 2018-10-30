@@ -9,6 +9,8 @@
 #' @param x An object of class \code{rbin_equal_length}.
 #' @param ... further arguments passed to or from other methods.
 #'
+#' @return A \code{tibble}.
+#'
 #' @examples
 #' bins <- rbin_equal_length(mbank, y, age, 10)
 #' bins

@@ -11,9 +11,12 @@ rbin_factor_combine(data, var, new_var, new_name)
 
 \item{var}{An object of class \code{factor}.}
 
-\item{new_var}{A character vector.}
+\item{new_var}{A character vector; it should include the names of the levels to be combined.}
 
 \item{new_name}{Name of the combined level.}
+}
+\value{
+A \code{tibble}.
 }
 \description{
 Manually combine levels of categorical data.

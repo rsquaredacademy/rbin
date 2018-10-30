@@ -16,6 +16,9 @@ rbin_equal_freq(data = NULL, response = NULL, predictor = NULL,
 
 \item{bins}{Number of bins.}
 }
+\value{
+A \code{tibble}.
+}
 \description{
 Bin continuous variables using the equal frequency binning method.
 }

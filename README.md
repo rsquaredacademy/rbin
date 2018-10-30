@@ -17,6 +17,14 @@ rbin is not available on CRAN yet. You can install the development version from 
 devtools::install_github("rsquaredacademy/rbin")
 ```
 
+Addins
+------
+
+rbin includes two addins for manually binning data:
+
+-   `rbinAddin()`
+-   `rbinFactorAddin()`
+
 Usage
 -----
 
@@ -56,6 +64,45 @@ plot(bins)
 ```
 
 <img src="tools/README-manual-1.png" width="100%" />
+
+### Combine Factor Levels
+
+``` r
+# combine levels
+upper <- c("secondary", "tertiary")
+out <- rbin_factor_combine(mbank, education, upper, "upper")
+table(out$education)
+#> 
+#> primary unknown   upper 
+#>     691     179    3651
+
+# bins
+bins <- rbin_factor(out, y, education)
+bins 
+#> Binning Summary
+#> ---------------------------
+#> Method               Custom 
+#> Response             y 
+#> Predictor            education 
+#> Levels               3 
+#> Count                4521 
+#> Goods                517 
+#> Bads                 4004 
+#> Information Value    0.01 
+#> 
+#> 
+#> # A tibble: 3 x 6
+#>   level   bin_count  good   bad     woe       iv
+#>   <fct>       <int> <int> <int>   <dbl>    <dbl>
+#> 1 primary       691    66   625  0.201  0.00572 
+#> 2 unknown       179    25   154 -0.229  0.00227 
+#> 3 upper        3651   426  3225 -0.0228 0.000422
+
+# plot
+plot(bins)
+```
+
+<img src="tools/README-factor-1.png" width="100%" />
 
 ### Quantile Binning
 
@@ -167,6 +214,14 @@ plot(bins)
 ```
 
 <img src="tools/README-equal_length-1.png" width="100%" />
+
+Alternatives
+------------
+
+-   [smbinning](https://CRAN.R-project.org/package=smbinning)
+-   [logiBin](https://CRAN.R-project.org/package=logiBin)
+-   [woeR](https://CRAN.R-project.org/package=woeR)
+-   [woeBinning](https://CRAN.R-project.org/package=woeBinning)
 
 Community Guidelines
 --------------------

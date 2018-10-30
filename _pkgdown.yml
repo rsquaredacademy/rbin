@@ -33,7 +33,7 @@ home:
     href: https://www.rsquaredacademy.com
 
 reference:
-- title: Binning
+- title: Continuous Data
   
   contents:
   - rbin_manual
@@ -43,8 +43,12 @@ reference:
   - rbin_equal_freq
   - rbin_create
   - rbin
-  - rbin_factor
+
+- title: Categorical Data
+
+  contents:
   - rbin_factor_combine
+  - rbin_factor
   - rbin_factor_create
 
 - title: Addins
@@ -56,5 +60,5 @@ reference:
 - title: Data
 
   contents:
-  - marketing_bank
+  - mbank
 

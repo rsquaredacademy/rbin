@@ -27,6 +27,14 @@ rbin is not available on CRAN yet. You can install the development version from 
 # install.packages("devtools")
 devtools::install_github("rsquaredacademy/rbin")
 ```
+
+## Addins
+
+rbin includes two addins for manually binning data:
+
+- `rbinAddin()`
+- `rbinFactorAddin()`
+
 ## Usage
 
 ```{r, echo=FALSE, message=FALSE}
@@ -37,6 +45,22 @@ library(rbin)
 
 ```{r manual}
 bins <- rbin_manual(mbank, y, age, c(29, 31, 34, 36, 39, 42, 46, 51, 56))
+bins 
+
+# plot
+plot(bins)
+```
+
+### Combine Factor Levels
+
+```{r factor}
+# combine levels
+upper <- c("secondary", "tertiary")
+out <- rbin_factor_combine(mbank, education, upper, "upper")
+table(out$education)
+
+# bins
+bins <- rbin_factor(out, y, education)
 bins 
 
 # plot
@@ -72,6 +96,13 @@ bins
 # plot
 plot(bins)
 ```
+
+## Alternatives
+
+- [smbinning](https://CRAN.R-project.org/package=smbinning)
+- [logiBin](https://CRAN.R-project.org/package=logiBin)
+- [woeR](https://CRAN.R-project.org/package=woeR)
+- [woeBinning](https://CRAN.R-project.org/package=woeBinning)
 
 ## Community Guidelines
 

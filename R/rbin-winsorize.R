@@ -12,6 +12,8 @@
 #' @param x An object of class \code{rbin_winsorize}.
 #' @param ... further arguments passed to or from other methods.
 #'
+#' @return A \code{tibble}.
+#'
 #' @examples
 #' bins <- rbin_winsorize(mbank, y, age, 10, winsor_rate = 0.05)
 #' bins

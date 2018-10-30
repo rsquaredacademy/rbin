@@ -23,6 +23,9 @@ rbin_equal_length(data = NULL, response = NULL, predictor = NULL,
 
 \item{...}{further arguments passed to or from other methods.}
 }
+\value{
+A \code{tibble}.
+}
 \description{
 Bin continuous variables using the equal length binning method.
 }

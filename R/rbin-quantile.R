@@ -9,6 +9,8 @@
 #' @param x An object of class \code{rbin_quantiles}.
 #' @param ... further arguments passed to or from other methods.
 #'
+#' @return A \code{tibble}.
+#'
 #' @examples
 #' bins <- rbin_quantiles(mbank, y, age, 10)
 #' bins

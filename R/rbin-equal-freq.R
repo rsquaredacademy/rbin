@@ -7,6 +7,8 @@
 #' @param predictor Predictor variable.
 #' @param bins Number of bins.
 #'
+#' @return A \code{tibble}.
+#'
 #' @examples
 #' rbin_equal_freq(mbank, y, age, 10)
 #'

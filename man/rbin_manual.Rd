@@ -23,8 +23,17 @@ rbin_manual(data = NULL, response = NULL, predictor = NULL,
 
 \item{...}{further arguments passed to or from other methods.}
 }
+\value{
+A \code{tibble}.
+}
 \description{
 Bin continuous variables manually.
+}
+\details{
+Specify the upper open interval for each bin. If you want to create_bins
+  10 bins, the app will show you only 9 input boxes. The interval for the 10th bin 
+  is automatically computed. For example, if you want the first bin to have all the
+  values between the minimum and including 36, then you will enter the value 37
 }
 \examples{
 bins <- rbin_manual(mbank, y, age, c(29, 31, 34, 36, 39, 42, 46, 51, 56))

@@ -92,6 +92,15 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
 devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"rsquaredacademy/rbin"</span>)</code></pre></div>
 </div>
+<div id="addins" class="section level2">
+<h2 class="hasAnchor">
+<a href="#addins" class="anchor"></a>Addins</h2>
+<p>rbin includes two addins for manually binning data:</p>
+<ul>
+<li><code><a href="reference/rbinAddin.html">rbinAddin()</a></code></li>
+<li><code><a href="reference/rbinFactorAddin.html">rbinFactorAddin()</a></code></li>
+</ul>
+</div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
@@ -129,6 +138,43 @@ bins
 <span class="co"># plot</span>
 <span class="kw">plot</span>(bins)</code></pre></div>
 <p><img src="tools/README-manual-1.png" width="100%"></p>
+</div>
+<div id="combine-factor-levels" class="section level3">
+<h3 class="hasAnchor">
+<a href="#combine-factor-levels" class="anchor"></a>Combine Factor Levels</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># combine levels</span>
+upper &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">"secondary"</span>, <span class="st">"tertiary"</span>)
+out &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbin_factor_combine.html">rbin_factor_combine</a></span>(mbank, education, upper, <span class="st">"upper"</span>)
+<span class="kw">table</span>(out<span class="op">$</span>education)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; primary unknown   upper </span>
+<span class="co">#&gt;     691     179    3651</span>
+
+<span class="co"># bins</span>
+bins &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbin_factor.html">rbin_factor</a></span>(out, y, education)
+bins 
+<span class="co">#&gt; Binning Summary</span>
+<span class="co">#&gt; ---------------------------</span>
+<span class="co">#&gt; Method               Custom </span>
+<span class="co">#&gt; Response             y </span>
+<span class="co">#&gt; Predictor            education </span>
+<span class="co">#&gt; Levels               3 </span>
+<span class="co">#&gt; Count                4521 </span>
+<span class="co">#&gt; Goods                517 </span>
+<span class="co">#&gt; Bads                 4004 </span>
+<span class="co">#&gt; Information Value    0.01 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; # A tibble: 3 x 6</span>
+<span class="co">#&gt;   level   bin_count  good   bad     woe       iv</span>
+<span class="co">#&gt;   &lt;fct&gt;       &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;    &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 primary       691    66   625  0.201  0.00572 </span>
+<span class="co">#&gt; 2 unknown       179    25   154 -0.229  0.00227 </span>
+<span class="co">#&gt; 3 upper        3651   426  3225 -0.0228 0.000422</span>
+
+<span class="co"># plot</span>
+<span class="kw">plot</span>(bins)</code></pre></div>
+<p><img src="tools/README-factor-1.png" width="100%"></p>
 </div>
 <div id="quantile-binning" class="section level3">
 <h3 class="hasAnchor">
@@ -235,6 +281,16 @@ bins
 <span class="kw">plot</span>(bins)</code></pre></div>
 <p><img src="tools/README-equal_length-1.png" width="100%"></p>
 </div>
+</div>
+<div id="alternatives" class="section level2">
+<h2 class="hasAnchor">
+<a href="#alternatives" class="anchor"></a>Alternatives</h2>
+<ul>
+<li><a href="https://CRAN.R-project.org/package=smbinning">smbinning</a></li>
+<li><a href="https://CRAN.R-project.org/package=logiBin">logiBin</a></li>
+<li><a href="https://CRAN.R-project.org/package=woeR">woeR</a></li>
+<li><a href="https://CRAN.R-project.org/package=woeBinning">woeBinning</a></li>
+</ul>
 </div>
 <div id="community-guidelines" class="section level2">
 <h2 class="hasAnchor">
