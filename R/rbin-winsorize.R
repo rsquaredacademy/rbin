@@ -90,6 +90,7 @@ print.rbin_winsorize <- function(x, ...) {
 #'
 plot.rbin_winsorize <- function(x, ...) {
 
-  plot_bins(x)
+  p <- plot_bins(x)
+  print(p)
 
 }

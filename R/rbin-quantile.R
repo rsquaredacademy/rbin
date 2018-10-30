@@ -79,7 +79,8 @@ print.rbin_quantiles <- function(x, ...) {
 #'
 plot.rbin_quantiles <- function(x, ...) {
 
-  plot_bins(x)
+  p <- plot_bins(x)
+  print(p)
 
 }
 

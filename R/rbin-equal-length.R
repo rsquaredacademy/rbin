@@ -79,7 +79,8 @@ print.rbin_equal_length <- function(x, ...) {
 #'
 plot.rbin_equal_length <- function(x, ...) {
 
-  plot_bins(x)
+  p <- plot_bins(x)
+  print(p)
 
 }
 

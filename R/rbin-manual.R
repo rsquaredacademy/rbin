@@ -79,6 +79,7 @@ print.rbin_manual <- function(x, ...) {
 #'
 plot.rbin_manual <- function(x, ...) {
 
-  plot_bins(x)
+  p <- plot_bins(x)
+  print(p)
 
 }

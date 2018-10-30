@@ -32,4 +32,5 @@ Imports:
     utils
 Suggests:
     covr,
-    testthat
+    testthat,
+    vdiffr

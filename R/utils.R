@@ -89,6 +89,6 @@ plot_bins <- function(x) {
     xlab("Bins") + ylab("WoE") + ggtitle("WoE Trend") +
     scale_x_continuous(breaks = seq(xseq))
 
-  print(p)
+  return(p)
   
 }
