@@ -10,7 +10,7 @@
 #' @param ... further arguments passed to or from other methods.
 #'
 #' @examples
-#' bins <- rbin_manual(marketing_bank, y, age, c(29, 31, 34, 36, 39, 42, 46, 51, 56))
+#' bins <- rbin_manual(mbank, y, age, c(29, 31, 34, 36, 39, 42, 46, 51, 56))
 #' bins
 #'
 #' # plot
@@ -79,11 +79,6 @@ print.rbin_manual <- function(x, ...) {
 #'
 plot.rbin_manual <- function(x, ...) {
 
-  x %>%
-    use_series(bins) %>%
-    ggplot() +
-    geom_line(aes(x = bin, y = woe)) +
-    geom_point(aes(x = bin, y = woe)) +
-    xlab("Bins") + ylab("WoE") + ggtitle("WoE Trend")
+  plot_bins(x)
 
 }

@@ -10,7 +10,7 @@
 #' @param ... further arguments passed to or from other methods.
 #'
 #' @examples
-#' bins <- rbin_quantiles(marketing_bank, y, age, 10)
+#' bins <- rbin_quantiles(mbank, y, age, 10)
 #' bins
 #'
 #' # plot
@@ -79,12 +79,7 @@ print.rbin_quantiles <- function(x, ...) {
 #'
 plot.rbin_quantiles <- function(x, ...) {
 
-  x %>%
-    use_series(bins) %>%
-    ggplot() +
-    geom_line(aes(x = bin, y = woe)) +
-    geom_point(aes(x = bin, y = woe)) +
-    xlab("Bins") + ylab("WoE") + ggtitle("WoE Trend")
+  plot_bins(x)
 
 }
 

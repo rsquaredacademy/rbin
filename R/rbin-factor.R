@@ -9,10 +9,10 @@
 #'
 #' @examples
 #' upper <- c("secondary", "tertiary")
-#' out <- rbin_factor_combine(marketing_bank, education, upper, "upper")
+#' out <- rbin_factor_combine(mbank, education, upper, "upper")
 #' table(out$education)
 #'
-#' out <- rbin_factor_combine(marketing_bank, education, c("secondary", "tertiary"), "upper")
+#' out <- rbin_factor_combine(mbank, education, c("secondary", "tertiary"), "upper")
 #' table(out$education)
 #'
 #' @importFrom forcats fct_collapse
@@ -57,7 +57,7 @@ rbin_factor_combine <- function(data, var, new_var, new_name) {
 #' @param ... further arguments passed to or from other methods.
 #'
 #' @examples
-#' bins <- rbin_factor(marketing_bank, y, education)
+#' bins <- rbin_factor(mbank, y, education)
 #' bins
 #'
 #' # plot
@@ -133,12 +133,15 @@ print.rbin_factor <- function(x, ...) {
 #'
 plot.rbin_factor <- function(x, ...) {
 
-  x %>%
+  p <- 
+    x %>%
     use_series(bins) %>%
     ggplot() +
     geom_bar(aes(x = level, y = woe), stat = "identity", width = 0.25, 
              fill = "blue") + xlab("Levels") + ylab("WoE") + 
     ggtitle("WoE Trend")
+
+  print(p)
 
 }
 
@@ -153,7 +156,7 @@ plot.rbin_factor <- function(x, ...) {
 #'
 #' @examples
 #' upper <- c("secondary", "tertiary")
-#' out <- rbin_factor_combine(marketing_bank, education, upper, "upper")
+#' out <- rbin_factor_combine(mbank, education, upper, "upper")
 #' rbin_factor_create(out, education)
 #'
 #'

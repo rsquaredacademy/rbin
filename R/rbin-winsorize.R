@@ -13,7 +13,7 @@
 #' @param ... further arguments passed to or from other methods.
 #'
 #' @examples
-#' bins <- rbin_winsorize(marketing_bank, y, age, 10, winsor_rate = 0.05)
+#' bins <- rbin_winsorize(mbank, y, age, 10, winsor_rate = 0.05)
 #' bins
 #'
 #' # plot
@@ -90,11 +90,6 @@ print.rbin_winsorize <- function(x, ...) {
 #'
 plot.rbin_winsorize <- function(x, ...) {
 
-  x %>%
-    use_series(bins) %>%
-    ggplot() +
-    geom_line(aes(x = bin, y = woe)) +
-    geom_point(aes(x = bin, y = woe)) +
-    xlab("Bins") + ylab("WoE") + ggtitle("WoE Trend")
+  plot_bins(x)
 
 }

@@ -71,5 +71,24 @@ freq_bin_create <- function(bm, bin_rep) {
 
 }
 
+#' @importFrom ggplot2 scale_x_continuous
+#'
+plot_bins <- function(x) {
+  
+  xseq <- 
+    x %>%
+    use_series(bins) %>%
+    nrow()
+  
+  p <- 
+    x %>%
+    use_series(bins) %>%
+    ggplot() +
+    geom_line(aes(x = bin, y = woe), color = "blue") +
+    geom_point(aes(x = bin, y = woe), color = "red") +
+    xlab("Bins") + ylab("WoE") + ggtitle("WoE Trend") +
+    scale_x_continuous(breaks = seq(xseq))
 
-
+  print(p)
+  
+}
