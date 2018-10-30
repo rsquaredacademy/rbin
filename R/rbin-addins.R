@@ -209,7 +209,7 @@ rbinAddin <- function() {
       rbin_manual(data1(), input$resp_var, input$pred_var, bins_values())
 	})
 
-	down_bins <- reactive({
+	down_bins <- shiny::reactive({
 		compute_bins() %>%
 		  use_series(bins) %>%
 		  select(cut_point, bin_count, good, bad, woe, iv)
