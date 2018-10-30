@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create dummy variables — rbin_factor_create • rbin</title>
+<title>Bank marketing data set — mbank • rbin</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,12 @@
 
 
 
-<meta property="og:title" content="Create dummy variables — rbin_factor_create" />
+<meta property="og:title" content="Bank marketing data set — mbank" />
 
-<meta property="og:description" content="Create dummy variables for categorical data." />
+<meta property="og:description" content="The data is related with direct marketing campaigns of a Portuguese banking institution.
+The marketing campaigns were based on phone calls. Often, more than one contact to the
+same client was required, in order to access if the product (bank term deposit) would
+be ('yes') or not ('no') subscribed." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -106,68 +109,57 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create dummy variables</h1>
-    <small class="dont-index">Source: <a href='https://github.com/rsquaredacademy/rbin/blob/master/R/rbin-factor.R'><code>R/rbin-factor.R</code></a></small>
-    <div class="hidden name"><code>rbin_factor_create.Rd</code></div>
+    <h1>Bank marketing data set</h1>
+    <small class="dont-index">Source: <a href='https://github.com/rsquaredacademy/rbin/blob/master/R/rbin-data-bank-marketing.R'><code>R/rbin-data-bank-marketing.R</code></a></small>
+    <div class="hidden name"><code>mbank.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Create dummy variables for categorical data.</p>
+    <p>The data is related with direct marketing campaigns of a Portuguese banking institution.
+The marketing campaigns were based on phone calls. Often, more than one contact to the
+same client was required, in order to access if the product (bank term deposit) would
+be ('yes') or not ('no') subscribed.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>rbin_factor_create</span>(<span class='no'>data</span>, <span class='no'>predictor</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>data</th>
-      <td><p>A <code>data.frame</code> or <code>tibble</code>.</p></td>
-    </tr>
-    <tr>
-      <th>predictor</th>
-      <td><p>Variable for which dummy variables must be created.</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <pre class="usage"><span class='no'>mbank</span></pre>
+        
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p><code>data</code> with dummy variables.</p>
+    <p>A tibble with 4521 rows and 17 variables:</p><dl class='dl-horizontal'>
+ <dt>age</dt><dd><p>age of the client</p></dd>
+ <dt>job</dt><dd><p>type of job</p></dd>
+ <dt>marital</dt><dd><p>marital status</p></dd>
+ <dt>education</dt><dd><p>education level of the client</p></dd>
+ <dt>default</dt><dd><p>has credit in default?</p></dd>
+ <dt>housing</dt><dd><p>has housing loan?</p></dd>
+ <dt>loan</dt><dd><p>has personal loan?</p></dd>
+ <dt>contact</dt><dd><p>contact communication type</p></dd>
+ <dt>month</dt><dd><p>last contact month of year</p></dd>
+ <dt>day_of_week</dt><dd><p>last contact day of the week</p></dd>
+ <dt>duration</dt><dd><p>last contact duration, in seconds</p></dd>
+ <dt>campaign</dt><dd><p>number of contacts performed during this campaign and for this client</p></dd>
+ <dt>pdays</dt><dd><p>number of days that passed by after the client was last contacted from a previous campaign</p></dd>
+ <dt>previous</dt><dd><p>number of contacts performed before this campaign and for this clien</p></dd>
+ <dt>poutcome</dt><dd><p>outcome of the previous marketing campaign</p></dd>
+ <dt>y</dt><dd><p>has the client subscribed a term deposit?</p></dd>
+</dl>
+    
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+
+    <p>[Moro et al., 2014] S. Moro, P. Cortez and P. Rita. A Data-Driven Approach to Predict the Success of Bank Telemarketing. Decision Support Systems, Elsevier, 62:22-31, June 2014</p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>upper</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"secondary"</span>, <span class='st'>"tertiary"</span>)
-<span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='rbin_factor_combine.html'>rbin_factor_combine</a></span>(<span class='no'>mbank</span>, <span class='no'>education</span>, <span class='no'>upper</span>, <span class='st'>"upper"</span>)
-<span class='fu'>rbin_factor_create</span>(<span class='no'>out</span>, <span class='no'>education</span>)</div><div class='output co'>#&gt; # A tibble: 4,521 x 19
-#&gt;      age job         marital default balance housing loan  contact    day month
-#&gt;    &lt;int&gt; &lt;fct&gt;       &lt;fct&gt;   &lt;fct&gt;     &lt;dbl&gt; &lt;fct&gt;   &lt;fct&gt; &lt;fct&gt;    &lt;int&gt; &lt;fct&gt;
-#&gt;  1    34 technician  married no          297 yes     no    cellular    29 jan  
-#&gt;  2    49 services    married no          180 yes     yes   unknown      2 jun  
-#&gt;  3    38 admin.      single  no          262 no      no    cellular     3 feb  
-#&gt;  4    47 services    married no          367 yes     no    cellular    12 may  
-#&gt;  5    51 self-emplo~ single  no         1640 yes     no    unknown     15 may  
-#&gt;  6    40 unemployed  married no         3382 yes     no    unknown     14 may  
-#&gt;  7    58 retired     married no         1227 no      no    cellular    14 aug  
-#&gt;  8    32 unemployed  married no          309 yes     no    telepho~    13 may  
-#&gt;  9    46 blue-collar married no          922 yes     no    telepho~    18 nov  
-#&gt; 10    32 services    married no            0 no      no    cellular    21 nov  
-#&gt; # ... with 4,511 more rows, and 9 more variables: duration &lt;int&gt;,
-#&gt; #   campaign &lt;int&gt;, pdays &lt;int&gt;, previous &lt;int&gt;, poutcome &lt;fct&gt;, y &lt;fct&gt;,
-#&gt; #   education &lt;fct&gt;, education_unknown &lt;dbl&gt;, education_upper &lt;dbl&gt;</div><div class='input'>
-
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+      <li><a href="#format">Format</a></li>
+
+      <li><a href="#source">Source</a></li>
+          </ul>
 
   </div>
 </div>

@@ -27,7 +27,7 @@ rbin_manual(data = NULL, response = NULL, predictor = NULL,
 Bin continuous variables manually.
 }
 \examples{
-bins <- rbin_manual(marketing_bank, y, age, c(29, 31, 34, 36, 39, 42, 46, 51, 56))
+bins <- rbin_manual(mbank, y, age, c(29, 31, 34, 36, 39, 42, 46, 51, 56))
 bins
 
 # plot

@@ -143,11 +143,11 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>upper</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"secondary"</span>, <span class='st'>"tertiary"</span>)
-<span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='fu'>rbin_factor_combine</span>(<span class='no'>marketing_bank</span>, <span class='no'>education</span>, <span class='no'>upper</span>, <span class='st'>"upper"</span>)
+<span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='fu'>rbin_factor_combine</span>(<span class='no'>mbank</span>, <span class='no'>education</span>, <span class='no'>upper</span>, <span class='st'>"upper"</span>)
 <span class='fu'>table</span>(<span class='no'>out</span>$<span class='no'>education</span>)</div><div class='output co'>#&gt; 
 #&gt; primary unknown   upper 
 #&gt;     691     179    3651 </div><div class='input'>
-<span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='fu'>rbin_factor_combine</span>(<span class='no'>marketing_bank</span>, <span class='no'>education</span>, <span class='fu'>c</span>(<span class='st'>"secondary"</span>, <span class='st'>"tertiary"</span>), <span class='st'>"upper"</span>)
+<span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='fu'>rbin_factor_combine</span>(<span class='no'>mbank</span>, <span class='no'>education</span>, <span class='fu'>c</span>(<span class='st'>"secondary"</span>, <span class='st'>"tertiary"</span>), <span class='st'>"upper"</span>)
 <span class='fu'>table</span>(<span class='no'>out</span>$<span class='no'>education</span>)</div><div class='output co'>#&gt; 
 #&gt; primary unknown   upper 
 #&gt;     691     179    3651 </div><div class='input'>

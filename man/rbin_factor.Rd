@@ -24,7 +24,7 @@ rbin_factor(data = NULL, response = NULL, predictor = NULL)
 Weight of evidence and information value for categorical data.
 }
 \examples{
-bins <- rbin_factor(marketing_bank, y, education)
+bins <- rbin_factor(mbank, y, education)
 bins
 
 # plot

@@ -23,7 +23,7 @@ Usage
 ### Manual Binning
 
 ``` r
-bins <- rbin_manual(marketing_bank, y, age, c(29, 31, 34, 36, 39, 42, 46, 51, 56))
+bins <- rbin_manual(mbank, y, age, c(29, 31, 34, 36, 39, 42, 46, 51, 56))
 bins 
 #> Binning Summary
 #> ---------------------------
@@ -60,7 +60,7 @@ plot(bins)
 ### Quantile Binning
 
 ``` r
-bins <- rbin_quantiles(marketing_bank, y, age, 10)
+bins <- rbin_quantiles(mbank, y, age, 10)
 bins 
 #> Binning Summary
 #> -----------------------------
@@ -97,7 +97,7 @@ plot(bins)
 ### Winsorized Binning
 
 ``` r
-bins <- rbin_winsorize(marketing_bank, y, age, 10, winsor_rate = 0.05)
+bins <- rbin_winsorize(mbank, y, age, 10, winsor_rate = 0.05)
 bins 
 #> Binning Summary
 #> ------------------------------
@@ -134,7 +134,7 @@ plot(bins)
 ### Equal Length Binning
 
 ``` r
-bins <- rbin_equal_length(marketing_bank, y, age, 10)
+bins <- rbin_equal_length(mbank, y, age, 10)
 bins 
 #> Binning Summary
 #> ---------------------------------

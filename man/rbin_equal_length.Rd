@@ -27,7 +27,7 @@ rbin_equal_length(data = NULL, response = NULL, predictor = NULL,
 Bin continuous variables using the equal length binning method.
 }
 \examples{
-bins <- rbin_equal_length(marketing_bank, y, age, 10)
+bins <- rbin_equal_length(mbank, y, age, 10)
 bins
 
 # plot

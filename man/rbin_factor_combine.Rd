@@ -20,10 +20,10 @@ Manually combine levels of categorical data.
 }
 \examples{
 upper <- c("secondary", "tertiary")
-out <- rbin_factor_combine(marketing_bank, education, upper, "upper")
+out <- rbin_factor_combine(mbank, education, upper, "upper")
 table(out$education)
 
-out <- rbin_factor_combine(marketing_bank, education, c("secondary", "tertiary"), "upper")
+out <- rbin_factor_combine(mbank, education, c("secondary", "tertiary"), "upper")
 table(out$education)
 
 }

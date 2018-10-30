@@ -27,7 +27,7 @@ rbin_quantiles(data = NULL, response = NULL, predictor = NULL,
 Bin continuous variables using quantiles
 }
 \examples{
-bins <- rbin_quantiles(marketing_bank, y, age, 10)
+bins <- rbin_quantiles(mbank, y, age, 10)
 bins
 
 # plot

@@ -5,11 +5,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Variable Binning • rbin</title>
+<title>Tools for binning data • rbin</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="Variable Binning">
+<script src="pkgdown.js"></script><meta property="og:title" content="Tools for binning data">
 <meta property="og:description" content="More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.">
 <meta name="twitter:card" content="summary">
@@ -98,7 +98,7 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <div id="manual-binning" class="section level3">
 <h3 class="hasAnchor">
 <a href="#manual-binning" class="anchor"></a>Manual Binning</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bins &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbin_manual.html">rbin_manual</a></span>(marketing_bank, y, age, <span class="kw">c</span>(<span class="dv">29</span>, <span class="dv">31</span>, <span class="dv">34</span>, <span class="dv">36</span>, <span class="dv">39</span>, <span class="dv">42</span>, <span class="dv">46</span>, <span class="dv">51</span>, <span class="dv">56</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bins &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbin_manual.html">rbin_manual</a></span>(mbank, y, age, <span class="kw">c</span>(<span class="dv">29</span>, <span class="dv">31</span>, <span class="dv">34</span>, <span class="dv">36</span>, <span class="dv">39</span>, <span class="dv">42</span>, <span class="dv">46</span>, <span class="dv">51</span>, <span class="dv">56</span>))
 bins 
 <span class="co">#&gt; Binning Summary</span>
 <span class="co">#&gt; ---------------------------</span>
@@ -133,7 +133,7 @@ bins
 <div id="quantile-binning" class="section level3">
 <h3 class="hasAnchor">
 <a href="#quantile-binning" class="anchor"></a>Quantile Binning</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bins &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbin_quantiles.html">rbin_quantiles</a></span>(marketing_bank, y, age, <span class="dv">10</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bins &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbin_quantiles.html">rbin_quantiles</a></span>(mbank, y, age, <span class="dv">10</span>)
 bins 
 <span class="co">#&gt; Binning Summary</span>
 <span class="co">#&gt; -----------------------------</span>
@@ -168,7 +168,7 @@ bins
 <div id="winsorized-binning" class="section level3">
 <h3 class="hasAnchor">
 <a href="#winsorized-binning" class="anchor"></a>Winsorized Binning</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bins &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbin_winsorize.html">rbin_winsorize</a></span>(marketing_bank, y, age, <span class="dv">10</span>, <span class="dt">winsor_rate =</span> <span class="fl">0.05</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bins &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbin_winsorize.html">rbin_winsorize</a></span>(mbank, y, age, <span class="dv">10</span>, <span class="dt">winsor_rate =</span> <span class="fl">0.05</span>)
 bins 
 <span class="co">#&gt; Binning Summary</span>
 <span class="co">#&gt; ------------------------------</span>
@@ -203,7 +203,7 @@ bins
 <div id="equal-length-binning" class="section level3">
 <h3 class="hasAnchor">
 <a href="#equal-length-binning" class="anchor"></a>Equal Length Binning</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bins &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbin_equal_length.html">rbin_equal_length</a></span>(marketing_bank, y, age, <span class="dv">10</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bins &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbin_equal_length.html">rbin_equal_length</a></span>(mbank, y, age, <span class="dv">10</span>)
 bins 
 <span class="co">#&gt; Binning Summary</span>
 <span class="co">#&gt; ---------------------------------</span>

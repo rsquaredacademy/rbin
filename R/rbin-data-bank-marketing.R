@@ -25,4 +25,4 @@
 #'	 \item{y}{has the client subscribed a term deposit?}
 #' }
 #' @source [Moro et al., 2014] S. Moro, P. Cortez and P. Rita. A Data-Driven Approach to Predict the Success of Bank Telemarketing. Decision Support Systems, Elsevier, 62:22-31, June 2014
-"marketing_bank"
+"mbank"

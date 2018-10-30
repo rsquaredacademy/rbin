@@ -4,10 +4,34 @@
     <loc>https://rbin.rsquaredacademy.com/index.html</loc>
   </url>
   <url>
+    <loc>https://rbin.rsquaredacademy.com/reference/mbank.html</loc>
+  </url>
+  <url>
+    <loc>https://rbin.rsquaredacademy.com/reference/rbin.html</loc>
+  </url>
+  <url>
+    <loc>https://rbin.rsquaredacademy.com/reference/rbinAddin.html</loc>
+  </url>
+  <url>
+    <loc>https://rbin.rsquaredacademy.com/reference/rbinFactorAddin.html</loc>
+  </url>
+  <url>
+    <loc>https://rbin.rsquaredacademy.com/reference/rbin_create.html</loc>
+  </url>
+  <url>
     <loc>https://rbin.rsquaredacademy.com/reference/rbin_equal_freq.html</loc>
   </url>
   <url>
     <loc>https://rbin.rsquaredacademy.com/reference/rbin_equal_length.html</loc>
+  </url>
+  <url>
+    <loc>https://rbin.rsquaredacademy.com/reference/rbin_factor.html</loc>
+  </url>
+  <url>
+    <loc>https://rbin.rsquaredacademy.com/reference/rbin_factor_combine.html</loc>
+  </url>
+  <url>
+    <loc>https://rbin.rsquaredacademy.com/reference/rbin_factor_create.html</loc>
   </url>
   <url>
     <loc>https://rbin.rsquaredacademy.com/reference/rbin_manual.html</loc>

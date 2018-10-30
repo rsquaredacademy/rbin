@@ -33,7 +33,7 @@ rbin_winsorize(data = NULL, response = NULL, predictor = NULL,
 Bin continuous variables using winsorized method.
 }
 \examples{
-bins <- rbin_winsorize(marketing_bank, y, age, 10, winsor_rate = 0.05)
+bins <- rbin_winsorize(mbank, y, age, 10, winsor_rate = 0.05)
 bins
 
 # plot

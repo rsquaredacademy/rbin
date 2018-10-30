@@ -20,6 +20,6 @@ rbin_equal_freq(data = NULL, response = NULL, predictor = NULL,
 Bin continuous variables using the equal frequency binning method.
 }
 \examples{
-rbin_equal_freq(marketing_bank, y, age, 10)
+rbin_equal_freq(mbank, y, age, 10)
 
 }
