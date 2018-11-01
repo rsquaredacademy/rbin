@@ -84,7 +84,7 @@ plot_bins <- function(x) {
     magrittr::use_series(bins) %>%
     ggplot2::ggplot() +
     ggplot2::geom_line(ggplot2::aes(x = bin, y = woe), color = "blue") +
-    ggplot2::geom_point(aes(x = bin, y = woe), color = "red") +
+    ggplot2::geom_point(ggplot2::aes(x = bin, y = woe), color = "red") +
     ggplot2::xlab("Bins") + ggplot2::ylab("WoE") + ggplot2::ggtitle("WoE Trend") +
     ggplot2::scale_x_continuous(breaks = seq(xseq))
 

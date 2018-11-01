@@ -211,8 +211,8 @@ rbinAddin <- function() {
 
 	down_bins <- shiny::reactive({
 		compute_bins() %>%
-		  use_series(bins) %>%
-		  select(cut_point, bin_count, good, bad, woe, iv)
+		  magrittr::use_series(bins) %>%
+		  dplyr::select(cut_point, bin_count, good, bad, woe, iv)
 	})
 
 	output$woe_manual <- shiny::renderPrint({
@@ -457,8 +457,8 @@ rbinFactorAddin <- function() {
 		shiny::updateSelectInput(
 	  	session,
 	    inputId = "sel_cat",
-	    choices = levels(as.factor(pull(data1(), input$pred_var))),
-	    selected = levels(as.factor(pull(data1(), input$pred_var)))
+	    choices = levels(as.factor(dplyr::pull(data1(), input$pred_var))),
+	    selected = levels(as.factor(dplyr::pull(data1(), input$pred_var)))
 	  )
 
 	})
@@ -478,8 +478,8 @@ rbinFactorAddin <- function() {
 
 	down_bins <- shiny::reactive({
 		woe_man() %>%
-		  use_series(bins) %>%
-		  select(level, bin_count, good, bad, woe, iv)
+		  magrittr::use_series(bins) %>%
+		  dplyr::select(level, bin_count, good, bad, woe, iv)
 	})
 
 	woe_plot <- shiny::eventReactive(input$create_bins, {

@@ -95,7 +95,7 @@ ql_freq <- function(byd, bins) {
 qu_freq <- function(byd, bins) {
 
   cut_points <- cutpoints(byd, bins)
-  unname(prepend((max(byd) + 1), cut_points))
+  unname(purrr::prepend((max(byd) + 1), cut_points))
 
 }
 
