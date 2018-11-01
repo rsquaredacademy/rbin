@@ -17,26 +17,24 @@
 #' out <- rbin_factor_combine(mbank, education, c("secondary", "tertiary"), "upper")
 #' table(out$education)
 #'
-#' @importFrom forcats fct_collapse
-#' @importFrom dplyr rename
 #' @importFrom rlang :=
 #'
 #' @export
 #'
 rbin_factor_combine <- function(data, var, new_var, new_name) {
 
-  vars <- enquo(var)
+  vars <- rlang::enquo(var)
 
   var_name <-
     data %>%
-    select(!! vars) %>%
+    dplyr::select(!! vars) %>%
     names()
 
   out <-
     data %>%
-    mutate(temp = fct_collapse(!! vars, new_var = new_var)) %>%
-    rename(archived = !! var_name) %>%
-    select(-archived)
+    dplyr::mutate(temp = forcats::fct_collapse(!! vars, new_var = new_var)) %>%
+    dplyr::rename(archived = !! var_name) %>%
+    dplyr::select(-archived)
 
   out$temp    <- as.character(out$temp)
   n           <- which(out$temp == "new_var")
@@ -44,7 +42,7 @@ rbin_factor_combine <- function(data, var, new_var, new_name) {
   out$temp    <- as.factor(out$temp)
 
   out %>%
-    rename(!! var_name := temp)
+    dplyr::rename(!! var_name := temp)
 
 }
 
@@ -75,27 +73,27 @@ rbin_factor <- function(data = NULL, response = NULL, predictor = NULL) UseMetho
 #'
 rbin_factor <- function(data = NULL, response = NULL, predictor = NULL) {
 
-  resp <- enquo(response)
-  pred <- enquo(predictor)
+  resp <- rlang::enquo(response)
+  pred <- rlang::enquo(predictor)
 
   var_names <-
     data %>%
-    select(!! resp, !! pred) %>%
+    dplyr::select(!! resp, !! pred) %>%
     names()
 
   bm <-
     data %>%
-    select(!! resp, !! pred) %>%
-    set_colnames(c("response", "predictor"))
+    dplyr::select(!! resp, !! pred) %>%
+    magrittr::set_colnames(c("response", "predictor"))
 
   bm %<>%
-    group_by(predictor) %>%
-    summarise(
+    dplyr::group_by(predictor) %>%
+    dplyr::summarise(
       bin_count = n(),
       good      = sum(response == 1),
       bad       = sum(response == 0)
     ) %>%
-    mutate(
+    dplyr::mutate(
       bin_cum_count   = cumsum(bin_count),
       good_cum_count  = cumsum(good),
       bad_cum_count   = cumsum(bad),
@@ -108,7 +106,7 @@ rbin_factor <- function(data = NULL, response = NULL, predictor = NULL) {
       dist_diff       = bad_dist - good_dist,
       iv              = dist_diff * woe
     ) %>%
-    rename(level = predictor)
+    dplyr::rename(level = predictor)
 
   result <- list(bins = bm, method = "Custom", vars = var_names)
 
@@ -124,24 +122,23 @@ print.rbin_factor <- function(x, ...) {
   rbin_print_custom(x)
   cat("\n\n")
   x %>%
-    use_series(bins) %>%
-    select(level, bin_count, good, bad, woe, iv) %>%
+    magrittr::use_series(bins) %>%
+    dplyr::select(level, bin_count, good, bad, woe, iv) %>%
     print()
 }
 
 #' @rdname rbin_factor
-#' @importFrom ggplot2 geom_bar
 #' @export
 #'
 plot.rbin_factor <- function(x, ...) {
 
   p <- 
     x %>%
-    use_series(bins) %>%
-    ggplot() +
-    geom_bar(aes(x = level, y = woe), stat = "identity", width = 0.25, 
-             fill = "blue") + xlab("Levels") + ylab("WoE") + 
-    ggtitle("WoE Trend")
+    magrittr::use_series(bins) %>%
+    ggplot2::ggplot() +
+    ggplot2::geom_bar(ggplot2::aes(x = level, y = woe), stat = "identity", width = 0.25, 
+             fill = "blue") + ggplot2::xlab("Levels") + ggplot2::ylab("WoE") + 
+    ggplot2::ggtitle("WoE Trend")
 
   print(p)
 
@@ -161,25 +158,24 @@ plot.rbin_factor <- function(x, ...) {
 #' out <- rbin_factor_combine(mbank, education, upper, "upper")
 #' rbin_factor_create(out, education)
 #'
-#'
 #' @export
 #'
 rbin_factor_create <- function(data, predictor) {
 
-  pred <- enquo(predictor)
+  pred <- rlang::enquo(predictor)
 
   data2 <-
     data %>%
-    select(!! pred)
+    dplyr::select(!! pred)
 
-  bm_rec <- recipe( ~ ., data = data2)
+  bm_rec <- recipes::recipe( ~ ., data = data2)
 
   final_data <- 
     bm_rec %>%
-    step_dummy(!! pred) %>%
-    prep(training = data2, retain = TRUE) %>%
-    bake(newdata = data2) 
+    recipes::step_dummy(!! pred) %>%
+    recipes::prep(training = data2, retain = TRUE) %>%
+    recipes::bake(newdata = data2) 
 
-  bind_cols(data, final_data)
+  dplyr::bind_cols(data, final_data)
 
 }

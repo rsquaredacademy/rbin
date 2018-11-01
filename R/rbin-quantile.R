@@ -18,8 +18,6 @@
 #' # plot
 #' plot(bins)
 #'
-#' @importFrom stats quantile 
-#'
 #' @export
 #'
 rbin_quantiles <- function(data = NULL, response = NULL, predictor = NULL, bins = 10) UseMethod("rbin_quantiles")
@@ -28,18 +26,18 @@ rbin_quantiles <- function(data = NULL, response = NULL, predictor = NULL, bins 
 #'
 rbin_quantiles <- function(data = NULL, response = NULL, predictor = NULL, bins = 10) {
 
-  resp <- enquo(response)
-  pred <- enquo(predictor)
+  resp <- rlang::enquo(response)
+  pred <- rlang::enquo(predictor)
 
   var_names <- 
     data %>%
-    select(!! resp, !! pred) %>%
+    dplyr::select(!! resp, !! pred) %>%
     names()
 
   bm <-
     data %>%
-    select(!! resp, !! pred) %>%
-    set_colnames(c("response", "predictor"))
+    dplyr::select(!! resp, !! pred) %>%
+    magrittr::set_colnames(c("response", "predictor"))
 
   bm$bin    <- NA
   byd       <- bm$predictor
@@ -54,7 +52,7 @@ rbin_quantiles <- function(data = NULL, response = NULL, predictor = NULL, bins 
   sym_sign  <- c(rep("<", (bins - 1)), ">=")
   fbin2     <- f_bin(u_freq)  
   intervals <- create_intervals(sym_sign, fbin2)
-  result    <- list(bins = bind_cols(intervals, k), method = "Quantile", vars = var_names,
+  result    <- list(bins = dplyr::bind_cols(intervals, k), method = "Quantile", vars = var_names,
                     lower_cut = l_freq, upper_cut = u_freq)
 
   class(result) <- c("rbin_quantiles", "tibble", "data.frame")
@@ -70,8 +68,8 @@ print.rbin_quantiles <- function(x, ...) {
   rbin_print(x)
   cat("\n\n")
   x %>%
-    use_series(bins) %>%
-    select(cut_point, bin_count, good, bad, woe, iv) %>%
+    magrittr::use_series(bins) %>%
+    dplyr::select(cut_point, bin_count, good, bad, woe, iv) %>%
     print()
 
 }
@@ -104,7 +102,7 @@ qu_freq <- function(byd, bins) {
 cutpoints <- function(byd, bins) {
 
   bin_prob   <- 1 / bins
-  bq         <- quantile(byd, seq(0, 1, bin_prob))
+  bq         <- stats::quantile(byd, seq(0, 1, bin_prob))
   bin_len    <- bins + 1
   bq[c(-1, -bin_len)]
 

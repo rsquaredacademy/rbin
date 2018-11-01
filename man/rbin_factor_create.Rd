@@ -22,5 +22,4 @@ upper <- c("secondary", "tertiary")
 out <- rbin_factor_combine(mbank, education, upper, "upper")
 rbin_factor_create(out, education)
 
-
 }

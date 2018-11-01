@@ -1,14 +1,14 @@
 bin_create <- function(bm) {
 
   bm %>%
-    arrange(predictor) %>%
-    group_by(bin) %>%
-    summarise(
+    dplyr::arrange(predictor) %>%
+    dplyr::group_by(bin) %>%
+    dplyr::summarise(
       bin_count = n(),
       good      = sum(response == 1),
       bad       = sum(response == 0)
     ) %>%
-    mutate(
+    dplyr::mutate(
       bin_cum_count   = cumsum(bin_count),
       good_cum_count  = cumsum(good),
       bad_cum_count   = cumsum(bad),
@@ -35,9 +35,9 @@ f_bin <- function(u_freq) {
 
 create_intervals <- function(sym_sign, fbin2) {
 
-  tibble(sym_sign, fbin2) %>%
-    mutate(cut_point = paste(sym_sign, fbin2)) %>%
-    select(cut_point)
+  tibble::tibble(sym_sign, fbin2) %>%
+    dplyr::mutate(cut_point = paste(sym_sign, fbin2)) %>%
+    dplyr::select(cut_point)
 
 }
 
@@ -45,17 +45,17 @@ create_intervals <- function(sym_sign, fbin2) {
 freq_bin_create <- function(bm, bin_rep) {
 
   bm %>%
-    arrange(predictor) %>%
-    mutate(
+    dplyr::arrange(predictor) %>%
+    dplyr::mutate(
       bin = bin_rep
     ) %>%
-    group_by(bin) %>%
-    summarise(
+    dplyr::group_by(bin) %>%
+    dplyr::summarise(
       bin_count = n(),
       good      = sum(response == 1),
       bad       = sum(response == 0)
     ) %>%
-    mutate(
+    dplyr::mutate(
       bin_cum_count   = cumsum(bin_count),
       good_cum_count  = cumsum(good),
       bad_cum_count   = cumsum(bad),
@@ -71,23 +71,22 @@ freq_bin_create <- function(bm, bin_rep) {
 
 }
 
-#' @importFrom ggplot2 scale_x_continuous
-#'
+
 plot_bins <- function(x) {
   
   xseq <- 
     x %>%
-    use_series(bins) %>%
+    magrittr::use_series(bins) %>%
     nrow()
   
   p <- 
     x %>%
-    use_series(bins) %>%
-    ggplot() +
-    geom_line(aes(x = bin, y = woe), color = "blue") +
-    geom_point(aes(x = bin, y = woe), color = "red") +
-    xlab("Bins") + ylab("WoE") + ggtitle("WoE Trend") +
-    scale_x_continuous(breaks = seq(xseq))
+    magrittr::use_series(bins) %>%
+    ggplot2::ggplot() +
+    ggplot2::geom_line(ggplot2::aes(x = bin, y = woe), color = "blue") +
+    ggplot2::geom_point(aes(x = bin, y = woe), color = "red") +
+    ggplot2::xlab("Bins") + ggplot2::ylab("WoE") + ggplot2::ggtitle("WoE Trend") +
+    ggplot2::scale_x_continuous(breaks = seq(xseq))
 
   return(p)
   

@@ -21,8 +21,6 @@
 #' # plot
 #' plot(bins)
 #'
-#' @importFrom DescTools Winsorize
-#'
 #' @export
 #'
 rbin_winsorize <- function(data = NULL, response = NULL, predictor = NULL, bins = 10, 
@@ -34,24 +32,24 @@ rbin_winsorize <- function(data = NULL, response = NULL, predictor = NULL, bins 
 rbin_winsorize.default <- function(data = NULL, response = NULL, predictor = NULL, bins = 10, 
 	winsor_rate = 0.05, min_val = NULL, max_val = NULL) {
 
-  resp <- enquo(response)
-  pred <- enquo(predictor)
+  resp <- rlang::enquo(response)
+  pred <- rlang::enquo(predictor)
 
   probs_min <- 0 + winsor_rate
   probs_max <- 1 - winsor_rate
 
   var_names <- 
     data %>%
-    select(!! resp, !! pred) %>%
+    dplyr::select(!! resp, !! pred) %>%
     names()
 
   bm <-
     data %>%
-    select(!! resp, !! pred) %>%
-    set_colnames(c("response", "predictor")) %>%
-    mutate(predictor2 = Winsorize(predictor, minval = min_val, maxval = max_val, 
+    dplyr::select(!! resp, !! pred) %>%
+    magrittr::set_colnames(c("response", "predictor")) %>%
+    dplyr::mutate(predictor2 = DescTools::Winsorize(predictor, minval = min_val, maxval = max_val, 
     	probs = c(probs_min, probs_max))) %>%
-    select(response, predictor = predictor2)
+    dplyr::select(response, predictor = predictor2)
 
   bm$bin    <- NA
   byd       <- bm$predictor
@@ -66,7 +64,7 @@ rbin_winsorize.default <- function(data = NULL, response = NULL, predictor = NUL
   sym_sign  <- c(rep("<", (bins - 1)), ">=")
   fbin2     <- f_bin(u_freq)  
   intervals <- create_intervals(sym_sign, fbin2)
-  result    <- list(bins = bind_cols(intervals, k), method = "Winsorize", vars = var_names,
+  result    <- list(bins = dplyr::bind_cols(intervals, k), method = "Winsorize", vars = var_names,
                     lower_cut = l_freq, upper_cut = u_freq)
 
   class(result) <- c("rbin_winsorize", "tibble", "data.frame")
@@ -82,8 +80,8 @@ print.rbin_winsorize <- function(x, ...) {
   rbin_print(x)
   cat("\n\n")
   x %>%
-    use_series(bins) %>%
-    select(cut_point, bin_count, good, bad, woe, iv) %>%
+    magrittr::use_series(bins) %>%
+    dplyr::select(cut_point, bin_count, good, bad, woe, iv) %>%
     print()
 }
 

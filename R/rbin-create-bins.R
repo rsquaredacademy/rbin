@@ -12,22 +12,20 @@
 #' k <- rbin_manual(mbank, y, age, c(29, 31, 34, 36, 39, 42, 46, 51, 56))
 #' rbin_create(mbank, age, k)
 #'
-#' @importFrom recipes recipe step_dummy prep bake
-#'
 #' @export
 #'
 rbin_create <- function(data, predictor, bins) {
 
-  pred <- enquo(predictor)
+  pred <- rlang::enquo(predictor)
 
   pred_name <-
     data %>%
-    select(!! pred) %>%
+    dplyr::select(!! pred) %>%
     names()
 
   data2 <-
     data %>%
-    select(predictor = !! pred)
+    dplyr::select(predictor = !! pred)
 
   l_freq <- bins$lower_cut
   u_freq <- bins$upper_cut
@@ -41,23 +39,23 @@ rbin_create <- function(data, predictor, bins) {
       dummy_names[i]
   }
 
-  bm_rec <- recipe( ~ ., data = data2)
+  bm_rec <- recipes::recipe( ~ ., data = data2)
 
   binned_data <-
     bm_rec %>%
-    step_dummy(binned) %>%
-    prep(training = data2, retain = TRUE) %>%
-    bake(newdata = data2)
+    recipes::step_dummy(binned) %>%
+    recipes::prep(training = data2, retain = TRUE) %>%
+    recipes::bake(newdata = data2)
 
   bin_names <- f_bin(u_freq)[-1]
   sym_sign  <- c(rep("_<_", (lbins - 2)), "_>=_")
 
   final_data <-
     binned_data %>%
-    select(-predictor) %>%
-    set_colnames(paste0(rep(pred_name, (lbins - 2)), sym_sign, bin_names))
+    dplyr::select(-predictor) %>%
+    magrittr::set_colnames(paste0(rep(pred_name, (lbins - 2)), sym_sign, bin_names))
 
-  bind_cols(data, final_data)
+  dplyr::bind_cols(data, final_data)
 
 }
 
