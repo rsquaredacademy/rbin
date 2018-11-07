@@ -37,6 +37,7 @@ rbin_quantiles <- function(data = NULL, response = NULL, predictor = NULL, bins 
   bm <-
     data %>%
     dplyr::select(!! resp, !! pred) %>%
+    dplyr::filter(!is.na(!! resp), !is.na(!! pred)) %>%
     magrittr::set_colnames(c("response", "predictor"))
 
   bm$bin    <- NA

@@ -37,6 +37,7 @@ rbin_equal_length <- function(data = NULL, response = NULL, predictor = NULL, bi
   bm <-
     data %>%
     dplyr::select(!! resp, !! pred) %>%
+    dplyr::filter(!is.na(!! resp), !is.na(!! pred)) %>%
     magrittr::set_colnames(c("response", "predictor"))
 
   bm$bin    <- NA

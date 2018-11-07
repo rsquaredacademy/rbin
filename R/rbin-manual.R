@@ -43,6 +43,7 @@ rbin_manual <- function(data = NULL, response = NULL, predictor = NULL, cut_poin
   bm <-
     data %>%
     dplyr::select(!! resp, !! pred) %>%
+    dplyr::filter(!is.na(!! resp), !is.na(!! pred)) %>%
     magrittr::set_colnames(c("response", "predictor"))
 
   bm$bin    <- NA

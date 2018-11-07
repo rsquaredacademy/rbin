@@ -46,6 +46,7 @@ rbin_winsorize.default <- function(data = NULL, response = NULL, predictor = NUL
   bm <-
     data %>%
     dplyr::select(!! resp, !! pred) %>%
+    dplyr::filter(!is.na(!! resp), !is.na(!! pred)) %>%
     magrittr::set_colnames(c("response", "predictor")) %>%
     dplyr::mutate(predictor2 = DescTools::Winsorize(predictor, minval = min_val, maxval = max_val, 
     	probs = c(probs_min, probs_max))) %>%
