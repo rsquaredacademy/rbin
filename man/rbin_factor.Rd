@@ -5,7 +5,8 @@
 \alias{plot.rbin_factor}
 \title{Factor binning}
 \usage{
-rbin_factor(data = NULL, response = NULL, predictor = NULL)
+rbin_factor(data = NULL, response = NULL, predictor = NULL,
+  include_na = TRUE)
 
 \method{plot}{rbin_factor}(x, ...)
 }
@@ -15,6 +16,8 @@ rbin_factor(data = NULL, response = NULL, predictor = NULL)
 \item{response}{Response variable.}
 
 \item{predictor}{Predictor variable.}
+
+\item{include_na}{logical; if \code{TRUE}, a separate bin is created for missing values.}
 
 \item{x}{An object of class \code{rbin_factor}.}
 

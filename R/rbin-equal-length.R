@@ -6,6 +6,7 @@
 #' @param response Response variable.
 #' @param predictor Predictor variable.
 #' @param bins Number of bins.
+#' @param include_na logical; if \code{TRUE}, a separate bin is created for missing values.
 #' @param x An object of class \code{rbin_equal_length}.
 #' @param ... further arguments passed to or from other methods.
 #'
@@ -20,11 +21,11 @@
 #'
 #' @export
 #'
-rbin_equal_length <- function(data = NULL, response = NULL, predictor = NULL, bins = 10) UseMethod("rbin_equal_length")
+rbin_equal_length <- function(data = NULL, response = NULL, predictor = NULL, bins = 10, include_na = TRUE) UseMethod("rbin_equal_length")
 
 #' @export
 #'
-rbin_equal_length <- function(data = NULL, response = NULL, predictor = NULL, bins = 10) {
+rbin_equal_length <- function(data = NULL, response = NULL, predictor = NULL, bins = 10, include_na = TRUE) {
 
   resp <- rlang::enquo(response)
   pred <- rlang::enquo(predictor)
@@ -34,11 +35,18 @@ rbin_equal_length <- function(data = NULL, response = NULL, predictor = NULL, bi
     dplyr::select(!! resp, !! pred) %>%
     names()
 
-  bm <-
-    data %>%
-    dplyr::select(!! resp, !! pred) %>%
-    dplyr::filter(!is.na(!! resp), !is.na(!! pred)) %>%
-    magrittr::set_colnames(c("response", "predictor"))
+    if (include_na) {
+    bm <-
+      data %>%
+      dplyr::select(!! resp, !! pred) %>%
+      magrittr::set_colnames(c("response", "predictor"))
+  } else {
+    bm <-
+      data %>%
+      dplyr::select(!! resp, !! pred) %>%
+      dplyr::filter(!is.na(!! resp), !is.na(!! pred)) %>%
+      magrittr::set_colnames(c("response", "predictor"))
+  }
 
   bm$bin    <- NA
   byd       <- bm$predictor
@@ -53,6 +61,20 @@ rbin_equal_length <- function(data = NULL, response = NULL, predictor = NULL, bi
   sym_sign  <- c(rep("<", (bins - 1)), ">=")
   fbin2     <- f_bin(u_freq)  
   intervals <- create_intervals(sym_sign, fbin2)
+
+  if (include_na) {
+
+    na_present <- 
+      k %>%
+      nrow() %>%
+      magrittr::is_greater_than(bins)
+
+    if (na_present) {
+      intervals <- dplyr::add_row(intervals, cut_point = 'NA')
+    }
+
+  }
+
   result    <- list(bins = dplyr::bind_cols(intervals, k), method = "Equal Length", vars = var_names,
                     lower_cut = l_freq, upper_cut = u_freq)
 
@@ -86,17 +108,17 @@ plot.rbin_equal_length <- function(x, ...) {
 
 el_freq <- function(byd, bins) {
 
-  bin_length <- (max(byd) - min(byd)) / bins
-  append(min(byd), min(byd) + (bin_length * seq_len(bins)))[1:bins]
+  bin_length <- (max(byd, na.rm = TRUE) - min(byd, na.rm = TRUE)) / bins
+  append(min(byd, na.rm = TRUE), min(byd, na.rm = TRUE) + (bin_length * seq_len(bins)))[1:bins]
 
 }
 
 eu_freq <- function(byd, bins) {
 
-  bin_length <- (max(byd) - min(byd)) / bins
-  ufreq      <- min(byd) + (bin_length * seq_len(bins))
+  bin_length <- (max(byd, na.rm = TRUE) - min(byd, na.rm = TRUE)) / bins
+  ufreq      <- min(byd, na.rm = TRUE) + (bin_length * seq_len(bins))
   n          <- length(ufreq)
-  ufreq[n]   <- max(byd) + 1
+  ufreq[n]   <- max(byd, na.rm = TRUE) + 1
   return(ufreq)
 
 }

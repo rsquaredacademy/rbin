@@ -6,7 +6,7 @@
 \title{Manual binning}
 \usage{
 rbin_manual(data = NULL, response = NULL, predictor = NULL,
-  cut_points = NULL)
+  cut_points = NULL, include_na = TRUE)
 
 \method{plot}{rbin_manual}(x, ...)
 }
@@ -18,6 +18,8 @@ rbin_manual(data = NULL, response = NULL, predictor = NULL,
 \item{predictor}{Predictor variable.}
 
 \item{cut_points}{Cut points for binning.}
+
+\item{include_na}{logical; if \code{TRUE}, a separate bin is created for missing values.}
 
 \item{x}{An object of class \code{rbin_manual}.}
 

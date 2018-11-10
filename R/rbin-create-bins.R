@@ -29,8 +29,9 @@ rbin_create <- function(data, predictor, bins) {
 
   l_freq <- bins$lower_cut
   u_freq <- bins$upper_cut
-  lbins  <- length(bins$bins$bin)
-
+  bin_na <- sum(is.na(bins$bins$bin))
+  lbins  <- length(bins$bins$bin) - bin_na
+  
   data2$binned <- NA
   dummy_names <- bins$bins$cut_point
 

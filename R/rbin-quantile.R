@@ -6,6 +6,7 @@
 #' @param response Response variable.
 #' @param predictor Predictor variable.
 #' @param bins Number of bins.
+#' @param include_na logical; if \code{TRUE}, a separate bin is created for missing values.
 #' @param x An object of class \code{rbin_quantiles}.
 #' @param ... further arguments passed to or from other methods.
 #'
@@ -20,11 +21,11 @@
 #'
 #' @export
 #'
-rbin_quantiles <- function(data = NULL, response = NULL, predictor = NULL, bins = 10) UseMethod("rbin_quantiles")
+rbin_quantiles <- function(data = NULL, response = NULL, predictor = NULL, bins = 10, include_na = TRUE) UseMethod("rbin_quantiles")
 
 #' @export
 #'
-rbin_quantiles <- function(data = NULL, response = NULL, predictor = NULL, bins = 10) {
+rbin_quantiles <- function(data = NULL, response = NULL, predictor = NULL, bins = 10, include_na = TRUE) {
 
   resp <- rlang::enquo(response)
   pred <- rlang::enquo(predictor)
@@ -34,11 +35,18 @@ rbin_quantiles <- function(data = NULL, response = NULL, predictor = NULL, bins 
     dplyr::select(!! resp, !! pred) %>%
     names()
 
-  bm <-
+  if (include_na) {
+    bm <-
+    data %>%
+    dplyr::select(!! resp, !! pred) %>%
+    magrittr::set_colnames(c("response", "predictor"))
+  } else {
+    bm <-
     data %>%
     dplyr::select(!! resp, !! pred) %>%
     dplyr::filter(!is.na(!! resp), !is.na(!! pred)) %>%
     magrittr::set_colnames(c("response", "predictor"))
+  }
 
   bm$bin    <- NA
   byd       <- bm$predictor
@@ -53,6 +61,20 @@ rbin_quantiles <- function(data = NULL, response = NULL, predictor = NULL, bins 
   sym_sign  <- c(rep("<", (bins - 1)), ">=")
   fbin2     <- f_bin(u_freq)  
   intervals <- create_intervals(sym_sign, fbin2)
+
+  if (include_na) {
+
+    na_present <- 
+      k %>%
+      nrow() %>%
+      magrittr::is_greater_than(bins)
+
+    if (na_present) {
+      intervals <- dplyr::add_row(intervals, cut_point = 'NA')
+    }
+
+  }
+  
   result    <- list(bins = dplyr::bind_cols(intervals, k), method = "Quantile", vars = var_names,
                     lower_cut = l_freq, upper_cut = u_freq)
 
@@ -89,21 +111,21 @@ plot.rbin_quantiles <- function(x, ...) {
 ql_freq <- function(byd, bins) {
 
   cut_points <- cutpoints(byd, bins)
-  unname(append(min(byd), cut_points))  
+  unname(append(min(byd, na.rm = TRUE), cut_points))  
 
 }
 
 qu_freq <- function(byd, bins) {
 
   cut_points <- cutpoints(byd, bins)
-  unname(purrr::prepend((max(byd) + 1), cut_points))
+  unname(purrr::prepend((max(byd, na.rm = TRUE) + 1), cut_points))
 
 }
 
 cutpoints <- function(byd, bins) {
 
   bin_prob   <- 1 / bins
-  bq         <- stats::quantile(byd, seq(0, 1, bin_prob))
+  bq         <- stats::quantile(byd, seq(0, 1, bin_prob), na.rm = TRUE)
   bin_len    <- bins + 1
   bq[c(-1, -bin_len)]
 

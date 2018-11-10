@@ -118,7 +118,8 @@
     </div>
 
     <pre class="usage"><span class='fu'>rbin_winsorize</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>response</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>predictor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>bins</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>winsor_rate</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>min_val</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>max_val</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+  <span class='kw'>bins</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>winsor_rate</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>min_val</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>max_val</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>include_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='co'># S3 method for rbin_winsorize</span>
 <span class='fu'>plot</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
@@ -153,6 +154,10 @@
     <tr>
       <th>max_val</th>
       <td><p>the high border, all values being larger than this will be replaced by this value. The default is set to the 95 percent quantile of predictor.</p></td>
+    </tr>
+    <tr>
+      <th>include_na</th>
+      <td><p>logical; if <code>TRUE</code>, a separate bin is created for missing values.</p></td>
     </tr>
     <tr>
       <th>x</th>

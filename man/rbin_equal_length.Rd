@@ -6,7 +6,7 @@
 \title{Equal length binning}
 \usage{
 rbin_equal_length(data = NULL, response = NULL, predictor = NULL,
-  bins = 10)
+  bins = 10, include_na = TRUE)
 
 \method{plot}{rbin_equal_length}(x, ...)
 }
@@ -18,6 +18,8 @@ rbin_equal_length(data = NULL, response = NULL, predictor = NULL,
 \item{predictor}{Predictor variable.}
 
 \item{bins}{Number of bins.}
+
+\item{include_na}{logical; if \code{TRUE}, a separate bin is created for missing values.}
 
 \item{x}{An object of class \code{rbin_equal_length}.}
 

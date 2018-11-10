@@ -53,6 +53,7 @@ rbin_factor_combine <- function(data, var, new_var, new_name) {
 #' @param data A \code{data.frame} or \code{tibble}.
 #' @param response Response variable.
 #' @param predictor Predictor variable.
+#' @param include_na logical; if \code{TRUE}, a separate bin is created for missing values.
 #' @param x An object of class \code{rbin_factor}.
 #' @param ... further arguments passed to or from other methods.
 #'
@@ -67,11 +68,11 @@ rbin_factor_combine <- function(data, var, new_var, new_name) {
 #'
 #' @export
 #'
-rbin_factor <- function(data = NULL, response = NULL, predictor = NULL) UseMethod("rbin_factor")
+rbin_factor <- function(data = NULL, response = NULL, predictor = NULL, include_na = TRUE) UseMethod("rbin_factor")
 
 #' @export
 #'
-rbin_factor <- function(data = NULL, response = NULL, predictor = NULL) {
+rbin_factor <- function(data = NULL, response = NULL, predictor = NULL, include_na = TRUE) {
 
   resp <- rlang::enquo(response)
   pred <- rlang::enquo(predictor)
@@ -81,11 +82,18 @@ rbin_factor <- function(data = NULL, response = NULL, predictor = NULL) {
     dplyr::select(!! resp, !! pred) %>%
     names()
 
-  bm <-
-    data %>%
-    dplyr::select(!! resp, !! pred) %>%
-    dplyr::filter(!is.na(!! resp), !is.na(!! pred)) %>%
-    magrittr::set_colnames(c("response", "predictor"))
+  if (include_na) {
+    bm <-
+      data %>%
+      dplyr::select(!! resp, !! pred) %>%
+      magrittr::set_colnames(c("response", "predictor"))
+  } else {
+    bm <-
+      data %>%
+      dplyr::select(!! resp, !! pred) %>%
+      dplyr::filter(!is.na(!! resp), !is.na(!! pred)) %>%
+      magrittr::set_colnames(c("response", "predictor"))
+  }
 
   bm %<>%
     dplyr::group_by(predictor) %>%
