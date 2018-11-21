@@ -9,8 +9,10 @@
 #' @return \code{data} with dummy variables.
 #'
 #' @examples
+#' \dontrun{
 #' k <- rbin_manual(mbank, y, age, c(29, 31, 34, 36, 39, 42, 46, 51, 56))
 #' rbin_create(mbank, age, k)
+#' }
 #'
 #' @export
 #'

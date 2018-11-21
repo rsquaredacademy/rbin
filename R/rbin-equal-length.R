@@ -13,12 +13,14 @@
 #' @return A \code{tibble}.
 #'
 #' @examples
+#' \dontrun{
 #' bins <- rbin_equal_length(mbank, y, age, 10)
 #' bins
 #'
 #' # plot
 #' plot(bins)
 #'
+#' }
 #' @export
 #'
 rbin_equal_length <- function(data = NULL, response = NULL, predictor = NULL, bins = 10, include_na = TRUE) UseMethod("rbin_equal_length")
