@@ -48,7 +48,7 @@ rbin_create <- function(data, predictor, bins) {
     bm_rec %>%
     recipes::step_dummy(binned) %>%
     recipes::prep(training = data2, retain = TRUE) %>%
-    recipes::bake(newdata = data2)
+    recipes::bake(new_data = data2)
 
   bin_names <- f_bin(u_freq)[-1]
   sym_sign  <- c(rep("_<_", (lbins - 2)), "_>=_")
