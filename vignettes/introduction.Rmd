@@ -1,0 +1,127 @@
+---
+title: "Introduction to rbin"
+author: "Aravind Hebbali"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to rbin}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r, echo=FALSE, eval=TRUE}
+library(rbin)
+```
+
+## Introduction 
+
+## What is binning?
+
+## Why bin?
+
+## Types of binning
+
+- equal frequency
+- equal length
+- quantile
+- winsorize
+- manual
+
+## Manual Binning
+
+```{r manual}
+bins <- rbin_manual(mbank, y, age, c(29, 31, 34, 36, 39, 42, 46, 51, 56))
+bins
+```
+
+#### Plot
+
+```{r manual_plot, fig.width=7, fig.height=5, fig.align='center'}
+# plot
+plot(bins)
+```
+
+## Factor Binning
+
+### Combine Levels
+
+```{r factor_combine}
+upper <- c("secondary", "tertiary")
+out <- rbin_factor_combine(mbank, education, upper, "upper")
+table(out$education)
+
+out <- rbin_factor_combine(mbank, education, c("secondary", "tertiary"), "upper")
+table(out$education)
+```
+
+### Bins
+
+```{r factor_bins}
+bins <- rbin_factor(mbank, y, education)
+bins
+```
+
+#### Plot
+
+```{r factor_plot, fig.width=7, fig.height=5, fig.align='center'}
+# plot
+plot(bins)
+```
+
+### Create Bins
+
+```{r factor_create}
+upper <- c("secondary", "tertiary")
+out <- rbin_factor_combine(mbank, education, upper, "upper")
+rbin_factor_create(out, education)
+```
+
+## Quantile Binning
+
+```{r quantile}
+bins <- rbin_quantiles(mbank, y, age, 10)
+bins
+```
+
+#### Plot
+
+```{r quantile_plot, fig.width=7, fig.height=5, fig.align='center'}
+# plot
+plot(bins)
+```
+
+## Winsorized Binning
+
+```{r winsorize}
+bins <- rbin_winsorize(mbank, y, age, 10, winsor_rate = 0.05)
+bins
+```
+
+#### Plot
+
+```{r winsorize_plot, fig.width=7, fig.height=5, fig.align='center'}
+# plot
+plot(bins)
+```
+
+## Equal Length Binning
+
+```{r equal_length}
+bins <- rbin_equal_length(mbank, y, age, 10)
+bins
+```
+
+#### Plot
+
+```{r equal_length_plot, fig.width=7, fig.height=5, fig.align='center'}
+# plot
+plot(bins)
+```
+

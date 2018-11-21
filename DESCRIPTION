@@ -1,19 +1,19 @@
 Package: rbin
 Type: Package
-Title: Tools for binning data
+Title: Tools for Binning Data
 Version: 0.1.0
 Authors@R: person("Aravind", "Hebbali", email = "hebbali.aravind@gmail.com", role = c("aut", "cre"),
     comment = c(ORCID = "0000-0001-9220-9669"))
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
 License: MIT + file LICENSE
-URL: https://github.com/rsquaredacademy/rbin
+URL: https://github.com/rsquaredacademy/rbin, https://rbin.rsquaredacademy.com
 BugReports: https://github.com/rsquaredacademy/rbin/issues
 Depends: 
-    R (>= 3.2)
+    R (>= 3.3)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 Imports: 
     DescTools,
     dplyr,
@@ -33,4 +33,7 @@ Imports:
 Suggests:
     covr,
     testthat,
-    vdiffr
+    vdiffr,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
