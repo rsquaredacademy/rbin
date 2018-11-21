@@ -4,8 +4,10 @@ Title: Tools for Binning Data
 Version: 0.1.0
 Authors@R: person("Aravind", "Hebbali", email = "hebbali.aravind@gmail.com", role = c("aut", "cre"),
     comment = c(ORCID = "0000-0001-9220-9669"))
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: Manually bin data using weight of evidence and information value. Includes other binning 
+    methods such as equal length, quantile and winsorized. Options for combining levels of categorical
+    data are also available. Dummy variables can be generated based on the bins created using any of 
+    the available binning methods. References: Siddiqi, N. (2006) <doi:10.1002/9781119201731.biblio>.
 License: MIT + file LICENSE
 URL: https://github.com/rsquaredacademy/rbin, https://rbin.rsquaredacademy.com
 BugReports: https://github.com/rsquaredacademy/rbin/issues
