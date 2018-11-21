@@ -60,22 +60,23 @@ Bins                 10
 Count                4521 
 Goods                517 
 Bads                 4004 
+Entropy              0.5 
 Information Value    0.12 
 
 
-# A tibble: 10 x 6
-   cut_point bin_count  good   bad      woe         iv
-   <chr>         <int> <int> <int>    <dbl>      <dbl>
- 1 < 29            410    71   339 -0.484   0.0255    
- 2 < 31            313    41   272 -0.155   0.00176   
- 3 < 34            567    55   512  0.184   0.00395   
- 4 < 36            396    45   351  0.00712 0.00000443
- 5 < 39            519    47   472  0.260   0.00701   
- 6 < 42            431    33   398  0.443   0.0158    
- 7 < 46            449    47   402  0.0993  0.000942  
- 8 < 51            521    40   481  0.440   0.0188    
- 9 < 56            445    49   396  0.0426  0.000176  
-10 >= 56           470    89   381 -0.593   0.0456")
+# A tibble: 10 x 7
+   cut_point bin_count  good   bad      woe         iv entropy
+   <chr>         <int> <int> <int>    <dbl>      <dbl>   <dbl>
+ 1 < 29            410    71   339 -0.484   0.0255       0.665
+ 2 < 31            313    41   272 -0.155   0.00176      0.560
+ 3 < 34            567    55   512  0.184   0.00395      0.459
+ 4 < 36            396    45   351  0.00712 0.00000443   0.511
+ 5 < 39            519    47   472  0.260   0.00701      0.438
+ 6 < 42            431    33   398  0.443   0.0158       0.390
+ 7 < 46            449    47   402  0.0993  0.000942     0.484
+ 8 < 51            521    40   481  0.440   0.0188       0.391
+ 9 < 56            445    49   396  0.0426  0.000176     0.500
+10 >= 56           470    89   381 -0.593   0.0456       0.700")
 
   bins <- rbin_manual(mbank, y, age, c(29, 31, 34, 36, 39, 42, 46, 51, 56))
   expect_output(print(bins), x)
@@ -93,16 +94,17 @@ Levels               4
 Count                4521 
 Goods                517 
 Bads                 4004 
+Entropy              0.51 
 Information Value    0.05 
 
 
-# A tibble: 4 x 6
-  level     bin_count  good   bad    woe      iv
-  <fct>         <int> <int> <int>  <dbl>   <dbl>
-1 tertiary       1299   195  1104 -0.313 0.0318 
-2 secondary      2352   231  2121  0.170 0.0141 
-3 unknown         179    25   154 -0.229 0.00227
-4 primary         691    66   625  0.201 0.00572")
+# A tibble: 4 x 7
+  level     bin_count  good   bad    woe      iv entropy
+  <fct>         <int> <int> <int>  <dbl>   <dbl>   <dbl>
+1 tertiary       1299   195  1104 -0.313 0.0318    0.610
+2 secondary      2352   231  2121  0.170 0.0141    0.463
+3 unknown         179    25   154 -0.229 0.00227   0.583
+4 primary         691    66   625  0.201 0.00572   0.455")
 
   bins <- rbin_factor(mbank, y, education)
   expect_output(print(bins), x)

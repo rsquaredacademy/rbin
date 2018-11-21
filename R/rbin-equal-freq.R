@@ -55,7 +55,7 @@ rbin_equal_freq.default <- function(data = NULL, response = NULL, predictor = NU
 print.rbin_equal_freq <- function(x, ...) {
   x %>%
     magrittr::use_series(bins) %>%
-    dplyr::select(lower_cut, upper_cut, bin_count, good, bad, good_rate, woe, iv) %>%
+    dplyr::select(lower_cut, upper_cut, bin_count, good, bad, good_rate, woe, iv, entropy) %>%
     print()
 }
 

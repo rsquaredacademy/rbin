@@ -94,7 +94,7 @@ print.rbin_equal_length <- function(x, ...) {
   cat("\n\n")
   x %>%
     magrittr::use_series(bins) %>%
-    dplyr::select(cut_point, bin_count, good, bad, woe, iv) %>%
+    dplyr::select(cut_point, bin_count, good, bad, woe, iv, entropy) %>%
     print()
 }
 

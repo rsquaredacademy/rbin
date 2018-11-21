@@ -13,6 +13,7 @@ rbin_print <- function(x) {
   cat(glue::glue("Count                ", sum(x$bins$bin_count)), "\n")
   cat(glue::glue("Goods                ", sum(x$bins$good)), "\n")
   cat(glue::glue("Bads                 ", sum(x$bins$bad)), "\n")
+  cat(glue::glue("Entropy              ", round(sum(x$bins$prop_entropy), 2)), "\n")
   cat(glue::glue("Information Value    ", round(sum(x$bins$iv), 2)), "\n")
 
 }
@@ -33,6 +34,7 @@ rbin_print_custom <- function(x) {
   cat(glue::glue("Count                ", sum(x$bins$bin_count)), "\n")
   cat(glue::glue("Goods                ", sum(x$bins$good)), "\n")
   cat(glue::glue("Bads                 ", sum(x$bins$bad)), "\n")
+  cat(glue::glue("Entropy              ", round(sum(x$bins$prop_entropy), 2)), "\n")
   cat(glue::glue("Information Value    ", round(sum(x$bins$iv), 2)), "\n")
 
 }

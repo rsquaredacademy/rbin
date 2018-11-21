@@ -19,7 +19,10 @@ bin_create <- function(bm) {
       bad_dist        = bad / sum(bad),
       woe             = log(bad_dist / good_dist),
       dist_diff       = bad_dist - good_dist,
-      iv              = dist_diff * woe
+      iv              = dist_diff * woe,
+      entropy         = (-1) * (((good / bin_count) * log2(good / bin_count)) + 
+        ((bad / bin_count) * log2(bad / bin_count))) ,
+      prop_entropy    = (bin_count / sum(bin_count)) * entropy
     )
 
 }
@@ -66,7 +69,10 @@ freq_bin_create <- function(bm, bin_rep) {
       bad_dist        = bad / sum(bad),
       woe             = log(bad_dist / good_dist),
       dist_diff       = bad_dist - good_dist,
-      iv              = dist_diff * woe
+      iv              = dist_diff * woe,
+      entropy         = (-1) * (((good / bin_count) * log2(good / bin_count)) + 
+        ((bad / bin_count) * log2(bad / bin_count))) ,
+      prop_entropy    = (bin_count / sum(bin_count)) * entropy
     )
 
 }
