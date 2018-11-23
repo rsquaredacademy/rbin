@@ -1,7 +1,8 @@
-pandoc: 1.19.2.1
+pandoc: 2.0.5
 pkgdown: 1.1.0
 pkgdown_sha: ~
-articles: []
+articles:
+  introduction: introduction.html
 urls:
   reference: https://rbin.rsquaredacademy.com/reference
   article: https://rbin.rsquaredacademy.com/articles

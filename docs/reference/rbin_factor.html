@@ -72,6 +72,18 @@
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Guides
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/introduction.html">Introduction</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Reference
      
     <span class="caret"></span>
@@ -164,16 +176,17 @@
 #&gt; Count                4521 
 #&gt; Goods                517 
 #&gt; Bads                 4004 
+#&gt; Entropy              0.51 
 #&gt; Information Value    0.05 
 #&gt; 
 #&gt; 
-#&gt; # A tibble: 4 x 6
-#&gt;   level     bin_count  good   bad    woe      iv
-#&gt;   &lt;fct&gt;         &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;   &lt;dbl&gt;
-#&gt; 1 tertiary       1299   195  1104 -0.313 0.0318 
-#&gt; 2 secondary      2352   231  2121  0.170 0.0141 
-#&gt; 3 unknown         179    25   154 -0.229 0.00227
-#&gt; 4 primary         691    66   625  0.201 0.00572</div><div class='input'>
+#&gt; # A tibble: 4 x 7
+#&gt;   level     bin_count  good   bad    woe      iv entropy
+#&gt;   &lt;fct&gt;         &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+#&gt; 1 tertiary       1299   195  1104 -0.313 0.0318    0.610
+#&gt; 2 secondary      2352   231  2121  0.170 0.0141    0.463
+#&gt; 3 unknown         179    25   154 -0.229 0.00227   0.583
+#&gt; 4 primary         691    66   625  0.201 0.00572   0.455</div><div class='input'>
 <span class='co'># plot</span>
 <span class='fu'>plot</span>(<span class='no'>bins</span>)</div><div class='img'><img src='rbin_factor-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>

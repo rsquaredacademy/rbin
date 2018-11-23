@@ -72,6 +72,18 @@
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Guides
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/introduction.html">Introduction</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Reference
      
     <span class="caret"></span>
@@ -162,35 +174,14 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>bins</span> <span class='kw'>&lt;-</span> <span class='fu'>rbin_equal_length</span>(<span class='no'>mbank</span>, <span class='no'>y</span>, <span class='no'>age</span>, <span class='fl'>10</span>)
-<span class='no'>bins</span></div><div class='output co'>#&gt; Binning Summary
-#&gt; ---------------------------------
-#&gt; Method               Equal Length 
-#&gt; Response             y 
-#&gt; Predictor            age 
-#&gt; Bins                 10 
-#&gt; Count                4521 
-#&gt; Goods                517 
-#&gt; Bads                 4004 
-#&gt; Information Value    0.17 
-#&gt; 
-#&gt; 
-#&gt; # A tibble: 10 x 6
-#&gt;    cut_point bin_count  good   bad     woe       iv
-#&gt;    &lt;chr&gt;         &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;    &lt;dbl&gt;
-#&gt;  1 &lt; 24.6           85    24    61 -1.11   0.0347  
-#&gt;  2 &lt; 31.2          822   106   716 -0.137  0.00358 
-#&gt;  3 &lt; 37.8         1133   115  1018  0.134  0.00425 
-#&gt;  4 &lt; 44.4          943    82   861  0.304  0.0172  
-#&gt;  5 &lt; 51            623    52   571  0.349  0.0147  
-#&gt;  6 &lt; 57.6          612    66   546  0.0660 0.000574
-#&gt;  7 &lt; 64.2          229    43   186 -0.582  0.0214  
-#&gt;  8 &lt; 70.8           34    12    22 -1.44   0.0255  
-#&gt;  9 &lt; 77.4           25    13    12 -2.13   0.0471  
-#&gt; 10 &gt;= 77.4          15     4    11 -1.04   0.00517 </div><div class='input'>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='no'>bins</span> <span class='kw'>&lt;-</span> <span class='fu'>rbin_equal_length</span>(<span class='no'>mbank</span>, <span class='no'>y</span>, <span class='no'>age</span>, <span class='fl'>10</span>)
+<span class='no'>bins</span>
+
 <span class='co'># plot</span>
-<span class='fu'>plot</span>(<span class='no'>bins</span>)</div><div class='img'><img src='rbin_equal_length-1.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+<span class='fu'>plot</span>(<span class='no'>bins</span>)
+
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

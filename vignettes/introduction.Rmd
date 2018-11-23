@@ -22,33 +22,58 @@ library(rbin)
 
 ## Introduction 
 
-## What is binning?
+Binning is the process of transforming numerical or continuous data into categorical data. It is
+a common data pre-processing step of the model building process. 
 
-## Why bin?
+rbin has the following features:
 
-## Types of binning
-
-- equal frequency
-- equal length
-- quantile
-- winsorize
-- manual
+- manual binning using shiny app
+- equal length binning method
+- winsorized binning method
+- quantile binning method
+- combine levels of categorical data
+- create dummy variables based on binning method
+- calculates weight of evidence (WOE), entropy and information value (IV)
+- provides summary information about binning pre-processing
 
 ## Manual Binning
+
+For manual binning, you need to specify the cut points for the bins. `rbin` follows the left closed and 
+right open interval (`[0,1) = {x | 0 ≤ x < 1}`) for creating bins. The number of cut points you specify
+is one less than the number of bins you want to create i.e. if you want to create 10 bins, you 
+need to specify only 9 cut points as shown in the below example. The accompanying RStudio addin, 
+`rbinAddin()` can be used to iteratively bin the data and to enforce monotonic increasing/decreasing trend.
+
+After finalizing the bins, you can use `rbin_create()` to create the dummy variables.
+
+### Bins
 
 ```{r manual}
 bins <- rbin_manual(mbank, y, age, c(29, 31, 34, 36, 39, 42, 46, 51, 56))
 bins
 ```
 
-#### Plot
+### Plot
 
 ```{r manual_plot, fig.width=7, fig.height=5, fig.align='center'}
 # plot
 plot(bins)
 ```
 
+### Dummy Variables
+
+```{r manual_dummy}
+bins <- rbin_manual(mbank, y, age, c(29, 31, 34, 36, 39, 42, 46, 51, 56))
+rbin_create(mbank, age, bins)
+```
+
 ## Factor Binning
+
+You can collapse or combine levels of a factor/categorical variable using `rbin_factor_combine()`
+and then use `rbin_factor()` to look at weight of evidence, entropy and information value. After
+finalizing the bins, you can use `rbin_factor_create()` to create the dummy variables. You can 
+use the RStudio addin, `rbinFactorAddin()` to interactively combine the levels and create dummy variables
+after finalizing the bins.
 
 ### Combine Levels
 
@@ -85,6 +110,8 @@ rbin_factor_create(out, education)
 
 ## Quantile Binning
 
+Quantile binning aims to bin the data into roughly equal groups using quantiles.
+
 ```{r quantile}
 bins <- rbin_quantiles(mbank, y, age, 10)
 bins
@@ -97,7 +124,26 @@ bins
 plot(bins)
 ```
 
+## Equal Length Binning
+
+Equal length binning creates bins of equal widths. It is different from equal frequency binning which
+creates bins of equal size. 
+
+```{r equal_length}
+bins <- rbin_equal_length(mbank, y, age, 10)
+bins
+```
+
+#### Plot
+
+```{r equal_length_plot, fig.width=7, fig.height=5, fig.align='center'}
+# plot
+plot(bins)
+```
+
 ## Winsorized Binning
+
+Winsorized binning is similar to equal length binning except that both tails are cut off to obtain a smooth binning result. This technique is often used to remove outliers during the data pre-processing stage. For Winsorized binning, the Winsorized statistics are computed first. After the minimum and maximum have been found, the split points are calculated the same way as in equal length binning. 
 
 ```{r winsorize}
 bins <- rbin_winsorize(mbank, y, age, 10, winsor_rate = 0.05)
@@ -111,17 +157,4 @@ bins
 plot(bins)
 ```
 
-## Equal Length Binning
-
-```{r equal_length}
-bins <- rbin_equal_length(mbank, y, age, 10)
-bins
-```
-
-#### Plot
-
-```{r equal_length_plot, fig.width=7, fig.height=5, fig.align='center'}
-# plot
-plot(bins)
-```
 

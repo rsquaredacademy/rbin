@@ -17,6 +17,10 @@ navbar:
   left:
     - text: "Home"
       href: index.html
+    - text: "Guides"
+      menu:
+        - text: "Introduction"
+          href: articles/introduction.html
     - text: "Reference"
       menu:
         - text: "Functions"
