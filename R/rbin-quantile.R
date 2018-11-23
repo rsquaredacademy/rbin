@@ -1,6 +1,6 @@
 #' Quantile binning
 #'
-#' Bin continuous variables using quantiles
+#' Bin continuous variables using quantiles.
 #'
 #' @param data A \code{data.frame} or \code{tibble}.
 #' @param response Response variable.
