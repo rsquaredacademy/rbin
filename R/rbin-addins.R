@@ -14,8 +14,8 @@
 rbinAddin <- function(data = NULL) {
 
 	context <- rstudioapi::getActiveDocumentContext()
-    text <- context$selection[[1]]$text
-    default_data <- text
+  text <- context$selection[[1]]$text
+  default_data <- text
 
     if (is.null(data)) {
          if (nzchar(default_data)) {
@@ -72,11 +72,10 @@ rbinAddin <- function(data = NULL) {
       	  	  shiny::column(4,
       	  	  	shiny::h4('Cut Points'),
 			    			shiny::p('For manual binning, you need to specify the cut points for the bins. `rbin` 
-			    								follows the left closed and right open interval (`[0,1) = {x | 0 ≤ x < 1}`) 
-			    								for creating bins. The number of cut points you specify is one less than the 
-			    								number of bins you want to create i.e. if you want to create 10 bins, you 
-													need to specify only 9 cut points. View the vignette or documentation for
-													more information.')
+			    								follows the left closed and right open interval for creating bins. The 
+                          number of cut points you specify is one less than the number of bins you 
+                          want to create i.e. if you want to create 10 bins, you need to specify only 
+                          9 cut points. View the vignette or documentation for more information.')
       	  	  	),
       	  	  shiny::column(8, align = 'center',
 				      	shiny::numericInput("n_bins", "Bins", value = 5, min = 2, step = 1),
@@ -113,7 +112,7 @@ rbinAddin <- function(data = NULL) {
       		    shiny::downloadButton("download_plot", "Download")
       	      ),
       	      shiny::column(8, align = 'center',
-      		    shiny::plotOutput("woe",, height = '500px', width = '500px')
+      		    shiny::plotOutput("woe", height = '500px', width = '500px')
       		  )
       		)
       	  )
@@ -280,17 +279,17 @@ rbinFactorAddin <- function(data = NULL) {
     text <- context$selection[[1]]$text
     default_data <- text
 
-    if(is.null(data)) {
+    if (is.null(data)) {
          if(nzchar(default_data)) {
               data <- default_data
          } 
     }
 
-    if(any(class(data) %in% c("data.frame","tibble","tbl_df"))) {
+    if (any(class(data) %in% c("data.frame","tibble","tbl_df"))) {
          mydata <- deparse(substitute(data))
-    } else if(class(data) =="character") {
-      result<-tryCatch(eval(parse(text=data)),error=function(e) "error")
-      if(any(class(result) %in% c("data.frame","tibble","tbl_df"))) {
+    } else if (class(data) == "character") {
+      result <- tryCatch(eval(parse(text = data)), error = function(e) "error")
+      if (any(class(result) %in% c("data.frame","tibble","tbl_df"))) {
       	mydata <- data
       } else {
       	return(NULL)
@@ -382,7 +381,7 @@ rbinFactorAddin <- function(data = NULL) {
       		      shiny::downloadButton("download_plot", "Download")
       	      ),
       	      shiny::column(8, align = 'center',
-      		     shiny::plotOutput("woe",, height = '500px', width = '500px')
+      		     shiny::plotOutput("woe", height = '500px', width = '500px')
       		    )
       		  )
       	  )
