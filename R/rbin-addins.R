@@ -17,17 +17,17 @@ rbinAddin <- function(data = NULL) {
     text <- context$selection[[1]]$text
     default_data <- text
 
-    if(is.null(data)) {
-         if(nzchar(default_data)) {
+    if (is.null(data)) {
+         if (nzchar(default_data)) {
               data <- default_data
          } 
     }
 
-    if(any(class(data) %in% c("data.frame","tibble","tbl_df"))) {
+    if (any(class(data) %in% c("data.frame","tibble","tbl_df"))) {
          mydata <- deparse(substitute(data))
-    } else if(class(data) =="character") {
-      result<-tryCatch(eval(parse(text=data)),error=function(e) "error")
-      if(any(class(result) %in% c("data.frame","tibble","tbl_df"))) {
+    } else if (class(data) == "character") {
+      result <- tryCatch(eval(parse(text = data)), error = function(e) "error")
+      if (any(class(result) %in% c("data.frame","tibble","tbl_df"))) {
       	mydata <- data
       } else {
       	return(NULL)
@@ -119,14 +119,21 @@ rbinAddin <- function(data = NULL) {
       	  )
       	)
       ),
-      miniUI::miniTabPanel("Download", icon = shiny::icon("download"),
+      miniUI::miniTabPanel("Download Binned Data", icon = shiny::icon("download"),
       	miniUI::miniContentPanel(
           shiny::fluidPage(
+            shiny::fluidRow(
+              shiny::column(12, align = 'center',
+                shiny::textInput("file_name", "File Name")
+              )
+            ),
       	    shiny::fluidRow(
-      	      shiny::column(12, align = 'center',
-      	        shiny::textInput("file_name", "File Name"),
-      	        shiny::downloadButton("download_woe", "Download")
-      	      )
+      	      shiny::column(6, align = 'right',
+      	        shiny::downloadButton("download_woe_csv", "Download CSV")
+      	      ),
+              shiny::column(6, align = 'left',
+                shiny::downloadButton("download_woe_rds", "Download RDS")
+              )
       	    )
       	  )
       	)
@@ -208,7 +215,7 @@ rbinAddin <- function(data = NULL) {
 	  rbin_create(data1(), input$pred_var, compute_bins())
 	})
 
-	output$download_woe <- shiny::downloadHandler(
+	output$download_woe_csv <- shiny::downloadHandler(
 	    filename = function() {
 	      paste(input$file_name, ".csv", sep = "")
 	    },
@@ -216,6 +223,15 @@ rbinAddin <- function(data = NULL) {
 	      utils::write.csv(create_woe(), file, row.names = FALSE)
 	    }
 	  )
+
+  output$download_woe_rds <- shiny::downloadHandler(
+      filename = function() {
+        paste(input$file_name)
+      },
+      content = function(file) {
+        saveRDS(create_woe(), file)
+      }
+    )
 
 	output$download_bins <- shiny::downloadHandler(
 	  filename = function() {
@@ -287,44 +303,17 @@ rbinFactorAddin <- function(data = NULL) {
       miniUI::miniTabPanel("Data", icon = shiny::icon("database"),
         miniUI::miniContentPanel(
           shiny::tabPanel('CSV', value = 'tab_upload_csv',
-			shiny::fluidPage(
+						shiny::fluidPage(
 
-			  shiny::br(),
+			  			shiny::br(),
 
-			  shiny::fluidRow(
-			  	shiny::column(12, align = 'center',
-			  		shiny::textInput("mydata", "Data Name", value = mydata)
-			  	)
-			  )
-
-			  # shiny::fluidRow(
-			  #   shiny::column(12, align = 'center',
-			  #     shiny::fileInput('file1', 'Data Set:',
-			  #       accept = c('text/csv', '.csv', 'text/comma-separated-values,text/plain')
-			  #     )
-			  #   )
-			  # ),
-
-			  # shiny::fluidRow(
-			  #   shiny::column(12, align = 'center',  shiny::checkboxInput('header', 'Header', TRUE))
-			  # ),
-
-			  # shiny::fluidRow(
-			  #   shiny::column(12, align = 'center',
-			  #     shiny::selectInput('sep', 'Separator',
-			  #       choices = c('Comma' = ',', 'Semicolon' = ';', 'Tab' = '\t'), selected = ',')
-			  #   )
-			  # ),
-
-			  # shiny::fluidRow(
-			  #   shiny::column(12, align = 'center',
-			  #     shiny::selectInput('quote', 'Quote',
-			  #       choices = c('None' = '', 'Double Quote' = '"', 'Single Quote' = "'"), selected = '')
-			  #   )
-			  # )
-
-			)
-		  )
+			  			shiny::fluidRow(
+			  				shiny::column(12, align = 'center',
+			  					shiny::textInput("mydata", "Data Name", value = mydata)
+			  				)
+			  			)
+						)
+		  		)
         )
       ),
       miniUI::miniTabPanel("Variables", icon = shiny::icon("bars"),
@@ -399,16 +388,23 @@ rbinFactorAddin <- function(data = NULL) {
       	  )
       	)
       ),
-      miniUI::miniTabPanel("Download", icon = shiny::icon("download"),
+      miniUI::miniTabPanel("Download Binned Data", icon = shiny::icon("download"),
       	miniUI::miniContentPanel(
           shiny::fluidPage(
-      	    shiny::fluidRow(
-      	      shiny::column(12, align = 'center',
-      	        shiny::textInput("file_name", "File Name"),
-      	        shiny::downloadButton("download_woe", "Download")
-      	      )
-      	    )
-      	  )
+            shiny::fluidRow(
+              shiny::column(12, align = 'center',
+                shiny::textInput("file_name", "File Name")
+              )
+            ),
+            shiny::fluidRow(
+              shiny::column(6, align = 'right',
+                shiny::downloadButton("download_woe_csv", "Download CSV")
+              ),
+              shiny::column(6, align = 'left',
+                shiny::downloadButton("download_woe_rds", "Download RDS")
+              )
+            )
+          )
       	)
       )
     )
@@ -485,14 +481,23 @@ rbinFactorAddin <- function(data = NULL) {
 	  rbin_factor_create(new_comb(), !! rlang::sym(as.character(input$pred_var)))
 	})
 
-	output$download_woe <- shiny::downloadHandler(
-	    filename = function() {
-	      paste(input$file_name, ".csv", sep = "")
-	    },
-	    content = function(file) {
-	      utils::write.csv(create_woe(), file, row.names = FALSE)
-	    }
-	  )
+  output$download_woe_csv <- shiny::downloadHandler(
+      filename = function() {
+        paste(input$file_name, ".csv", sep = "")
+      },
+      content = function(file) {
+        utils::write.csv(create_woe(), file, row.names = FALSE)
+      }
+    )
+
+  output$download_woe_rds <- shiny::downloadHandler(
+      filename = function() {
+        paste(input$file_name)
+      },
+      content = function(file) {
+        saveRDS(create_woe(), file)
+      }
+    )
 
 	output$download_bins <- shiny::downloadHandler(
 	  filename = function() {
