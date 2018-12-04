@@ -13,11 +13,13 @@
 #' @return A \code{tibble}.
 #'
 #' @examples
+#' \dontrun{
 #' bins <- rbin_quantiles(mbank, y, age, 10)
 #' bins
 #'
 #' # plot
 #' plot(bins)
+#' }
 #'
 #' @export
 #'

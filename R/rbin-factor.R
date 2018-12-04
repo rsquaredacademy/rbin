@@ -58,11 +58,13 @@ rbin_factor_combine <- function(data, var, new_var, new_name) {
 #' @param ... further arguments passed to or from other methods.
 #'
 #' @examples
+#' \dontrun{
 #' bins <- rbin_factor(mbank, y, education)
 #' bins
 #'
 #' # plot
 #' plot(bins)
+#' }
 #'
 #' @importFrom magrittr %<>%
 #'
@@ -72,7 +74,7 @@ rbin_factor <- function(data = NULL, response = NULL, predictor = NULL, include_
 
 #' @export
 #'
-rbin_factor <- function(data = NULL, response = NULL, predictor = NULL, include_na = TRUE) {
+rbin_factor.default <- function(data = NULL, response = NULL, predictor = NULL, include_na = TRUE) {
 
   resp <- rlang::enquo(response)
   pred <- rlang::enquo(predictor)
@@ -166,9 +168,11 @@ plot.rbin_factor <- function(x, ...) {
 #' @return A \code{tibble} with dummy variables.
 #'
 #' @examples
+#' \dontrun{
 #' upper <- c("secondary", "tertiary")
 #' out <- rbin_factor_combine(mbank, education, upper, "upper")
 #' rbin_factor_create(out, education)
+#' }
 #'
 #' @export
 #'

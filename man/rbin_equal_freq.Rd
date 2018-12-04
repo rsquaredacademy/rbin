@@ -23,6 +23,8 @@ A \code{tibble}.
 Bin continuous variables using the equal frequency binning method.
 }
 \examples{
+\dontrun{
 rbin_equal_freq(mbank, y, age, 10)
+}
 
 }

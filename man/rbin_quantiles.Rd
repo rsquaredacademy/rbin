@@ -32,10 +32,12 @@ A \code{tibble}.
 Bin continuous variables using quantiles.
 }
 \examples{
+\dontrun{
 bins <- rbin_quantiles(mbank, y, age, 10)
 bins
 
 # plot
 plot(bins)
+}
 
 }

@@ -10,7 +10,9 @@
 #' @return A \code{tibble}.
 #'
 #' @examples
+#' \dontrun{
 #' rbin_equal_freq(mbank, y, age, 10)
+#' }
 #'
 #' @importFrom magrittr %>%
 #' @importFrom rlang !!

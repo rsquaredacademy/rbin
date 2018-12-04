@@ -39,10 +39,12 @@ A \code{tibble}.
 Bin continuous variables using winsorized method.
 }
 \examples{
+\dontrun{
 bins <- rbin_winsorize(mbank, y, age, 10, winsor_rate = 0.05)
 bins
 
 # plot
 plot(bins)
+}
 
 }
