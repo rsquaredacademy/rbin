@@ -17,10 +17,8 @@ status](https://codecov.io/gh/rsquaredacademy/rbin/branch/master/graph/badge.svg
 
 ## Installation
 
-rbin is not available on CRAN yet. You can install the development
-version from [GitHub](https://github.com/) with:
-
 ``` r
+# Install development version from GitHub
 # install.packages("devtools")
 devtools::install_github("rsquaredacademy/rbin")
 ```
