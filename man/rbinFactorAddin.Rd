@@ -4,7 +4,7 @@
 \alias{rbinFactorAddin}
 \title{Custom binning}
 \usage{
-rbinFactorAddin()
+rbinFactorAddin(data = NULL)
 }
 \description{
 Manually combine categorical variables using weight of evidence.

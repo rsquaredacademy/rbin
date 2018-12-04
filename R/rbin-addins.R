@@ -2,62 +2,55 @@
 #'
 #' Manually bin variables using weight of evidence.
 #'
+#' @param data A \code{data.frame} or \code{tibble}.
+#'
 #' @examples
 #' \dontrun{
-#' rbinAddin()
+#' rbinAddin(data = mbank)
 #' }
 #'
 #' @export
 #'
-rbinAddin <- function() {
+rbinAddin <- function(data = NULL) {
+
+	context <- rstudioapi::getActiveDocumentContext()
+    text <- context$selection[[1]]$text
+    default_data <- text
+
+    if(is.null(data)) {
+         if(nzchar(default_data)) {
+              data <- default_data
+         } 
+    }
+
+    if(any(class(data) %in% c("data.frame","tibble","tbl_df"))) {
+         mydata <- deparse(substitute(data))
+    } else if(class(data) =="character") {
+      result<-tryCatch(eval(parse(text=data)),error=function(e) "error")
+      if(any(class(result) %in% c("data.frame","tibble","tbl_df"))) {
+      	mydata <- data
+      } else {
+      	return(NULL)
+      }
+		}
 
   ui <- miniUI::miniPage(
     miniUI::gadgetTitleBar("Variable Binning"),
     miniUI::miniTabstripPanel(
       miniUI::miniTabPanel("Data", icon = shiny::icon("database"),
         miniUI::miniContentPanel(
-          shiny::tabPanel('CSV', value = 'tab_upload_csv',
-			shiny::fluidPage(
+          shiny::tabPanel('Data', value = 'tab_upload_csv',
+						shiny::fluidPage(
 
-			  shiny::br(),
-
-              shiny::fluidRow(
-			    shiny::column(8, align = 'left',
-			      shiny::h4('Upload Data'),
-			      shiny::p('Upload data from a comma or tab separated file.')
-			    )
-			  ),
-
-			  shiny::hr(),
-
-			  shiny::fluidRow(
-			    shiny::column(12, align = 'center',
-			      shiny::fileInput('file1', 'Data Set:',
-			        accept = c('text/csv', '.csv', 'text/comma-separated-values,text/plain')
-			      )
-			    )
-			  ),
-
-			  shiny::fluidRow(
-			    shiny::column(12, align = 'center',  shiny::checkboxInput('header', 'Header', TRUE))
-			  ),
-
-			  shiny::fluidRow(
-			    shiny::column(12, align = 'center',
-			      shiny::selectInput('sep', 'Separator',
-			        choices = c('Comma' = ',', 'Semicolon' = ';', 'Tab' = '\t'), selected = ',')
-			    )
-			  ),
-
-			  shiny::fluidRow(
-			    shiny::column(12, align = 'center',
-			      shiny::selectInput('quote', 'Quote',
-			        choices = c('None' = '', 'Double Quote' = '"', 'Single Quote' = "'"), selected = '')
-			    )
-			  )
-
-			)
-		  )
+			  			shiny::br(),
+			  			shiny::fluidRow(
+			  				shiny::column(12, align = 'center',
+			  					shiny::textInput("mydata", "Data Name", value = mydata)
+			  				)
+			  			)
+        
+						)
+		  		)
         )
       ),
       miniUI::miniTabPanel("Variables", icon = shiny::icon("bars"),
@@ -78,10 +71,12 @@ rbinAddin <- function() {
       	  	shiny::fluidRow(
       	  	  shiny::column(4,
       	  	  	shiny::h4('Cut Points'),
-			    			shiny::p('Specify the upper open interval for each bin. If you want to create_bins
-			      		10 bins, the app will show you only 9 input boxes. The interval for the 10th bin 
-			      		is automatically computed. For example, if you want the first bin to have all the
-			      		values between the minimum and including 36, then you will enter the value 37 in Bin 1.')
+			    			shiny::p('For manual binning, you need to specify the cut points for the bins. `rbin` 
+			    								follows the left closed and right open interval (`[0,1) = {x | 0 ≤ x < 1}`) 
+			    								for creating bins. The number of cut points you specify is one less than the 
+			    								number of bins you want to create i.e. if you want to create 10 bins, you 
+													need to specify only 9 cut points. View the vignette or documentation for
+													more information.')
       	  	  	),
       	  	  shiny::column(8, align = 'center',
 				      	shiny::numericInput("n_bins", "Bins", value = 5, min = 2, step = 1),
@@ -141,23 +136,9 @@ rbinAddin <- function() {
 
   server <- function(input, output, session) {
 
-  	inFile1 <- shiny::reactive({
-	    if(is.null(input$file1)) {
-	        return(NULL)
-	    } else {
-	        input$file1
-	    }
-	})
-
 	data1 <- shiny::reactive({
-	    if(is.null(inFile1())) {
-	        return(NULL)
-	    } else {
-	        utils::read.csv(inFile1()$datapath,
-	            header = input$header,
-	            sep = input$sep,
-	            quote = input$quote)
-	    }
+	  out <- get(input$mydata)
+	  return(out)
 	})
 
 	shiny::observe({
@@ -268,14 +249,37 @@ rbinAddin <- function() {
 #'
 #' Manually combine categorical variables using weight of evidence.
 #'
+#' @param data A \code{data.frame} or \code{tibble}.
+#'
 #' @examples
 #' \dontrun{
-#' rbinFactorAddin()
+#' rbinFactorAddin(data = mbank)
 #' }
 #'
 #' @export
 #'
-rbinFactorAddin <- function() {
+rbinFactorAddin <- function(data = NULL) {
+
+	  context <- rstudioapi::getActiveDocumentContext()
+    text <- context$selection[[1]]$text
+    default_data <- text
+
+    if(is.null(data)) {
+         if(nzchar(default_data)) {
+              data <- default_data
+         } 
+    }
+
+    if(any(class(data) %in% c("data.frame","tibble","tbl_df"))) {
+         mydata <- deparse(substitute(data))
+    } else if(class(data) =="character") {
+      result<-tryCatch(eval(parse(text=data)),error=function(e) "error")
+      if(any(class(result) %in% c("data.frame","tibble","tbl_df"))) {
+      	mydata <- data
+      } else {
+      	return(NULL)
+      }
+		}
 
   ui <- miniUI::miniPage(
     miniUI::gadgetTitleBar("Custom Binning"),
@@ -287,40 +291,37 @@ rbinFactorAddin <- function() {
 
 			  shiny::br(),
 
-              shiny::fluidRow(
-			    shiny::column(8, align = 'left',
-			      shiny::h4('Upload Data'),
-			      shiny::p('Upload data from a comma or tab separated file.')
-			    )
-			  ),
-
-			  shiny::hr(),
-
 			  shiny::fluidRow(
-			    shiny::column(12, align = 'center',
-			      shiny::fileInput('file1', 'Data Set:',
-			        accept = c('text/csv', '.csv', 'text/comma-separated-values,text/plain')
-			      )
-			    )
-			  ),
-
-			  shiny::fluidRow(
-			    shiny::column(12, align = 'center',  shiny::checkboxInput('header', 'Header', TRUE))
-			  ),
-
-			  shiny::fluidRow(
-			    shiny::column(12, align = 'center',
-			      shiny::selectInput('sep', 'Separator',
-			        choices = c('Comma' = ',', 'Semicolon' = ';', 'Tab' = '\t'), selected = ',')
-			    )
-			  ),
-
-			  shiny::fluidRow(
-			    shiny::column(12, align = 'center',
-			      shiny::selectInput('quote', 'Quote',
-			        choices = c('None' = '', 'Double Quote' = '"', 'Single Quote' = "'"), selected = '')
-			    )
+			  	shiny::column(12, align = 'center',
+			  		shiny::textInput("mydata", "Data Name", value = mydata)
+			  	)
 			  )
+
+			  # shiny::fluidRow(
+			  #   shiny::column(12, align = 'center',
+			  #     shiny::fileInput('file1', 'Data Set:',
+			  #       accept = c('text/csv', '.csv', 'text/comma-separated-values,text/plain')
+			  #     )
+			  #   )
+			  # ),
+
+			  # shiny::fluidRow(
+			  #   shiny::column(12, align = 'center',  shiny::checkboxInput('header', 'Header', TRUE))
+			  # ),
+
+			  # shiny::fluidRow(
+			  #   shiny::column(12, align = 'center',
+			  #     shiny::selectInput('sep', 'Separator',
+			  #       choices = c('Comma' = ',', 'Semicolon' = ';', 'Tab' = '\t'), selected = ',')
+			  #   )
+			  # ),
+
+			  # shiny::fluidRow(
+			  #   shiny::column(12, align = 'center',
+			  #     shiny::selectInput('quote', 'Quote',
+			  #       choices = c('None' = '', 'Double Quote' = '"', 'Single Quote' = "'"), selected = '')
+			  #   )
+			  # )
 
 			)
 		  )
@@ -415,23 +416,9 @@ rbinFactorAddin <- function() {
 
   server <- function(input, output, session) {
 
-  	inFile1 <- shiny::reactive({
-	    if(is.null(input$file1)) {
-	        return(NULL)
-	    } else {
-	        input$file1
-	    }
-	})
-
 	data1 <- shiny::reactive({
-	    if(is.null(inFile1())) {
-	        return(NULL)
-	    } else {
-	        utils::read.csv(inFile1()$datapath,
-	            header = input$header,
-	            sep = input$sep,
-	            quote = input$quote)
-	    }
+	  out <- get(input$mydata)
+	  return(out)
 	})
 
 	shiny::observe({
@@ -464,12 +451,12 @@ rbinFactorAddin <- function() {
 	})
 
 	selected_levs <- shiny::reactive({
-		out <- input$sel_cat
+		out <- as.factor(input$sel_cat)
 		return(out)
 	})
 
 	new_comb <- shiny::eventReactive(input$create_bins, {
-		rbin_factor_combine(data1(), !! rlang::sym(as.character(input$pred_var)), selected_levs(), input$new_lev)
+		rbin_factor_combine(data1(), !! rlang::sym(as.character(input$pred_var)), as.character(selected_levs()), as.character(input$new_lev))
 	})
 
 	woe_man <- shiny::eventReactive(input$create_bins, {

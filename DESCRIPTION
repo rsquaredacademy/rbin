@@ -33,6 +33,7 @@ Imports:
     utils
 Suggests:
     covr,
+    rstudioapi,
     testthat,
     vdiffr,
     knitr,

@@ -3,7 +3,7 @@ Description: Manually bin continuous variables using weight of evidence.
 Binding: rbinAddin
 Interactive: true
 
-Name: Combine Levels
+Name: Combine Factor Variables
 Description: Manually combine levels using weight of evidence.
 Binding: rbinFactorAddin
 Interactive: true
