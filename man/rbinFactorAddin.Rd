@@ -6,12 +6,15 @@
 \usage{
 rbinFactorAddin(data = NULL)
 }
+\arguments{
+\item{data}{A \code{data.frame} or \code{tibble}.}
+}
 \description{
 Manually combine categorical variables using weight of evidence.
 }
 \examples{
 \dontrun{
-rbinFactorAddin()
+rbinFactorAddin(data = mbank)
 }
 
 }

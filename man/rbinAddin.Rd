@@ -4,14 +4,17 @@
 \alias{rbinAddin}
 \title{Bin variables}
 \usage{
-rbinAddin()
+rbinAddin(data = NULL)
+}
+\arguments{
+\item{data}{A \code{data.frame} or \code{tibble}.}
 }
 \description{
 Manually bin variables using weight of evidence.
 }
 \examples{
 \dontrun{
-rbinAddin()
+rbinAddin(data = mbank)
 }
 
 }
