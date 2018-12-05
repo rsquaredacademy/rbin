@@ -1,6 +1,6 @@
-#' Bin variables
+#' Bin continuous data
 #'
-#' Manually bin variables using weight of evidence.
+#' Manually bin continuous data using weight of evidence.
 #'
 #' @param data A \code{data.frame} or \code{tibble}.
 #'

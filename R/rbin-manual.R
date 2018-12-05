@@ -1,6 +1,6 @@
 #' Manual binning
 #'
-#' Bin continuous variables manually.
+#' Bin continuous data manually.
 #'
 #' @param data A \code{data.frame} or \code{tibble}.
 #' @param response Response variable.
@@ -12,10 +12,11 @@
 #'
 #' @return A \code{tibble}.
 #'
-#' @details Specify the upper open interval for each bin. If you want to create_bins
+#' @details Specify the upper open interval for each bin. `rbin`
+#'   follows the left closed and right open interval. If you want to create_bins
 #'   10 bins, the app will show you only 9 input boxes. The interval for the 10th bin 
 #'   is automatically computed. For example, if you want the first bin to have all the
-#'   values between the minimum and including 36, then you will enter the value 37 
+#'   values between the minimum and including 36, then you will enter the value 37. 
 #'
 #' @examples
 #' \dontrun{

@@ -1,6 +1,6 @@
 #' Equal length binning
 #'
-#' Bin continuous variables using the equal length binning method.
+#' Bin continuous data using the equal length binning method.
 #'
 #' @param data A \code{data.frame} or \code{tibble}.
 #' @param response Response variable.

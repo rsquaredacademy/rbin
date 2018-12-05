@@ -29,7 +29,7 @@ rbin_quantiles(data = NULL, response = NULL, predictor = NULL,
 A \code{tibble}.
 }
 \description{
-Bin continuous variables using quantiles.
+Bin continuous data using quantiles.
 }
 \examples{
 \dontrun{

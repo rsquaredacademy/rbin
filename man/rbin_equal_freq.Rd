@@ -20,7 +20,7 @@ rbin_equal_freq(data = NULL, response = NULL, predictor = NULL,
 A \code{tibble}.
 }
 \description{
-Bin continuous variables using the equal frequency binning method.
+Bin continuous data using the equal frequency binning method.
 }
 \examples{
 \dontrun{

@@ -1,6 +1,6 @@
 #' Winsorized binning
 #'
-#' Bin continuous variables using winsorized method.
+#' Bin continuous data using winsorized method.
 #'
 #' @param data A \code{data.frame} or \code{tibble}.
 #' @param response Response variable.

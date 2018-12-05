@@ -29,7 +29,7 @@ rbin_equal_length(data = NULL, response = NULL, predictor = NULL,
 A \code{tibble}.
 }
 \description{
-Bin continuous variables using the equal length binning method.
+Bin continuous data using the equal length binning method.
 }
 \examples{
 \dontrun{

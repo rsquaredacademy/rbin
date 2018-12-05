@@ -1,6 +1,6 @@
 #' Equal frequency binning
 #'
-#' Bin continuous variables using the equal frequency binning method.
+#' Bin continuous data using the equal frequency binning method.
 #'
 #' @param data A \code{data.frame} or \code{tibble}.
 #' @param response Response variable.

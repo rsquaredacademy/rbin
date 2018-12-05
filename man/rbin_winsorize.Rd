@@ -36,7 +36,7 @@ rbin_winsorize(data = NULL, response = NULL, predictor = NULL,
 A \code{tibble}.
 }
 \description{
-Bin continuous variables using winsorized method.
+Bin continuous data using winsorized method.
 }
 \examples{
 \dontrun{

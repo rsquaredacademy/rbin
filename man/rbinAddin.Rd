@@ -2,7 +2,7 @@
 % Please edit documentation in R/rbin-addins.R
 \name{rbinAddin}
 \alias{rbinAddin}
-\title{Bin variables}
+\title{Bin continuous data}
 \usage{
 rbinAddin(data = NULL)
 }
@@ -10,7 +10,7 @@ rbinAddin(data = NULL)
 \item{data}{A \code{data.frame} or \code{tibble}.}
 }
 \description{
-Manually bin variables using weight of evidence.
+Manually bin continuous data using weight of evidence.
 }
 \examples{
 \dontrun{
