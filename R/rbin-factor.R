@@ -146,13 +146,23 @@ print.rbin_factor <- function(x, ...) {
 #'
 plot.rbin_factor <- function(x, ...) {
 
-  p <- 
-    x %>%
-    magrittr::use_series(bins) %>%
-    ggplot2::ggplot() +
-    ggplot2::geom_bar(ggplot2::aes(x = level, y = woe), stat = "identity", width = 0.25, 
-             fill = "blue") + ggplot2::xlab("Levels") + ggplot2::ylab("WoE") + 
-    ggplot2::ggtitle("WoE Trend")
+  xseq <- 
+	  x %>%
+	  magrittr::use_series(bins) %>%
+	  nrow()
+
+	xaxis_breaks <- seq_len(xseq)
+	xaxis_labels <- as.character(x$bins$level)
+
+	p <- 
+		x %>%
+	  magrittr::use_series(bins) %>%
+	  ggplot2::ggplot() +
+	  ggplot2::geom_line(ggplot2::aes(x = xaxis_breaks, y = woe), color = "blue") +
+	  ggplot2::geom_point(ggplot2::aes(x = xaxis_breaks, y = woe), color = "red") +
+	  ggplot2::xlab("Levels") + ggplot2::ylab("WoE") + ggplot2::ggtitle("WoE Trend") +
+	  ggplot2::scale_x_continuous(breaks = xaxis_breaks, labels = xaxis_labels)
+
 
   print(p)
 

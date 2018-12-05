@@ -187,35 +187,13 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>bins</span> <span class='kw'>&lt;-</span> <span class='fu'>rbin_winsorize</span>(<span class='no'>mbank</span>, <span class='no'>y</span>, <span class='no'>age</span>, <span class='fl'>10</span>, <span class='kw'>winsor_rate</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)
-<span class='no'>bins</span></div><div class='output co'>#&gt; Binning Summary
-#&gt; ------------------------------
-#&gt; Method               Winsorize 
-#&gt; Response             y 
-#&gt; Predictor            age 
-#&gt; Bins                 10 
-#&gt; Count                4521 
-#&gt; Goods                517 
-#&gt; Bads                 4004 
-#&gt; Entropy              0.51 
-#&gt; Information Value    0.1 
-#&gt; 
-#&gt; 
-#&gt; # A tibble: 10 x 7
-#&gt;    cut_point bin_count  good   bad    woe       iv entropy
-#&gt;    &lt;chr&gt;         &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
-#&gt;  1 &lt; 30.2          723   112   611 -0.350 0.0224     0.622
-#&gt;  2 &lt; 33.4          567    55   512  0.184 0.00395    0.459
-#&gt;  3 &lt; 36.6          573    58   515  0.137 0.00225    0.473
-#&gt;  4 &lt; 39.8          497    44   453  0.285 0.00798    0.432
-#&gt;  5 &lt; 43            396    37   359  0.225 0.00408    0.448
-#&gt;  6 &lt; 46.2          461    43   418  0.227 0.00482    0.447
-#&gt;  7 &lt; 49.4          281    22   259  0.419 0.00927    0.396
-#&gt;  8 &lt; 52.6          309    32   277  0.111 0.000811   0.480
-#&gt;  9 &lt; 55.8          244    25   219  0.123 0.000781   0.477
-#&gt; 10 &gt;= 55.8         470    89   381 -0.593 0.0456     0.700</div><div class='input'>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='no'>bins</span> <span class='kw'>&lt;-</span> <span class='fu'>rbin_winsorize</span>(<span class='no'>mbank</span>, <span class='no'>y</span>, <span class='no'>age</span>, <span class='fl'>10</span>, <span class='kw'>winsor_rate</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)
+<span class='no'>bins</span>
+
 <span class='co'># plot</span>
-<span class='fu'>plot</span>(<span class='no'>bins</span>)</div><div class='img'><img src='rbin_winsorize-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plot</span>(<span class='no'>bins</span>)
+<span class='co'># }</span><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
