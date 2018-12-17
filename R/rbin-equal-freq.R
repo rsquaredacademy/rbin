@@ -10,7 +10,7 @@
 #' @return A \code{tibble}.
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' rbin_equal_freq(mbank, y, age, 10)
 #' }
 #'

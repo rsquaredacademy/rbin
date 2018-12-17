@@ -7,4 +7,8 @@
 
 0 errors | 0 warnings | 1 note
 
-* This is a new release.
+This is a resubmission. As suggested, I have:
+
+- used `\donttest` for examples with run time greater than 5 seconds
+- ensured that functions do not write in the user's home filespace
+

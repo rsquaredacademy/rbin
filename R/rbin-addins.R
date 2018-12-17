@@ -95,9 +95,7 @@ rbinAddin <- function(data = NULL) {
       	    shiny::fluidRow(
       	      shiny::column(12, align = 'center',
       		    shiny::verbatimTextOutput("woe_manual"),
-      		    shiny::br(), 
-      		    shiny::textInput("bins_name", "File Name"),
-      		    shiny::downloadButton("download_bins", "Download")
+      		    shiny::br()
       		  )
       	    )
       	  )
@@ -106,39 +104,15 @@ rbinAddin <- function(data = NULL) {
       miniUI::miniTabPanel("WoE Trend", icon = shiny::icon("line-chart"),
       	miniUI::miniContentPanel(
       	  shiny::fluidPage(
-      	    shiny::fluidRow(
-      	      shiny::column(4, align = 'center',
-      	      	shiny::textInput("plot_name", "Plot Name"),
-      		    shiny::downloadButton("download_plot", "Download")
-      	      ),
-      	      shiny::column(8, align = 'center',
-      		    shiny::plotOutput("woe", height = '500px', width = '500px')
+      	      shiny::column(12, align = 'center',
+      		      shiny::plotOutput("woe", height = '500px', width = '500px')
+      		    )
       		  )
-      		)
-      	  )
-      	)
-      ),
-      miniUI::miniTabPanel("Download Binned Data", icon = shiny::icon("download"),
-      	miniUI::miniContentPanel(
-          shiny::fluidPage(
-            shiny::fluidRow(
-              shiny::column(12, align = 'center',
-                shiny::textInput("file_name", "File Name")
-              )
-            ),
-      	    shiny::fluidRow(
-      	      shiny::column(6, align = 'right',
-      	        shiny::downloadButton("download_woe_csv", "Download CSV")
-      	      ),
-              shiny::column(6, align = 'left',
-                shiny::downloadButton("download_woe_rds", "Download RDS")
-              )
-      	    )
       	  )
       	)
       )
     )
-  )
+  
 
   server <- function(input, output, session) {
 
@@ -214,45 +188,9 @@ rbinAddin <- function(data = NULL) {
 	  rbin_create(data1(), input$pred_var, compute_bins())
 	})
 
-	output$download_woe_csv <- shiny::downloadHandler(
-	    filename = function() {
-	      paste(input$file_name, ".csv", sep = "")
-	    },
-	    content = function(file) {
-	      utils::write.csv(create_woe(), file, row.names = FALSE)
-	    }
-	  )
-
-  output$download_woe_rds <- shiny::downloadHandler(
-      filename = function() {
-        paste(input$file_name)
-      },
-      content = function(file) {
-        saveRDS(create_woe(), file)
-      }
-    )
-
-	output$download_bins <- shiny::downloadHandler(
-	  filename = function() {
-	    paste(input$bins_name, ".csv", sep = "")
-	  },
-	  content = function(file) {
-	    utils::write.csv(down_bins(), file, row.names = FALSE)
-	  }
-	)
-
-	output$download_plot <- shiny::downloadHandler(
-	  filename = function() {
-	    paste0(input$plot_name, ".png")
-	  },
-	  content = function(file) {
-	    ggplot2::ggsave(file, graphics::plot(compute_bins()), width = 16, height = 10.4)
-	  }
-	)
-
-    shiny::observeEvent(input$done, {
-      shiny::stopApp()
-    })
+  shiny::observeEvent(input$done, {
+    shiny::stopApp()
+  })
 
   }
 
@@ -364,10 +302,8 @@ rbinFactorAddin <- function(data = NULL) {
       	    shiny::fluidRow(
       	      shiny::column(12, align = 'center',
       		    shiny::verbatimTextOutput("woe_manual"),
-      		    shiny::br(), 
-      		    shiny::textInput("bins_name", "File Name"),
-      		    shiny::downloadButton("download_bins", "Download")
-      		  )
+      		    shiny::br()
+      		    )
       	    )
       	  )
       	)
@@ -375,39 +311,14 @@ rbinFactorAddin <- function(data = NULL) {
       miniUI::miniTabPanel("WoE Trend", icon = shiny::icon("line-chart"),
       	miniUI::miniContentPanel(
       	  shiny::fluidPage(
-      	    shiny::fluidRow(
-      	      shiny::column(4, align = 'center',
-      	      	shiny::textInput("plot_name", "Plot Name"),
-      		      shiny::downloadButton("download_plot", "Download")
-      	      ),
-      	      shiny::column(8, align = 'center',
-      		     shiny::plotOutput("woe", height = '500px', width = '500px')
+      	      shiny::column(12, align = 'center',
+      		      shiny::plotOutput("woe", height = '500px', width = '500px')
       		    )
       		  )
       	  )
       	)
-      ),
-      miniUI::miniTabPanel("Download Binned Data", icon = shiny::icon("download"),
-      	miniUI::miniContentPanel(
-          shiny::fluidPage(
-            shiny::fluidRow(
-              shiny::column(12, align = 'center',
-                shiny::textInput("file_name", "File Name")
-              )
-            ),
-            shiny::fluidRow(
-              shiny::column(6, align = 'right',
-                shiny::downloadButton("download_woe_csv", "Download CSV")
-              ),
-              shiny::column(6, align = 'left',
-                shiny::downloadButton("download_woe_rds", "Download RDS")
-              )
-            )
-          )
-      	)
       )
     )
-  )
 
   server <- function(input, output, session) {
 
@@ -480,45 +391,9 @@ rbinFactorAddin <- function(data = NULL) {
 	  rbin_factor_create(new_comb(), !! rlang::sym(as.character(input$pred_var)))
 	})
 
-  output$download_woe_csv <- shiny::downloadHandler(
-      filename = function() {
-        paste(input$file_name, ".csv", sep = "")
-      },
-      content = function(file) {
-        utils::write.csv(create_woe(), file, row.names = FALSE)
-      }
-    )
-
-  output$download_woe_rds <- shiny::downloadHandler(
-      filename = function() {
-        paste(input$file_name)
-      },
-      content = function(file) {
-        saveRDS(create_woe(), file)
-      }
-    )
-
-	output$download_bins <- shiny::downloadHandler(
-	  filename = function() {
-	    paste(input$bins_name, ".csv", sep = "")
-	  },
-	  content = function(file) {
-	    utils::write.csv(down_bins(), file, row.names = FALSE)
-	  }
-	)
-
-	output$download_plot <- shiny::downloadHandler(
-	  filename = function() {
-	    paste0(input$plot_name, ".png")
-	  },
-	  content = function(file) {
-	    ggplot2::ggsave(file, woe_plot(), width = 16, height = 10.4)
-	  }
-	)
-
-    shiny::observeEvent(input$done, {
-      shiny::stopApp()
-    })
+  shiny::observeEvent(input$done, {
+    shiny::stopApp()
+  })
 
   }
 

@@ -13,7 +13,7 @@
 #' @return A \code{tibble}.
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' bins <- rbin_quantiles(mbank, y, age, 10)
 #' bins
 #'
