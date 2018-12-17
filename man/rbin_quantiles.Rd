@@ -32,7 +32,7 @@ A \code{tibble}.
 Bin continuous data using quantiles.
 }
 \examples{
-\dontrun{
+\donttest{
 bins <- rbin_quantiles(mbank, y, age, 10)
 bins
 

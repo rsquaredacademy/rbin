@@ -16,7 +16,7 @@
 #' @return A \code{tibble}.
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' bins <- rbin_winsorize(mbank, y, age, 10, winsor_rate = 0.05)
 #' bins
 #'
