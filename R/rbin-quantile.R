@@ -13,14 +13,12 @@
 #' @return A \code{tibble}.
 #'
 #' @examples
-#' \donttest{
 #' bins <- rbin_quantiles(mbank, y, age, 10)
 #' bins
 #'
 #' # plot
 #' plot(bins)
-#' }
-#'
+#' 
 #' @export
 #'
 rbin_quantiles <- function(data = NULL, response = NULL, predictor = NULL, bins = 10, include_na = TRUE) UseMethod("rbin_quantiles")

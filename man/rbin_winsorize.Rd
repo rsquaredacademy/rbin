@@ -39,12 +39,10 @@ A \code{tibble}.
 Bin continuous data using winsorized method.
 }
 \examples{
-\donttest{
 bins <- rbin_winsorize(mbank, y, age, 10, winsor_rate = 0.05)
 bins
 
 # plot
 plot(bins)
-}
 
 }

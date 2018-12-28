@@ -32,12 +32,10 @@ A \code{tibble}.
 Bin continuous data using the equal length binning method.
 }
 \examples{
-\donttest{
 bins <- rbin_equal_length(mbank, y, age, 10)
 bins
 
 # plot
 plot(bins)
 
-}
 }
