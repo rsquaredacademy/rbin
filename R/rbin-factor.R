@@ -58,14 +58,12 @@ rbin_factor_combine <- function(data, var, new_var, new_name) {
 #' @param ... further arguments passed to or from other methods.
 #'
 #' @examples
-#' \donttest{
 #' bins <- rbin_factor(mbank, y, education)
 #' bins
 #'
 #' # plot
 #' plot(bins)
-#' }
-#'
+#' 
 #' @importFrom magrittr %<>%
 #'
 #' @export
@@ -178,12 +176,10 @@ plot.rbin_factor <- function(x, ...) {
 #' @return A \code{tibble} with dummy variables.
 #'
 #' @examples
-#' \donttest{
 #' upper <- c("secondary", "tertiary")
 #' out <- rbin_factor_combine(mbank, education, upper, "upper")
 #' rbin_factor_create(out, education)
-#' }
-#'
+#' 
 #' @export
 #'
 rbin_factor_create <- function(data, predictor) {

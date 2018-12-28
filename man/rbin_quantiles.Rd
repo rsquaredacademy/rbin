@@ -32,12 +32,10 @@ A \code{tibble}.
 Bin continuous data using quantiles.
 }
 \examples{
-\donttest{
 bins <- rbin_quantiles(mbank, y, age, 10)
 bins
 
 # plot
 plot(bins)
-}
 
 }

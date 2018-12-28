@@ -39,12 +39,10 @@ Specify the upper open interval for each bin. `rbin`
   values between the minimum and including 36, then you will enter the value 37.
 }
 \examples{
-\donttest{
 bins <- rbin_manual(mbank, y, age, c(29, 31, 34, 36, 39, 42, 46, 51, 56))
 bins
 
 # plot
 plot(bins)
-}
 
 }
