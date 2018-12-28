@@ -13,8 +13,8 @@ rbinAddin(data = NULL)
 Manually bin continuous data using weight of evidence.
 }
 \examples{
-\dontrun{
-rbinAddin(data = mbank)
+if (interactive()) {
+  rbinAddin(data = mbank)
 }
 
 }
