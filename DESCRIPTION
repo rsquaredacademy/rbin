@@ -27,13 +27,13 @@ Imports:
     purrr,
     recipes,
     rlang,
+    rstudioapi,
     shiny,
     stats,
     tibble,
     utils
 Suggests:
     covr,
-    rstudioapi,
     testthat,
     vdiffr,
     knitr,
