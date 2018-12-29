@@ -5,8 +5,8 @@
 #' @param data A \code{data.frame} or \code{tibble}.
 #'
 #' @examples
-#' if (interactive()) {
-#'   rbinAddin(data = mbank)
+#' \dontrun{
+#' rbinAddin(data = mbank)
 #' }
 #'
 #' @export
@@ -205,8 +205,8 @@ rbinAddin <- function(data = NULL) {
 #' @param data A \code{data.frame} or \code{tibble}.
 #'
 #' @examples
-#' if (interactive()) {
-#'   rbinFactorAddin(data = mbank)
+#' \dontrun{
+#' rbinFactorAddin(data = mbank)
 #' }
 #'
 #' @export

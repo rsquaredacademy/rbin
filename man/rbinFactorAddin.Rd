@@ -13,8 +13,8 @@ rbinFactorAddin(data = NULL)
 Manually combine categorical variables using weight of evidence.
 }
 \examples{
-if (interactive()) {
-  rbinFactorAddin(data = mbank)
+\dontrun{
+rbinFactorAddin(data = mbank)
 }
 
 }
