@@ -7,18 +7,23 @@
 data
 
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/report)](https://cran.r-project.org/package=rbin)
+[![cran
+checks](https://cranchecks.info/badges/summary/rbin)](https://cran.r-project.org/web/checks/check_results_rbin.html)
 [![Travis-CI Build
 Status](https://travis-ci.org/rsquaredacademy/rbin.svg?branch=master)](https://travis-ci.org/rsquaredacademy/rbin)
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/rsquaredacademy/rbin?branch=master&svg=true)](https://ci.appveyor.com/project/aravindhebbali/rbin)
 [![Coverage
 status](https://codecov.io/gh/rsquaredacademy/rbin/branch/master/graph/badge.svg)](https://codecov.io/github/rsquaredacademy/rbin?branch=master)
-![](https://img.shields.io/badge/lifecycle-experimental-orange.svg)
+[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 
 ## Installation
 
 ``` r
-# Install development version from GitHub
+# Install rbin from CRAN
+install.packages("rbin")
+
+# Or the development version from GitHub
 # install.packages("devtools")
 devtools::install_github("rsquaredacademy/rbin")
 ```
