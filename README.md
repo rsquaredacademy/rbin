@@ -6,7 +6,7 @@
 > Tools for binning
 data
 
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/report)](https://cran.r-project.org/package=rbin)
+[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/rbin)](https://cran.r-project.org/package=rbin)
 [![cran
 checks](https://cranchecks.info/badges/summary/rbin)](https://cran.r-project.org/web/checks/check_results_rbin.html)
 [![Travis-CI Build
