@@ -14,7 +14,8 @@ Status](https://travis-ci.org/rsquaredacademy/rbin.svg?branch=master)](https://t
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/rsquaredacademy/rbin?branch=master&svg=true)](https://ci.appveyor.com/project/aravindhebbali/rbin)
 [![Coverage
-status](https://codecov.io/gh/rsquaredacademy/rbin/branch/master/graph/badge.svg)](https://codecov.io/github/rsquaredacademy/rbin?branch=master)
+status](https://codecov.io/gh/rsquaredacademy/rbin/branch/master/graph/badge.svg)](https://codecov.io/github/rsquaredacademy/rbin?branch=master)  
+[![](https://cranlogs.r-pkg.org/badges/grand-total/rbin)](https://cran.r-project.org/package=rbin)
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 
 ## Installation
