@@ -20,7 +20,6 @@ Imports:
     dplyr,
     forcats,
     ggplot2,
-    glue,
     graphics,
     magrittr,
     miniUI,
