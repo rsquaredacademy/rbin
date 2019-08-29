@@ -14,9 +14,9 @@
 #'
 #' @details Specify the upper open interval for each bin. `rbin`
 #'   follows the left closed and right open interval. If you want to create_bins
-#'   10 bins, the app will show you only 9 input boxes. The interval for the 10th bin 
+#'   10 bins, the app will show you only 9 input boxes. The interval for the 10th bin
 #'   is automatically computed. For example, if you want the first bin to have all the
-#'   values between the minimum and including 36, then you will enter the value 37. 
+#'   values between the minimum and including 36, then you will enter the value 37.
 #'
 #' @examples
 #' bins <- rbin_manual(mbank, y, age, c(29, 31, 34, 36, 39, 42, 46, 51, 56))
@@ -24,7 +24,7 @@
 #'
 #' # plot
 #' plot(bins)
-#' 
+#'
 #' @export
 #'
 rbin_manual <- function(data = NULL, response = NULL, predictor = NULL, cut_points = NULL, include_na = TRUE) UseMethod("rbin_manual")
@@ -36,7 +36,7 @@ rbin_manual <- function(data = NULL, response = NULL, predictor = NULL, cut_poin
   resp <- rlang::enquo(response)
   pred <- rlang::enquo(predictor)
 
-  var_names <- 
+  var_names <-
     data %>%
     dplyr::select(!! resp, !! pred) %>%
     names()
@@ -53,25 +53,26 @@ rbin_manual <- function(data = NULL, response = NULL, predictor = NULL, cut_poin
       dplyr::filter(!is.na(!! resp), !is.na(!! pred)) %>%
       magrittr::set_colnames(c("response", "predictor"))
   }
-  
+
   bm$bin    <- NA
   byd       <- bm$predictor
   l_freq    <- append(min(byd, na.rm = TRUE), cut_points)
-  u_freq    <- purrr::prepend((max(byd, na.rm = TRUE) + 1), cut_points)
+  u_freq    <- c(cut_points, (max(byd, na.rm = TRUE) + 1))
+  # u_freq    <- purrr::prepend((max(byd, na.rm = TRUE) + 1), cut_points)
   bins      <- length(cut_points) + 1
 
   for (i in seq_len(bins)) {
     bm$bin[bm$predictor >= l_freq[i] & bm$predictor < u_freq[i]] <- i
   }
-  
+
   k         <- bin_create(bm)
   sym_sign  <- c(rep("<", (bins - 1)), ">=")
-  fbin2     <- f_bin(u_freq)  
+  fbin2     <- f_bin(u_freq)
   intervals <- create_intervals(sym_sign, fbin2)
 
   if (include_na) {
 
-  	na_present <- 
+  	na_present <-
 		  k %>%
 		  nrow() %>%
 		  magrittr::is_greater_than(bins)
@@ -81,7 +82,7 @@ rbin_manual <- function(data = NULL, response = NULL, predictor = NULL, cut_poin
 		}
 
   }
-  
+
   result    <- list(bins = dplyr::bind_cols(intervals, k), method = "Manual", vars = var_names,
                     lower_cut = l_freq, upper_cut = u_freq)
 

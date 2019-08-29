@@ -23,7 +23,6 @@ Imports:
     graphics,
     magrittr,
     miniUI,
-    purrr,
     recipes,
     rlang,
     rstudioapi,
