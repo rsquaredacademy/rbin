@@ -24,13 +24,13 @@
 #'
 #' @export
 #'
-rbin_winsorize <- function(data = NULL, response = NULL, predictor = NULL, bins = 10, 
+rbin_winsorize <- function(data = NULL, response = NULL, predictor = NULL, bins = 10,
 	winsor_rate = 0.05, min_val = NULL, max_val = NULL, include_na = TRUE) UseMethod("rbin_winsorize")
 
 
 #' @export
 #'
-rbin_winsorize.default <- function(data = NULL, response = NULL, predictor = NULL, bins = 10, 
+rbin_winsorize.default <- function(data = NULL, response = NULL, predictor = NULL, bins = 10,
 	winsor_rate = 0.05, min_val = NULL, max_val = NULL, include_na = TRUE) {
 
   resp <- rlang::enquo(response)
@@ -39,7 +39,7 @@ rbin_winsorize.default <- function(data = NULL, response = NULL, predictor = NUL
   probs_min <- 0 + winsor_rate
   probs_max <- 1 - winsor_rate
 
-  var_names <- 
+  var_names <-
     data %>%
     dplyr::select(!! resp, !! pred) %>%
     names()
@@ -49,8 +49,15 @@ rbin_winsorize.default <- function(data = NULL, response = NULL, predictor = NUL
       data %>%
       dplyr::select(!! resp, !! pred) %>%
       magrittr::set_colnames(c("response", "predictor")) %>%
-      dplyr::mutate(predictor2 = DescTools::Winsorize(predictor, minval = min_val, maxval = max_val, 
-        probs = c(probs_min, probs_max), na.rm = TRUE)) %>%
+      dplyr::mutate(
+        predictor2 = DescTools::Winsorize(
+          x      = predictor,
+          minval = min_val,
+          maxval = max_val,
+          probs  = c(probs_min, probs_max),
+          na.rm  = TRUE
+        )
+      ) %>%
       dplyr::select(response, predictor = predictor2)
   } else {
     bm <-
@@ -58,11 +65,18 @@ rbin_winsorize.default <- function(data = NULL, response = NULL, predictor = NUL
       dplyr::select(!! resp, !! pred) %>%
       dplyr::filter(!is.na(!! resp), !is.na(!! pred)) %>%
       magrittr::set_colnames(c("response", "predictor")) %>%
-      dplyr::mutate(predictor2 = DescTools::Winsorize(predictor, minval = min_val, maxval = max_val, 
-        probs = c(probs_min, probs_max), na.rm = TRUE)) %>%
+      dplyr::mutate(
+        predictor2 = DescTools::Winsorize(
+          x      = predictor,
+          minval = min_val,
+          maxval = max_val,
+          probs  = c(probs_min, probs_max),
+          na.rm  = TRUE
+        )
+      ) %>%
       dplyr::select(response, predictor = predictor2)
   }
- 
+
   bm$bin    <- NA
   byd       <- bm$predictor
   l_freq    <- el_freq(byd, bins)
@@ -74,12 +88,12 @@ rbin_winsorize.default <- function(data = NULL, response = NULL, predictor = NUL
 
   k         <- bin_create(bm)
   sym_sign  <- c(rep("<", (bins - 1)), ">=")
-  fbin2     <- f_bin(u_freq)  
+  fbin2     <- f_bin(u_freq)
   intervals <- create_intervals(sym_sign, fbin2)
 
   if (include_na) {
 
-    na_present <- 
+    na_present <-
       k %>%
       nrow() %>%
       magrittr::is_greater_than(bins)
