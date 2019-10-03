@@ -8,6 +8,7 @@
 #' @param bins Number of bins.
 #' @param include_na logical; if \code{TRUE}, a separate bin is created for missing values.
 #' @param x An object of class \code{rbin_quantiles}.
+#' @param print_plot logical; if \code{TRUE}, prints the plot else returns a plot object.
 #' @param ... further arguments passed to or from other methods.
 #'
 #' @return A \code{tibble}.
@@ -18,7 +19,7 @@
 #'
 #' # plot
 #' plot(bins)
-#' 
+#'
 #' @export
 #'
 rbin_quantiles <- function(data = NULL, response = NULL, predictor = NULL, bins = 10, include_na = TRUE) UseMethod("rbin_quantiles")
@@ -30,7 +31,7 @@ rbin_quantiles <- function(data = NULL, response = NULL, predictor = NULL, bins 
   resp <- rlang::enquo(response)
   pred <- rlang::enquo(predictor)
 
-  var_names <- 
+  var_names <-
     data %>%
     dplyr::select(!! resp, !! pred) %>%
     names()
@@ -52,19 +53,19 @@ rbin_quantiles <- function(data = NULL, response = NULL, predictor = NULL, bins 
   byd       <- bm$predictor
   l_freq    <- ql_freq(byd, bins)
   u_freq    <- qu_freq(byd, bins)
-  
+
   for (i in seq_len(bins)) {
     bm$bin[bm$predictor >= l_freq[i] & bm$predictor < u_freq[i]] <- i
   }
 
   k         <- bin_create(bm)
   sym_sign  <- c(rep("<", (bins - 1)), ">=")
-  fbin2     <- f_bin(u_freq)  
+  fbin2     <- f_bin(u_freq)
   intervals <- create_intervals(sym_sign, fbin2)
 
   if (include_na) {
 
-    na_present <- 
+    na_present <-
       k %>%
       nrow() %>%
       magrittr::is_greater_than(bins)
@@ -74,7 +75,7 @@ rbin_quantiles <- function(data = NULL, response = NULL, predictor = NULL, bins 
     }
 
   }
-  
+
   result    <- list(bins = dplyr::bind_cols(intervals, k), method = "Quantile", vars = var_names,
                     lower_cut = l_freq, upper_cut = u_freq)
 
@@ -100,10 +101,14 @@ print.rbin_quantiles <- function(x, ...) {
 #' @rdname rbin_quantiles
 #' @export
 #'
-plot.rbin_quantiles <- function(x, ...) {
+plot.rbin_quantiles <- function(x, print_plot = TRUE, ...) {
 
   p <- plot_bins(x)
-  print(p)
+  if (print_plot) {
+    print(p)
+  } else {
+    return(p)
+  }
 
 }
 
@@ -111,14 +116,15 @@ plot.rbin_quantiles <- function(x, ...) {
 ql_freq <- function(byd, bins) {
 
   cut_points <- cutpoints(byd, bins)
-  unname(append(min(byd, na.rm = TRUE), cut_points))  
+  unname(append(min(byd, na.rm = TRUE), cut_points))
 
 }
 
 qu_freq <- function(byd, bins) {
 
   cut_points <- cutpoints(byd, bins)
-  unname(purrr::prepend((max(byd, na.rm = TRUE) + 1), cut_points))
+  unname(c(cut_points, (max(byd, na.rm = TRUE) + 1)))
+  # unname(purrr::prepend((max(byd, na.rm = TRUE) + 1), cut_points))
 
 }
 

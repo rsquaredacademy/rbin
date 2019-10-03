@@ -29,7 +29,7 @@ test_that("output from rbin_create is as expected as expected", {
   k <- rbin_manual(mbank, y, age, c(29, 31, 34, 36, 39, 42, 46, 51, 56))
   out <- rbin_create(mbank, age, k)
   expect_equal(ncol(out), 26)
-})  
+})
 
 test_that("output from rbin_factor_combine is as expected", {
   upper <- c("secondary", "tertiary")
@@ -53,15 +53,15 @@ test_that("output from rbin_print is as expected", {
 
   x <- cat("Binning Summary
 ---------------------------
-Method               Manual 
-Response             y 
-Predictor            age 
-Bins                 10 
-Count                4521 
-Goods                517 
-Bads                 4004 
-Entropy              0.5 
-Information Value    0.12 
+Method               Manual
+Response             y
+Predictor            age
+Bins                 10
+Count                4521
+Goods                517
+Bads                 4004
+Entropy              0.5
+Information Value    0.12
 
 
 # A tibble: 10 x 7
@@ -87,15 +87,15 @@ test_that("output from rbin_print_custom  is as expected", {
 
   x <- cat("Binning Summary
 ---------------------------
-Method               Custom 
-Response             y 
-Predictor            education 
-Levels               4 
-Count                4521 
-Goods                517 
-Bads                 4004 
-Entropy              0.51 
-Information Value    0.05 
+Method               Custom
+Response             y
+Predictor            education
+Levels               4
+Count                4521
+Goods                517
+Bads                 4004
+Entropy              0.51
+Information Value    0.05
 
 
 # A tibble: 4 x 7

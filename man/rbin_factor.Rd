@@ -8,7 +8,7 @@
 rbin_factor(data = NULL, response = NULL, predictor = NULL,
   include_na = TRUE)
 
-\method{plot}{rbin_factor}(x, ...)
+\method{plot}{rbin_factor}(x, print_plot = TRUE, ...)
 }
 \arguments{
 \item{data}{A \code{data.frame} or \code{tibble}.}
@@ -20,6 +20,8 @@ rbin_factor(data = NULL, response = NULL, predictor = NULL,
 \item{include_na}{logical; if \code{TRUE}, a separate bin is created for missing values.}
 
 \item{x}{An object of class \code{rbin_factor}.}
+
+\item{print_plot}{logical; if \code{TRUE}, prints the plot else returns a plot object.}
 
 \item{...}{further arguments passed to or from other methods.}
 }

@@ -55,6 +55,7 @@ rbin_factor_combine <- function(data, var, new_var, new_name) {
 #' @param predictor Predictor variable.
 #' @param include_na logical; if \code{TRUE}, a separate bin is created for missing values.
 #' @param x An object of class \code{rbin_factor}.
+#' @param print_plot logical; if \code{TRUE}, prints the plot else returns a plot object.
 #' @param ... further arguments passed to or from other methods.
 #'
 #' @examples
@@ -63,7 +64,7 @@ rbin_factor_combine <- function(data, var, new_var, new_name) {
 #'
 #' # plot
 #' plot(bins)
-#' 
+#'
 #' @importFrom magrittr %<>%
 #'
 #' @export
@@ -114,7 +115,7 @@ rbin_factor.default <- function(data = NULL, response = NULL, predictor = NULL, 
       woe             = log(bad_dist / good_dist),
       dist_diff       = bad_dist - good_dist,
       iv              = dist_diff * woe,
-      entropy         = (-1) * (((good / bin_count) * log2(good / bin_count)) + 
+      entropy         = (-1) * (((good / bin_count) * log2(good / bin_count)) +
         ((bad / bin_count) * log2(bad / bin_count))) ,
       prop_entropy    = (bin_count / sum(bin_count)) * entropy
     ) %>%
@@ -142,9 +143,9 @@ print.rbin_factor <- function(x, ...) {
 #' @rdname rbin_factor
 #' @export
 #'
-plot.rbin_factor <- function(x, ...) {
+plot.rbin_factor <- function(x, print_plot = TRUE,...) {
 
-  xseq <- 
+  xseq <-
 	  x %>%
 	  magrittr::use_series(bins) %>%
 	  nrow()
@@ -152,7 +153,7 @@ plot.rbin_factor <- function(x, ...) {
 	xaxis_breaks <- seq_len(xseq)
 	xaxis_labels <- as.character(x$bins$level)
 
-	p <- 
+	p <-
 		x %>%
 	  magrittr::use_series(bins) %>%
 	  ggplot2::ggplot() +
@@ -161,8 +162,11 @@ plot.rbin_factor <- function(x, ...) {
 	  ggplot2::xlab("Levels") + ggplot2::ylab("WoE") + ggplot2::ggtitle("WoE Trend") +
 	  ggplot2::scale_x_continuous(breaks = xaxis_breaks, labels = xaxis_labels)
 
-
-  print(p)
+  if (print_plot) {
+    print(p)
+  } else {
+    return(p)
+  }
 
 }
 
@@ -179,7 +183,7 @@ plot.rbin_factor <- function(x, ...) {
 #' upper <- c("secondary", "tertiary")
 #' out <- rbin_factor_combine(mbank, education, upper, "upper")
 #' rbin_factor_create(out, education)
-#' 
+#'
 #' @export
 #'
 rbin_factor_create <- function(data, predictor) {
@@ -192,11 +196,11 @@ rbin_factor_create <- function(data, predictor) {
 
   bm_rec <- recipes::recipe( ~ ., data = data2)
 
-  final_data <- 
+  final_data <-
     bm_rec %>%
     recipes::step_dummy(!! pred) %>%
     recipes::prep(training = data2, retain = TRUE) %>%
-    recipes::bake(new_data = data2) 
+    recipes::bake(new_data = data2)
 
   dplyr::bind_cols(data, final_data)
 
