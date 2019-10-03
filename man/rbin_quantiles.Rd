@@ -8,7 +8,7 @@
 rbin_quantiles(data = NULL, response = NULL, predictor = NULL,
   bins = 10, include_na = TRUE)
 
-\method{plot}{rbin_quantiles}(x, ...)
+\method{plot}{rbin_quantiles}(x, print_plot = TRUE, ...)
 }
 \arguments{
 \item{data}{A \code{data.frame} or \code{tibble}.}
@@ -22,6 +22,8 @@ rbin_quantiles(data = NULL, response = NULL, predictor = NULL,
 \item{include_na}{logical; if \code{TRUE}, a separate bin is created for missing values.}
 
 \item{x}{An object of class \code{rbin_quantiles}.}
+
+\item{print_plot}{logical; if \code{TRUE}, prints the plot else returns a plot object.}
 
 \item{...}{further arguments passed to or from other methods.}
 }

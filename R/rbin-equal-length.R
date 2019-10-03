@@ -8,6 +8,7 @@
 #' @param bins Number of bins.
 #' @param include_na logical; if \code{TRUE}, a separate bin is created for missing values.
 #' @param x An object of class \code{rbin_equal_length}.
+#' @param print_plot logical; if \code{TRUE}, prints the plot else returns a plot object.
 #' @param ... further arguments passed to or from other methods.
 #'
 #' @return A \code{tibble}.
@@ -30,7 +31,7 @@ rbin_equal_length <- function(data = NULL, response = NULL, predictor = NULL, bi
   resp <- rlang::enquo(response)
   pred <- rlang::enquo(predictor)
 
-  var_names <- 
+  var_names <-
     data %>%
     dplyr::select(!! resp, !! pred) %>%
     names()
@@ -59,12 +60,12 @@ rbin_equal_length <- function(data = NULL, response = NULL, predictor = NULL, bi
 
   k         <- bin_create(bm)
   sym_sign  <- c(rep("<", (bins - 1)), ">=")
-  fbin2     <- f_bin(u_freq)  
+  fbin2     <- f_bin(u_freq)
   intervals <- create_intervals(sym_sign, fbin2)
 
   if (include_na) {
 
-    na_present <- 
+    na_present <-
       k %>%
       nrow() %>%
       magrittr::is_greater_than(bins)
@@ -99,10 +100,14 @@ print.rbin_equal_length <- function(x, ...) {
 #' @rdname rbin_equal_length
 #' @export
 #'
-plot.rbin_equal_length <- function(x, ...) {
+plot.rbin_equal_length <- function(x, print_plot = TRUE, ...) {
 
   p <- plot_bins(x)
-  print(p)
+  if (print_plot) {
+    print(p)
+  } else {
+    return(p)
+  }
 
 }
 

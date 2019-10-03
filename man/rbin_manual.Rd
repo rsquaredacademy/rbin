@@ -8,7 +8,7 @@
 rbin_manual(data = NULL, response = NULL, predictor = NULL,
   cut_points = NULL, include_na = TRUE)
 
-\method{plot}{rbin_manual}(x, ...)
+\method{plot}{rbin_manual}(x, print_plot = TRUE, ...)
 }
 \arguments{
 \item{data}{A \code{data.frame} or \code{tibble}.}
@@ -23,6 +23,8 @@ rbin_manual(data = NULL, response = NULL, predictor = NULL,
 
 \item{x}{An object of class \code{rbin_manual}.}
 
+\item{print_plot}{logical; if \code{TRUE}, prints the plot else returns a plot object.}
+
 \item{...}{further arguments passed to or from other methods.}
 }
 \value{
@@ -34,7 +36,7 @@ Bin continuous data manually.
 \details{
 Specify the upper open interval for each bin. `rbin`
   follows the left closed and right open interval. If you want to create_bins
-  10 bins, the app will show you only 9 input boxes. The interval for the 10th bin 
+  10 bins, the app will show you only 9 input boxes. The interval for the 10th bin
   is automatically computed. For example, if you want the first bin to have all the
   values between the minimum and including 36, then you will enter the value 37.
 }

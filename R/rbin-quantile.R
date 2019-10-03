@@ -8,6 +8,7 @@
 #' @param bins Number of bins.
 #' @param include_na logical; if \code{TRUE}, a separate bin is created for missing values.
 #' @param x An object of class \code{rbin_quantiles}.
+#' @param print_plot logical; if \code{TRUE}, prints the plot else returns a plot object.
 #' @param ... further arguments passed to or from other methods.
 #'
 #' @return A \code{tibble}.
@@ -100,10 +101,14 @@ print.rbin_quantiles <- function(x, ...) {
 #' @rdname rbin_quantiles
 #' @export
 #'
-plot.rbin_quantiles <- function(x, ...) {
+plot.rbin_quantiles <- function(x, print_plot = TRUE, ...) {
 
   p <- plot_bins(x)
-  print(p)
+  if (print_plot) {
+    print(p)
+  } else {
+    return(p)
+  }
 
 }
 

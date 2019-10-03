@@ -11,6 +11,7 @@
 #' @param max_val the high border, all values being larger than this will be replaced by this value. The default is set to the 95 percent quantile of predictor.
 #' @param include_na logical; if \code{TRUE}, a separate bin is created for missing values.
 #' @param x An object of class \code{rbin_winsorize}.
+#' @param print_plot logical; if \code{TRUE}, prints the plot else returns a plot object.
 #' @param ... further arguments passed to or from other methods.
 #'
 #' @return A \code{tibble}.
@@ -128,9 +129,13 @@ print.rbin_winsorize <- function(x, ...) {
 #' @rdname rbin_winsorize
 #' @export
 #'
-plot.rbin_winsorize <- function(x, ...) {
+plot.rbin_winsorize <- function(x, print_plot = TRUE, ...) {
 
   p <- plot_bins(x)
-  print(p)
+  if (print_plot) {
+    print(p)
+  } else {
+    return(p)
+  }
 
 }

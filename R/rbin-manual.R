@@ -8,6 +8,7 @@
 #' @param cut_points Cut points for binning.
 #' @param include_na logical; if \code{TRUE}, a separate bin is created for missing values.
 #' @param x An object of class \code{rbin_manual}.
+#' @param print_plot logical; if \code{TRUE}, prints the plot else returns a plot object.
 #' @param ... further arguments passed to or from other methods.
 #'
 #' @return A \code{tibble}.
@@ -107,9 +108,13 @@ print.rbin_manual <- function(x, ...) {
 #' @rdname rbin_manual
 #' @export
 #'
-plot.rbin_manual <- function(x, ...) {
+plot.rbin_manual <- function(x, print_plot = TRUE, ...) {
 
   p <- plot_bins(x)
-  print(p)
+  if (print_plot) {
+    print(p)
+  } else {
+    return(p)
+  }
 
 }
