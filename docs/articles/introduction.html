@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Introduction to rbin • rbin</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to rbin">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
@@ -30,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rbin</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2.9000</span>
       </span>
     </div>
 
@@ -83,13 +84,14 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Introduction to rbin</h1>
                         <h4 class="author">Aravind Hebbali</h4>
             
-            <h4 class="date">2019-01-04</h4>
+            <h4 class="date">2020-02-04</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/rsquaredacademy/rbin/blob/master/vignettes/introduction.Rmd"><code>vignettes/introduction.Rmd</code></a></small>
       <div class="hidden name"><code>introduction.Rmd</code></div>
@@ -122,66 +124,66 @@
 <div id="bins" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bins" class="anchor"></a>Bins</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">bins &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbin_manual.html">rbin_manual</a></span>(mbank, y, age, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">29</span>, <span class="dv">31</span>, <span class="dv">34</span>, <span class="dv">36</span>, <span class="dv">39</span>, <span class="dv">42</span>, <span class="dv">46</span>, <span class="dv">51</span>, <span class="dv">56</span>))</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">bins</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">#&gt; Binning Summary</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">#&gt; ---------------------------</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">#&gt; Method               Manual </span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#&gt; Response             y </span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#&gt; Predictor            age </span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">#&gt; Bins                 10 </span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co">#&gt; Count                4521 </span></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="co">#&gt; Goods                517 </span></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co">#&gt; Bads                 4004 </span></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="co">#&gt; Entropy              0.5 </span></a>
-<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="co">#&gt; Information Value    0.12 </span></a>
-<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="co">#&gt; # A tibble: 10 x 7</span></a>
-<a class="sourceLine" id="cb1-17" data-line-number="17"><span class="co">#&gt;    cut_point bin_count  good   bad      woe         iv entropy</span></a>
-<a class="sourceLine" id="cb1-18" data-line-number="18"><span class="co">#&gt;    &lt;chr&gt;         &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="co">#&gt;  1 &lt; 29            410    71   339 -0.484   0.0255       0.665</span></a>
-<a class="sourceLine" id="cb1-20" data-line-number="20"><span class="co">#&gt;  2 &lt; 31            313    41   272 -0.155   0.00176      0.560</span></a>
-<a class="sourceLine" id="cb1-21" data-line-number="21"><span class="co">#&gt;  3 &lt; 34            567    55   512  0.184   0.00395      0.459</span></a>
-<a class="sourceLine" id="cb1-22" data-line-number="22"><span class="co">#&gt;  4 &lt; 36            396    45   351  0.00712 0.00000443   0.511</span></a>
-<a class="sourceLine" id="cb1-23" data-line-number="23"><span class="co">#&gt;  5 &lt; 39            519    47   472  0.260   0.00701      0.438</span></a>
-<a class="sourceLine" id="cb1-24" data-line-number="24"><span class="co">#&gt;  6 &lt; 42            431    33   398  0.443   0.0158       0.390</span></a>
-<a class="sourceLine" id="cb1-25" data-line-number="25"><span class="co">#&gt;  7 &lt; 46            449    47   402  0.0993  0.000942     0.484</span></a>
-<a class="sourceLine" id="cb1-26" data-line-number="26"><span class="co">#&gt;  8 &lt; 51            521    40   481  0.440   0.0188       0.391</span></a>
-<a class="sourceLine" id="cb1-27" data-line-number="27"><span class="co">#&gt;  9 &lt; 56            445    49   396  0.0426  0.000176     0.500</span></a>
-<a class="sourceLine" id="cb1-28" data-line-number="28"><span class="co">#&gt; 10 &gt;= 56           470    89   381 -0.593   0.0456       0.700</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">bins &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbin_manual.html">rbin_manual</a></span>(mbank, y, age, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">29</span>, <span class="dv">31</span>, <span class="dv">34</span>, <span class="dv">36</span>, <span class="dv">39</span>, <span class="dv">42</span>, <span class="dv">46</span>, <span class="dv">51</span>, <span class="dv">56</span>))</a>
+<a class="sourceLine" id="cb1-2" title="2">bins</a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="co">#&gt; Binning Summary</span></a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="co">#&gt; ---------------------------</span></a>
+<a class="sourceLine" id="cb1-5" title="5"><span class="co">#&gt; Method               Manual </span></a>
+<a class="sourceLine" id="cb1-6" title="6"><span class="co">#&gt; Response             y </span></a>
+<a class="sourceLine" id="cb1-7" title="7"><span class="co">#&gt; Predictor            age </span></a>
+<a class="sourceLine" id="cb1-8" title="8"><span class="co">#&gt; Bins                 10 </span></a>
+<a class="sourceLine" id="cb1-9" title="9"><span class="co">#&gt; Count                4521 </span></a>
+<a class="sourceLine" id="cb1-10" title="10"><span class="co">#&gt; Goods                517 </span></a>
+<a class="sourceLine" id="cb1-11" title="11"><span class="co">#&gt; Bads                 4004 </span></a>
+<a class="sourceLine" id="cb1-12" title="12"><span class="co">#&gt; Entropy              0.5 </span></a>
+<a class="sourceLine" id="cb1-13" title="13"><span class="co">#&gt; Information Value    0.12 </span></a>
+<a class="sourceLine" id="cb1-14" title="14"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb1-15" title="15"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb1-16" title="16"><span class="co">#&gt; # A tibble: 10 x 7</span></a>
+<a class="sourceLine" id="cb1-17" title="17"><span class="co">#&gt;    cut_point bin_count  good   bad      woe         iv entropy</span></a>
+<a class="sourceLine" id="cb1-18" title="18"><span class="co">#&gt;    &lt;chr&gt;         &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb1-19" title="19"><span class="co">#&gt;  1 &lt; 29            410    71   339 -0.484   0.0255       0.665</span></a>
+<a class="sourceLine" id="cb1-20" title="20"><span class="co">#&gt;  2 &lt; 31            313    41   272 -0.155   0.00176      0.560</span></a>
+<a class="sourceLine" id="cb1-21" title="21"><span class="co">#&gt;  3 &lt; 34            567    55   512  0.184   0.00395      0.459</span></a>
+<a class="sourceLine" id="cb1-22" title="22"><span class="co">#&gt;  4 &lt; 36            396    45   351  0.00712 0.00000443   0.511</span></a>
+<a class="sourceLine" id="cb1-23" title="23"><span class="co">#&gt;  5 &lt; 39            519    47   472  0.260   0.00701      0.438</span></a>
+<a class="sourceLine" id="cb1-24" title="24"><span class="co">#&gt;  6 &lt; 42            431    33   398  0.443   0.0158       0.390</span></a>
+<a class="sourceLine" id="cb1-25" title="25"><span class="co">#&gt;  7 &lt; 46            449    47   402  0.0993  0.000942     0.484</span></a>
+<a class="sourceLine" id="cb1-26" title="26"><span class="co">#&gt;  8 &lt; 51            521    40   481  0.440   0.0188       0.391</span></a>
+<a class="sourceLine" id="cb1-27" title="27"><span class="co">#&gt;  9 &lt; 56            445    49   396  0.0426  0.000176     0.500</span></a>
+<a class="sourceLine" id="cb1-28" title="28"><span class="co">#&gt; 10 &gt;= 56           470    89   381 -0.593   0.0456       0.700</span></a></code></pre></div>
 </div>
 <div id="plot" class="section level3">
 <h3 class="hasAnchor">
 <a href="#plot" class="anchor"></a>Plot</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># plot</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(bins)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="co"># plot</span></a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(bins)</a></code></pre></div>
 <p><img src="introduction_files/figure-html/manual_plot-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div id="dummy-variables" class="section level3">
 <h3 class="hasAnchor">
 <a href="#dummy-variables" class="anchor"></a>Dummy Variables</h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">bins &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbin_manual.html">rbin_manual</a></span>(mbank, y, age, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">29</span>, <span class="dv">31</span>, <span class="dv">34</span>, <span class="dv">36</span>, <span class="dv">39</span>, <span class="dv">42</span>, <span class="dv">46</span>, <span class="dv">51</span>, <span class="dv">56</span>))</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="../reference/rbin_create.html">rbin_create</a></span>(mbank, age, bins)</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; # A tibble: 4,521 x 26</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt;      age job   marital education default balance housing loan  contact</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt;    &lt;int&gt; &lt;fct&gt; &lt;fct&gt;   &lt;fct&gt;     &lt;fct&gt;     &lt;dbl&gt; &lt;fct&gt;   &lt;fct&gt; &lt;fct&gt;  </span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt;  1    34 tech~ married tertiary  no          297 yes     no    cellul~</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt;  2    49 serv~ married secondary no          180 yes     yes   unknown</span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt;  3    38 admi~ single  secondary no          262 no      no    cellul~</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt;  4    47 serv~ married secondary no          367 yes     no    cellul~</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt;  5    51 self~ single  secondary no         1640 yes     no    unknown</span></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt;  6    40 unem~ married secondary no         3382 yes     no    unknown</span></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt;  7    58 reti~ married secondary no         1227 no      no    cellul~</span></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt;  8    32 unem~ married primary   no          309 yes     no    teleph~</span></a>
-<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt;  9    46 blue~ married secondary no          922 yes     no    teleph~</span></a>
-<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; 10    32 serv~ married tertiary  no            0 no      no    cellul~</span></a>
-<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt; # ... with 4,511 more rows, and 17 more variables: day &lt;int&gt;, month &lt;fct&gt;,</span></a>
-<a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt; #   duration &lt;int&gt;, campaign &lt;int&gt;, pdays &lt;int&gt;, previous &lt;int&gt;,</span></a>
-<a class="sourceLine" id="cb3-18" data-line-number="18"><span class="co">#&gt; #   poutcome &lt;fct&gt;, y &lt;fct&gt;, `age_&lt;_31` &lt;dbl&gt;, `age_&lt;_34` &lt;dbl&gt;,</span></a>
-<a class="sourceLine" id="cb3-19" data-line-number="19"><span class="co">#&gt; #   `age_&lt;_36` &lt;dbl&gt;, `age_&lt;_39` &lt;dbl&gt;, `age_&lt;_42` &lt;dbl&gt;,</span></a>
-<a class="sourceLine" id="cb3-20" data-line-number="20"><span class="co">#&gt; #   `age_&lt;_46` &lt;dbl&gt;, `age_&lt;_51` &lt;dbl&gt;, `age_&lt;_56` &lt;dbl&gt;,</span></a>
-<a class="sourceLine" id="cb3-21" data-line-number="21"><span class="co">#&gt; #   `age_&gt;=_56` &lt;dbl&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">bins &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbin_manual.html">rbin_manual</a></span>(mbank, y, age, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">29</span>, <span class="dv">31</span>, <span class="dv">34</span>, <span class="dv">36</span>, <span class="dv">39</span>, <span class="dv">42</span>, <span class="dv">46</span>, <span class="dv">51</span>, <span class="dv">56</span>))</a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="kw"><a href="../reference/rbin_create.html">rbin_create</a></span>(mbank, age, bins)</a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="co">#&gt; # A tibble: 4,521 x 26</span></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="co">#&gt;      age job   marital education default balance housing loan  contact</span></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="co">#&gt;    &lt;int&gt; &lt;fct&gt; &lt;fct&gt;   &lt;fct&gt;     &lt;fct&gt;     &lt;dbl&gt; &lt;fct&gt;   &lt;fct&gt; &lt;fct&gt;  </span></a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="co">#&gt;  1    34 tech~ married tertiary  no          297 yes     no    cellul~</span></a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="co">#&gt;  2    49 serv~ married secondary no          180 yes     yes   unknown</span></a>
+<a class="sourceLine" id="cb3-8" title="8"><span class="co">#&gt;  3    38 admi~ single  secondary no          262 no      no    cellul~</span></a>
+<a class="sourceLine" id="cb3-9" title="9"><span class="co">#&gt;  4    47 serv~ married secondary no          367 yes     no    cellul~</span></a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="co">#&gt;  5    51 self~ single  secondary no         1640 yes     no    unknown</span></a>
+<a class="sourceLine" id="cb3-11" title="11"><span class="co">#&gt;  6    40 unem~ married secondary no         3382 yes     no    unknown</span></a>
+<a class="sourceLine" id="cb3-12" title="12"><span class="co">#&gt;  7    58 reti~ married secondary no         1227 no      no    cellul~</span></a>
+<a class="sourceLine" id="cb3-13" title="13"><span class="co">#&gt;  8    32 unem~ married primary   no          309 yes     no    teleph~</span></a>
+<a class="sourceLine" id="cb3-14" title="14"><span class="co">#&gt;  9    46 blue~ married secondary no          922 yes     no    teleph~</span></a>
+<a class="sourceLine" id="cb3-15" title="15"><span class="co">#&gt; 10    32 serv~ married tertiary  no            0 no      no    cellul~</span></a>
+<a class="sourceLine" id="cb3-16" title="16"><span class="co">#&gt; # ... with 4,511 more rows, and 17 more variables: day &lt;int&gt;, month &lt;fct&gt;,</span></a>
+<a class="sourceLine" id="cb3-17" title="17"><span class="co">#&gt; #   duration &lt;int&gt;, campaign &lt;int&gt;, pdays &lt;int&gt;, previous &lt;int&gt;,</span></a>
+<a class="sourceLine" id="cb3-18" title="18"><span class="co">#&gt; #   poutcome &lt;fct&gt;, y &lt;fct&gt;, `age_&lt;_31` &lt;dbl&gt;, `age_&lt;_34` &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb3-19" title="19"><span class="co">#&gt; #   `age_&lt;_36` &lt;dbl&gt;, `age_&lt;_39` &lt;dbl&gt;, `age_&lt;_42` &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb3-20" title="20"><span class="co">#&gt; #   `age_&lt;_46` &lt;dbl&gt;, `age_&lt;_51` &lt;dbl&gt;, `age_&lt;_56` &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb3-21" title="21"><span class="co">#&gt; #   `age_&gt;=_56` &lt;dbl&gt;</span></a></code></pre></div>
 </div>
 </div>
 <div id="factor-binning" class="section level2">
@@ -191,113 +193,113 @@
 <div id="combine-levels" class="section level3">
 <h3 class="hasAnchor">
 <a href="#combine-levels" class="anchor"></a>Combine Levels</h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">upper &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"secondary"</span>, <span class="st">"tertiary"</span>)</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">out &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbin_factor_combine.html">rbin_factor_combine</a></span>(mbank, education, upper, <span class="st">"upper"</span>)</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/table">table</a></span>(out<span class="op">$</span>education)</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt; primary unknown   upper </span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt;     691     179    3651</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8">out &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbin_factor_combine.html">rbin_factor_combine</a></span>(mbank, education, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"secondary"</span>, <span class="st">"tertiary"</span>), <span class="st">"upper"</span>)</a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/table">table</a></span>(out<span class="op">$</span>education)</a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; primary unknown   upper </span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt;     691     179    3651</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">upper &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"secondary"</span>, <span class="st">"tertiary"</span>)</a>
+<a class="sourceLine" id="cb4-2" title="2">out &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbin_factor_combine.html">rbin_factor_combine</a></span>(mbank, education, upper, <span class="st">"upper"</span>)</a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="kw"><a href="https://rdrr.io/r/base/table.html">table</a></span>(out<span class="op">$</span>education)</a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="co">#&gt; primary unknown   upper </span></a>
+<a class="sourceLine" id="cb4-6" title="6"><span class="co">#&gt;     691     179    3651</span></a>
+<a class="sourceLine" id="cb4-7" title="7"></a>
+<a class="sourceLine" id="cb4-8" title="8">out &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbin_factor_combine.html">rbin_factor_combine</a></span>(mbank, education, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"secondary"</span>, <span class="st">"tertiary"</span>), <span class="st">"upper"</span>)</a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="kw"><a href="https://rdrr.io/r/base/table.html">table</a></span>(out<span class="op">$</span>education)</a>
+<a class="sourceLine" id="cb4-10" title="10"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb4-11" title="11"><span class="co">#&gt; primary unknown   upper </span></a>
+<a class="sourceLine" id="cb4-12" title="12"><span class="co">#&gt;     691     179    3651</span></a></code></pre></div>
 </div>
 <div id="bins-1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bins-1" class="anchor"></a>Bins</h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">bins &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbin_factor.html">rbin_factor</a></span>(mbank, y, education)</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">bins</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt; Binning Summary</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#&gt; ---------------------------</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt; Method               Custom </span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">#&gt; Response             y </span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt; Predictor            education </span></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; Levels               4 </span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; Count                4521 </span></a>
-<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt; Goods                517 </span></a>
-<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt; Bads                 4004 </span></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt; Entropy              0.51 </span></a>
-<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt; Information Value    0.05 </span></a>
-<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt; # A tibble: 4 x 7</span></a>
-<a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co">#&gt;   level     bin_count  good   bad    woe      iv entropy</span></a>
-<a class="sourceLine" id="cb5-18" data-line-number="18"><span class="co">#&gt;   &lt;fct&gt;         &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb5-19" data-line-number="19"><span class="co">#&gt; 1 tertiary       1299   195  1104 -0.313 0.0318    0.610</span></a>
-<a class="sourceLine" id="cb5-20" data-line-number="20"><span class="co">#&gt; 2 secondary      2352   231  2121  0.170 0.0141    0.463</span></a>
-<a class="sourceLine" id="cb5-21" data-line-number="21"><span class="co">#&gt; 3 unknown         179    25   154 -0.229 0.00227   0.583</span></a>
-<a class="sourceLine" id="cb5-22" data-line-number="22"><span class="co">#&gt; 4 primary         691    66   625  0.201 0.00572   0.455</span></a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">bins &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbin_factor.html">rbin_factor</a></span>(mbank, y, education)</a>
+<a class="sourceLine" id="cb5-2" title="2">bins</a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="co">#&gt; Binning Summary</span></a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="co">#&gt; ---------------------------</span></a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="co">#&gt; Method               Custom </span></a>
+<a class="sourceLine" id="cb5-6" title="6"><span class="co">#&gt; Response             y </span></a>
+<a class="sourceLine" id="cb5-7" title="7"><span class="co">#&gt; Predictor            education </span></a>
+<a class="sourceLine" id="cb5-8" title="8"><span class="co">#&gt; Levels               4 </span></a>
+<a class="sourceLine" id="cb5-9" title="9"><span class="co">#&gt; Count                4521 </span></a>
+<a class="sourceLine" id="cb5-10" title="10"><span class="co">#&gt; Goods                517 </span></a>
+<a class="sourceLine" id="cb5-11" title="11"><span class="co">#&gt; Bads                 4004 </span></a>
+<a class="sourceLine" id="cb5-12" title="12"><span class="co">#&gt; Entropy              0.51 </span></a>
+<a class="sourceLine" id="cb5-13" title="13"><span class="co">#&gt; Information Value    0.05 </span></a>
+<a class="sourceLine" id="cb5-14" title="14"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb5-15" title="15"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb5-16" title="16"><span class="co">#&gt; # A tibble: 4 x 7</span></a>
+<a class="sourceLine" id="cb5-17" title="17"><span class="co">#&gt;   level     bin_count  good   bad    woe      iv entropy</span></a>
+<a class="sourceLine" id="cb5-18" title="18"><span class="co">#&gt;   &lt;fct&gt;         &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb5-19" title="19"><span class="co">#&gt; 1 tertiary       1299   195  1104 -0.313 0.0318    0.610</span></a>
+<a class="sourceLine" id="cb5-20" title="20"><span class="co">#&gt; 2 secondary      2352   231  2121  0.170 0.0141    0.463</span></a>
+<a class="sourceLine" id="cb5-21" title="21"><span class="co">#&gt; 3 unknown         179    25   154 -0.229 0.00227   0.583</span></a>
+<a class="sourceLine" id="cb5-22" title="22"><span class="co">#&gt; 4 primary         691    66   625  0.201 0.00572   0.455</span></a></code></pre></div>
 <div id="plot-1" class="section level4">
 <h4 class="hasAnchor">
 <a href="#plot-1" class="anchor"></a>Plot</h4>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># plot</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(bins)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="co"># plot</span></a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(bins)</a></code></pre></div>
 <p><img src="introduction_files/figure-html/factor_plot-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 </div>
 <div id="create-bins" class="section level3">
 <h3 class="hasAnchor">
 <a href="#create-bins" class="anchor"></a>Create Bins</h3>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">upper &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"secondary"</span>, <span class="st">"tertiary"</span>)</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">out &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbin_factor_combine.html">rbin_factor_combine</a></span>(mbank, education, upper, <span class="st">"upper"</span>)</a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="kw"><a href="../reference/rbin_factor_create.html">rbin_factor_create</a></span>(out, education)</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; # A tibble: 4,521 x 19</span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt;      age job   marital default balance housing loan  contact   day month</span></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt;    &lt;int&gt; &lt;fct&gt; &lt;fct&gt;   &lt;fct&gt;     &lt;dbl&gt; &lt;fct&gt;   &lt;fct&gt; &lt;fct&gt;   &lt;int&gt; &lt;fct&gt;</span></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt;  1    34 tech~ married no          297 yes     no    cellul~    29 jan  </span></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt;  2    49 serv~ married no          180 yes     yes   unknown     2 jun  </span></a>
-<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt;  3    38 admi~ single  no          262 no      no    cellul~     3 feb  </span></a>
-<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co">#&gt;  4    47 serv~ married no          367 yes     no    cellul~    12 may  </span></a>
-<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="co">#&gt;  5    51 self~ single  no         1640 yes     no    unknown    15 may  </span></a>
-<a class="sourceLine" id="cb7-12" data-line-number="12"><span class="co">#&gt;  6    40 unem~ married no         3382 yes     no    unknown    14 may  </span></a>
-<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="co">#&gt;  7    58 reti~ married no         1227 no      no    cellul~    14 aug  </span></a>
-<a class="sourceLine" id="cb7-14" data-line-number="14"><span class="co">#&gt;  8    32 unem~ married no          309 yes     no    teleph~    13 may  </span></a>
-<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="co">#&gt;  9    46 blue~ married no          922 yes     no    teleph~    18 nov  </span></a>
-<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="co">#&gt; 10    32 serv~ married no            0 no      no    cellul~    21 nov  </span></a>
-<a class="sourceLine" id="cb7-17" data-line-number="17"><span class="co">#&gt; # ... with 4,511 more rows, and 9 more variables: duration &lt;int&gt;,</span></a>
-<a class="sourceLine" id="cb7-18" data-line-number="18"><span class="co">#&gt; #   campaign &lt;int&gt;, pdays &lt;int&gt;, previous &lt;int&gt;, poutcome &lt;fct&gt;, y &lt;fct&gt;,</span></a>
-<a class="sourceLine" id="cb7-19" data-line-number="19"><span class="co">#&gt; #   education &lt;fct&gt;, education_unknown &lt;dbl&gt;, education_upper &lt;dbl&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">upper &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"secondary"</span>, <span class="st">"tertiary"</span>)</a>
+<a class="sourceLine" id="cb7-2" title="2">out &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbin_factor_combine.html">rbin_factor_combine</a></span>(mbank, education, upper, <span class="st">"upper"</span>)</a>
+<a class="sourceLine" id="cb7-3" title="3"><span class="kw"><a href="../reference/rbin_factor_create.html">rbin_factor_create</a></span>(out, education)</a>
+<a class="sourceLine" id="cb7-4" title="4"><span class="co">#&gt; # A tibble: 4,521 x 19</span></a>
+<a class="sourceLine" id="cb7-5" title="5"><span class="co">#&gt;      age job   marital default balance housing loan  contact   day month</span></a>
+<a class="sourceLine" id="cb7-6" title="6"><span class="co">#&gt;    &lt;int&gt; &lt;fct&gt; &lt;fct&gt;   &lt;fct&gt;     &lt;dbl&gt; &lt;fct&gt;   &lt;fct&gt; &lt;fct&gt;   &lt;int&gt; &lt;fct&gt;</span></a>
+<a class="sourceLine" id="cb7-7" title="7"><span class="co">#&gt;  1    34 tech~ married no          297 yes     no    cellul~    29 jan  </span></a>
+<a class="sourceLine" id="cb7-8" title="8"><span class="co">#&gt;  2    49 serv~ married no          180 yes     yes   unknown     2 jun  </span></a>
+<a class="sourceLine" id="cb7-9" title="9"><span class="co">#&gt;  3    38 admi~ single  no          262 no      no    cellul~     3 feb  </span></a>
+<a class="sourceLine" id="cb7-10" title="10"><span class="co">#&gt;  4    47 serv~ married no          367 yes     no    cellul~    12 may  </span></a>
+<a class="sourceLine" id="cb7-11" title="11"><span class="co">#&gt;  5    51 self~ single  no         1640 yes     no    unknown    15 may  </span></a>
+<a class="sourceLine" id="cb7-12" title="12"><span class="co">#&gt;  6    40 unem~ married no         3382 yes     no    unknown    14 may  </span></a>
+<a class="sourceLine" id="cb7-13" title="13"><span class="co">#&gt;  7    58 reti~ married no         1227 no      no    cellul~    14 aug  </span></a>
+<a class="sourceLine" id="cb7-14" title="14"><span class="co">#&gt;  8    32 unem~ married no          309 yes     no    teleph~    13 may  </span></a>
+<a class="sourceLine" id="cb7-15" title="15"><span class="co">#&gt;  9    46 blue~ married no          922 yes     no    teleph~    18 nov  </span></a>
+<a class="sourceLine" id="cb7-16" title="16"><span class="co">#&gt; 10    32 serv~ married no            0 no      no    cellul~    21 nov  </span></a>
+<a class="sourceLine" id="cb7-17" title="17"><span class="co">#&gt; # ... with 4,511 more rows, and 9 more variables: duration &lt;int&gt;,</span></a>
+<a class="sourceLine" id="cb7-18" title="18"><span class="co">#&gt; #   campaign &lt;int&gt;, pdays &lt;int&gt;, previous &lt;int&gt;, poutcome &lt;fct&gt;, y &lt;fct&gt;,</span></a>
+<a class="sourceLine" id="cb7-19" title="19"><span class="co">#&gt; #   education &lt;fct&gt;, education_unknown &lt;dbl&gt;, education_upper &lt;dbl&gt;</span></a></code></pre></div>
 </div>
 </div>
 <div id="quantile-binning" class="section level2">
 <h2 class="hasAnchor">
 <a href="#quantile-binning" class="anchor"></a>Quantile Binning</h2>
 <p>Quantile binning aims to bin the data into roughly equal groups using quantiles.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">bins &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbin_quantiles.html">rbin_quantiles</a></span>(mbank, y, age, <span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">bins</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt; Binning Summary</span></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt; -----------------------------</span></a>
-<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt; Method               Quantile </span></a>
-<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt; Response             y </span></a>
-<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt; Predictor            age </span></a>
-<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt; Bins                 10 </span></a>
-<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt; Count                4521 </span></a>
-<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">#&gt; Goods                517 </span></a>
-<a class="sourceLine" id="cb8-11" data-line-number="11"><span class="co">#&gt; Bads                 4004 </span></a>
-<a class="sourceLine" id="cb8-12" data-line-number="12"><span class="co">#&gt; Entropy              0.5 </span></a>
-<a class="sourceLine" id="cb8-13" data-line-number="13"><span class="co">#&gt; Information Value    0.12 </span></a>
-<a class="sourceLine" id="cb8-14" data-line-number="14"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-16" data-line-number="16"><span class="co">#&gt; # A tibble: 10 x 7</span></a>
-<a class="sourceLine" id="cb8-17" data-line-number="17"><span class="co">#&gt;    cut_point bin_count  good   bad      woe         iv entropy</span></a>
-<a class="sourceLine" id="cb8-18" data-line-number="18"><span class="co">#&gt;    &lt;chr&gt;         &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb8-19" data-line-number="19"><span class="co">#&gt;  1 &lt; 29            410    71   339 -0.484   0.0255       0.665</span></a>
-<a class="sourceLine" id="cb8-20" data-line-number="20"><span class="co">#&gt;  2 &lt; 31            313    41   272 -0.155   0.00176      0.560</span></a>
-<a class="sourceLine" id="cb8-21" data-line-number="21"><span class="co">#&gt;  3 &lt; 34            567    55   512  0.184   0.00395      0.459</span></a>
-<a class="sourceLine" id="cb8-22" data-line-number="22"><span class="co">#&gt;  4 &lt; 36            396    45   351  0.00712 0.00000443   0.511</span></a>
-<a class="sourceLine" id="cb8-23" data-line-number="23"><span class="co">#&gt;  5 &lt; 39            519    47   472  0.260   0.00701      0.438</span></a>
-<a class="sourceLine" id="cb8-24" data-line-number="24"><span class="co">#&gt;  6 &lt; 42            431    33   398  0.443   0.0158       0.390</span></a>
-<a class="sourceLine" id="cb8-25" data-line-number="25"><span class="co">#&gt;  7 &lt; 46            449    47   402  0.0993  0.000942     0.484</span></a>
-<a class="sourceLine" id="cb8-26" data-line-number="26"><span class="co">#&gt;  8 &lt; 51            521    40   481  0.440   0.0188       0.391</span></a>
-<a class="sourceLine" id="cb8-27" data-line-number="27"><span class="co">#&gt;  9 &lt; 56            445    49   396  0.0426  0.000176     0.500</span></a>
-<a class="sourceLine" id="cb8-28" data-line-number="28"><span class="co">#&gt; 10 &gt;= 56           470    89   381 -0.593   0.0456       0.700</span></a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">bins &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbin_quantiles.html">rbin_quantiles</a></span>(mbank, y, age, <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb8-2" title="2">bins</a>
+<a class="sourceLine" id="cb8-3" title="3"><span class="co">#&gt; Binning Summary</span></a>
+<a class="sourceLine" id="cb8-4" title="4"><span class="co">#&gt; -----------------------------</span></a>
+<a class="sourceLine" id="cb8-5" title="5"><span class="co">#&gt; Method               Quantile </span></a>
+<a class="sourceLine" id="cb8-6" title="6"><span class="co">#&gt; Response             y </span></a>
+<a class="sourceLine" id="cb8-7" title="7"><span class="co">#&gt; Predictor            age </span></a>
+<a class="sourceLine" id="cb8-8" title="8"><span class="co">#&gt; Bins                 10 </span></a>
+<a class="sourceLine" id="cb8-9" title="9"><span class="co">#&gt; Count                4521 </span></a>
+<a class="sourceLine" id="cb8-10" title="10"><span class="co">#&gt; Goods                517 </span></a>
+<a class="sourceLine" id="cb8-11" title="11"><span class="co">#&gt; Bads                 4004 </span></a>
+<a class="sourceLine" id="cb8-12" title="12"><span class="co">#&gt; Entropy              0.5 </span></a>
+<a class="sourceLine" id="cb8-13" title="13"><span class="co">#&gt; Information Value    0.12 </span></a>
+<a class="sourceLine" id="cb8-14" title="14"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb8-15" title="15"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb8-16" title="16"><span class="co">#&gt; # A tibble: 10 x 7</span></a>
+<a class="sourceLine" id="cb8-17" title="17"><span class="co">#&gt;    cut_point bin_count  good   bad      woe         iv entropy</span></a>
+<a class="sourceLine" id="cb8-18" title="18"><span class="co">#&gt;    &lt;chr&gt;         &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb8-19" title="19"><span class="co">#&gt;  1 &lt; 29            410    71   339 -0.484   0.0255       0.665</span></a>
+<a class="sourceLine" id="cb8-20" title="20"><span class="co">#&gt;  2 &lt; 31            313    41   272 -0.155   0.00176      0.560</span></a>
+<a class="sourceLine" id="cb8-21" title="21"><span class="co">#&gt;  3 &lt; 34            567    55   512  0.184   0.00395      0.459</span></a>
+<a class="sourceLine" id="cb8-22" title="22"><span class="co">#&gt;  4 &lt; 36            396    45   351  0.00712 0.00000443   0.511</span></a>
+<a class="sourceLine" id="cb8-23" title="23"><span class="co">#&gt;  5 &lt; 39            519    47   472  0.260   0.00701      0.438</span></a>
+<a class="sourceLine" id="cb8-24" title="24"><span class="co">#&gt;  6 &lt; 42            431    33   398  0.443   0.0158       0.390</span></a>
+<a class="sourceLine" id="cb8-25" title="25"><span class="co">#&gt;  7 &lt; 46            449    47   402  0.0993  0.000942     0.484</span></a>
+<a class="sourceLine" id="cb8-26" title="26"><span class="co">#&gt;  8 &lt; 51            521    40   481  0.440   0.0188       0.391</span></a>
+<a class="sourceLine" id="cb8-27" title="27"><span class="co">#&gt;  9 &lt; 56            445    49   396  0.0426  0.000176     0.500</span></a>
+<a class="sourceLine" id="cb8-28" title="28"><span class="co">#&gt; 10 &gt;= 56           470    89   381 -0.593   0.0456       0.700</span></a></code></pre></div>
 <div id="plot-2" class="section level4">
 <h4 class="hasAnchor">
 <a href="#plot-2" class="anchor"></a>Plot</h4>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="co"># plot</span></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(bins)</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="co"># plot</span></a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(bins)</a></code></pre></div>
 <p><img src="introduction_files/figure-html/quantile_plot-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 </div>
@@ -305,39 +307,39 @@
 <h2 class="hasAnchor">
 <a href="#equal-length-binning" class="anchor"></a>Equal Length Binning</h2>
 <p>Equal length binning creates bins of equal widths. It is different from equal frequency binning which creates bins of equal size.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">bins &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbin_equal_length.html">rbin_equal_length</a></span>(mbank, y, age, <span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2">bins</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt; Binning Summary</span></a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt; ---------------------------------</span></a>
-<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt; Method               Equal Length </span></a>
-<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co">#&gt; Response             y </span></a>
-<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">#&gt; Predictor            age </span></a>
-<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">#&gt; Bins                 10 </span></a>
-<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co">#&gt; Count                4521 </span></a>
-<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="co">#&gt; Goods                517 </span></a>
-<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#&gt; Bads                 4004 </span></a>
-<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="co">#&gt; Entropy              0.5 </span></a>
-<a class="sourceLine" id="cb10-13" data-line-number="13"><span class="co">#&gt; Information Value    0.17 </span></a>
-<a class="sourceLine" id="cb10-14" data-line-number="14"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-15" data-line-number="15"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-16" data-line-number="16"><span class="co">#&gt; # A tibble: 10 x 7</span></a>
-<a class="sourceLine" id="cb10-17" data-line-number="17"><span class="co">#&gt;    cut_point bin_count  good   bad     woe       iv entropy</span></a>
-<a class="sourceLine" id="cb10-18" data-line-number="18"><span class="co">#&gt;    &lt;chr&gt;         &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb10-19" data-line-number="19"><span class="co">#&gt;  1 &lt; 24.6           85    24    61 -1.11   0.0347     0.859</span></a>
-<a class="sourceLine" id="cb10-20" data-line-number="20"><span class="co">#&gt;  2 &lt; 31.2          822   106   716 -0.137  0.00358    0.555</span></a>
-<a class="sourceLine" id="cb10-21" data-line-number="21"><span class="co">#&gt;  3 &lt; 37.8         1133   115  1018  0.134  0.00425    0.474</span></a>
-<a class="sourceLine" id="cb10-22" data-line-number="22"><span class="co">#&gt;  4 &lt; 44.4          943    82   861  0.304  0.0172     0.426</span></a>
-<a class="sourceLine" id="cb10-23" data-line-number="23"><span class="co">#&gt;  5 &lt; 51            623    52   571  0.349  0.0147     0.414</span></a>
-<a class="sourceLine" id="cb10-24" data-line-number="24"><span class="co">#&gt;  6 &lt; 57.6          612    66   546  0.0660 0.000574   0.493</span></a>
-<a class="sourceLine" id="cb10-25" data-line-number="25"><span class="co">#&gt;  7 &lt; 64.2          229    43   186 -0.582  0.0214     0.697</span></a>
-<a class="sourceLine" id="cb10-26" data-line-number="26"><span class="co">#&gt;  8 &lt; 70.8           34    12    22 -1.44   0.0255     0.937</span></a>
-<a class="sourceLine" id="cb10-27" data-line-number="27"><span class="co">#&gt;  9 &lt; 77.4           25    13    12 -2.13   0.0471     0.999</span></a>
-<a class="sourceLine" id="cb10-28" data-line-number="28"><span class="co">#&gt; 10 &gt;= 77.4          15     4    11 -1.04   0.00517    0.837</span></a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">bins &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbin_equal_length.html">rbin_equal_length</a></span>(mbank, y, age, <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb10-2" title="2">bins</a>
+<a class="sourceLine" id="cb10-3" title="3"><span class="co">#&gt; Binning Summary</span></a>
+<a class="sourceLine" id="cb10-4" title="4"><span class="co">#&gt; ---------------------------------</span></a>
+<a class="sourceLine" id="cb10-5" title="5"><span class="co">#&gt; Method               Equal Length </span></a>
+<a class="sourceLine" id="cb10-6" title="6"><span class="co">#&gt; Response             y </span></a>
+<a class="sourceLine" id="cb10-7" title="7"><span class="co">#&gt; Predictor            age </span></a>
+<a class="sourceLine" id="cb10-8" title="8"><span class="co">#&gt; Bins                 10 </span></a>
+<a class="sourceLine" id="cb10-9" title="9"><span class="co">#&gt; Count                4521 </span></a>
+<a class="sourceLine" id="cb10-10" title="10"><span class="co">#&gt; Goods                517 </span></a>
+<a class="sourceLine" id="cb10-11" title="11"><span class="co">#&gt; Bads                 4004 </span></a>
+<a class="sourceLine" id="cb10-12" title="12"><span class="co">#&gt; Entropy              0.5 </span></a>
+<a class="sourceLine" id="cb10-13" title="13"><span class="co">#&gt; Information Value    0.17 </span></a>
+<a class="sourceLine" id="cb10-14" title="14"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-15" title="15"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-16" title="16"><span class="co">#&gt; # A tibble: 10 x 7</span></a>
+<a class="sourceLine" id="cb10-17" title="17"><span class="co">#&gt;    cut_point bin_count  good   bad     woe       iv entropy</span></a>
+<a class="sourceLine" id="cb10-18" title="18"><span class="co">#&gt;    &lt;chr&gt;         &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb10-19" title="19"><span class="co">#&gt;  1 &lt; 24.6           85    24    61 -1.11   0.0347     0.859</span></a>
+<a class="sourceLine" id="cb10-20" title="20"><span class="co">#&gt;  2 &lt; 31.2          822   106   716 -0.137  0.00358    0.555</span></a>
+<a class="sourceLine" id="cb10-21" title="21"><span class="co">#&gt;  3 &lt; 37.8         1133   115  1018  0.134  0.00425    0.474</span></a>
+<a class="sourceLine" id="cb10-22" title="22"><span class="co">#&gt;  4 &lt; 44.4          943    82   861  0.304  0.0172     0.426</span></a>
+<a class="sourceLine" id="cb10-23" title="23"><span class="co">#&gt;  5 &lt; 51            623    52   571  0.349  0.0147     0.414</span></a>
+<a class="sourceLine" id="cb10-24" title="24"><span class="co">#&gt;  6 &lt; 57.6          612    66   546  0.0660 0.000574   0.493</span></a>
+<a class="sourceLine" id="cb10-25" title="25"><span class="co">#&gt;  7 &lt; 64.2          229    43   186 -0.582  0.0214     0.697</span></a>
+<a class="sourceLine" id="cb10-26" title="26"><span class="co">#&gt;  8 &lt; 70.8           34    12    22 -1.44   0.0255     0.937</span></a>
+<a class="sourceLine" id="cb10-27" title="27"><span class="co">#&gt;  9 &lt; 77.4           25    13    12 -2.13   0.0471     0.999</span></a>
+<a class="sourceLine" id="cb10-28" title="28"><span class="co">#&gt; 10 &gt;= 77.4          15     4    11 -1.04   0.00517    0.837</span></a></code></pre></div>
 <div id="plot-3" class="section level4">
 <h4 class="hasAnchor">
 <a href="#plot-3" class="anchor"></a>Plot</h4>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="co"># plot</span></a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(bins)</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="co"># plot</span></a>
+<a class="sourceLine" id="cb11-2" title="2"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(bins)</a></code></pre></div>
 <p><img src="introduction_files/figure-html/equal_length_plot-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 </div>
@@ -345,39 +347,39 @@
 <h2 class="hasAnchor">
 <a href="#winsorized-binning" class="anchor"></a>Winsorized Binning</h2>
 <p>Winsorized binning is similar to equal length binning except that both tails are cut off to obtain a smooth binning result. This technique is often used to remove outliers during the data pre-processing stage. For Winsorized binning, the Winsorized statistics are computed first. After the minimum and maximum have been found, the split points are calculated the same way as in equal length binning.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">bins &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbin_winsorize.html">rbin_winsorize</a></span>(mbank, y, age, <span class="dv">10</span>, <span class="dt">winsor_rate =</span> <span class="fl">0.05</span>)</a>
-<a class="sourceLine" id="cb12-2" data-line-number="2">bins</a>
-<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="co">#&gt; Binning Summary</span></a>
-<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">#&gt; ------------------------------</span></a>
-<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="co">#&gt; Method               Winsorize </span></a>
-<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="co">#&gt; Response             y </span></a>
-<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="co">#&gt; Predictor            age </span></a>
-<a class="sourceLine" id="cb12-8" data-line-number="8"><span class="co">#&gt; Bins                 10 </span></a>
-<a class="sourceLine" id="cb12-9" data-line-number="9"><span class="co">#&gt; Count                4521 </span></a>
-<a class="sourceLine" id="cb12-10" data-line-number="10"><span class="co">#&gt; Goods                517 </span></a>
-<a class="sourceLine" id="cb12-11" data-line-number="11"><span class="co">#&gt; Bads                 4004 </span></a>
-<a class="sourceLine" id="cb12-12" data-line-number="12"><span class="co">#&gt; Entropy              0.51 </span></a>
-<a class="sourceLine" id="cb12-13" data-line-number="13"><span class="co">#&gt; Information Value    0.1 </span></a>
-<a class="sourceLine" id="cb12-14" data-line-number="14"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb12-15" data-line-number="15"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb12-16" data-line-number="16"><span class="co">#&gt; # A tibble: 10 x 7</span></a>
-<a class="sourceLine" id="cb12-17" data-line-number="17"><span class="co">#&gt;    cut_point bin_count  good   bad    woe       iv entropy</span></a>
-<a class="sourceLine" id="cb12-18" data-line-number="18"><span class="co">#&gt;    &lt;chr&gt;         &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb12-19" data-line-number="19"><span class="co">#&gt;  1 &lt; 30.2          723   112   611 -0.350 0.0224     0.622</span></a>
-<a class="sourceLine" id="cb12-20" data-line-number="20"><span class="co">#&gt;  2 &lt; 33.4          567    55   512  0.184 0.00395    0.459</span></a>
-<a class="sourceLine" id="cb12-21" data-line-number="21"><span class="co">#&gt;  3 &lt; 36.6          573    58   515  0.137 0.00225    0.473</span></a>
-<a class="sourceLine" id="cb12-22" data-line-number="22"><span class="co">#&gt;  4 &lt; 39.8          497    44   453  0.285 0.00798    0.432</span></a>
-<a class="sourceLine" id="cb12-23" data-line-number="23"><span class="co">#&gt;  5 &lt; 43            396    37   359  0.225 0.00408    0.448</span></a>
-<a class="sourceLine" id="cb12-24" data-line-number="24"><span class="co">#&gt;  6 &lt; 46.2          461    43   418  0.227 0.00482    0.447</span></a>
-<a class="sourceLine" id="cb12-25" data-line-number="25"><span class="co">#&gt;  7 &lt; 49.4          281    22   259  0.419 0.00927    0.396</span></a>
-<a class="sourceLine" id="cb12-26" data-line-number="26"><span class="co">#&gt;  8 &lt; 52.6          309    32   277  0.111 0.000811   0.480</span></a>
-<a class="sourceLine" id="cb12-27" data-line-number="27"><span class="co">#&gt;  9 &lt; 55.8          244    25   219  0.123 0.000781   0.477</span></a>
-<a class="sourceLine" id="cb12-28" data-line-number="28"><span class="co">#&gt; 10 &gt;= 55.8         470    89   381 -0.593 0.0456     0.700</span></a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">bins &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbin_winsorize.html">rbin_winsorize</a></span>(mbank, y, age, <span class="dv">10</span>, <span class="dt">winsor_rate =</span> <span class="fl">0.05</span>)</a>
+<a class="sourceLine" id="cb12-2" title="2">bins</a>
+<a class="sourceLine" id="cb12-3" title="3"><span class="co">#&gt; Binning Summary</span></a>
+<a class="sourceLine" id="cb12-4" title="4"><span class="co">#&gt; ------------------------------</span></a>
+<a class="sourceLine" id="cb12-5" title="5"><span class="co">#&gt; Method               Winsorize </span></a>
+<a class="sourceLine" id="cb12-6" title="6"><span class="co">#&gt; Response             y </span></a>
+<a class="sourceLine" id="cb12-7" title="7"><span class="co">#&gt; Predictor            age </span></a>
+<a class="sourceLine" id="cb12-8" title="8"><span class="co">#&gt; Bins                 10 </span></a>
+<a class="sourceLine" id="cb12-9" title="9"><span class="co">#&gt; Count                4521 </span></a>
+<a class="sourceLine" id="cb12-10" title="10"><span class="co">#&gt; Goods                517 </span></a>
+<a class="sourceLine" id="cb12-11" title="11"><span class="co">#&gt; Bads                 4004 </span></a>
+<a class="sourceLine" id="cb12-12" title="12"><span class="co">#&gt; Entropy              0.51 </span></a>
+<a class="sourceLine" id="cb12-13" title="13"><span class="co">#&gt; Information Value    0.1 </span></a>
+<a class="sourceLine" id="cb12-14" title="14"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb12-15" title="15"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb12-16" title="16"><span class="co">#&gt; # A tibble: 10 x 7</span></a>
+<a class="sourceLine" id="cb12-17" title="17"><span class="co">#&gt;    cut_point bin_count  good   bad    woe       iv entropy</span></a>
+<a class="sourceLine" id="cb12-18" title="18"><span class="co">#&gt;    &lt;chr&gt;         &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb12-19" title="19"><span class="co">#&gt;  1 &lt; 30.2          723   112   611 -0.350 0.0224     0.622</span></a>
+<a class="sourceLine" id="cb12-20" title="20"><span class="co">#&gt;  2 &lt; 33.4          567    55   512  0.184 0.00395    0.459</span></a>
+<a class="sourceLine" id="cb12-21" title="21"><span class="co">#&gt;  3 &lt; 36.6          573    58   515  0.137 0.00225    0.473</span></a>
+<a class="sourceLine" id="cb12-22" title="22"><span class="co">#&gt;  4 &lt; 39.8          497    44   453  0.285 0.00798    0.432</span></a>
+<a class="sourceLine" id="cb12-23" title="23"><span class="co">#&gt;  5 &lt; 43            396    37   359  0.225 0.00408    0.448</span></a>
+<a class="sourceLine" id="cb12-24" title="24"><span class="co">#&gt;  6 &lt; 46.2          461    43   418  0.227 0.00482    0.447</span></a>
+<a class="sourceLine" id="cb12-25" title="25"><span class="co">#&gt;  7 &lt; 49.4          281    22   259  0.419 0.00927    0.396</span></a>
+<a class="sourceLine" id="cb12-26" title="26"><span class="co">#&gt;  8 &lt; 52.6          309    32   277  0.111 0.000811   0.480</span></a>
+<a class="sourceLine" id="cb12-27" title="27"><span class="co">#&gt;  9 &lt; 55.8          244    25   219  0.123 0.000781   0.477</span></a>
+<a class="sourceLine" id="cb12-28" title="28"><span class="co">#&gt; 10 &gt;= 55.8         470    89   381 -0.593 0.0456     0.700</span></a></code></pre></div>
 <div id="plot-4" class="section level4">
 <h4 class="hasAnchor">
 <a href="#plot-4" class="anchor"></a>Plot</h4>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co"># plot</span></a>
-<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(bins)</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="co"># plot</span></a>
+<a class="sourceLine" id="cb13-2" title="2"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(bins)</a></code></pre></div>
 <p><img src="introduction_files/figure-html/winsorize_plot-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 </div>
@@ -401,17 +403,20 @@
 </div>
 
 
+
       <footer><div class="copyright">
   <p>Developed by <a href="https://www.aravindhebbali.com">Aravind Hebbali</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>
