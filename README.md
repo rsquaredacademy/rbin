@@ -3,8 +3,7 @@
 
 # rbin
 
-> Tools for binning
-data
+> Tools for binning data
 
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/rbin)](https://cran.r-project.org/package=rbin)
 [![cran
@@ -14,7 +13,7 @@ Status](https://travis-ci.org/rsquaredacademy/rbin.svg?branch=master)](https://t
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/rsquaredacademy/rbin?branch=master&svg=true)](https://ci.appveyor.com/project/aravindhebbali/rbin)
 [![Coverage
-status](https://codecov.io/gh/rsquaredacademy/rbin/branch/master/graph/badge.svg)](https://codecov.io/github/rsquaredacademy/rbin?branch=master)  
+status](https://codecov.io/gh/rsquaredacademy/rbin/branch/master/graph/badge.svg)](https://codecov.io/github/rsquaredacademy/rbin?branch=master)
 [![](https://cranlogs.r-pkg.org/badges/grand-total/rbin)](https://cran.r-project.org/package=rbin)
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 
@@ -31,8 +30,7 @@ devtools::install_github("rsquaredacademy/rbin")
 
 ## Addins
 
-rbin includes two addins for manually binning
-data:
+rbin includes two addins for manually binning data:
 
   - `rbinAddin()`
   - `rbinFactorAddin()`
@@ -239,8 +237,8 @@ plot(bins)
   - [woeBinning](https://CRAN.R-project.org/package=woeBinning)
   - [binr](https://CRAN.R-project.org/package=binr)
 
-## Community Guidelines
+## Code of Conduct
 
-Please note that the ‘rbin’ project is released with a [Contributor Code
-of Conduct](CODE_OF_CONDUCT.md). By contributing to this project, you
-agree to abide by its terms.
+Please note that this project is released with a [Contributor Code of
+Conduct](CONDUCT.md). By participating in this project you agree to
+abide by its terms.
