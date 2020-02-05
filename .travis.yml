@@ -7,7 +7,6 @@ sudo: false
 
 matrix:
   include:
-  - r: oldrel 
   - r: release
   - r: release
     os: osx
