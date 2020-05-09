@@ -39,3 +39,4 @@ Suggests:
 VignetteBuilder: knitr
 Remotes:
     tidyverse/dplyr
+    r-lib/vctrs
