@@ -13,6 +13,10 @@
 #'
 rbinAddin <- function(data = NULL) {
 
+  check_suggests('shiny')
+  check_suggests('miniUI')
+  check_suggests('rstudioapi')
+
 	context <- rstudioapi::getActiveDocumentContext()
   text <- context$selection[[1]]$text
   default_data <- text
@@ -20,7 +24,7 @@ rbinAddin <- function(data = NULL) {
     if (is.null(data)) {
          if (nzchar(default_data)) {
               data <- default_data
-         } 
+         }
     }
 
     if (any(class(data) %in% c("data.frame","tibble","tbl_df"))) {
@@ -48,7 +52,7 @@ rbinAddin <- function(data = NULL) {
 			  					shiny::textInput("mydata", "Data Name", value = mydata)
 			  				)
 			  			)
-        
+
 						)
 		  		)
         )
@@ -71,10 +75,10 @@ rbinAddin <- function(data = NULL) {
       	  	shiny::fluidRow(
       	  	  shiny::column(4,
       	  	  	shiny::h4('Cut Points'),
-			    			shiny::p('For manual binning, you need to specify the cut points for the bins. `rbin` 
-			    								follows the left closed and right open interval for creating bins. The 
-                          number of cut points you specify is one less than the number of bins you 
-                          want to create i.e. if you want to create 10 bins, you need to specify only 
+			    			shiny::p('For manual binning, you need to specify the cut points for the bins. `rbin`
+			    								follows the left closed and right open interval for creating bins. The
+                          number of cut points you specify is one less than the number of bins you
+                          want to create i.e. if you want to create 10 bins, you need to specify only
                           9 cut points. View the vignette or documentation for more information.')
       	  	  	),
       	  	  shiny::column(8, align = 'center',
@@ -86,7 +90,7 @@ rbinAddin <- function(data = NULL) {
 				      	shiny::actionButton("create_bins", "Create Bins")
 		      		)
 		    		)
-		  		)   
+		  		)
       	)
       ),
       miniUI::miniTabPanel("Bins", icon = shiny::icon("table"),
@@ -112,7 +116,7 @@ rbinAddin <- function(data = NULL) {
       	)
       )
     )
-  
+
 
   server <- function(input, output, session) {
 
@@ -177,7 +181,7 @@ rbinAddin <- function(data = NULL) {
 	})
 
 	output$woe_manual <- shiny::renderPrint({
-	  compute_bins() 
+	  compute_bins()
 	})
 
 	output$woe <- shiny::renderPlot({
@@ -220,7 +224,7 @@ rbinFactorAddin <- function(data = NULL) {
     if (is.null(data)) {
          if(nzchar(default_data)) {
               data <- default_data
-         } 
+         }
     }
 
     if (any(class(data) %in% c("data.frame","tibble","tbl_df"))) {

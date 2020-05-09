@@ -20,22 +20,22 @@ Imports:
     dplyr (>= 0.8.99.9002),
     forcats,
     ggplot2,
-    graphics,
     magrittr,
-    miniUI,
     recipes,
     rlang,
-    rstudioapi,
-    shiny,
     stats,
     tibble,
     utils
 Suggests:
     covr,
+    graphics,
+    knitr.
+    miniUI,
+    rmarkdown,
+    rstudioapi,
+    shiny
     testthat,
-    vdiffr,
-    knitr,
-    rmarkdown
+    vdiffr
 VignetteBuilder: knitr
 Remotes:
     tidyverse/dplyr,

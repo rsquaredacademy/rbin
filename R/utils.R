@@ -20,7 +20,7 @@ bin_create <- function(bm) {
       woe             = log(bad_dist / good_dist),
       dist_diff       = bad_dist - good_dist,
       iv              = dist_diff * woe,
-      entropy         = (-1) * (((good / bin_count) * log2(good / bin_count)) + 
+      entropy         = (-1) * (((good / bin_count) * log2(good / bin_count)) +
         ((bad / bin_count) * log2(bad / bin_count))) ,
       prop_entropy    = (bin_count / sum(bin_count)) * entropy
     )
@@ -70,7 +70,7 @@ freq_bin_create <- function(bm, bin_rep) {
       woe             = log(bad_dist / good_dist),
       dist_diff       = bad_dist - good_dist,
       iv              = dist_diff * woe,
-      entropy         = (-1) * (((good / bin_count) * log2(good / bin_count)) + 
+      entropy         = (-1) * (((good / bin_count) * log2(good / bin_count)) +
         ((bad / bin_count) * log2(bad / bin_count))) ,
       prop_entropy    = (bin_count / sum(bin_count)) * entropy
     )
@@ -79,13 +79,13 @@ freq_bin_create <- function(bm, bin_rep) {
 
 
 plot_bins <- function(x) {
-  
-  xseq <- 
+
+  xseq <-
     x %>%
     magrittr::use_series(bins) %>%
     nrow()
-  
-  p <- 
+
+  p <-
     x %>%
     magrittr::use_series(bins) %>%
     ggplot2::ggplot() +
@@ -95,5 +95,28 @@ plot_bins <- function(x) {
     ggplot2::scale_x_continuous(breaks = seq(xseq))
 
   return(p)
-  
+
+}
+
+#' @importFrom utils packageVersion menu install.packages
+check_suggests <- function(pkg) {
+
+  pkg_flag <- tryCatch(utils::packageVersion(pkg), error = function(e) NA)
+
+  if (is.na(pkg_flag)) {
+
+    msg <- message(paste0('\n', pkg, ' must be installed for this functionality.'))
+
+    if (interactive()) {
+      message(msg, "\nWould you like to install it?")
+      if (utils::menu(c("Yes", "No")) == 1) {
+        utils::install.packages(pkg)
+      } else {
+        stop(msg, call. = FALSE)
+      }
+    } else {
+      stop(msg, call. = FALSE)
+    }
+  }
+
 }
