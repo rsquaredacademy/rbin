@@ -17,7 +17,7 @@ LazyData: true
 RoxygenNote: 6.1.1
 Imports: 
     DescTools,
-    dplyr,
+    dplyr (>= 0.8.99.9002),
     forcats,
     ggplot2,
     graphics,
@@ -37,3 +37,5 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+Remotes:
+    tidyverse/dplyr

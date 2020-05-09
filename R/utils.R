@@ -4,7 +4,7 @@ bin_create <- function(bm) {
     dplyr::arrange(predictor) %>%
     dplyr::group_by(bin) %>%
     dplyr::summarise(
-      bin_count = n(),
+      bin_count = dplyr::n(),
       good      = sum(response == 1),
       bad       = sum(response == 0)
     ) %>%
@@ -54,7 +54,7 @@ freq_bin_create <- function(bm, bin_rep) {
     ) %>%
     dplyr::group_by(bin) %>%
     dplyr::summarise(
-      bin_count = n(),
+      bin_count = dplyr::n(),
       good      = sum(response == 1),
       bad       = sum(response == 0)
     ) %>%

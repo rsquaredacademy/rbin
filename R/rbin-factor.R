@@ -99,7 +99,7 @@ rbin_factor.default <- function(data = NULL, response = NULL, predictor = NULL, 
   bm %<>%
     dplyr::group_by(predictor) %>%
     dplyr::summarise(
-      bin_count = n(),
+      bin_count = dplyr::n(),
       good      = sum(response == 1),
       bad       = sum(response == 0)
     ) %>%
