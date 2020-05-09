@@ -38,5 +38,5 @@ Suggests:
     rmarkdown
 VignetteBuilder: knitr
 Remotes:
-    tidyverse/dplyr
+    tidyverse/dplyr,
     r-lib/vctrs
