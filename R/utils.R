@@ -1,4 +1,5 @@
-#' @importFrom data.table data.table := setDF setorder
+#' @importFrom data.table data.table := setDF setorder .N
+#' @importFrom stats na.omit
 bin_create <- function(bm) {
 
   bm <- data.table(bm)
@@ -54,7 +55,7 @@ freq_bin_create <- function(bm, bin_rep) {
 
 	bm$bin <- bin_rep
 	bin_create(bm)
-  
+
 }
 
 
