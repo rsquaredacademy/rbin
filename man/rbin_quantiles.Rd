@@ -5,8 +5,13 @@
 \alias{plot.rbin_quantiles}
 \title{Quantile binning}
 \usage{
-rbin_quantiles(data = NULL, response = NULL, predictor = NULL,
-  bins = 10, include_na = TRUE)
+rbin_quantiles(
+  data = NULL,
+  response = NULL,
+  predictor = NULL,
+  bins = 10,
+  include_na = TRUE
+)
 
 \method{plot}{rbin_quantiles}(x, print_plot = TRUE, ...)
 }

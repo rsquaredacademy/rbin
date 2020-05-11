@@ -5,9 +5,16 @@
 \alias{plot.rbin_winsorize}
 \title{Winsorized binning}
 \usage{
-rbin_winsorize(data = NULL, response = NULL, predictor = NULL,
-  bins = 10, winsor_rate = 0.05, min_val = NULL, max_val = NULL,
-  include_na = TRUE)
+rbin_winsorize(
+  data = NULL,
+  response = NULL,
+  predictor = NULL,
+  bins = 10,
+  winsor_rate = 0.05,
+  min_val = NULL,
+  max_val = NULL,
+  include_na = TRUE
+)
 
 \method{plot}{rbin_winsorize}(x, print_plot = TRUE, ...)
 }

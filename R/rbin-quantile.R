@@ -28,26 +28,19 @@ rbin_quantiles <- function(data = NULL, response = NULL, predictor = NULL, bins 
 #'
 rbin_quantiles <- function(data = NULL, response = NULL, predictor = NULL, bins = 10, include_na = TRUE) {
 
-  resp <- rlang::enquo(response)
-  pred <- rlang::enquo(predictor)
+  resp <- deparse(substitute(response))
+  pred <- deparse(substitute(predictor))
 
-  var_names <-
-    data %>%
-    dplyr::select(!! resp, !! pred) %>%
-    names()
+  var_names <- names(data[, c(resp, pred)])
+  prep_data <- data[, c(resp, pred)]
 
   if (include_na) {
-    bm <-
-    data %>%
-    dplyr::select(!! resp, !! pred) %>%
-    magrittr::set_colnames(c("response", "predictor"))
+    bm <- prep_data
   } else {
-    bm <-
-    data %>%
-    dplyr::select(!! resp, !! pred) %>%
-    dplyr::filter(!is.na(!! resp), !is.na(!! pred)) %>%
-    magrittr::set_colnames(c("response", "predictor"))
+    bm <- na.omit(prep_data)
   }
+
+  colnames(bm) <- c("response", "predictor")
 
   bm$bin    <- NA
   byd       <- bm$predictor
@@ -65,19 +58,19 @@ rbin_quantiles <- function(data = NULL, response = NULL, predictor = NULL, bins 
 
   if (include_na) {
 
-    na_present <-
-      k %>%
-      nrow() %>%
-      magrittr::is_greater_than(bins)
+    na_present <- nrow(k) > bins
 
     if (na_present) {
-      intervals <- dplyr::add_row(intervals, cut_point = 'NA')
+      intervals <- rbind(intervals, cut_point = 'NA')
     }
 
   }
 
-  result    <- list(bins = dplyr::bind_cols(intervals, k), method = "Quantile", vars = var_names,
-                    lower_cut = l_freq, upper_cut = u_freq)
+  result    <- list(bins = cbind(intervals, k),
+                    method = "Quantile",
+                    vars = var_names,
+                    lower_cut = l_freq,
+                    upper_cut = u_freq)
 
   class(result) <- c("rbin_quantiles", "tibble", "data.frame")
   return(result)
@@ -91,10 +84,7 @@ print.rbin_quantiles <- function(x, ...) {
 
   rbin_print(x)
   cat("\n\n")
-  x %>%
-    magrittr::use_series(bins) %>%
-    dplyr::select(cut_point, bin_count, good, bad, woe, iv, entropy) %>%
-    print()
+  print(x$bins[c('cut_point', 'bin_count', 'good', 'bad', 'woe', 'iv', 'entropy')])
 
 }
 
@@ -106,9 +96,9 @@ plot.rbin_quantiles <- function(x, print_plot = TRUE, ...) {
   p <- plot_bins(x)
   if (print_plot) {
     print(p)
-  } else {
-    return(p)
   }
+
+  return(p)
 
 }
 
@@ -124,7 +114,6 @@ qu_freq <- function(byd, bins) {
 
   cut_points <- cutpoints(byd, bins)
   unname(c(cut_points, (max(byd, na.rm = TRUE) + 1)))
-  # unname(purrr::prepend((max(byd, na.rm = TRUE) + 1), cut_points))
 
 }
 

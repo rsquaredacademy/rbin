@@ -5,8 +5,13 @@
 \alias{plot.rbin_equal_length}
 \title{Equal length binning}
 \usage{
-rbin_equal_length(data = NULL, response = NULL, predictor = NULL,
-  bins = 10, include_na = TRUE)
+rbin_equal_length(
+  data = NULL,
+  response = NULL,
+  predictor = NULL,
+  bins = 10,
+  include_na = TRUE
+)
 
 \method{plot}{rbin_equal_length}(x, print_plot = TRUE, ...)
 }
@@ -39,5 +44,6 @@ bins
 
 # plot
 plot(bins)
+
 
 }

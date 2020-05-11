@@ -16,22 +16,15 @@
 #'
 rbin_create <- function(data, predictor, bins) {
 
-  pred <- rlang::enquo(predictor)
-
-  pred_name <-
-    data %>%
-    dplyr::select(!! pred) %>%
-    names()
-
-  data2 <-
-    data %>%
-    dplyr::select(predictor = !! pred)
+  pred <- deparse(substitute(predictor))
+  data2 <- data[pred]
+  colnames(data2) <- c("predictor")
 
   l_freq <- bins$lower_cut
   u_freq <- bins$upper_cut
   bin_na <- sum(is.na(bins$bins$bin))
   lbins  <- length(bins$bins$bin) - bin_na
-  
+
   data2$binned <- NA
   dummy_names <- bins$bins$cut_point
 
@@ -40,23 +33,13 @@ rbin_create <- function(data, predictor, bins) {
       dummy_names[i]
   }
 
-  bm_rec <- recipes::recipe( ~ ., data = data2)
-
-  binned_data <-
-    bm_rec %>%
-    recipes::step_dummy(binned) %>%
-    recipes::prep(training = data2, retain = TRUE) %>%
-    recipes::bake(new_data = data2)
-
-  bin_names <- f_bin(u_freq)[-1]
-  sym_sign  <- c(rep("_<_", (lbins - 2)), "_>=_")
-
-  final_data <-
-    binned_data %>%
-    dplyr::select(-predictor) %>%
-    magrittr::set_colnames(paste0(rep(pred_name, (lbins - 2)), sym_sign, bin_names))
-
-  dplyr::bind_cols(data, final_data)
+  data2$binned <- as.factor(data2$binned)
+  result <- rbin_factor_create(data2, binned)
+  result[c('predictor', 'binned')] <- NULL
+  bin_names <- f_bin(u_freq)
+  sym_sign  <- c(rep("_<_", (lbins - 1)), "_>=_")
+  colnames(result) <- paste0(rep(pred, (lbins - 1)), sym_sign, bin_names)
+  cbind(data, result)
 
 }
 

@@ -28,7 +28,7 @@ test_that("equal frequency binning works as expected", {
 test_that("output from rbin_create is as expected as expected", {
   k <- rbin_manual(mbank, y, age, c(29, 31, 34, 36, 39, 42, 46, 51, 56))
   out <- rbin_create(mbank, age, k)
-  expect_equal(ncol(out), 26)
+  expect_equal(ncol(out), 27)
 })
 
 test_that("output from rbin_factor_combine is as expected", {
@@ -46,7 +46,7 @@ test_that("output from rbin_factor_create is as expected", {
   upper <- c("secondary", "tertiary")
   out <- rbin_factor_combine(mbank, education, upper, "upper")
   result <- rbin_factor_create(out, education)
-  expect_equal(ncol(result), 19)
+  expect_equal(ncol(result), 20)
 })
 
 test_that("output from rbin_print is as expected", {

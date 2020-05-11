@@ -14,26 +14,21 @@ Depends:
     R (>= 3.6)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0
 Imports: 
+    data.table,
     DescTools,
-    dplyr (>= 0.8.99.9002),
-    forcats,
     ggplot2,
-    magrittr,
-    recipes,
-    rlang,
     stats,
-    tibble,
     utils
 Suggests:
     covr,
     graphics,
-    knitr.
+    knitr,
     miniUI,
     rmarkdown,
     rstudioapi,
-    shiny
+    shiny,
     testthat,
     vdiffr
 VignetteBuilder: knitr
