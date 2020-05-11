@@ -94,6 +94,7 @@ print.rbin_quantiles <- function(x, ...) {
 plot.rbin_quantiles <- function(x, print_plot = TRUE, ...) {
 
   p <- plot_bins(x)
+
   if (print_plot) {
     print(p)
   }

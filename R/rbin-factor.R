@@ -135,9 +135,7 @@ plot.rbin_factor <- function(x, print_plot = TRUE,...) {
 	xaxis_labels <- as.character(x$bins$level)
 
 	p <-
-		x %>%
-	  magrittr::use_series(bins) %>%
-	  ggplot2::ggplot() +
+	  ggplot2::ggplot(x$bins) +
 	  ggplot2::geom_line(ggplot2::aes(x = xaxis_breaks, y = woe), color = "blue") +
 	  ggplot2::geom_point(ggplot2::aes(x = xaxis_breaks, y = woe), color = "red") +
 	  ggplot2::xlab("Levels") + ggplot2::ylab("WoE") + ggplot2::ggtitle("WoE Trend") +
