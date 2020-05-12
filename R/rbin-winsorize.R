@@ -27,8 +27,10 @@
 #'
 #' @export
 #'
-rbin_winsorize <- function(data = NULL, response = NULL, predictor = NULL, bins = 10,
-	winsor_rate = 0.05, min_val = NULL, max_val = NULL, include_na = TRUE) UseMethod("rbin_winsorize")
+rbin_winsorize <- function(data = NULL, response = NULL, predictor = NULL,
+                                   bins = 10, include_na = TRUE, winsor_rate = 0.05,
+                                   min_val = NULL, max_val = NULL, type = 7,
+                                   remove_na = TRUE) UseMethod("rbin_winsorize")
 
 
 #' @export

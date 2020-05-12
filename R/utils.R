@@ -99,6 +99,7 @@ check_suggests <- function(pkg) {
 }
 
 #' @importFrom stats quantile
+#' @importFrom utils head tail
 winsor <- function(x, min_val = NULL, max_val = NULL, probs = c(0.05, 0.95),
                    na.rm = TRUE, type = 7) {
 

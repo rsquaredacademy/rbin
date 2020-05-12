@@ -21,6 +21,8 @@ rbin_equal_freq(data = NULL, response = NULL, predictor = NULL, bins = 10)
 \item{x}{An object of class \code{rbin_quantiles}.}
 
 \item{print_plot}{logical; if \code{TRUE}, prints the plot else returns a plot object.}
+
+\item{...}{further arguments passed to or from other methods.}
 }
 \value{
 A \code{tibble}.

@@ -10,10 +10,12 @@ rbin_winsorize(
   response = NULL,
   predictor = NULL,
   bins = 10,
+  include_na = TRUE,
   winsor_rate = 0.05,
   min_val = NULL,
   max_val = NULL,
-  include_na = TRUE
+  type = 7,
+  remove_na = TRUE
 )
 
 \method{plot}{rbin_winsorize}(x, print_plot = TRUE, ...)
@@ -27,23 +29,23 @@ rbin_winsorize(
 
 \item{bins}{Number of bins.}
 
+\item{include_na}{logical; if \code{TRUE}, a separate bin is created for missing values.}
+
 \item{winsor_rate}{A value from 0.0 to 0.5.}
 
 \item{min_val}{the low border, all values being lower than this will be replaced by this value. The default is set to the 5 percent quantile of predictor.}
 
 \item{max_val}{the high border, all values being larger than this will be replaced by this value. The default is set to the 95 percent quantile of predictor.}
 
-\item{include_na}{logical; if \code{TRUE}, a separate bin is created for missing values.}
+\item{type}{an integer between 1 and 9 selecting one of the nine quantile algorithms detailed in \code{quantile()} to be used.}
+
+\item{remove_na}{logical; if \code{TRUE} NAs will removed while calculating quantiles}
 
 \item{x}{An object of class \code{rbin_winsorize}.}
 
 \item{print_plot}{logical; if \code{TRUE}, prints the plot else returns a plot object.}
 
 \item{...}{further arguments passed to or from other methods.}
-
-\item{remove_na}{logical; if \code{TRUE} NAs will removed while calculating quantiles}
-
-\item{type}{an integer between 1 and 9 selecting one of the nine quantile algorithms detailed in \code{quantile()} to be used.}
 }
 \value{
 A \code{tibble}.

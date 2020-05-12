@@ -8,6 +8,7 @@
 #' @param bins Number of bins.
 #' @param x An object of class \code{rbin_quantiles}.
 #' @param print_plot logical; if \code{TRUE}, prints the plot else returns a plot object.
+#' @param ... further arguments passed to or from other methods.
 #'
 #' @return A \code{tibble}.
 #'

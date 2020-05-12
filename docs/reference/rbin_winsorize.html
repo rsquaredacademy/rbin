@@ -143,10 +143,12 @@
   <span class='kw'>response</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>predictor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>bins</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+  <span class='kw'>include_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>winsor_rate</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
   <span class='kw'>min_val</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>max_val</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>include_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='fl'>7</span>,
+  <span class='kw'>remove_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 )
 
 <span class='co'># S3 method for rbin_winsorize</span>
@@ -172,6 +174,10 @@
       <td><p>Number of bins.</p></td>
     </tr>
     <tr>
+      <th>include_na</th>
+      <td><p>logical; if <code>TRUE</code>, a separate bin is created for missing values.</p></td>
+    </tr>
+    <tr>
       <th>winsor_rate</th>
       <td><p>A value from 0.0 to 0.5.</p></td>
     </tr>
@@ -184,8 +190,12 @@
       <td><p>the high border, all values being larger than this will be replaced by this value. The default is set to the 95 percent quantile of predictor.</p></td>
     </tr>
     <tr>
-      <th>include_na</th>
-      <td><p>logical; if <code>TRUE</code>, a separate bin is created for missing values.</p></td>
+      <th>type</th>
+      <td><p>an integer between 1 and 9 selecting one of the nine quantile algorithms detailed in <code><a href='https://rdrr.io/r/stats/quantile.html'>quantile()</a></code> to be used.</p></td>
+    </tr>
+    <tr>
+      <th>remove_na</th>
+      <td><p>logical; if <code>TRUE</code> NAs will removed while calculating quantiles</p></td>
     </tr>
     <tr>
       <th>x</th>
@@ -198,14 +208,6 @@
     <tr>
       <th>...</th>
       <td><p>further arguments passed to or from other methods.</p></td>
-    </tr>
-    <tr>
-      <th>remove_na</th>
-      <td><p>logical; if <code>TRUE</code> NAs will removed while calculating quantiles</p></td>
-    </tr>
-    <tr>
-      <th>type</th>
-      <td><p>an integer between 1 and 9 selecting one of the nine quantile algorithms detailed in <code><a href='https://rdrr.io/r/stats/quantile.html'>quantile()</a></code> to be used.</p></td>
     </tr>
     </table>
 
