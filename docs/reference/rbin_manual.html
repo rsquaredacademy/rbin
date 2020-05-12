@@ -8,23 +8,29 @@
 
 <title>Manual binning — rbin_manual • rbin</title>
 
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -32,10 +38,10 @@
 
 
 
-<meta property="og:title" content="Manual binning — rbin_manual" />
 
+<meta property="og:title" content="Manual binning — rbin_manual" />
 <meta property="og:description" content="Bin continuous data manually." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -52,7 +58,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -66,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rbin</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -103,7 +109,6 @@
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/rsquaredacademy/rbin">
@@ -130,17 +135,20 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Bin continuous data manually.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>rbin_manual</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>response</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>predictor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>cut_points</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>include_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+    <pre class="usage"><span class='fu'>rbin_manual</span>(
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>response</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>predictor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>cut_points</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>include_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)
 
 <span class='co'># S3 method for rbin_manual</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>x</span>, <span class='kw'>print_plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
-    
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>x</span>, <span class='kw'>print_plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -177,11 +185,10 @@
       <td><p>further arguments passed to or from other methods.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code>tibble</code>.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Specify the upper open interval for each bin. `rbin`
@@ -189,7 +196,6 @@
   10 bins, the app will show you only 9 input boxes. The interval for the 10th bin
   is automatically computed. For example, if you want the first bin to have all the
   values between the minimum and including 36, then you will enter the value 37.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>bins</span> <span class='kw'>&lt;-</span> <span class='fu'>rbin_manual</span>(<span class='no'>mbank</span>, <span class='no'>y</span>, <span class='no'>age</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>29</span>, <span class='fl'>31</span>, <span class='fl'>34</span>, <span class='fl'>36</span>, <span class='fl'>39</span>, <span class='fl'>42</span>, <span class='fl'>46</span>, <span class='fl'>51</span>, <span class='fl'>56</span>))
@@ -206,35 +212,25 @@
 #&gt; Information Value    0.12 
 #&gt; 
 #&gt; 
-#&gt; <span style='color: #555555;'># A tibble: 10 x 7</span><span>
-#&gt;    cut_point bin_count  good   bad      woe         iv entropy
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> &lt; 29            410    71   339 -</span><span style='color: #BB0000;'>0.484</span><span>   0.025</span><span style='text-decoration: underline;'>5</span><span>       0.665
-#&gt; </span><span style='color: #555555;'> 2</span><span> &lt; 31            313    41   272 -</span><span style='color: #BB0000;'>0.155</span><span>   0.001</span><span style='text-decoration: underline;'>76</span><span>      0.560
-#&gt; </span><span style='color: #555555;'> 3</span><span> &lt; 34            567    55   512  0.184   0.003</span><span style='text-decoration: underline;'>95</span><span>      0.459
-#&gt; </span><span style='color: #555555;'> 4</span><span> &lt; 36            396    45   351  0.007</span><span style='text-decoration: underline;'>12</span><span> 0.000</span><span style='text-decoration: underline;'>004</span><span>43   0.511
-#&gt; </span><span style='color: #555555;'> 5</span><span> &lt; 39            519    47   472  0.260   0.007</span><span style='text-decoration: underline;'>01</span><span>      0.438
-#&gt; </span><span style='color: #555555;'> 6</span><span> &lt; 42            431    33   398  0.443   0.015</span><span style='text-decoration: underline;'>8</span><span>       0.390
-#&gt; </span><span style='color: #555555;'> 7</span><span> &lt; 46            449    47   402  0.099</span><span style='text-decoration: underline;'>3</span><span>  0.000</span><span style='text-decoration: underline;'>942</span><span>     0.484
-#&gt; </span><span style='color: #555555;'> 8</span><span> &lt; 51            521    40   481  0.440   0.018</span><span style='text-decoration: underline;'>8</span><span>       0.391
-#&gt; </span><span style='color: #555555;'> 9</span><span> &lt; 56            445    49   396  0.042</span><span style='text-decoration: underline;'>6</span><span>  0.000</span><span style='text-decoration: underline;'>176</span><span>     0.500
-#&gt; </span><span style='color: #555555;'>10</span><span> &gt;= 56           470    89   381 -</span><span style='color: #BB0000;'>0.593</span><span>   0.045</span><span style='text-decoration: underline;'>6</span><span>       0.700</div><div class='input'>
+#&gt;    cut_point bin_count good bad          woe           iv   entropy
+#&gt; 1       &lt; 29       410   71 339 -0.483686036 2.547353e-02 0.6649069
+#&gt; 2       &lt; 31       313   41 272 -0.154776266 1.760055e-03 0.5601482
+#&gt; 3       &lt; 34       567   55 512  0.183985174 3.953685e-03 0.4594187
+#&gt; 4       &lt; 36       396   45 351  0.007117468 4.425063e-06 0.5107878
+#&gt; 5       &lt; 39       519   47 472  0.259825118 7.008270e-03 0.4383322
+#&gt; 6       &lt; 42       431   33 398  0.442938178 1.575567e-02 0.3899626
+#&gt; 7       &lt; 46       449   47 402  0.099298221 9.423907e-04 0.4836486
+#&gt; 8       &lt; 51       521   40 481  0.439981550 1.881380e-02 0.3907140
+#&gt; 9       &lt; 56       445   49 396  0.042587647 1.756117e-04 0.5002548
+#&gt; 10     &gt;= 56       470   89 381 -0.592843261 4.564428e-02 0.7001343</div><div class='input'>
 <span class='co'># plot</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>bins</span>)</div><div class='img'><img src='rbin_manual-1.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></span></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>bins</span>)</div><div class='img'><img src='rbin_manual-1.png' alt='' width='700' height='433' /></div><div class='img'><img src='rbin_manual-2.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -245,7 +241,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

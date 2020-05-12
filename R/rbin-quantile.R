@@ -72,7 +72,7 @@ rbin_quantiles <- function(data = NULL, response = NULL, predictor = NULL, bins 
                     lower_cut = l_freq,
                     upper_cut = u_freq)
 
-  class(result) <- c("rbin_quantiles", "tibble", "data.frame")
+  class(result) <- c("rbin_quantiles")
   return(result)
 
 }

@@ -10,6 +10,8 @@
 #' @param min_val the low border, all values being lower than this will be replaced by this value. The default is set to the 5 percent quantile of predictor.
 #' @param max_val the high border, all values being larger than this will be replaced by this value. The default is set to the 95 percent quantile of predictor.
 #' @param include_na logical; if \code{TRUE}, a separate bin is created for missing values.
+#' @param remove_na logical; if \code{TRUE} NAs will removed while calculating quantiles
+#' @param type an integer between 1 and 9 selecting one of the nine quantile algorithms detailed in \code{quantile()} to be used.
 #' @param x An object of class \code{rbin_winsorize}.
 #' @param print_plot logical; if \code{TRUE}, prints the plot else returns a plot object.
 #' @param ... further arguments passed to or from other methods.
@@ -31,8 +33,10 @@ rbin_winsorize <- function(data = NULL, response = NULL, predictor = NULL, bins 
 
 #' @export
 #'
-rbin_winsorize.default <- function(data = NULL, response = NULL, predictor = NULL, bins = 10,
-	winsor_rate = 0.05, min_val = NULL, max_val = NULL, include_na = TRUE) {
+rbin_winsorize.default <- function(data = NULL, response = NULL, predictor = NULL,
+                                   bins = 10, include_na = TRUE, winsor_rate = 0.05,
+                                   min_val = NULL, max_val = NULL, type = 7,
+                                   remove_na = TRUE) {
 
   resp <- deparse(substitute(response))
   pred <- deparse(substitute(predictor))
@@ -50,12 +54,13 @@ rbin_winsorize.default <- function(data = NULL, response = NULL, predictor = NUL
     bm_data <- na.omit(prep_data)
   }
 
-  bm_data$predictor2 <- DescTools::Winsorize(
-    x      = prep_data$predictor,
-    minval = min_val,
-    maxval = max_val,
-    probs  = c(probs_min, probs_max),
-    na.rm  = TRUE)
+  bm_data$predictor2 <- winsor(
+    x       = prep_data$predictor,
+    min_val = min_val,
+    max_val = max_val,
+    probs   = c(probs_min, probs_max),
+    na.rm   = remove_na,
+    type    = type)
 
   bm <- bm_data[c('response', 'predictor2')]
   colnames(bm) <- c("response", "predictor")
@@ -90,7 +95,7 @@ rbin_winsorize.default <- function(data = NULL, response = NULL, predictor = NUL
                  lower_cut = l_freq,
                  upper_cut = u_freq)
 
-  class(result) <- c("rbin_winsorize", "tibble", "data.frame")
+  class(result) <- c("rbin_winsorize")
   return(result)
 
 }

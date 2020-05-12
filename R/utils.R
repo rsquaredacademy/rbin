@@ -97,3 +97,26 @@ check_suggests <- function(pkg) {
   }
 
 }
+
+#' @importFrom stats quantile
+winsor <- function(x, min_val = NULL, max_val = NULL, probs = c(0.05, 0.95),
+                   na.rm = TRUE, type = 7) {
+
+  if (is.null(min_val)) {
+    y <- quantile(x, probs = probs, type = type, na.rm = na.rm)
+    x[x > y[2]] <- y[2]
+    x[x < y[1]] <- y[1]
+  } else {
+    if (is.null(max_val)) {
+      stop("Argument max_val is missing.")
+    }
+    z <- sort(x)
+    min_replace <- max(head(z, min_val))
+    max_replace <- min(tail(z, max_val))
+    x[x < min_replace] <- min_replace
+    x[x > max_replace] <- max_replace
+  }
+
+  return(x)
+}
+

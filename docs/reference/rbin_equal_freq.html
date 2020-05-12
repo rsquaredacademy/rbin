@@ -8,23 +8,29 @@
 
 <title>Equal frequency binning — rbin_equal_freq • rbin</title>
 
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -32,10 +38,10 @@
 
 
 
-<meta property="og:title" content="Equal frequency binning — rbin_equal_freq" />
 
+<meta property="og:title" content="Equal frequency binning — rbin_equal_freq" />
 <meta property="og:description" content="Bin continuous data using the equal frequency binning method." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -52,7 +58,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -66,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rbin</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -103,7 +109,6 @@
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/rsquaredacademy/rbin">
@@ -130,14 +135,14 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Bin continuous data using the equal frequency binning method.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>rbin_equal_freq</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>response</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>predictor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>bins</span> <span class='kw'>=</span> <span class='fl'>10</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>rbin_equal_freq</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>response</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>predictor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bins</span> <span class='kw'>=</span> <span class='fl'>10</span>)
+
+<span class='co'># S3 method for rbin_equal_freq</span>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>x</span>, <span class='kw'>print_plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -157,49 +162,65 @@
       <th>bins</th>
       <td><p>Number of bins.</p></td>
     </tr>
+    <tr>
+      <th>x</th>
+      <td><p>An object of class <code>rbin_quantiles</code>.</p></td>
+    </tr>
+    <tr>
+      <th>print_plot</th>
+      <td><p>logical; if <code>TRUE</code>, prints the plot else returns a plot object.</p></td>
+    </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code>tibble</code>.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>rbin_equal_freq</span>(<span class='no'>mbank</span>, <span class='no'>y</span>, <span class='no'>age</span>, <span class='fl'>10</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 20 x 9</span><span>
-#&gt;    lower_cut upper_cut bin_count  good   bad good_rate      woe       iv entropy
-#&gt;        </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span>        18        27       226    48   178    0.212  -</span><span style='color: #BB0000;'>0.736</span><span>    3.56</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-2</span><span>   0.746
-#&gt; </span><span style='color: #555555;'> 2</span><span>        27        29       226    29   197    0.128  -</span><span style='color: #BB0000;'>0.131</span><span>    9.04</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-4</span><span>   0.553
-#&gt; </span><span style='color: #555555;'> 3</span><span>        29        30       226    28   198    0.124  -</span><span style='color: #BB0000;'>0.090</span><span style='color: #BB0000;text-decoration: underline;'>9</span><span>   4.28</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-4</span><span>   0.540
-#&gt; </span><span style='color: #555555;'> 4</span><span>        30        31       226    25   201    0.111   0.037</span><span style='text-decoration: underline;'>4</span><span>   6.90</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-5</span><span>   0.502
-#&gt; </span><span style='color: #555555;'> 5</span><span>        31        33       226    26   200    0.115  -</span><span style='color: #BB0000;'>0.006</span><span style='color: #BB0000;text-decoration: underline;'>79</span><span>  2.31</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-6</span><span>   0.515
-#&gt; </span><span style='color: #555555;'> 6</span><span>        33        34       226    18   208    0.079</span><span style='text-decoration: underline;'>6</span><span>  0.400    6.86</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-3</span><span>   0.401
-#&gt; </span><span style='color: #555555;'> 7</span><span>        34        35       226    25   201    0.111   0.037</span><span style='text-decoration: underline;'>4</span><span>   6.90</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-5</span><span>   0.502
-#&gt; </span><span style='color: #555555;'> 8</span><span>        35        36       226    20   206    0.088</span><span style='text-decoration: underline;'>5</span><span>  0.285    3.64</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-3</span><span>   0.431
-#&gt; </span><span style='color: #555555;'> 9</span><span>        36        37       226    26   200    0.115  -</span><span style='color: #BB0000;'>0.006</span><span style='color: #BB0000;text-decoration: underline;'>79</span><span>  2.31</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-6</span><span>   0.515
-#&gt; </span><span style='color: #555555;'>10</span><span>        37        39       226    21   205    0.092</span><span style='text-decoration: underline;'>9</span><span>  0.231    2.45</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-3</span><span>   0.446
-#&gt; </span><span style='color: #555555;'>11</span><span>        39        40       226     9   217    0.039</span><span style='text-decoration: underline;'>8</span><span>  1.14     4.18</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-2</span><span>   0.241
-#&gt; </span><span style='color: #555555;'>12</span><span>        40        42       226    28   198    0.124  -</span><span style='color: #BB0000;'>0.090</span><span style='color: #BB0000;text-decoration: underline;'>9</span><span>   4.28</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-4</span><span>   0.540
-#&gt; </span><span style='color: #555555;'>13</span><span>        42        44       226    19   207    0.084</span><span style='text-decoration: underline;'>1</span><span>  0.341    5.10</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-3</span><span>   0.416
-#&gt; </span><span style='color: #555555;'>14</span><span>        44        46       226    24   202    0.106   0.083</span><span style='text-decoration: underline;'>2</span><span>   3.35</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-4</span><span>   0.488
-#&gt; </span><span style='color: #555555;'>15</span><span>        46        48       226    15   211    0.066</span><span style='text-decoration: underline;'>4</span><span>  0.597    1.41</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-2</span><span>   0.352
-#&gt; </span><span style='color: #555555;'>16</span><span>        48        51       226    19   207    0.084</span><span style='text-decoration: underline;'>1</span><span>  0.341    5.10</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-3</span><span>   0.416
-#&gt; </span><span style='color: #555555;'>17</span><span>        51        53       226    25   201    0.111   0.037</span><span style='text-decoration: underline;'>4</span><span>   6.90</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-5</span><span>   0.502
-#&gt; </span><span style='color: #555555;'>18</span><span>        53        56       226    25   201    0.111   0.037</span><span style='text-decoration: underline;'>4</span><span>   6.90</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-5</span><span>   0.502
-#&gt; </span><span style='color: #555555;'>19</span><span>        56        58       226    21   205    0.092</span><span style='text-decoration: underline;'>9</span><span>  0.231    2.45</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-3</span><span>   0.446
-#&gt; </span><span style='color: #555555;'>20</span><span>        59        84       227    66   161    0.291  -</span><span style='color: #BB0000;'>1.16</span><span>     1.01</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-1</span><span>   0.870</div><div class='input'>
-</div></span></pre>
+    <pre class="examples"><div class='input'><span class='no'>bins</span> <span class='kw'>&lt;-</span> <span class='fu'>rbin_equal_freq</span>(<span class='no'>mbank</span>, <span class='no'>y</span>, <span class='no'>age</span>, <span class='fl'>10</span>)
+<span class='no'>bins</span></div><div class='output co'>#&gt; Binning Summary
+#&gt; ------------------------------------
+#&gt; Method               Equal Frequency 
+#&gt; Response             y 
+#&gt; Predictor            age 
+#&gt; Bins                 10 
+#&gt; Count                4521 
+#&gt; Goods                517 
+#&gt; Bads                 4004 
+#&gt; Entropy              0.51 
+#&gt; Information Value    0.01 
+#&gt; 
+#&gt; 
+#&gt;    lower_cut upper_cut bin_count good bad  good_rate         woe           iv
+#&gt; 1         18        29       452   55 397 0.12168142 -0.07040317 5.091649e-04
+#&gt; 2         29        31       452   57 395 0.12610619 -0.11117177 1.289604e-03
+#&gt; 3         31        34       452   46 406 0.10176991  0.13070550 1.623852e-03
+#&gt; 4         34        36       452   44 408 0.09734513  0.18007127 3.023706e-03
+#&gt; 5         36        39       452   58 394 0.12831858 -0.13109837 1.807071e-03
+#&gt; 6         39        42       452   51 401 0.11283186  0.01512953 2.275202e-05
+#&gt; 7         42        46       452   45 407 0.09955752  0.15514443 2.266308e-03
+#&gt; 8         46        51       452   60 392 0.13274336 -0.17008899 3.087466e-03
+#&gt; 9         51        56       452   53 399 0.11725664 -0.02833676 8.116094e-05
+#&gt; 10        56        84       453   48 405 0.10596026  0.08567979 7.116156e-04
+#&gt;      entropy
+#&gt; 1  0.5341748
+#&gt; 2  0.5466619
+#&gt; 3  0.4745811
+#&gt; 4  0.4605229
+#&gt; 5  0.5528088
+#&gt; 6  0.5083990
+#&gt; 7  0.4675914
+#&gt; 8  0.5649142
+#&gt; 9  0.5214234
+#&gt; 10 0.4876093</div><div class='input'>
+<span class='co'># plot</span>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>bins</span>)</div><div class='img'><img src='rbin_equal_freq-1.png' alt='' width='700' height='433' /></div><div class='img'><img src='rbin_equal_freq-2.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -210,7 +231,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

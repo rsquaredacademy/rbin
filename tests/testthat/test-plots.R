@@ -7,6 +7,13 @@ test_that("equal length plot is as expected", {
   vdiffr::expect_doppelganger("el plot", p)
 })
 
+test_that("equal frequency plot is as expected", {
+  skip_on_cran()
+  bins <- rbin_equal_freq(mbank, y, age, 10)
+  p <- plot(bins)
+  vdiffr::expect_doppelganger("ef plot", p)
+})
+
 test_that("manual plot is as expected", {
   skip_on_cran()
   bins <- rbin_manual(mbank, y, age, c(29, 31, 34, 36, 39, 42, 46, 51, 56))

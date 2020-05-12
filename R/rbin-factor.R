@@ -111,7 +111,7 @@ rbin_factor.default <- function(data = NULL, response = NULL, predictor = NULL, 
 
   result <- list(bins = bm_group, method = "Custom", vars = var_names)
 
-  class(result) <- c("rbin_factor", "tibble", "data.frame")
+  class(result) <- c("rbin_factor")
   return(result)
 
 }

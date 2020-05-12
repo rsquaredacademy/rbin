@@ -73,7 +73,7 @@ rbin_equal_length.default <- function(data = NULL, response = NULL, predictor = 
                  lower_cut = l_freq,
                  upper_cut = u_freq)
 
-  class(result) <- c("rbin_equal_length", "tibble", "data.frame")
+  class(result) <- c("rbin_equal_length")
   return(result)
 
 }

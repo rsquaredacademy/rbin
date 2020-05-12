@@ -6,11 +6,17 @@
 #' @param response Response variable.
 #' @param predictor Predictor variable.
 #' @param bins Number of bins.
+#' @param x An object of class \code{rbin_quantiles}.
+#' @param print_plot logical; if \code{TRUE}, prints the plot else returns a plot object.
 #'
 #' @return A \code{tibble}.
 #'
 #' @examples
-#' rbin_equal_freq(mbank, y, age, 10)
+#' bins <- rbin_equal_freq(mbank, y, age, 10)
+#' bins
+#'
+#' # plot
+#' plot(bins)
 #'
 #' @export
 #'
@@ -20,25 +26,32 @@ rbin_equal_freq <- function(data = NULL, response = NULL, predictor = NULL, bins
 #'
 rbin_equal_freq.default <- function(data = NULL, response = NULL, predictor = NULL, bins = 10) {
 
-  resp <- deparse(substitute(response))
-  pred <- deparse(substitute(predictor))
-  bm <- data[, c(resp, pred)]
+  resp         <- deparse(substitute(response))
+  pred         <- deparse(substitute(predictor))
+
+  var_names    <- names(data[, c(resp, pred)])
+  bm           <- data[, c(resp, pred)]
   colnames(bm) <- c("response", "predictor")
 
-  bin_prop   <- 1 / 20
-  bins       <- binned(bin_prop)
-  bin_length <- binlength(bm, bins)
-  first_bins <- firstbins(bins, bin_length)
-  residual   <- binresidual(bm, first_bins)
-  bin_rep    <- binrep(bins, bin_length, residual)
-  k          <- freq_bin_create(bm, bin_rep)
-  lower      <- freq_lower(bin_length, bins)
-  upper      <- freq_upper(bin_length, bins, bm)
-  bm2        <- bm_2(bm)
-  intervals  <- freq_intervals(bm2, lower, upper)
-  result     <- list(bins = cbind(intervals, k))
+  bin_prop     <- 1 / bins
+  bins         <- binned(bin_prop)
+  bin_length   <- binlength(bm, bins)
+  first_bins   <- firstbins(bins, bin_length)
+  residual     <- binresidual(bm, first_bins)
+  bin_rep      <- binrep(bins, bin_length, residual)
+  k            <- freq_bin_create(bm, bin_rep)
+  lower        <- freq_lower(bin_length, bins)
+  upper        <- freq_upper(bin_length, bins, bm)
+  bm2          <- bm_2(bm)
+  intervals    <- freq_intervals(bm2, lower, upper)
 
-  class(result) <- c("rbin_equal_freq", "tibble", "data.frame")
+  result <- list(bins = cbind(intervals, k),
+                 method = "Equal Frequency",
+                 vars = var_names,
+                 lower_cut = lower,
+                 upper_cut = upper)
+
+  class(result) <- c("rbin_equal_freq")
   return(result)
 
 }
@@ -48,10 +61,28 @@ rbin_equal_freq.default <- function(data = NULL, response = NULL, predictor = NU
 #'
 print.rbin_equal_freq <- function(x, ...) {
 
+  rbin_print(x)
+  cat("\n\n")
   print(x$bins[c('lower_cut', 'upper_cut', 'bin_count', 'good', 'bad', 'good_rate',
            'woe', 'iv', 'entropy')])
 
 }
+
+#' @rdname rbin_equal_freq
+#' @export
+#'
+plot.rbin_equal_freq <- function(x, print_plot = TRUE, ...) {
+
+  p <- plot_bins(x)
+
+  if (print_plot) {
+    print(p)
+  }
+
+  return(p)
+
+}
+
 
 binned <- function(bin_prop) {
   round(1 / bin_prop)

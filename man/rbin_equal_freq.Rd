@@ -2,9 +2,12 @@
 % Please edit documentation in R/rbin-equal-freq.R
 \name{rbin_equal_freq}
 \alias{rbin_equal_freq}
+\alias{plot.rbin_equal_freq}
 \title{Equal frequency binning}
 \usage{
 rbin_equal_freq(data = NULL, response = NULL, predictor = NULL, bins = 10)
+
+\method{plot}{rbin_equal_freq}(x, print_plot = TRUE, ...)
 }
 \arguments{
 \item{data}{A \code{data.frame} or \code{tibble}.}
@@ -14,6 +17,10 @@ rbin_equal_freq(data = NULL, response = NULL, predictor = NULL, bins = 10)
 \item{predictor}{Predictor variable.}
 
 \item{bins}{Number of bins.}
+
+\item{x}{An object of class \code{rbin_quantiles}.}
+
+\item{print_plot}{logical; if \code{TRUE}, prints the plot else returns a plot object.}
 }
 \value{
 A \code{tibble}.
@@ -22,6 +29,10 @@ A \code{tibble}.
 Bin continuous data using the equal frequency binning method.
 }
 \examples{
-rbin_equal_freq(mbank, y, age, 10)
+bins <- rbin_equal_freq(mbank, y, age, 10)
+bins
+
+# plot
+plot(bins)
 
 }

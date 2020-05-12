@@ -40,6 +40,10 @@ rbin_winsorize(
 \item{print_plot}{logical; if \code{TRUE}, prints the plot else returns a plot object.}
 
 \item{...}{further arguments passed to or from other methods.}
+
+\item{remove_na}{logical; if \code{TRUE} NAs will removed while calculating quantiles}
+
+\item{type}{an integer between 1 and 9 selecting one of the nine quantile algorithms detailed in \code{quantile()} to be used.}
 }
 \value{
 A \code{tibble}.

@@ -79,7 +79,7 @@ rbin_manual.default <- function(data = NULL, response = NULL, predictor = NULL, 
                  lower_cut = l_freq,
                  upper_cut = u_freq)
 
-  class(result) <- c("rbin_manual", "tibble", "data.frame")
+  class(result) <- c("rbin_manual")
   return(result)
 
 }
