@@ -1,7 +1,7 @@
 Package: rbin
 Type: Package
 Title: Tools for Binning Data
-Version: 0.1.2.9000
+Version: 0.2.0
 Authors@R: person("Aravind", "Hebbali", email = "hebbali.aravind@gmail.com", role = c("aut", "cre"))
 Description: Manually bin data using weight of evidence and information value. Includes other binning 
     methods such as equal length, quantile and winsorized. Options for combining levels of categorical
@@ -11,29 +11,24 @@ License: MIT + file LICENSE
 URL: https://github.com/rsquaredacademy/rbin, https://rbin.rsquaredacademy.com
 BugReports: https://github.com/rsquaredacademy/rbin/issues
 Depends: 
-    R (>= 3.6)
-Encoding: UTF-8
-LazyData: true
-RoxygenNote: 6.1.1
+    R (>= 3.3)
 Imports: 
-    DescTools,
-    dplyr,
-    forcats,
+    data.table,
     ggplot2,
-    graphics,
-    magrittr,
-    miniUI,
-    recipes,
-    rlang,
-    rstudioapi,
-    shiny,
     stats,
-    tibble,
     utils
 Suggests:
     covr,
-    testthat,
-    vdiffr,
+    graphics,
     knitr,
-    rmarkdown
+    miniUI,
+    rlang,
+    rmarkdown,
+    rstudioapi,
+    shiny,
+    testthat,
+    vdiffr
 VignetteBuilder: knitr
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.0

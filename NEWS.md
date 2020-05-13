@@ -1,3 +1,7 @@
+# rbin 0.2.0
+
+This is a minor release for bug fixes and internal changes.
+
 # rbin 0.1.2
 
 * This is a patch release to fix CRAN note.

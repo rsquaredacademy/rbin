@@ -5,8 +5,7 @@
 \alias{plot.rbin_factor}
 \title{Factor binning}
 \usage{
-rbin_factor(data = NULL, response = NULL, predictor = NULL,
-  include_na = TRUE)
+rbin_factor(data = NULL, response = NULL, predictor = NULL, include_na = TRUE)
 
 \method{plot}{rbin_factor}(x, print_plot = TRUE, ...)
 }

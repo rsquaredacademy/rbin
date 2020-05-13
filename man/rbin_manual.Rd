@@ -5,8 +5,13 @@
 \alias{plot.rbin_manual}
 \title{Manual binning}
 \usage{
-rbin_manual(data = NULL, response = NULL, predictor = NULL,
-  cut_points = NULL, include_na = TRUE)
+rbin_manual(
+  data = NULL,
+  response = NULL,
+  predictor = NULL,
+  cut_points = NULL,
+  include_na = TRUE
+)
 
 \method{plot}{rbin_manual}(x, print_plot = TRUE, ...)
 }

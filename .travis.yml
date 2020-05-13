@@ -7,13 +7,12 @@ sudo: false
 
 matrix:
   include:
+  - r: devel 
   - r: release
-  - r: release
-    os: osx
-    osx_image: xcode8.3
-    before_install:
-      - sudo tlmgr install framed titling
-  - r: devel
+  - r: 3.6
+  - r: 3.5
+  - r: 3.4
+  - r: 3.3
 
 r_packages:
   - covr

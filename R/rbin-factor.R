@@ -17,32 +17,26 @@
 #' out <- rbin_factor_combine(mbank, education, c("secondary", "tertiary"), "upper")
 #' table(out$education)
 #'
-#' @importFrom rlang :=
-#'
 #' @export
 #'
 rbin_factor_combine <- function(data, var, new_var, new_name) {
 
-  vars <- rlang::enquo(var)
+  vars           <- deparse(substitute(var))
+  mydata         <- data[[vars]]
+  current_lev    <- levels(mydata)
+  l              <- length(new_var)
 
-  var_name <-
-    data %>%
-    dplyr::select(!! vars) %>%
-    names()
+  for (i in seq_len(l)) {
+    current_lev  <- gsub(new_var[i], new_name, current_lev)
+  }
 
-  out <-
-    data %>%
-    dplyr::mutate(temp = forcats::fct_collapse(!! vars, new_var = new_var)) %>%
-    dplyr::rename(archived = !! var_name) %>%
-    dplyr::select(-archived)
+  levels(mydata) <- current_lev
+  data[vars]     <- NULL
+  out            <- cbind(data, mydata)
+  nl             <- ncol(out)
+  names(out)[nl] <- vars
 
-  out$temp    <- as.character(out$temp)
-  n           <- which(out$temp == "new_var")
-  out$temp[n] <- new_name
-  out$temp    <- as.factor(out$temp)
-
-  out %>%
-    dplyr::rename(!! var_name := temp)
+  return(out)
 
 }
 
@@ -65,8 +59,6 @@ rbin_factor_combine <- function(data, var, new_var, new_name) {
 #' # plot
 #' plot(bins)
 #'
-#' @importFrom magrittr %<>%
-#'
 #' @export
 #'
 rbin_factor <- function(data = NULL, response = NULL, predictor = NULL, include_na = TRUE) UseMethod("rbin_factor")
@@ -75,55 +67,51 @@ rbin_factor <- function(data = NULL, response = NULL, predictor = NULL, include_
 #'
 rbin_factor.default <- function(data = NULL, response = NULL, predictor = NULL, include_na = TRUE) {
 
-  resp <- rlang::enquo(response)
-  pred <- rlang::enquo(predictor)
+  resp <- deparse(substitute(response))
+  pred <- deparse(substitute(predictor))
 
-  var_names <-
-    data %>%
-    dplyr::select(!! resp, !! pred) %>%
-    names()
+  var_names <- names(data[, c(resp, pred)])
+  prep_data <- data[, c(resp, pred)]
 
   if (include_na) {
-    bm <-
-      data %>%
-      dplyr::select(!! resp, !! pred) %>%
-      magrittr::set_colnames(c("response", "predictor"))
+    bm <- prep_data
   } else {
-    bm <-
-      data %>%
-      dplyr::select(!! resp, !! pred) %>%
-      dplyr::filter(!is.na(!! resp), !is.na(!! pred)) %>%
-      magrittr::set_colnames(c("response", "predictor"))
+    bm <- na.omit(prep_data)
   }
 
-  bm %<>%
-    dplyr::group_by(predictor) %>%
-    dplyr::summarise(
-      bin_count = n(),
-      good      = sum(response == 1),
-      bad       = sum(response == 0)
-    ) %>%
-    dplyr::mutate(
-      bin_cum_count   = cumsum(bin_count),
-      good_cum_count  = cumsum(good),
-      bad_cum_count   = cumsum(bad),
-      bin_prop        = bin_count / sum(bin_count),
-      good_rate       = good / bin_count,
-      bad_rate        = bad / bin_count,
-      good_dist       = good / sum(good),
-      bad_dist        = bad / sum(bad),
-      woe             = log(bad_dist / good_dist),
-      dist_diff       = bad_dist - good_dist,
-      iv              = dist_diff * woe,
-      entropy         = (-1) * (((good / bin_count) * log2(good / bin_count)) +
-        ((bad / bin_count) * log2(bad / bin_count))) ,
-      prop_entropy    = (bin_count / sum(bin_count)) * entropy
-    ) %>%
-    dplyr::rename(level = predictor)
+  colnames(bm) <- c("response", "predictor")
 
-  result <- list(bins = bm, method = "Custom", vars = var_names)
+  bm <- data.table(bm)
 
-  class(result) <- c("rbin_factor", "tibble", "data.frame")
+  # group and summarize
+  bm_group <- bm[, .(bin_count = .N,
+                     good = sum(response == 1),
+                     bad = sum(response == 0)),
+                 by = predictor]
+
+  # create new columns
+  bm_group[, ':='(bin_cum_count   = cumsum(bin_count),
+                  good_cum_count  = cumsum(good),
+                  bad_cum_count   = cumsum(bad),
+                  bin_prop        = bin_count / sum(bin_count),
+                  good_rate       = good / bin_count,
+                  bad_rate        = bad / bin_count,
+                  good_dist       = good / sum(good),
+                  bad_dist        = bad / sum(bad))]
+
+  bm_group[, woe := log(bad_dist / good_dist)]
+  bm_group[, dist_diff := bad_dist - good_dist,]
+  bm_group[, iv := dist_diff * woe,]
+  bm_group[, entropy := (-1) * (((good / bin_count) * log2(good / bin_count)) +
+                                  ((bad / bin_count) * log2(bad / bin_count)))]
+  bm_group[, prop_entropy := (bin_count / sum(bin_count)) * entropy]
+
+  setDF(bm_group)
+  colnames(bm_group)[1] <- 'level'
+
+  result <- list(bins = bm_group, method = "Custom", vars = var_names)
+
+  class(result) <- c("rbin_factor")
   return(result)
 
 }
@@ -134,10 +122,7 @@ print.rbin_factor <- function(x, ...) {
 
   rbin_print_custom(x)
   cat("\n\n")
-  x %>%
-    magrittr::use_series(bins) %>%
-    dplyr::select(level, bin_count, good, bad, woe, iv, entropy) %>%
-    print()
+  print(x$bins[c('level', 'bin_count', 'good', 'bad', 'woe', 'iv', 'entropy')])
 }
 
 #' @rdname rbin_factor
@@ -145,18 +130,12 @@ print.rbin_factor <- function(x, ...) {
 #'
 plot.rbin_factor <- function(x, print_plot = TRUE,...) {
 
-  xseq <-
-	  x %>%
-	  magrittr::use_series(bins) %>%
-	  nrow()
-
+  xseq <- nrow(x$bins)
 	xaxis_breaks <- seq_len(xseq)
 	xaxis_labels <- as.character(x$bins$level)
 
 	p <-
-		x %>%
-	  magrittr::use_series(bins) %>%
-	  ggplot2::ggplot() +
+	  ggplot2::ggplot(x$bins) +
 	  ggplot2::geom_line(ggplot2::aes(x = xaxis_breaks, y = woe), color = "blue") +
 	  ggplot2::geom_point(ggplot2::aes(x = xaxis_breaks, y = woe), color = "red") +
 	  ggplot2::xlab("Levels") + ggplot2::ylab("WoE") + ggplot2::ggtitle("WoE Trend") +
@@ -164,9 +143,9 @@ plot.rbin_factor <- function(x, print_plot = TRUE,...) {
 
   if (print_plot) {
     print(p)
-  } else {
-    return(p)
   }
+
+  return(p)
 
 }
 
@@ -188,20 +167,16 @@ plot.rbin_factor <- function(x, print_plot = TRUE,...) {
 #'
 rbin_factor_create <- function(data, predictor) {
 
-  pred <- rlang::enquo(predictor)
+  vars <- deparse(substitute(predictor))
+  nl <- nlevels(data[[vars]])
+  levs <- levels(data[[vars]])
 
-  data2 <-
-    data %>%
-    dplyr::select(!! pred)
+  for(i in seq_len(nl)) {
+    data$temp <- ifelse(data[[vars]] == levs[i], 1, 0)
+    n <- ncol(data)
+    colnames(data)[n] <- paste0(vars, '_', levs[i])
+  }
 
-  bm_rec <- recipes::recipe( ~ ., data = data2)
-
-  final_data <-
-    bm_rec %>%
-    recipes::step_dummy(!! pred) %>%
-    recipes::prep(training = data2, retain = TRUE) %>%
-    recipes::bake(new_data = data2)
-
-  dplyr::bind_cols(data, final_data)
+  return(data)
 
 }

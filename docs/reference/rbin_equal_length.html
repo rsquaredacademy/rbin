@@ -8,23 +8,29 @@
 
 <title>Equal length binning — rbin_equal_length • rbin</title>
 
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -32,10 +38,10 @@
 
 
 
-<meta property="og:title" content="Equal length binning — rbin_equal_length" />
 
+<meta property="og:title" content="Equal length binning — rbin_equal_length" />
 <meta property="og:description" content="Bin continuous data using the equal length binning method." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -52,7 +58,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -66,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rbin</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -103,7 +109,6 @@
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/rsquaredacademy/rbin">
@@ -130,17 +135,20 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Bin continuous data using the equal length binning method.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>rbin_equal_length</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>response</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>predictor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>bins</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>include_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+    <pre class="usage"><span class='fu'>rbin_equal_length</span>(
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>response</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>predictor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>bins</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+  <span class='kw'>include_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)
 
 <span class='co'># S3 method for rbin_equal_length</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>x</span>, <span class='kw'>print_plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
-    
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>x</span>, <span class='kw'>print_plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -177,11 +185,10 @@
       <td><p>further arguments passed to or from other methods.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code>tibble</code>.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>bins</span> <span class='kw'>&lt;-</span> <span class='fu'>rbin_equal_length</span>(<span class='no'>mbank</span>, <span class='no'>y</span>, <span class='no'>age</span>, <span class='fl'>10</span>)
@@ -198,33 +205,26 @@
 #&gt; Information Value    0.17 
 #&gt; 
 #&gt; 
-#&gt; <span style='color: #555555;'># A tibble: 10 x 7</span><span>
-#&gt;    cut_point bin_count  good   bad     woe       iv entropy
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> &lt; 24.6           85    24    61 -</span><span style='color: #BB0000;'>1.11</span><span>   0.034</span><span style='text-decoration: underline;'>7</span><span>     0.859
-#&gt; </span><span style='color: #555555;'> 2</span><span> &lt; 31.2          822   106   716 -</span><span style='color: #BB0000;'>0.137</span><span>  0.003</span><span style='text-decoration: underline;'>58</span><span>    0.555
-#&gt; </span><span style='color: #555555;'> 3</span><span> &lt; 37.8         </span><span style='text-decoration: underline;'>1</span><span>133   115  </span><span style='text-decoration: underline;'>1</span><span>018  0.134  0.004</span><span style='text-decoration: underline;'>25</span><span>    0.474
-#&gt; </span><span style='color: #555555;'> 4</span><span> &lt; 44.4          943    82   861  0.304  0.017</span><span style='text-decoration: underline;'>2</span><span>     0.426
-#&gt; </span><span style='color: #555555;'> 5</span><span> &lt; 51            623    52   571  0.349  0.014</span><span style='text-decoration: underline;'>7</span><span>     0.414
-#&gt; </span><span style='color: #555555;'> 6</span><span> &lt; 57.6          612    66   546  0.066</span><span style='text-decoration: underline;'>0</span><span> 0.000</span><span style='text-decoration: underline;'>574</span><span>   0.493
-#&gt; </span><span style='color: #555555;'> 7</span><span> &lt; 64.2          229    43   186 -</span><span style='color: #BB0000;'>0.582</span><span>  0.021</span><span style='text-decoration: underline;'>4</span><span>     0.697
-#&gt; </span><span style='color: #555555;'> 8</span><span> &lt; 70.8           34    12    22 -</span><span style='color: #BB0000;'>1.44</span><span>   0.025</span><span style='text-decoration: underline;'>5</span><span>     0.937
-#&gt; </span><span style='color: #555555;'> 9</span><span> &lt; 77.4           25    13    12 -</span><span style='color: #BB0000;'>2.13</span><span>   0.047</span><span style='text-decoration: underline;'>1</span><span>     0.999
-#&gt; </span><span style='color: #555555;'>10</span><span> &gt;= 77.4          15     4    11 -</span><span style='color: #BB0000;'>1.04</span><span>   0.005</span><span style='text-decoration: underline;'>17</span><span>    0.837</div><div class='input'>
+#&gt;    cut_point bin_count good  bad         woe           iv   entropy
+#&gt; 1     &lt; 24.6        85   24   61 -1.11418623 0.0347480126 0.8586371
+#&gt; 2     &lt; 31.2       822  106  716 -0.13676519 0.0035843196 0.5545619
+#&gt; 3     &lt; 37.8      1133  115 1018  0.13365680 0.0042514380 0.4737339
+#&gt; 4     &lt; 44.4       943   82  861  0.30436899 0.0171748162 0.4262287
+#&gt; 5       &lt; 51       623   52  571  0.34913923 0.0146733167 0.4142794
+#&gt; 6     &lt; 57.6       612   66  546  0.06595797 0.0005741022 0.4933757
+#&gt; 7     &lt; 64.2       229   43  186 -0.58245971 0.0213871054 0.6967893
+#&gt; 8     &lt; 70.8        34   12   22 -1.44087046 0.0255269312 0.9366674
+#&gt; 9     &lt; 77.4        25   13   12 -2.12704897 0.0471100183 0.9988455
+#&gt; 10   &gt;= 77.4        15    4   11 -1.03540535 0.0051663529 0.8366407</div><div class='input'>
 <span class='co'># plot</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>bins</span>)</div><div class='img'><img src='rbin_equal_length-1.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></span></pre>
-  </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>bins</span>)</div><div class='img'><img src='rbin_equal_length-1.png' alt='' width='700' height='433' /></div><div class='img'><img src='rbin_equal_length-2.png' alt='' width='700' height='433' /></div><div class='input'>
 
+</div></pre>
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -235,7 +235,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

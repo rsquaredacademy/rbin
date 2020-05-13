@@ -3,7 +3,6 @@
 \docType{package}
 \name{rbin}
 \alias{rbin}
-\alias{rbin-package}
 \title{\code{rbin} package}
 \description{
 Tools for binning data.
