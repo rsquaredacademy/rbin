@@ -80,7 +80,7 @@ plot.rbin_equal_freq <- function(x, print_plot = TRUE, ...) {
     print(p)
   }
 
-  return(p)
+  invisible(p)
 
 }
 

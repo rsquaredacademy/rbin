@@ -105,6 +105,6 @@ plot.rbin_manual <- function(x, print_plot = TRUE, ...) {
     print(p)
   }
 
-  return(p)
+  invisible(p)
 
 }
