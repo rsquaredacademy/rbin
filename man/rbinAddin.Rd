@@ -16,5 +16,5 @@ Manually bin continuous data using weight of evidence.
 \dontrun{
 rbinAddin(data = mbank)
 }
-
+ 
 }
