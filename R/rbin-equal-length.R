@@ -100,7 +100,7 @@ plot.rbin_equal_length <- function(x, print_plot = TRUE, ...) {
     print(p)
   }
 
-  return(p)
+  invisible(p)
 
 }
 

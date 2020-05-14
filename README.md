@@ -5,17 +5,15 @@
 
 > Tools for binning data
 
-[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/rbin)](https://cran.r-project.org/package=rbin)
 [![cran
 checks](https://cranchecks.info/badges/summary/rbin)](https://cran.r-project.org/web/checks/check_results_rbin.html)
 [![Travis-CI Build
 Status](https://travis-ci.org/rsquaredacademy/rbin.svg?branch=master)](https://travis-ci.org/rsquaredacademy/rbin)
-[![AppVeyor Build
-Status](https://ci.appveyor.com/api/projects/status/github/rsquaredacademy/rbin?branch=master&svg=true)](https://ci.appveyor.com/project/aravindhebbali/rbin)
 [![Coverage
 status](https://codecov.io/gh/rsquaredacademy/rbin/branch/master/graph/badge.svg)](https://codecov.io/github/rsquaredacademy/rbin?branch=master)
 [![](https://cranlogs.r-pkg.org/badges/grand-total/rbin)](https://cran.r-project.org/package=rbin)
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![status](https://tinyverse.netlify.com/badge/rbin)](https://CRAN.R-project.org/package=rbin)
 
 ## Installation
 
@@ -71,7 +69,7 @@ bins
 plot(bins)
 ```
 
-<img src="tools/README-manual-1.png" width="100%" /><img src="tools/README-manual-2.png" width="100%" />
+<img src="tools/README-manual-1.png" width="100%" />
 
 ### Combine Factor Levels
 
@@ -109,7 +107,7 @@ bins
 plot(bins)
 ```
 
-<img src="tools/README-factor-1.png" width="100%" /><img src="tools/README-factor-2.png" width="100%" />
+<img src="tools/README-factor-1.png" width="100%" />
 
 ### Quantile Binning
 
@@ -145,7 +143,7 @@ bins
 plot(bins)
 ```
 
-<img src="tools/README-quantile-1.png" width="100%" /><img src="tools/README-quantile-2.png" width="100%" />
+<img src="tools/README-quantile-1.png" width="100%" />
 
 ### Winsorized Binning
 
@@ -181,7 +179,7 @@ bins
 plot(bins)
 ```
 
-<img src="tools/README-winsorize-1.png" width="100%" /><img src="tools/README-winsorize-2.png" width="100%" />
+<img src="tools/README-winsorize-1.png" width="100%" />
 
 ### Equal Length Binning
 
@@ -217,7 +215,7 @@ bins
 plot(bins)
 ```
 
-<img src="tools/README-equal_length-1.png" width="100%" /><img src="tools/README-equal_length-2.png" width="100%" />
+<img src="tools/README-equal_length-1.png" width="100%" />
 
 ## Alternatives
 
@@ -226,3 +224,9 @@ plot(bins)
   - [woeR](https://CRAN.R-project.org/package=woeR)
   - [woeBinning](https://CRAN.R-project.org/package=woeBinning)
   - [binr](https://CRAN.R-project.org/package=binr)
+
+## Code of Conduct
+
+Please note that this project is released with a [Contributor Code of
+Conduct](CONDUCT.md). By participating in this project you agree to
+abide by its terms.

@@ -123,6 +123,6 @@ plot.rbin_winsorize <- function(x, print_plot = TRUE, ...) {
     print(p)
   }
 
-  return(p)
+  invisible(p)
 
 }

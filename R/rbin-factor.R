@@ -145,7 +145,7 @@ plot.rbin_factor <- function(x, print_plot = TRUE,...) {
     print(p)
   }
 
-  return(p)
+  invisible(p)
 
 }
 
