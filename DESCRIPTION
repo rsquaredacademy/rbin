@@ -22,7 +22,6 @@ Suggests:
     graphics,
     knitr,
     miniUI,
-    rlang,
     rmarkdown,
     rstudioapi,
     shiny,

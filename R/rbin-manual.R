@@ -37,8 +37,8 @@ rbin_manual.default <- function(data = NULL, response = NULL, predictor = NULL, 
   resp <- deparse(substitute(response))
   pred <- deparse(substitute(predictor))
 
-  var_names <- names(data[, c(resp, pred)])
-  prep_data <- data[, c(resp, pred)]
+  var_names <- names(data[c(resp, pred)])
+  prep_data <- data[c(resp, pred)]
 
   if (include_na) {
     bm <- prep_data
