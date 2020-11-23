@@ -12,3 +12,4 @@
 ^docs$
 ^debug\.log$
 ^hex_rbin\.png$
+^\.github$
