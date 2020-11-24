@@ -3,12 +3,11 @@
 ^README\.Rmd$
 ^README-.*\.png$
 ^cran-comments\.md$
-^\.travis\.yml$
 ^codecov\.yml$
-^appveyor\.yml$
 ^CODE_OF_CONDUCT\.md$
 ^LICENSE\.md$
 ^_pkgdown\.yml$
 ^docs$
 ^debug\.log$
 ^hex_rbin\.png$
+^\.github$
