@@ -7,15 +7,16 @@
 
 <!-- badges: start -->
 
+[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/vistributions)](https://cran.r-project.org/package=vistributions)
 [![cran
 checks](https://cranchecks.info/badges/summary/rbin)](https://cran.r-project.org/web/checks/check_results_rbin.html)
 [![R build
 status](https://github.com/rsquaredacademy/rbin/workflows/R-CMD-check/badge.svg)](https://github.com/rsquaredacademy/rbin/actions)
 [![Coverage
 status](https://codecov.io/gh/rsquaredacademy/rbin/branch/master/graph/badge.svg)](https://codecov.io/github/rsquaredacademy/rbin?branch=master)
-[![](https://cranlogs.r-pkg.org/badges/grand-total/rbin)](https://cran.r-project.org/package=rbin)
-[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![status](https://tinyverse.netlify.com/badge/rbin)](https://CRAN.R-project.org/package=rbin)
+[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![](https://cranlogs.r-pkg.org/badges/grand-total/rbin)](https://cran.r-project.org/package=rbin)
 <!-- badges: end -->
 
 ## Installation
