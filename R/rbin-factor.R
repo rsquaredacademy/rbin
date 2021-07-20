@@ -125,6 +125,7 @@ print.rbin_factor <- function(x, ...) {
   print(x$bins[c('level', 'bin_count', 'good', 'bad', 'woe', 'iv', 'entropy')])
 }
 
+#' @import ggplot2
 #' @rdname rbin_factor
 #' @export
 #'

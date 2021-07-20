@@ -65,11 +65,11 @@ plot_bins <- function(x) {
   xseq <- nrow(plot_data)
 
   p <-
-    ggplot2::ggplot(data = plot_data) +
-    ggplot2::geom_line(ggplot2::aes(x = bin, y = woe), color = "blue") +
-    ggplot2::geom_point(ggplot2::aes(x = bin, y = woe), color = "red") +
-    ggplot2::xlab("Bins") + ggplot2::ylab("WoE") + ggplot2::ggtitle("WoE Trend") +
-    ggplot2::scale_x_continuous(breaks = seq(xseq))
+    ggplot(data = plot_data) +
+    geom_line(aes(x = bin, y = woe), color = "blue") +
+    geom_point(aes(x = bin, y = woe), color = "red") +
+    xlab("Bins") + ylab("WoE") + ggtitle("WoE Trend") +
+    scale_x_continuous(breaks = seq(xseq))
 
   return(p)
 
