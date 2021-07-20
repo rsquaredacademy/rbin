@@ -135,11 +135,11 @@ plot.rbin_factor <- function(x, print_plot = TRUE,...) {
 	xaxis_labels <- as.character(x$bins$level)
 
 	p <-
-	  ggplot2::ggplot(x$bins) +
-	  ggplot2::geom_line(ggplot2::aes(x = xaxis_breaks, y = woe), color = "blue") +
-	  ggplot2::geom_point(ggplot2::aes(x = xaxis_breaks, y = woe), color = "red") +
-	  ggplot2::xlab("Levels") + ggplot2::ylab("WoE") + ggplot2::ggtitle("WoE Trend") +
-	  ggplot2::scale_x_continuous(breaks = xaxis_breaks, labels = xaxis_labels)
+	  ggplot(x$bins) +
+	  geom_line(aes(x = xaxis_breaks, y = woe), color = "blue") +
+	  geom_point(aes(x = xaxis_breaks, y = woe), color = "red") +
+	  xlab("Levels") + ylab("WoE") + ggtitle("WoE Trend") +
+	  scale_x_continuous(breaks = xaxis_breaks, labels = xaxis_labels)
 
   if (print_plot) {
     print(p)
