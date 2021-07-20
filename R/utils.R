@@ -109,7 +109,7 @@ winsor <- function(x, min_val = NULL, max_val = NULL, probs = c(0.05, 0.95),
     x[x < y[1]] <- y[1]
   } else {
     if (is.null(max_val)) {
-      stop("Argument max_val is missing.")
+      stop("Argument max_val is missing.", call. = FALSE)
     }
     z <- sort(x)
     min_replace <- max(head(z, min_val))
