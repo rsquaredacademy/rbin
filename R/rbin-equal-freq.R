@@ -102,7 +102,7 @@ binresidual <- function (bm, first_bins) {
 }
 
 binrep <- function(bins, bin_length, residual) {
-  c(rep(seq_len((bins - 1)), each = bin_length), rep(residual, residual))
+  c(rep(seq_len((bins - 1)), each = bin_length), rep(bins, residual))
 }
 
 freq_lower <- function(bin_length, bins) {

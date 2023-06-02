@@ -50,14 +50,13 @@ create_intervals <- function(sym_sign, fbin2) {
 
 }
 
-
 freq_bin_create <- function(bm, bin_rep) {
 
-	bm$bin <- bin_rep
-	bin_create(bm)
+  data <- bm[order(bm$predictor), ]
+  data$bin <- bin_rep
+  bin_create(data)
 
 }
-
 
 plot_bins <- function(x) {
 
