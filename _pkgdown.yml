@@ -1,4 +1,6 @@
 url: https://rbin.rsquaredacademy.com
+template:
+  bootstrap: 5
 
 authors:
   Aravind Hebbali:
@@ -6,64 +8,65 @@ authors:
 
 templates:
   params:
-    bootswatch: cosmo
-    ganalytics: UA-57270671-33
-    docsearch:
-      api_key:
-      index_name: rbin
+    bootswatch: cerulean
 
 navbar:
-  title: "rbin"
+  title: 'rbin'
   type: inverse
   left:
-    - text: "Home"
+    - text: 'Home'
       href: index.html
-    - text: "Guides"
+    - text: 'Guides'
       menu:
-        - text: "Introduction"
+        - text: 'Introduction'
           href: articles/introduction.html
-    - text: "Reference"
+    - text: 'Reference'
       menu:
-        - text: "Functions"
+        - text: 'Functions'
           href: reference/index.html
-        - text: "News"
+        - text: 'News'
           href: news/index.html
   right:
-   - icon: fa-github
-     href: https://github.com/rsquaredacademy/rbin
+    - icon: fa-github
+      href: https://github.com/rsquaredacademy/rbin
 
 home:
   links:
-  - text: Learn more
-    href: https://www.rsquaredacademy.com
+    - text: Our R packages
+      href: https://pkgs.rsquaredacademy.com
+    - text: Read our blog
+      href: https://blog.rsquaredacademy.com
+    - text: Our ebooks
+      href: https://ebooks.rsquaredacademy.com
+    - text: Online courses
+      href: https://www.rsquaredacademy.com
 
 reference:
-- title: Continuous Data
-  
-  contents:
-  - rbin_manual
-  - rbin_quantiles
-  - rbin_winsorize
-  - rbin_equal_length
-  - rbin_equal_freq
-  - rbin_create
-  - rbin
+  - title: Continuous Data
 
-- title: Categorical Data
+    contents:
+      - rbin_manual
+      - rbin_quantiles
+      - rbin_winsorize
+      - rbin_equal_length
+      - rbin_equal_freq
+      - rbin_create
+      - rbin
 
-  contents:
-  - rbin_factor_combine
-  - rbin_factor
-  - rbin_factor_create
+  - title: Categorical Data
 
-- title: Addins
+    contents:
+      - rbin_factor_combine
+      - rbin_factor
+      - rbin_factor_create
 
-  contents:
-  - rbinAddin
-  - rbinFactorAddin
+  - title: Addins
 
-- title: Data
+    contents:
+      - rbinAddin
+      - rbinFactorAddin
 
-  contents:
-  - mbank
+  - title: Data
 
+    contents:
+      - mbank

@@ -9,7 +9,7 @@
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/vistributions)](https://cran.r-project.org/package=vistributions)
 [![cran
-checks](https://cranchecks.info/badges/summary/rbin)](https://cran.r-project.org/web/checks/check_results_rbin.html)
+checks](https://badges.cranchecks.info/summary/rbin.svg)](https://cran.r-project.org/web/checks/check_results_rbin.html)
 [![R-CMD-check](https://github.com/rsquaredacademy/rbin/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/rsquaredacademy/rbin/actions/workflows/R-CMD-check.yaml)
 [![Coverage
 status](https://codecov.io/gh/rsquaredacademy/rbin/branch/master/graph/badge.svg)](https://codecov.io/github/rsquaredacademy/rbin?branch=master)
@@ -227,6 +227,13 @@ plot(bins)
 - [logiBin](https://CRAN.R-project.org/package=logiBin)
 - [woeBinning](https://CRAN.R-project.org/package=woeBinning)
 - [binr](https://CRAN.R-project.org/package=binr)
+
+## Getting Help
+
+If you encounter a bug, please file a minimal reproducible example using
+[reprex](https://reprex.tidyverse.org/index.html) on github. For
+questions and clarifications, use
+[StackOverflow](https://stackoverflow.com/).
 
 ## Code of Conduct
 
