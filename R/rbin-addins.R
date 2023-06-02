@@ -29,7 +29,7 @@ rbinAddin <- function(data = NULL) {
 
     if (any(class(data) %in% c("data.frame","tibble","tbl_df"))) {
          mydata <- deparse(substitute(data))
-    } else if (class(data) == "character") {
+    } else if (is.character(data)) {
       result <- tryCatch(eval(parse(text = data)), error = function(e) "error")
       if (any(class(result) %in% c("data.frame","tibble","tbl_df"))) {
       	mydata <- data
@@ -227,7 +227,7 @@ rbinFactorAddin <- function(data = NULL) {
 
     if (any(class(data) %in% c("data.frame","tibble","tbl_df"))) {
          mydata <- deparse(substitute(data))
-    } else if (class(data) == "character") {
+    } else if (is.character(data)) {
       result <- tryCatch(eval(parse(text = data)), error = function(e) "error")
       if (any(class(result) %in% c("data.frame","tibble","tbl_df"))) {
       	mydata <- data

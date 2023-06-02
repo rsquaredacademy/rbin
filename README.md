@@ -12,7 +12,7 @@
 checks](https://badges.cranchecks.info/summary/rbin.svg)](https://cran.r-project.org/web/checks/check_results_rbin.html)
 [![R-CMD-check](https://github.com/rsquaredacademy/rbin/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/rsquaredacademy/rbin/actions/workflows/R-CMD-check.yaml)
 [![Coverage
-status](https://codecov.io/gh/rsquaredacademy/rbin/branch/master/graph/badge.svg)](https://codecov.io/github/rsquaredacademy/rbin?branch=master)
+status](https://codecov.io/gh/rsquaredacademy/rbin/branch/master/graph/badge.svg)](https://app.codecov.io/github/rsquaredacademy/rbin?branch=master)
 [![status](https://tinyverse.netlify.com/badge/rbin)](https://CRAN.R-project.org/package=rbin)
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
@@ -237,6 +237,6 @@ questions and clarifications, use
 
 ## Code of Conduct
 
-Please note that this project is released with a [Contributor Code of
-Conduct](CONDUCT.md). By participating in this project you agree to
-abide by its terms.
+Please note that the rbin project is released with a [Contributor Code
+of Conduct](https://rbin.rsquaredacademy.com/CODE_OF_CONDUCT.html). By
+contributing to this project, you agree to abide by its terms.
