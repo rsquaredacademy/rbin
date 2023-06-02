@@ -5,7 +5,7 @@
 #' See the README on
 #' \href{https://github.com/rsquaredacademy/rbin}{GitHub}
 #'
-#' @importFrom utils globalVariables
+#' @importFrom utils globalVariables packageVersion menu install.packages
 #' @docType package
 #' @name rbin
 NULL

@@ -74,7 +74,7 @@ plot_bins <- function(x) {
 
 }
 
-#' @importFrom utils packageVersion menu install.packages
+
 check_suggests <- function(pkg) {
 
   pkg_flag <- tryCatch(utils::packageVersion(pkg), error = function(e) NA)
