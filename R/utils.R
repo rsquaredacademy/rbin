@@ -120,3 +120,6 @@ winsor <- function(x, min_val = NULL, max_val = NULL, probs = c(0.05, 0.95),
   return(x)
 }
 
+try_pkg <- function(pkg) {
+  tryCatch(packageVersion(pkg), error = function(e) NA)
+}

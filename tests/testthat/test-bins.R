@@ -54,3 +54,19 @@ test_that("output from rbin_print is as expected", {
 test_that("output from rbin_print_custom  is as expected", {
   expect_snapshot(rbin_factor(mbank, y, education))
 })
+
+test_that("output from rbin_equal_freq print is as expected", {
+  expect_snapshot(rbin_equal_freq(mbank, y, age, 10))
+})
+
+test_that("output from rbin_equal_length print is as expected", {
+  expect_snapshot(rbin_equal_length(mbank, y, age, 10))
+})
+
+test_that("output from rbin_quantiles print is as expected", {
+  expect_snapshot(rbin_quantiles(mbank, y, age, 10))
+})
+
+test_that("output from rbin_winsorize print is as expected", {
+  expect_snapshot(rbin_winsorize(mbank, y, age, 10, winsor_rate = 0.05))
+})
