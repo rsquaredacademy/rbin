@@ -1,5 +1,3 @@
-context("test-plots")
-
 test_that("equal length plot is as expected", {
   skip_on_cran()
   bins <- rbin_equal_length(mbank, y, age, 10)

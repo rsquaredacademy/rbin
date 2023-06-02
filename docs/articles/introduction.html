@@ -4,106 +4,95 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="rbin">
 <title>Introduction to rbin • rbin</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
-<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to rbin">
+<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to rbin">
 <meta property="og:description" content="rbin">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body data-spy="scroll" data-target="#toc">
-    <div class="container template-article">
-      <header><div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">rbin</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9000</span>
-      </span>
-    </div>
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+    
 
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">Home</a>
+    <nav class="navbar fixed-top navbar-inverse navbar-expand-lg bg-light"><div class="container">
+    
+    <a class="navbar-brand me-2" href="../index.html">rbin</a>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.9000</small>
+
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-3">
+      <ul class="navbar-nav me-auto">
+<li class="nav-item">
+  <a class="nav-link" href="../index.html">Home</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Guides
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../articles/introduction.html">Introduction</a>
-    </li>
-  </ul>
+<li class="active nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-guides">Guides</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-guides">
+    <a class="dropdown-item" href="../articles/introduction.html">Introduction</a>
+  </div>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Reference
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../reference/index.html">Functions</a>
-    </li>
-    <li>
-      <a href="../news/index.html">News</a>
-    </li>
-  </ul>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-reference">Reference</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-reference">
+    <a class="dropdown-item" href="../reference/index.html">Functions</a>
+    <a class="dropdown-item" href="../news/index.html">News</a>
+  </div>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/rsquaredacademy/rbin">
+<form class="form-inline my-2 my-lg-0" role="search">
+        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
+</form>
+
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/rsquaredacademy/rbin">
     <span class="fa fa-github"></span>
      
   </a>
 </li>
       </ul>
 </div>
-<!--/.nav-collapse -->
+
+    
   </div>
-<!--/.container -->
-</div>
-<!--/.navbar -->
+</nav><div class="container template-article">
 
-      
 
-      </header><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Introduction to rbin</h1>
-                        <h4 class="author">Aravind Hebbali</h4>
+
+
+<div class="row">
+  <main id="main" class="col-md-9"><div class="page-header">
+      <img src="" class="logo" alt=""><h1>Introduction to rbin</h1>
+                        <h4 data-toc-skip class="author">Aravind
+Hebbali</h4>
             
-            <h4 class="date">2020-05-14</h4>
+            <h4 data-toc-skip class="date">2023-06-02</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/rsquaredacademy/rbin/blob/master/vignettes/introduction.Rmd"><code>vignettes/introduction.Rmd</code></a></small>
-      <div class="hidden name"><code>introduction.Rmd</code></div>
-
+      <small class="dont-index">Source: <a href="https://github.com/rsquaredacademy/rbin/blob/HEAD/../../../../R/Packages/statistics/rbin/vignettes/introduction.Rmd" class="external-link"><code>../../../../R/Packages/statistics/rbin/vignettes/introduction.Rmd</code></a></small>
+      <div class="d-none name"><code>introduction.Rmd</code></div>
     </div>
 
     
     
-<div id="introduction" class="section level2">
-<h2 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h2>
-<p>Binning is the process of transforming numerical or continuous data into categorical data. It is a common data pre-processing step of the model building process.</p>
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
+<p>Binning is the process of transforming numerical or continuous data
+into categorical data. It is a common data pre-processing step of the
+model building process.</p>
 <p>rbin has the following features:</p>
 <ul>
 <li>manual binning using shiny app</li>
@@ -112,20 +101,30 @@
 <li>quantile binning method</li>
 <li>combine levels of categorical data</li>
 <li>create dummy variables based on binning method</li>
-<li>calculates weight of evidence (WOE), entropy and information value (IV)</li>
+<li>calculates weight of evidence (WOE), entropy and information value
+(IV)</li>
 <li>provides summary information about binning pre-processing</li>
 </ul>
 </div>
-<div id="manual-binning" class="section level2">
-<h2 class="hasAnchor">
-<a href="#manual-binning" class="anchor"></a>Manual Binning</h2>
-<p>For manual binning, you need to specify the cut points for the bins. <code>rbin</code> follows the left closed and right open interval (<code>[0,1) = {x | 0 ≤ x &lt; 1}</code>) for creating bins. The number of cut points you specify is one less than the number of bins you want to create i.e. if you want to create 10 bins, you need to specify only 9 cut points as shown in the below example. The accompanying RStudio addin, <code><a href="../reference/rbinAddin.html">rbinAddin()</a></code> can be used to iteratively bin the data and to enforce monotonic increasing/decreasing trend.</p>
-<p>After finalizing the bins, you can use <code><a href="../reference/rbin_create.html">rbin_create()</a></code> to create the dummy variables.</p>
-<div id="bins" class="section level3">
-<h3 class="hasAnchor">
-<a href="#bins" class="anchor"></a>Bins</h3>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="no">bins</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/rbin_manual.html">rbin_manual</a></span>(<span class="no">mbank</span>, <span class="no">y</span>, <span class="no">age</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">29</span>, <span class="fl">31</span>, <span class="fl">34</span>, <span class="fl">36</span>, <span class="fl">39</span>, <span class="fl">42</span>, <span class="fl">46</span>, <span class="fl">51</span>, <span class="fl">56</span>))
-<span class="no">bins</span>
+<div class="section level2">
+<h2 id="manual-binning">Manual Binning<a class="anchor" aria-label="anchor" href="#manual-binning"></a>
+</h2>
+<p>For manual binning, you need to specify the cut points for the bins.
+<code>rbin</code> follows the left closed and right open interval
+(<code>[0,1) = {x | 0 ≤ x &lt; 1}</code>) for creating bins. The number
+of cut points you specify is one less than the number of bins you want
+to create i.e. if you want to create 10 bins, you need to specify only 9
+cut points as shown in the below example. The accompanying RStudio
+addin, <code><a href="../reference/rbinAddin.html">rbinAddin()</a></code> can be used to iteratively bin the data
+and to enforce monotonic increasing/decreasing trend.</p>
+<p>After finalizing the bins, you can use <code><a href="../reference/rbin_create.html">rbin_create()</a></code> to
+create the dummy variables.</p>
+<div class="section level3">
+<h3 id="bins">Bins<a class="anchor" aria-label="anchor" href="#bins"></a>
+</h3>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">bins</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rbin_manual.html">rbin_manual</a></span><span class="op">(</span><span class="va">mbank</span>, <span class="va">y</span>, <span class="va">age</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">29</span>, <span class="fl">31</span>, <span class="fl">34</span>, <span class="fl">36</span>, <span class="fl">39</span>, <span class="fl">42</span>, <span class="fl">46</span>, <span class="fl">51</span>, <span class="fl">56</span><span class="op">)</span><span class="op">)</span>
+<span class="va">bins</span>
 <span class="co">#&gt; Binning Summary</span>
 <span class="co">#&gt; ---------------------------</span>
 <span class="co">#&gt; Method               Manual </span>
@@ -149,20 +148,22 @@
 <span class="co">#&gt; 7       &lt; 46       449   47 402  0.099298221 9.423907e-04 0.4836486</span>
 <span class="co">#&gt; 8       &lt; 51       521   40 481  0.439981550 1.881380e-02 0.3907140</span>
 <span class="co">#&gt; 9       &lt; 56       445   49 396  0.042587647 1.756117e-04 0.5002548</span>
-<span class="co">#&gt; 10     &gt;= 56       470   89 381 -0.592843261 4.564428e-02 0.7001343</span></pre></body></html></div>
+<span class="co">#&gt; 10     &gt;= 56       470   89 381 -0.592843261 4.564428e-02 0.7001343</span></code></pre></div>
 </div>
-<div id="plot" class="section level3">
-<h3 class="hasAnchor">
-<a href="#plot" class="anchor"></a>Plot</h3>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="co"># plot</span>
-<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">bins</span>)</pre></body></html></div>
+<div class="section level3">
+<h3 id="plot">Plot<a class="anchor" aria-label="anchor" href="#plot"></a>
+</h3>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># plot</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">bins</span><span class="op">)</span></code></pre></div>
 <p><img src="introduction_files/figure-html/manual_plot-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
-<div id="dummy-variables" class="section level3">
-<h3 class="hasAnchor">
-<a href="#dummy-variables" class="anchor"></a>Dummy Variables</h3>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">bins</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/rbin_manual.html">rbin_manual</a></span>(<span class="no">mbank</span>, <span class="no">y</span>, <span class="no">age</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">29</span>, <span class="fl">31</span>, <span class="fl">34</span>, <span class="fl">36</span>, <span class="fl">39</span>, <span class="fl">42</span>, <span class="fl">46</span>, <span class="fl">51</span>, <span class="fl">56</span>))
-<span class="fu"><a href="../reference/rbin_create.html">rbin_create</a></span>(<span class="no">mbank</span>, <span class="no">age</span>, <span class="no">bins</span>)
+<div class="section level3">
+<h3 id="dummy-variables">Dummy Variables<a class="anchor" aria-label="anchor" href="#dummy-variables"></a>
+</h3>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">bins</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rbin_manual.html">rbin_manual</a></span><span class="op">(</span><span class="va">mbank</span>, <span class="va">y</span>, <span class="va">age</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">29</span>, <span class="fl">31</span>, <span class="fl">34</span>, <span class="fl">36</span>, <span class="fl">39</span>, <span class="fl">42</span>, <span class="fl">46</span>, <span class="fl">51</span>, <span class="fl">56</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="../reference/rbin_create.html">rbin_create</a></span><span class="op">(</span><span class="va">mbank</span>, <span class="va">age</span>, <span class="va">bins</span><span class="op">)</span>
 <span class="co">#&gt;      age           job  marital education default balance housing loan</span>
 <span class="co">#&gt; 1     34    technician  married  tertiary      no     297     yes   no</span>
 <span class="co">#&gt; 2     49      services  married secondary      no     180     yes  yes</span>
@@ -14979,34 +14980,43 @@
 <span class="co">#&gt; 3701         0</span>
 <span class="co">#&gt; 3702         0</span>
 <span class="co">#&gt; 3703         0</span>
-<span class="co">#&gt;  [ reached 'max' / getOption("max.print") -- omitted 818 rows ]</span></pre></body></html></div>
+<span class="co">#&gt;  [ reached 'max' / getOption("max.print") -- omitted 818 rows ]</span></code></pre></div>
 </div>
 </div>
-<div id="factor-binning" class="section level2">
-<h2 class="hasAnchor">
-<a href="#factor-binning" class="anchor"></a>Factor Binning</h2>
-<p>You can collapse or combine levels of a factor/categorical variable using <code><a href="../reference/rbin_factor_combine.html">rbin_factor_combine()</a></code> and then use <code><a href="../reference/rbin_factor.html">rbin_factor()</a></code> to look at weight of evidence, entropy and information value. After finalizing the bins, you can use <code><a href="../reference/rbin_factor_create.html">rbin_factor_create()</a></code> to create the dummy variables. You can use the RStudio addin, <code><a href="../reference/rbinFactorAddin.html">rbinFactorAddin()</a></code> to interactively combine the levels and create dummy variables after finalizing the bins.</p>
-<div id="combine-levels" class="section level3">
-<h3 class="hasAnchor">
-<a href="#combine-levels" class="anchor"></a>Combine Levels</h3>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">upper</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"secondary"</span>, <span class="st">"tertiary"</span>)
-<span class="no">out</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/rbin_factor_combine.html">rbin_factor_combine</a></span>(<span class="no">mbank</span>, <span class="no">education</span>, <span class="no">upper</span>, <span class="st">"upper"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span>(<span class="no">out</span>$<span class="no">education</span>)
+<div class="section level2">
+<h2 id="factor-binning">Factor Binning<a class="anchor" aria-label="anchor" href="#factor-binning"></a>
+</h2>
+<p>You can collapse or combine levels of a factor/categorical variable
+using <code><a href="../reference/rbin_factor_combine.html">rbin_factor_combine()</a></code> and then use
+<code><a href="../reference/rbin_factor.html">rbin_factor()</a></code> to look at weight of evidence, entropy and
+information value. After finalizing the bins, you can use
+<code><a href="../reference/rbin_factor_create.html">rbin_factor_create()</a></code> to create the dummy variables. You can
+use the RStudio addin, <code><a href="../reference/rbinFactorAddin.html">rbinFactorAddin()</a></code> to interactively
+combine the levels and create dummy variables after finalizing the
+bins.</p>
+<div class="section level3">
+<h3 id="combine-levels">Combine Levels<a class="anchor" aria-label="anchor" href="#combine-levels"></a>
+</h3>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">upper</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"secondary"</span>, <span class="st">"tertiary"</span><span class="op">)</span>
+<span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rbin_factor_combine.html">rbin_factor_combine</a></span><span class="op">(</span><span class="va">mbank</span>, <span class="va">education</span>, <span class="va">upper</span>, <span class="st">"upper"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">out</span><span class="op">$</span><span class="va">education</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;   upper unknown primary </span>
 <span class="co">#&gt;    3651     179     691</span>
 
-<span class="no">out</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/rbin_factor_combine.html">rbin_factor_combine</a></span>(<span class="no">mbank</span>, <span class="no">education</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"secondary"</span>, <span class="st">"tertiary"</span>), <span class="st">"upper"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span>(<span class="no">out</span>$<span class="no">education</span>)
+<span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rbin_factor_combine.html">rbin_factor_combine</a></span><span class="op">(</span><span class="va">mbank</span>, <span class="va">education</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"secondary"</span>, <span class="st">"tertiary"</span><span class="op">)</span>, <span class="st">"upper"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">out</span><span class="op">$</span><span class="va">education</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;   upper unknown primary </span>
-<span class="co">#&gt;    3651     179     691</span></pre></body></html></div>
+<span class="co">#&gt;    3651     179     691</span></code></pre></div>
 </div>
-<div id="bins-1" class="section level3">
-<h3 class="hasAnchor">
-<a href="#bins-1" class="anchor"></a>Bins</h3>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">bins</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/rbin_factor.html">rbin_factor</a></span>(<span class="no">mbank</span>, <span class="no">y</span>, <span class="no">education</span>)
-<span class="no">bins</span>
+<div class="section level3">
+<h3 id="bins-1">Bins<a class="anchor" aria-label="anchor" href="#bins-1"></a>
+</h3>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">bins</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rbin_factor.html">rbin_factor</a></span><span class="op">(</span><span class="va">mbank</span>, <span class="va">y</span>, <span class="va">education</span><span class="op">)</span>
+<span class="va">bins</span>
 <span class="co">#&gt; Binning Summary</span>
 <span class="co">#&gt; ---------------------------</span>
 <span class="co">#&gt; Method               Custom </span>
@@ -15024,21 +15034,23 @@
 <span class="co">#&gt; 1  tertiary      1299  195 1104 -0.3133106 0.031785905 0.6101292</span>
 <span class="co">#&gt; 2 secondary      2352  231 2121  0.1702190 0.014113157 0.4633093</span>
 <span class="co">#&gt; 3   primary       691   66  625  0.2010906 0.005717878 0.4546110</span>
-<span class="co">#&gt; 4   unknown       179   25  154 -0.2289295 0.002265111 0.5833603</span></pre></body></html></div>
-<div id="plot-1" class="section level4">
-<h4 class="hasAnchor">
-<a href="#plot-1" class="anchor"></a>Plot</h4>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="co"># plot</span>
-<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">bins</span>)</pre></body></html></div>
+<span class="co">#&gt; 4   unknown       179   25  154 -0.2289295 0.002265111 0.5833603</span></code></pre></div>
+<div class="section level4">
+<h4 id="plot-1">Plot<a class="anchor" aria-label="anchor" href="#plot-1"></a>
+</h4>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># plot</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">bins</span><span class="op">)</span></code></pre></div>
 <p><img src="introduction_files/figure-html/factor_plot-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 </div>
-<div id="create-bins" class="section level3">
-<h3 class="hasAnchor">
-<a href="#create-bins" class="anchor"></a>Create Bins</h3>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">upper</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"secondary"</span>, <span class="st">"tertiary"</span>)
-<span class="no">out</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/rbin_factor_combine.html">rbin_factor_combine</a></span>(<span class="no">mbank</span>, <span class="no">education</span>, <span class="no">upper</span>, <span class="st">"upper"</span>)
-<span class="fu"><a href="../reference/rbin_factor_create.html">rbin_factor_create</a></span>(<span class="no">out</span>, <span class="no">education</span>)
+<div class="section level3">
+<h3 id="create-bins">Create Bins<a class="anchor" aria-label="anchor" href="#create-bins"></a>
+</h3>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">upper</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"secondary"</span>, <span class="st">"tertiary"</span><span class="op">)</span>
+<span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rbin_factor_combine.html">rbin_factor_combine</a></span><span class="op">(</span><span class="va">mbank</span>, <span class="va">education</span>, <span class="va">upper</span>, <span class="st">"upper"</span><span class="op">)</span>
+<span class="fu"><a href="../reference/rbin_factor_create.html">rbin_factor_create</a></span><span class="op">(</span><span class="va">out</span>, <span class="va">education</span><span class="op">)</span>
 <span class="co">#&gt;      age           job  marital default balance housing loan   contact day</span>
 <span class="co">#&gt; 1     34    technician  married      no     297     yes   no  cellular  29</span>
 <span class="co">#&gt; 2     49      services  married      no     180     yes  yes   unknown   2</span>
@@ -28604,15 +28616,17 @@
 <span class="co">#&gt; 4518               1                 0                 0</span>
 <span class="co">#&gt; 4519               1                 0                 0</span>
 <span class="co">#&gt; 4520               0                 0                 1</span>
-<span class="co">#&gt; 4521               1                 0                 0</span></pre></body></html></div>
+<span class="co">#&gt; 4521               1                 0                 0</span></code></pre></div>
 </div>
 </div>
-<div id="quantile-binning" class="section level2">
-<h2 class="hasAnchor">
-<a href="#quantile-binning" class="anchor"></a>Quantile Binning</h2>
-<p>Quantile binning aims to bin the data into roughly equal groups using quantiles.</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">bins</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/rbin_quantiles.html">rbin_quantiles</a></span>(<span class="no">mbank</span>, <span class="no">y</span>, <span class="no">age</span>, <span class="fl">10</span>)
-<span class="no">bins</span>
+<div class="section level2">
+<h2 id="quantile-binning">Quantile Binning<a class="anchor" aria-label="anchor" href="#quantile-binning"></a>
+</h2>
+<p>Quantile binning aims to bin the data into roughly equal groups using
+quantiles.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">bins</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rbin_quantiles.html">rbin_quantiles</a></span><span class="op">(</span><span class="va">mbank</span>, <span class="va">y</span>, <span class="va">age</span>, <span class="fl">10</span><span class="op">)</span>
+<span class="va">bins</span>
 <span class="co">#&gt; Binning Summary</span>
 <span class="co">#&gt; -----------------------------</span>
 <span class="co">#&gt; Method               Quantile </span>
@@ -28636,21 +28650,24 @@
 <span class="co">#&gt; 7       &lt; 46       449   47 402  0.099298221 9.423907e-04 0.4836486</span>
 <span class="co">#&gt; 8       &lt; 51       521   40 481  0.439981550 1.881380e-02 0.3907140</span>
 <span class="co">#&gt; 9       &lt; 56       445   49 396  0.042587647 1.756117e-04 0.5002548</span>
-<span class="co">#&gt; 10     &gt;= 56       470   89 381 -0.592843261 4.564428e-02 0.7001343</span></pre></body></html></div>
-<div id="plot-2" class="section level4">
-<h4 class="hasAnchor">
-<a href="#plot-2" class="anchor"></a>Plot</h4>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="co"># plot</span>
-<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">bins</span>)</pre></body></html></div>
+<span class="co">#&gt; 10     &gt;= 56       470   89 381 -0.592843261 4.564428e-02 0.7001343</span></code></pre></div>
+<div class="section level4">
+<h4 id="plot-2">Plot<a class="anchor" aria-label="anchor" href="#plot-2"></a>
+</h4>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># plot</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">bins</span><span class="op">)</span></code></pre></div>
 <p><img src="introduction_files/figure-html/quantile_plot-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 </div>
-<div id="equal-length-binning" class="section level2">
-<h2 class="hasAnchor">
-<a href="#equal-length-binning" class="anchor"></a>Equal Length Binning</h2>
-<p>Equal length binning creates bins of equal widths. It is different from equal frequency binning which creates bins of equal size.</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">bins</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/rbin_equal_length.html">rbin_equal_length</a></span>(<span class="no">mbank</span>, <span class="no">y</span>, <span class="no">age</span>, <span class="fl">10</span>)
-<span class="no">bins</span>
+<div class="section level2">
+<h2 id="equal-length-binning">Equal Length Binning<a class="anchor" aria-label="anchor" href="#equal-length-binning"></a>
+</h2>
+<p>Equal length binning creates bins of equal widths. It is different
+from equal frequency binning which creates bins of equal size.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">bins</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rbin_equal_length.html">rbin_equal_length</a></span><span class="op">(</span><span class="va">mbank</span>, <span class="va">y</span>, <span class="va">age</span>, <span class="fl">10</span><span class="op">)</span>
+<span class="va">bins</span>
 <span class="co">#&gt; Binning Summary</span>
 <span class="co">#&gt; ---------------------------------</span>
 <span class="co">#&gt; Method               Equal Length </span>
@@ -28674,21 +28691,28 @@
 <span class="co">#&gt; 7     &lt; 64.2       229   43  186 -0.58245971 0.0213871054 0.6967893</span>
 <span class="co">#&gt; 8     &lt; 70.8        34   12   22 -1.44087046 0.0255269312 0.9366674</span>
 <span class="co">#&gt; 9     &lt; 77.4        25   13   12 -2.12704897 0.0471100183 0.9988455</span>
-<span class="co">#&gt; 10   &gt;= 77.4        15    4   11 -1.03540535 0.0051663529 0.8366407</span></pre></body></html></div>
-<div id="plot-3" class="section level4">
-<h4 class="hasAnchor">
-<a href="#plot-3" class="anchor"></a>Plot</h4>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="co"># plot</span>
-<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">bins</span>)</pre></body></html></div>
+<span class="co">#&gt; 10   &gt;= 77.4        15    4   11 -1.03540535 0.0051663529 0.8366407</span></code></pre></div>
+<div class="section level4">
+<h4 id="plot-3">Plot<a class="anchor" aria-label="anchor" href="#plot-3"></a>
+</h4>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># plot</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">bins</span><span class="op">)</span></code></pre></div>
 <p><img src="introduction_files/figure-html/equal_length_plot-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 </div>
-<div id="winsorized-binning" class="section level2">
-<h2 class="hasAnchor">
-<a href="#winsorized-binning" class="anchor"></a>Winsorized Binning</h2>
-<p>Winsorized binning is similar to equal length binning except that both tails are cut off to obtain a smooth binning result. This technique is often used to remove outliers during the data pre-processing stage. For Winsorized binning, the Winsorized statistics are computed first. After the minimum and maximum have been found, the split points are calculated the same way as in equal length binning.</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">bins</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/rbin_winsorize.html">rbin_winsorize</a></span>(<span class="no">mbank</span>, <span class="no">y</span>, <span class="no">age</span>, <span class="fl">10</span>, <span class="kw">winsor_rate</span> <span class="kw">=</span> <span class="fl">0.05</span>)
-<span class="no">bins</span>
+<div class="section level2">
+<h2 id="winsorized-binning">Winsorized Binning<a class="anchor" aria-label="anchor" href="#winsorized-binning"></a>
+</h2>
+<p>Winsorized binning is similar to equal length binning except that
+both tails are cut off to obtain a smooth binning result. This technique
+is often used to remove outliers during the data pre-processing stage.
+For Winsorized binning, the Winsorized statistics are computed first.
+After the minimum and maximum have been found, the split points are
+calculated the same way as in equal length binning.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">bins</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rbin_winsorize.html">rbin_winsorize</a></span><span class="op">(</span><span class="va">mbank</span>, <span class="va">y</span>, <span class="va">age</span>, <span class="fl">10</span>, winsor_rate <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>
+<span class="va">bins</span>
 <span class="co">#&gt; Binning Summary</span>
 <span class="co">#&gt; ------------------------------</span>
 <span class="co">#&gt; Method               Winsorize </span>
@@ -28712,40 +28736,38 @@
 <span class="co">#&gt; 7     &lt; 49.4       281   22 259  0.4187793 0.0092684760 0.3961315</span>
 <span class="co">#&gt; 8     &lt; 52.6       309   32 277  0.1112753 0.0008106706 0.4801796</span>
 <span class="co">#&gt; 9     &lt; 55.8       244   25 219  0.1231896 0.0007809490 0.4767424</span>
-<span class="co">#&gt; 10   &gt;= 55.8       470   89 381 -0.5928433 0.0456442813 0.7001343</span></pre></body></html></div>
-<div id="plot-4" class="section level4">
-<h4 class="hasAnchor">
-<a href="#plot-4" class="anchor"></a>Plot</h4>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="co"># plot</span>
-<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">bins</span>)</pre></body></html></div>
+<span class="co">#&gt; 10   &gt;= 55.8       470   89 381 -0.5928433 0.0456442813 0.7001343</span></code></pre></div>
+<div class="section level4">
+<h4 id="plot-4">Plot<a class="anchor" aria-label="anchor" href="#plot-4"></a>
+</h4>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># plot</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">bins</span><span class="op">)</span></code></pre></div>
 <p><img src="introduction_files/figure-html/winsorize_plot-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 </div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
-
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
 
-      <footer><div class="copyright">
-  <p>Developed by <a href="https://www.aravindhebbali.com">Aravind Hebbali</a>.</p>
+    <footer><div class="pkgdown-footer-left">
+  <p></p>
+<p>Developed by <a href="https://www.aravindhebbali.com" class="external-link">Aravind Hebbali</a>.</p>
 </div>
 
-<div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+<div class="pkgdown-footer-right">
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
-      </footer>
+    </footer>
 </div>
 
   
 
+  
 
   </body>
 </html>

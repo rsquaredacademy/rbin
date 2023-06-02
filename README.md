@@ -7,15 +7,15 @@
 
 <!-- badges: start -->
 
-[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/vistributions)](https://cran.r-project.org/package=vistributions)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/vistributions)](https://cran.r-project.org/package=vistributions)
 [![cran
-checks](https://cranchecks.info/badges/summary/rbin)](https://cran.r-project.org/web/checks/check_results_rbin.html)
-[![R build
-status](https://github.com/rsquaredacademy/rbin/workflows/R-CMD-check/badge.svg)](https://github.com/rsquaredacademy/rbin/actions)
+checks](https://badges.cranchecks.info/summary/rbin.svg)](https://cran.r-project.org/web/checks/check_results_rbin.html)
+[![R-CMD-check](https://github.com/rsquaredacademy/rbin/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/rsquaredacademy/rbin/actions/workflows/R-CMD-check.yaml)
 [![Coverage
 status](https://codecov.io/gh/rsquaredacademy/rbin/branch/master/graph/badge.svg)](https://codecov.io/github/rsquaredacademy/rbin?branch=master)
 [![status](https://tinyverse.netlify.com/badge/rbin)](https://CRAN.R-project.org/package=rbin)
-[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![Lifecycle:
+stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![](https://cranlogs.r-pkg.org/badges/grand-total/rbin)](https://cran.r-project.org/package=rbin)
 <!-- badges: end -->
 
@@ -34,8 +34,8 @@ devtools::install_github("rsquaredacademy/rbin")
 
 rbin includes two addins for manually binning data:
 
-  - `rbinAddin()`
-  - `rbinFactorAddin()`
+- `rbinAddin()`
+- `rbinFactorAddin()`
 
 ## Usage
 
@@ -223,11 +223,17 @@ plot(bins)
 
 ## Alternatives
 
-  - [smbinning](https://CRAN.R-project.org/package=smbinning)
-  - [logiBin](https://CRAN.R-project.org/package=logiBin)
-  - [woeR](https://CRAN.R-project.org/package=woeR)
-  - [woeBinning](https://CRAN.R-project.org/package=woeBinning)
-  - [binr](https://CRAN.R-project.org/package=binr)
+- [smbinning](https://CRAN.R-project.org/package=smbinning)
+- [logiBin](https://CRAN.R-project.org/package=logiBin)
+- [woeBinning](https://CRAN.R-project.org/package=woeBinning)
+- [binr](https://CRAN.R-project.org/package=binr)
+
+## Getting Help
+
+If you encounter a bug, please file a minimal reproducible example using
+[reprex](https://reprex.tidyverse.org/index.html) on github. For
+questions and clarifications, use
+[StackOverflow](https://stackoverflow.com/).
 
 ## Code of Conduct
 

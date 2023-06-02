@@ -46,9 +46,9 @@ rbin_equal_freq.default <- function(data = NULL, response = NULL, predictor = NU
   bm2          <- bm_2(bm)
   intervals    <- freq_intervals(bm2, lower, upper)
 
-  result <- list(bins = cbind(intervals, k),
-                 method = "Equal Frequency",
-                 vars = var_names,
+  result <- list(bins      = cbind(intervals, k),
+                 method    = "Equal Frequency",
+                 vars      = var_names,
                  lower_cut = lower,
                  upper_cut = upper)
 
@@ -102,7 +102,7 @@ binresidual <- function (bm, first_bins) {
 }
 
 binrep <- function(bins, bin_length, residual) {
-  c(rep(seq_len((bins - 1)), each = bin_length), rep(residual, residual))
+  c(rep(seq_len((bins - 1)), each = bin_length), rep(bins, residual))
 }
 
 freq_lower <- function(bin_length, bins) {
@@ -123,10 +123,10 @@ bm_2 <- function(bm) {
 
 freq_intervals <- function(bm2, lower, upper) {
 
-  result <- data.frame(lower, upper)
-  result$li <- bm2[lower]
-  result$ui <- bm2[upper]
-  out <- result[c('li', 'ui')]
+  result        <- data.frame(lower, upper)
+  result$li     <- bm2[lower]
+  result$ui     <- bm2[upper]
+  out           <- result[c('li', 'ui')]
   colnames(out) <- c('lower_cut', 'upper_cut')
   return(out)
 
