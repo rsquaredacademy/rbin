@@ -3,6 +3,7 @@
 \docType{package}
 \name{rbin}
 \alias{rbin}
+\alias{rbin-package}
 \title{\code{rbin} package}
 \description{
 Tools for binning data.
@@ -11,3 +12,17 @@ Tools for binning data.
 See the README on
 \href{https://github.com/rsquaredacademy/rbin}{GitHub}
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/rsquaredacademy/rbin}
+  \item \url{https://rbin.rsquaredacademy.com}
+  \item Report bugs at \url{https://github.com/rsquaredacademy/rbin/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Aravind Hebbali \email{hebbali.aravind@gmail.com}
+
+}
+\keyword{internal}

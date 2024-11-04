@@ -5,9 +5,12 @@
 #' See the README on
 #' \href{https://github.com/rsquaredacademy/rbin}{GitHub}
 #'
-#' @importFrom utils globalVariables packageVersion menu install.packages
+#' @importFrom utils packageVersion menu install.packages
+#' @keywords internal
 #' @docType package
 #' @name rbin
+#' @aliases rbin-package
+"_PACKAGE"
 NULL
 
 ## quiets concerns of R CMD check re: the .'s that appear in pipelines
