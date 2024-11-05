@@ -1,3 +1,7 @@
+# rbin 0.2.1
+
+This is a patch release for minor bug fixes.
+
 # rbin 0.2.0
 
 This is a minor release for bug fixes and internal changes.

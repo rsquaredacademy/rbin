@@ -17,9 +17,9 @@ knitr::opts_chunk$set(
 > Tools for binning data
 
 <!-- badges: start -->
-[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/vistributions)](https://cran.r-project.org/package=vistributions) [![cran checks](https://badges.cranchecks.info/summary/rbin.svg)](https://cran.r-project.org/web/checks/check_results_rbin.html)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/rbin)](https://cran.r-project.org/package=rbin) 
 [![R-CMD-check](https://github.com/rsquaredacademy/rbin/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/rsquaredacademy/rbin/actions/workflows/R-CMD-check.yaml)
-[![Coverage status](https://codecov.io/gh/rsquaredacademy/rbin/branch/master/graph/badge.svg)](https://app.codecov.io/github/rsquaredacademy/rbin?branch=master) [![status](https://tinyverse.netlify.com/badge/rbin)](https://CRAN.R-project.org/package=rbin) [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html) [![](https://cranlogs.r-pkg.org/badges/grand-total/rbin)](https://cran.r-project.org/package=rbin)
+[![Coverage status](https://codecov.io/gh/rsquaredacademy/rbin/branch/master/graph/badge.svg)](https://app.codecov.io/github/rsquaredacademy/rbin?branch=master) 
 <!-- badges: end -->
 
 ## Installation
