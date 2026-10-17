@@ -8,6 +8,7 @@
 ^LICENSE\.md$
 ^_pkgdown\.yml$
 ^docs$
+^pkgdown$
 ^debug\.log$
 ^hex_rbin\.png$
 ^\.github$

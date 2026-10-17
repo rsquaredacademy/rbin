@@ -1,0 +1,25 @@
+# Changelog
+
+## rbin 0.2.1.9000
+
+## rbin 0.2.1
+
+CRAN release: 2024-11-05
+
+This is a patch release for minor bug fixes.
+
+## rbin 0.2.0
+
+CRAN release: 2020-05-14
+
+This is a minor release for bug fixes and internal changes.
+
+## rbin 0.1.2
+
+CRAN release: 2020-02-04
+
+- This is a patch release to fix CRAN note.
+
+## rbin 0.1.0
+
+- Added a `NEWS.md` file to track changes to the package.
