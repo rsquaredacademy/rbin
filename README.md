@@ -234,3 +234,5 @@ questions and clarifications, use
 Please note that the rbin project is released with a [Contributor Code
 of Conduct](https://rbin.rsquaredacademy.com/CODE_OF_CONDUCT.html). By
 contributing to this project, you agree to abide by its terms.
+
+<div data-rsa-signup data-site="rbin.rsquaredacademy.com" data-privacy-url="https://www.rsquaredacademy.com/privacy-policy.html"></div>
