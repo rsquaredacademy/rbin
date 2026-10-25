@@ -225,7 +225,7 @@ plot(bins)
 ## Getting Help
 
 If you encounter a bug, please file a minimal reproducible example using
-[reprex](https://reprex.tidyverse.org/index.html) on github. For
+[reprex](https://reprex.tidyverse.org/index.html) on GitHub. For
 questions and clarifications, use
 [StackOverflow](https://stackoverflow.com/).
 
