@@ -3,7 +3,7 @@
 bin_create <- function(bm) {
 
   bm <- data.table(bm)
-  setorder(bm, predictor)  # sort
+  setorder(bm, bin, na.last = TRUE)  # sort, missing bin last
 
   # group and summarize
   bm_group <- bm[, .(bin_count = .N,
@@ -30,6 +30,21 @@ bin_create <- function(bm) {
 
   setDF(bm_group)
   return(bm_group)
+
+}
+
+# drop rows with a missing response, warning about how many were removed
+drop_na_response <- function(data) {
+
+  n_na <- sum(is.na(data$response))
+
+  if (n_na > 0) {
+    warning(sprintf("Dropping %d row%s with missing response.",
+                    n_na, if (n_na == 1) "" else "s"), call. = FALSE)
+    data <- data[!is.na(data$response), , drop = FALSE]
+  }
+
+  data
 
 }
 

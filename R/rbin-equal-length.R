@@ -34,14 +34,14 @@ rbin_equal_length.default <- function(data = NULL, response = NULL, predictor = 
 
   var_names <- names(data[, c(resp, pred)])
   prep_data <- data[, c(resp, pred)]
+  colnames(prep_data) <- c("response", "predictor")
+  prep_data <- drop_na_response(prep_data)
 
   if (include_na) {
     bm <- prep_data
   } else {
     bm <- na.omit(prep_data)
   }
-
-  colnames(bm) <- c("response", "predictor")
 
   bm$bin    <- NA
   byd       <- bm$predictor

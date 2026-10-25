@@ -49,6 +49,7 @@ rbin_winsorize.default <- function(data = NULL, response = NULL, predictor = NUL
   var_names <- names(data[, c(resp, pred)])
   prep_data <- data[, c(resp, pred)]
   colnames(prep_data) <- c("response", "predictor")
+  prep_data <- drop_na_response(prep_data)
 
   if (include_na) {
     bm_data <- prep_data

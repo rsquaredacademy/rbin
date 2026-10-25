@@ -33,6 +33,7 @@ rbin_equal_freq.default <- function(data = NULL, response = NULL, predictor = NU
   var_names    <- names(data[, c(resp, pred)])
   bm           <- data[, c(resp, pred)]
   colnames(bm) <- c("response", "predictor")
+  bm           <- drop_na_response(bm)
 
   bin_prop     <- 1 / bins
   bins         <- binned(bin_prop)
@@ -90,7 +91,11 @@ binned <- function(bin_prop) {
 }
 
 binlength <- function(bm, bins) {
-  round(nrow(bm) / bins)
+  bin_length <- floor(nrow(bm) / bins)
+  if (bin_length == 0) {
+    stop("bins must not exceed the number of observations", call. = FALSE)
+  }
+  bin_length
 }
 
 firstbins <- function(bins, bin_length) {
