@@ -48,6 +48,14 @@ drop_na_response <- function(data) {
 
 }
 
+check_bins <- function(bins) {
+
+  if (is.na(bins) || bins < 2) {
+    stop("bins must be at least 2", call. = FALSE)
+  }
+
+}
+
 f_bin <- function(u_freq) {
 
   len_fbin <- length(u_freq)

@@ -21,6 +21,7 @@
 #'
 rbin_factor_combine <- function(data, var, new_var, new_name) {
 
+  data           <- as.data.frame(data)
   vars           <- deparse(substitute(var))
   mydata         <- data[[vars]]
   current_lev    <- levels(mydata)
@@ -67,11 +68,13 @@ rbin_factor <- function(data = NULL, response = NULL, predictor = NULL, include_
 #'
 rbin_factor.default <- function(data = NULL, response = NULL, predictor = NULL, include_na = TRUE) {
 
+  data <- as.data.frame(data)
+
   resp <- deparse(substitute(response))
   pred <- deparse(substitute(predictor))
 
-  var_names <- names(data[, c(resp, pred)])
-  prep_data <- data[, c(resp, pred)]
+  var_names <- names(data[, c(resp, pred), drop = FALSE])
+  prep_data <- data[, c(resp, pred), drop = FALSE]
   colnames(prep_data) <- c("response", "predictor")
   prep_data <- drop_na_response(prep_data)
 
@@ -168,6 +171,7 @@ plot.rbin_factor <- function(x, print_plot = TRUE,...) {
 #'
 rbin_factor_create <- function(data, predictor) {
 
+  data <- as.data.frame(data)
   vars <- deparse(substitute(predictor))
   nl <- nlevels(data[[vars]])
   levs <- levels(data[[vars]])

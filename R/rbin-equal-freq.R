@@ -27,11 +27,13 @@ rbin_equal_freq <- function(data = NULL, response = NULL, predictor = NULL, bins
 #'
 rbin_equal_freq.default <- function(data = NULL, response = NULL, predictor = NULL, bins = 10) {
 
+  data         <- as.data.frame(data)
+
   resp         <- deparse(substitute(response))
   pred         <- deparse(substitute(predictor))
 
-  var_names    <- names(data[, c(resp, pred)])
-  bm           <- data[, c(resp, pred)]
+  var_names    <- names(data[, c(resp, pred), drop = FALSE])
+  bm           <- data[, c(resp, pred), drop = FALSE]
   colnames(bm) <- c("response", "predictor")
   bm           <- drop_na_response(bm)
 

@@ -16,8 +16,10 @@
 #'
 rbin_create <- function(data, predictor, bins) {
 
+  data <- as.data.frame(data)
+
   pred <- deparse(substitute(predictor))
-  data2 <- data[pred]
+  data2 <- data[, pred, drop = FALSE]
   colnames(data2) <- c("predictor")
 
   l_freq <- bins$lower_cut

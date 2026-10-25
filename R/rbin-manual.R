@@ -34,11 +34,13 @@ rbin_manual <- function(data = NULL, response = NULL, predictor = NULL, cut_poin
 #'
 rbin_manual.default <- function(data = NULL, response = NULL, predictor = NULL, cut_points = NULL, include_na = TRUE) {
 
+  data <- as.data.frame(data)
+
   resp <- deparse(substitute(response))
   pred <- deparse(substitute(predictor))
 
-  var_names <- names(data[c(resp, pred)])
-  prep_data <- data[c(resp, pred)]
+  var_names <- names(data[, c(resp, pred), drop = FALSE])
+  prep_data <- data[, c(resp, pred), drop = FALSE]
   colnames(prep_data) <- c("response", "predictor")
   prep_data <- drop_na_response(prep_data)
 

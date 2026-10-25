@@ -9,6 +9,12 @@
   be empty.
 * Rows with a missing response are now dropped with a warning instead of
   silently turning every WoE and IV value into `NA`.
+* The package no longer contacts CRAN for updates when it is attached.
+* `include_na = FALSE` now works with a missing predictor in
+  `rbin_winsorize()`.
+* `bins = 1` now gives an informative error instead of a cryptic failure.
+* `data.table` inputs are now handled like `data.frame` inputs in every
+  function.
 
 # rbin 0.2.1
 
