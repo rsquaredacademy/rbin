@@ -16,8 +16,10 @@
 #'
 rbin_create <- function(data, predictor, bins) {
 
+  data <- as.data.frame(data)
+
   pred <- deparse(substitute(predictor))
-  data2 <- data[pred]
+  data2 <- data[, pred, drop = FALSE]
   colnames(data2) <- c("predictor")
 
   l_freq <- bins$lower_cut
@@ -29,7 +31,9 @@ rbin_create <- function(data, predictor, bins) {
   dummy_names <- bins$bins$cut_point
 
   for (i in seq_len(lbins)) {
-    data2$binned[data2$predictor >= l_freq[i] & data2$predictor < u_freq[i]] <-
+    lower <- if (i == 1) -Inf else l_freq[i]
+    upper <- if (i == lbins) Inf else u_freq[i]
+    data2$binned[data2$predictor >= lower & data2$predictor < upper] <-
       dummy_names[i]
   }
 

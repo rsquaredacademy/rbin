@@ -40,15 +40,20 @@ rbin_winsorize.default <- function(data = NULL, response = NULL, predictor = NUL
                                    min_val = NULL, max_val = NULL, type = 7,
                                    remove_na = TRUE) {
 
+  data <- as.data.frame(data)
+
+  check_bins(bins)
+
   resp <- deparse(substitute(response))
   pred <- deparse(substitute(predictor))
 
   probs_min <- 0 + winsor_rate
   probs_max <- 1 - winsor_rate
 
-  var_names <- names(data[, c(resp, pred)])
-  prep_data <- data[, c(resp, pred)]
+  var_names <- names(data[, c(resp, pred), drop = FALSE])
+  prep_data <- data[, c(resp, pred), drop = FALSE]
   colnames(prep_data) <- c("response", "predictor")
+  prep_data <- drop_na_response(prep_data)
 
   if (include_na) {
     bm_data <- prep_data
@@ -57,7 +62,7 @@ rbin_winsorize.default <- function(data = NULL, response = NULL, predictor = NUL
   }
 
   bm_data$predictor2 <- winsor(
-    x       = prep_data$predictor,
+    x       = bm_data$predictor,
     min_val = min_val,
     max_val = max_val,
     probs   = c(probs_min, probs_max),
