@@ -23,7 +23,19 @@ submission was made before this check.
 
 ## R CMD check results
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note
+
+The note is from the CRAN incoming feasibility check:
+
+```
+New maintainer:
+  Aravind Hebbali <aravindhebbali@rsquaredacademy.com>
+Old maintainer(s):
+  Aravind Hebbali <hebbali.aravind@gmail.com>
+```
+
+The maintainer address was changed to `aravindhebbali@rsquaredacademy.com` at
+the maintainer's request; it is the same person.
 
 ## Reverse dependencies
 
