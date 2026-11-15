@@ -243,12 +243,18 @@ The single note is the expected CRAN incoming-feasibility "New maintainer"
 notice caused by M01 (`hebbali.aravind@gmail.com` ->
 `aravindhebbali@rsquaredacademy.com`); it is explained in `cran-comments.md`.
 
-Final tarball:
+Final tarball built from HEAD `f382e51`:
 
 ```text
 rbin_0.2.3.tar.gz
-SHA-256 44e6099b05cf1425b30e2730c8757e566fdcac4b1189a84aa1b8596feb487354
+SHA-256 7d879cf1777b09a9272e413e2d5d30f0d39811deaee02cac9ec0bfa12ab05d17
 ```
+
+`R CMD check` was run on an earlier build of the same content
+(SHA-256 `44e6099b05cf1425b30e2730c8757e566fdcac4b1189a84aa1b8596feb487354`);
+a byte-for-byte comparison of the two archives shows that only the `Packaged:`
+timestamp in `DESCRIPTION` differs (the commits after that build touch only the
+excluded report and ignore files).
 
 Full check log: `.fx1-tmp/finalcheck/rbin.Rcheck/00check.log`
 (scratch, not committed).
@@ -290,7 +296,8 @@ All R commands ran with `LANG=C`, `LC_ALL=C`, `LC_CTYPE=C` and `TMPDIR`/`TMP`/
 2. `afc8cb0` docs: update metadata, docs and release notes for 0.2.3 (M01-M05, L01-L02)
 3. `e664869` docs: record the single incoming-feasibility note (M04)
 4. `d26216a` docs: refresh README plot images for labelled bin axes
-5. report: this file
+5. `6f2f9df` docs: add fx1 report for the 0.2.2 audit fixes
+6. `f382e51` chore: ignore local Rplots.pdf test artifact
 
 ## Follow-ups (not blockers, decisions or environment work)
 
