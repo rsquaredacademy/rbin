@@ -233,28 +233,26 @@ ggplot2 4.0.3, testthat 3.3.2, vdiffr 1.0.9, shiny 1.14.0, roxygen2 8.1.1.
 | Check | Result |
 | --- | --- |
 | `devtools::document()` | OK; Rd regenerated (roxygen2 8.1.1; DESCRIPTION metadata became `Config/roxygen2/version: 8.1.1`) |
-| `devtools::test()` / `testthat::test_local()` | 240 passed, 0 failed, 0 warnings, 0 skips |
+| `devtools::test()` / `testthat::test_local()` | 243 passed, 0 failed, 0 warnings, 0 skips |
 | clean `git archive` + `R CMD build` | `rbin_0.2.3.tar.gz`, 86 entries, no scratch/report files |
 | `R CMD check --as-cran` on the tarball (full manual) | **0 errors, 0 warnings, 1 note** |
 | `urlchecker::url_check()` | All URLs are correct (13 checked) |
-| tests under `--as-cran` | 228 passed, 12 skipped (6 text snapshots + 6 vdiffr snapshots), 0 failed/warned |
+| tests under `--as-cran` | 231 passed, 12 skipped (6 text snapshots + 6 vdiffr snapshots), 0 failed/warned |
 
 The single note is the expected CRAN incoming-feasibility "New maintainer"
 notice caused by M01 (`hebbali.aravind@gmail.com` ->
 `aravindhebbali@rsquaredacademy.com`); it is explained in `cran-comments.md`.
 
-Final tarball built from HEAD `f382e51`:
+Final tarball built from the package content of HEAD `f58a7de`:
 
 ```text
 rbin_0.2.3.tar.gz
-SHA-256 7d879cf1777b09a9272e413e2d5d30f0d39811deaee02cac9ec0bfa12ab05d17
+SHA-256 31f5c281eae3a457410029e2f5592e302a04c34b37bd868105de08e4b9da9348
 ```
 
-`R CMD check` was run on an earlier build of the same content
-(SHA-256 `44e6099b05cf1425b30e2730c8757e566fdcac4b1189a84aa1b8596feb487354`);
-a byte-for-byte comparison of the two archives shows that only the `Packaged:`
-timestamp in `DESCRIPTION` differs (the commits after that build touch only the
-excluded report and ignore files).
+Later commits touch only the excluded report and ignore files; a byte-for-byte
+comparison of rebuilds shows that only the `Packaged:` timestamp in
+`DESCRIPTION` changes between builds of the same content.
 
 Full check log: `.fx1-tmp/finalcheck/rbin.Rcheck/00check.log`
 (scratch, not committed).
@@ -298,6 +296,8 @@ All R commands ran with `LANG=C`, `LC_ALL=C`, `LC_CTYPE=C` and `TMPDIR`/`TMP`/
 4. `d26216a` docs: refresh README plot images for labelled bin axes
 5. `6f2f9df` docs: add fx1 report for the 0.2.2 audit fixes
 6. `f382e51` chore: ignore local Rplots.pdf test artifact
+7. `f58a7de` fix: resolve column arguments from data before evaluating them
+   (protects one-row character columns; adds one test)
 
 ## Follow-ups (not blockers, decisions or environment work)
 
