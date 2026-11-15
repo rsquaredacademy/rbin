@@ -130,10 +130,16 @@ check_numeric_predictor <- function(prep_data) {
 
 # Resolve a column argument that may be supplied either as a bare column name
 # or as a character value (as the addins and programmatic calls do).
-column_name <- function(expr, env) {
+column_name <- function(expr, env, data) {
 
   if (is.character(expr) && length(expr) == 1L && !is.na(expr) && nzchar(expr)) {
     return(expr)
+  }
+
+  name <- deparse(expr)
+
+  if (length(name) == 1L && isTRUE(name %in% names(data))) {
+    return(name)
   }
 
   value <- tryCatch(eval(expr, env), error = function(e) NULL)
@@ -143,7 +149,7 @@ column_name <- function(expr, env) {
     return(value)
   }
 
-  deparse(expr)
+  name
 
 }
 

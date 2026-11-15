@@ -26,7 +26,7 @@
 #'
 rbin_factor_combine <- function(data, var, new_var, new_name) {
 
-  variable <- column_name(substitute(var), parent.frame())
+  variable <- column_name(substitute(var), parent.frame(), data)
 
   rbin_factor_combine_impl(data     = data,
                            var      = variable,
@@ -140,7 +140,7 @@ rbin_factor_create <- function(data, predictor) {
 
   data <- as.data.frame(data)
 
-  variable <- column_name(substitute(predictor), parent.frame())
+  variable <- column_name(substitute(predictor), parent.frame(), data)
 
   if (!is.character(variable) || length(variable) != 1L || is.na(variable)) {
     stop("`predictor` must be the name of a column in `data`", call. = FALSE)

@@ -24,7 +24,7 @@ rbin_create <- function(data, predictor, bins) {
 
   data <- as.data.frame(data)
 
-  pred <- column_name(substitute(predictor), parent.frame())
+  pred <- column_name(substitute(predictor), parent.frame(), data)
 
   if (!is.character(pred) || length(pred) != 1L || is.na(pred)) {
     stop("`predictor` must be the name of a column in `data`", call. = FALSE)

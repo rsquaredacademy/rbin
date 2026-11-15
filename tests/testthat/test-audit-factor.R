@@ -78,3 +78,17 @@ test_that("factor binning keeps missing predictors in a final group", {
   b2 <- rbin_factor(d, y, g, include_na = FALSE)
   expect_equal(b2$bins$bin_count, c(3L, 3L, 2L))
 })
+
+test_that("column arguments accept bare names and character values", {
+  d1 <- data.frame(y = 1, g = "a")
+
+  # a one-row character column must still be read as a column name
+  expect_equal(rbin_factor_create(d1, g)$g_a, 1L)
+
+  p <- "g"
+  expect_equal(names(rbin_factor_create(d1, p)), c("y", "g", "g_a"))
+
+  bins <- rbin_manual(data.frame(y = rep(0:1, 2), x = 1:4), y, x, 2)
+  expect_equal(names(rbin_create(data.frame(x = 3), "x", bins)),
+               c("x", "x_<_2", "x_>=_2"))
+})
