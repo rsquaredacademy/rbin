@@ -3,7 +3,11 @@
 #' Bin continuous data manually.
 #'
 #' @param data A \code{data.frame} or \code{tibble}.
-#' @param response Response variable.
+#' @param response Response variable; a binary variable coded as 0/1, a logical
+#'   variable, or a two-level factor/character. For a two-level factor the first
+#'   level is treated as 0 and the second as 1; for character data the two
+#'   values are sorted and the second is treated as 1. Rows with a missing
+#'   response are dropped with a warning.
 #' @param predictor Predictor variable.
 #' @param cut_points Cut points for binning.
 #' @param include_na logical; if \code{TRUE}, a separate bin is created for missing values.
@@ -11,7 +15,10 @@
 #' @param print_plot logical; if \code{TRUE}, prints the plot else returns a plot object.
 #' @param ... further arguments passed to or from other methods.
 #'
-#' @return A \code{tibble}.
+#' @return A list of class \code{rbin_manual} with the following elements:
+#'   \code{bins}, a \code{data.frame} with one row per interval (including
+#'   empty intervals) and a final row for missing values when present;
+#'   \code{method}; \code{vars}; \code{lower_cut}; and \code{upper_cut}.
 #'
 #' @details Specify the upper open interval for each bin. `rbin`
 #'   follows the left closed and right open interval. If you want to create_bins
@@ -34,55 +41,11 @@ rbin_manual <- function(data = NULL, response = NULL, predictor = NULL, cut_poin
 #'
 rbin_manual.default <- function(data = NULL, response = NULL, predictor = NULL, cut_points = NULL, include_na = TRUE) {
 
-  data <- as.data.frame(data)
-
-  resp <- deparse(substitute(response))
-  pred <- deparse(substitute(predictor))
-
-  var_names <- names(data[, c(resp, pred), drop = FALSE])
-  prep_data <- data[, c(resp, pred), drop = FALSE]
-  colnames(prep_data) <- c("response", "predictor")
-  prep_data <- drop_na_response(prep_data)
-
-  if (include_na) {
-    bm <- prep_data
-  } else {
-    bm <- na.omit(prep_data)
-  }
-
-  bm$bin    <- NA
-  byd       <- bm$predictor
-  l_freq    <- append(min(byd, na.rm = TRUE), cut_points)
-  u_freq    <- c(cut_points, (max(byd, na.rm = TRUE) + 1))
-  bins      <- length(cut_points) + 1
-
-  for (i in seq_len(bins)) {
-    bm$bin[bm$predictor >= l_freq[i] & bm$predictor < u_freq[i]] <- i
-  }
-
-  k         <- bin_create(bm)
-  sym_sign  <- c(rep("<", (bins - 1)), ">=")
-  fbin2     <- f_bin(u_freq)
-  intervals <- create_intervals(sym_sign, fbin2)
-
-  if (include_na) {
-
-    na_present <- nrow(k) > bins
-
-    if (na_present) {
-      intervals <- rbind(intervals, cut_point = 'NA')
-    }
-
-  }
-
-  result <- list(bins      = cbind(intervals, k),
-                 method    = "Manual",
-                 vars      = var_names,
-                 lower_cut = l_freq,
-                 upper_cut = u_freq)
-
-  class(result) <- c("rbin_manual")
-  return(result)
+  rbin_manual_impl(data       = data,
+                   response   = deparse(substitute(response)),
+                   predictor  = deparse(substitute(predictor)),
+                   cut_points = cut_points,
+                   include_na = include_na)
 
 }
 
