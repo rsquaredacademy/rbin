@@ -12,23 +12,35 @@ rbin_equal_freq(data = NULL, response = NULL, predictor = NULL, bins = 10)
 \arguments{
 \item{data}{A \code{data.frame} or \code{tibble}.}
 
-\item{response}{Response variable.}
+\item{response}{Response variable; a binary variable coded as 0/1, a logical
+variable, or a two-level factor/character. For a two-level factor the first
+level is treated as 0 and the second as 1; for character data the two
+values are sorted and the second is treated as 1. Rows with a missing
+response are dropped with a warning.}
 
 \item{predictor}{Predictor variable.}
 
 \item{bins}{Number of bins.}
 
-\item{x}{An object of class \code{rbin_quantiles}.}
+\item{x}{An object of class \code{rbin_equal_freq}.}
 
 \item{print_plot}{logical; if \code{TRUE}, prints the plot else returns a plot object.}
 
 \item{...}{further arguments passed to or from other methods.}
 }
 \value{
-A \code{tibble}.
+A list of class \code{rbin_equal_freq} with the following elements:
+  \code{bins}, a \code{data.frame} with one row per group (plus a final row
+  for missing values when present); \code{method}; \code{vars};
+  \code{lower_cut}; and \code{upper_cut}.
 }
 \description{
 Bin continuous data using the equal frequency binning method.
+}
+\details{
+Groups differ in size by at most one observation. When missing
+  predictor values are present they form a separate final group, and the
+  equal frequency groups are built from the non-missing values only.
 }
 \examples{
 bins <- rbin_equal_freq(mbank, y, age, 10)

@@ -12,7 +12,11 @@ rbin_factor(data = NULL, response = NULL, predictor = NULL, include_na = TRUE)
 \arguments{
 \item{data}{A \code{data.frame} or \code{tibble}.}
 
-\item{response}{Response variable.}
+\item{response}{Response variable; a binary variable coded as 0/1, a logical
+variable, or a two-level factor/character. For a two-level factor the first
+level is treated as 0 and the second as 1; for character data the two
+values are sorted and the second is treated as 1. Rows with a missing
+response are dropped with a warning.}
 
 \item{predictor}{Predictor variable.}
 
@@ -23,6 +27,11 @@ rbin_factor(data = NULL, response = NULL, predictor = NULL, include_na = TRUE)
 \item{print_plot}{logical; if \code{TRUE}, prints the plot else returns a plot object.}
 
 \item{...}{further arguments passed to or from other methods.}
+}
+\value{
+A list of class \code{rbin_factor} with the following elements:
+  \code{bins}, a \code{data.frame} with one row per observed level (plus a
+  final row for missing values when present); \code{method}; and \code{vars}.
 }
 \description{
 Weight of evidence and information value for categorical data.
