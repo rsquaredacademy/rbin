@@ -3,14 +3,25 @@
 #' Bin continuous data using the equal frequency binning method.
 #'
 #' @param data A \code{data.frame} or \code{tibble}.
-#' @param response Response variable.
+#' @param response Response variable; a binary variable coded as 0/1, a logical
+#'   variable, or a two-level factor/character. For a two-level factor the first
+#'   level is treated as 0 and the second as 1; for character data the two
+#'   values are sorted and the second is treated as 1. Rows with a missing
+#'   response are dropped with a warning.
 #' @param predictor Predictor variable.
 #' @param bins Number of bins.
-#' @param x An object of class \code{rbin_quantiles}.
+#' @param x An object of class \code{rbin_equal_freq}.
 #' @param print_plot logical; if \code{TRUE}, prints the plot else returns a plot object.
 #' @param ... further arguments passed to or from other methods.
 #'
-#' @return A \code{tibble}.
+#' @return A list of class \code{rbin_equal_freq} with the following elements:
+#'   \code{bins}, a \code{data.frame} with one row per group (plus a final row
+#'   for missing values when present); \code{method}; \code{vars};
+#'   \code{lower_cut}; and \code{upper_cut}.
+#'
+#' @details Groups differ in size by at most one observation. When missing
+#'   predictor values are present they form a separate final group, and the
+#'   equal frequency groups are built from the non-missing values only.
 #'
 #' @examples
 #' bins <- rbin_equal_freq(mbank, y, age, 10)
@@ -27,36 +38,10 @@ rbin_equal_freq <- function(data = NULL, response = NULL, predictor = NULL, bins
 #'
 rbin_equal_freq.default <- function(data = NULL, response = NULL, predictor = NULL, bins = 10) {
 
-  data         <- as.data.frame(data)
-
-  resp         <- deparse(substitute(response))
-  pred         <- deparse(substitute(predictor))
-
-  var_names    <- names(data[, c(resp, pred), drop = FALSE])
-  bm           <- data[, c(resp, pred), drop = FALSE]
-  colnames(bm) <- c("response", "predictor")
-  bm           <- drop_na_response(bm)
-
-  bin_prop     <- 1 / bins
-  bins         <- binned(bin_prop)
-  bin_length   <- binlength(bm, bins)
-  first_bins   <- firstbins(bins, bin_length)
-  residual     <- binresidual(bm, first_bins)
-  bin_rep      <- binrep(bins, bin_length, residual)
-  k            <- freq_bin_create(bm, bin_rep)
-  lower        <- freq_lower(bin_length, bins)
-  upper        <- freq_upper(bin_length, bins, bm)
-  bm2          <- bm_2(bm)
-  intervals    <- freq_intervals(bm2, lower, upper)
-
-  result <- list(bins      = cbind(intervals, k),
-                 method    = "Equal Frequency",
-                 vars      = var_names,
-                 lower_cut = lower,
-                 upper_cut = upper)
-
-  class(result) <- c("rbin_equal_freq")
-  return(result)
+  rbin_equal_freq_impl(data      = data,
+                       response  = deparse(substitute(response)),
+                       predictor = deparse(substitute(predictor)),
+                       bins      = bins)
 
 }
 
@@ -84,57 +69,5 @@ plot.rbin_equal_freq <- function(x, print_plot = TRUE, ...) {
   }
 
   invisible(p)
-
-}
-
-
-binned <- function(bin_prop) {
-  round(1 / bin_prop)
-}
-
-binlength <- function(bm, bins) {
-  bin_length <- floor(nrow(bm) / bins)
-  if (bin_length == 0) {
-    stop("bins must not exceed the number of observations", call. = FALSE)
-  }
-  bin_length
-}
-
-firstbins <- function(bins, bin_length) {
-  (bins - 1) * bin_length
-}
-
-binresidual <- function (bm, first_bins) {
-  nrow(bm) - first_bins
-}
-
-binrep <- function(bins, bin_length, residual) {
-  c(rep(seq_len((bins - 1)), each = bin_length), rep(bins, residual))
-}
-
-freq_lower <- function(bin_length, bins) {
-
-  c(1, (bin_length * seq_len((bins - 1)) + 1))
-
-}
-
-freq_upper <- function(bin_length, bins, bm) {
-
-  c(bin_length * seq_len((bins - 1)), nrow(bm))
-
-}
-
-bm_2 <- function(bm) {
-  sort(bm$predictor)
-}
-
-freq_intervals <- function(bm2, lower, upper) {
-
-  result        <- data.frame(lower, upper)
-  result$li     <- bm2[lower]
-  result$ui     <- bm2[upper]
-  out           <- result[c('li', 'ui')]
-  colnames(out) <- c('lower_cut', 'upper_cut')
-  return(out)
 
 }

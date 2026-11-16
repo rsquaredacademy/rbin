@@ -3,11 +3,16 @@
 #' Manually combine levels of categorical data.
 #'
 #' @param data A \code{data.frame} or \code{tibble}.
-#' @param var An object of class \code{factor}.
+#' @param var An object of class \code{factor}, or a character variable.
 #' @param new_var A character vector; it should include the names of the levels to be combined.
 #' @param new_name Name of the combined level.
 #'
-#' @return A \code{tibble}.
+#' @return A \code{data.frame} with the predictor's levels combined. The
+#'   predictor keeps its original position among the columns.
+#'
+#' @details Levels are matched exactly, not as regular expressions. Only the
+#'   selected levels are renamed; other levels are left untouched even when
+#'   their names contain the selected name as a substring.
 #'
 #' @examples
 #' upper <- c("secondary", "tertiary")
@@ -21,23 +26,12 @@
 #'
 rbin_factor_combine <- function(data, var, new_var, new_name) {
 
-  data           <- as.data.frame(data)
-  vars           <- deparse(substitute(var))
-  mydata         <- data[[vars]]
-  current_lev    <- levels(mydata)
-  l              <- length(new_var)
+  variable <- column_name(substitute(var), parent.frame(), data)
 
-  for (i in seq_len(l)) {
-    current_lev  <- gsub(new_var[i], new_name, current_lev)
-  }
-
-  levels(mydata) <- current_lev
-  data[vars]     <- NULL
-  out            <- cbind(data, mydata)
-  nl             <- ncol(out)
-  names(out)[nl] <- vars
-
-  return(out)
+  rbin_factor_combine_impl(data     = data,
+                           var      = variable,
+                           new_var  = new_var,
+                           new_name = new_name)
 
 }
 
@@ -46,12 +40,20 @@ rbin_factor_combine <- function(data, var, new_var, new_name) {
 #' Weight of evidence and information value for categorical data.
 #'
 #' @param data A \code{data.frame} or \code{tibble}.
-#' @param response Response variable.
+#' @param response Response variable; a binary variable coded as 0/1, a logical
+#'   variable, or a two-level factor/character. For a two-level factor the first
+#'   level is treated as 0 and the second as 1; for character data the two
+#'   values are sorted and the second is treated as 1. Rows with a missing
+#'   response are dropped with a warning.
 #' @param predictor Predictor variable.
 #' @param include_na logical; if \code{TRUE}, a separate bin is created for missing values.
 #' @param x An object of class \code{rbin_factor}.
 #' @param print_plot logical; if \code{TRUE}, prints the plot else returns a plot object.
 #' @param ... further arguments passed to or from other methods.
+#'
+#' @return A list of class \code{rbin_factor} with the following elements:
+#'   \code{bins}, a \code{data.frame} with one row per observed level (plus a
+#'   final row for missing values when present); \code{method}; and \code{vars}.
 #'
 #' @examples
 #' bins <- rbin_factor(mbank, y, education)
@@ -68,54 +70,10 @@ rbin_factor <- function(data = NULL, response = NULL, predictor = NULL, include_
 #'
 rbin_factor.default <- function(data = NULL, response = NULL, predictor = NULL, include_na = TRUE) {
 
-  data <- as.data.frame(data)
-
-  resp <- deparse(substitute(response))
-  pred <- deparse(substitute(predictor))
-
-  var_names <- names(data[, c(resp, pred), drop = FALSE])
-  prep_data <- data[, c(resp, pred), drop = FALSE]
-  colnames(prep_data) <- c("response", "predictor")
-  prep_data <- drop_na_response(prep_data)
-
-  if (include_na) {
-    bm <- prep_data
-  } else {
-    bm <- na.omit(prep_data)
-  }
-
-  bm <- data.table(bm)
-
-  # group and summarize
-  bm_group <- bm[, .(bin_count = .N,
-                     good = sum(response == 1),
-                     bad = sum(response == 0)),
-                 by = predictor]
-
-  # create new columns
-  bm_group[, ':='(bin_cum_count   = cumsum(bin_count),
-                  good_cum_count  = cumsum(good),
-                  bad_cum_count   = cumsum(bad),
-                  bin_prop        = bin_count / sum(bin_count),
-                  good_rate       = good / bin_count,
-                  bad_rate        = bad / bin_count,
-                  good_dist       = good / sum(good),
-                  bad_dist        = bad / sum(bad))]
-
-  bm_group[, woe := log(bad_dist / good_dist)]
-  bm_group[, dist_diff := bad_dist - good_dist,]
-  bm_group[, iv := dist_diff * woe,]
-  bm_group[, entropy := (-1) * (((good / bin_count) * log2(good / bin_count)) +
-                                  ((bad / bin_count) * log2(bad / bin_count)))]
-  bm_group[, prop_entropy := (bin_count / sum(bin_count)) * entropy]
-
-  setDF(bm_group)
-  colnames(bm_group)[1] <- 'level'
-
-  result <- list(bins = bm_group, method = "Custom", vars = var_names)
-
-  class(result) <- c("rbin_factor")
-  return(result)
+  rbin_factor_impl(data       = data,
+                   response   = deparse(substitute(response)),
+                   predictor  = deparse(substitute(predictor)),
+                   include_na = include_na)
 
 }
 
@@ -158,9 +116,18 @@ plot.rbin_factor <- function(x, print_plot = TRUE,...) {
 #' Create dummy variables for categorical data.
 #'
 #' @param data A \code{data.frame} or \code{tibble}.
-#' @param predictor Variable for which dummy variables must be created.
+#' @param predictor Variable for which dummy variables must be created. It can
+#'   be a factor or a character variable; character variables are converted to
+#'   a factor first, so the levels are sorted.
 #'
-#' @return A \code{tibble} with dummy variables.
+#' @return A \code{data.frame} with the original columns preserved and one
+#'   indicator column per level, appended at the end.
+#'
+#' @details Indicator columns are derived from the factor codes, so a factor
+#'   with an explicit \code{NA} level gets a real indicator column (for example
+#'   \code{g_NA}) and not a column of missings. A missing factor code that is
+#'   not a level produces missing indicators. Generated names never overwrite
+#'   existing columns: a collision is made unique by appending a suffix.
 #'
 #' @examples
 #' upper <- c("secondary", "tertiary")
@@ -172,16 +139,39 @@ plot.rbin_factor <- function(x, print_plot = TRUE,...) {
 rbin_factor_create <- function(data, predictor) {
 
   data <- as.data.frame(data)
-  vars <- deparse(substitute(predictor))
-  nl <- nlevels(data[[vars]])
-  levs <- levels(data[[vars]])
 
-  for(i in seq_len(nl)) {
-    data$temp <- ifelse(data[[vars]] == levs[i], 1, 0)
-    n <- ncol(data)
-    colnames(data)[n] <- paste0(vars, '_', levs[i])
+  variable <- column_name(substitute(predictor), parent.frame(), data)
+
+  if (!is.character(variable) || length(variable) != 1L || is.na(variable)) {
+    stop("`predictor` must be the name of a column in `data`", call. = FALSE)
   }
 
-  return(data)
+  if (!variable %in% names(data)) {
+    stop("variable '", variable, "' not found in data", call. = FALSE)
+  }
+
+  x <- data[[variable]]
+
+  if (is.character(x)) {
+    x <- factor(x)
+  }
+
+  if (!is.factor(x)) {
+    stop("`predictor` must be a factor or character variable", call. = FALSE)
+  }
+
+  levels_x <- levels(x)
+  codes    <- as.integer(x)
+
+  new_columns <- lapply(seq_along(levels_x), function(i) as.integer(codes == i))
+  names(new_columns) <- paste0(variable, "_", levels_x)
+
+  # never overwrite an existing column with a generated indicator
+  all_names <- make.unique(c(names(data), names(new_columns)), sep = "_")
+  names(new_columns) <- tail(all_names, length(new_columns))
+
+  data[names(new_columns)] <- new_columns
+
+  data
 
 }

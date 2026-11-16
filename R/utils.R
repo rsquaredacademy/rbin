@@ -1,39 +1,8 @@
-#' @importFrom data.table data.table := setDF setorder .N
-#' @importFrom stats na.omit
-bin_create <- function(bm) {
+#' @importFrom data.table data.table .N
+#' @importFrom stats quantile
+#' @importFrom utils head tail
 
-  bm <- data.table(bm)
-  setorder(bm, bin, na.last = TRUE)  # sort, missing bin last
-
-  # group and summarize
-  bm_group <- bm[, .(bin_count = .N,
-                     good = sum(response == 1),
-                     bad = sum(response == 0)),
-                 by = bin]
-
-  # create new columns
-  bm_group[, ':='(bin_cum_count   = cumsum(bin_count),
-                  good_cum_count  = cumsum(good),
-                  bad_cum_count   = cumsum(bad),
-                  bin_prop        = bin_count / sum(bin_count),
-                  good_rate       = good / bin_count,
-                  bad_rate        = bad / bin_count,
-                  good_dist       = good / sum(good),
-                  bad_dist        = bad / sum(bad))]
-
-  bm_group[, woe := log(bad_dist / good_dist)]
-  bm_group[, dist_diff := bad_dist - good_dist,]
-  bm_group[, iv := dist_diff * woe,]
-  bm_group[, entropy := (-1) * (((good / bin_count) * log2(good / bin_count)) +
-                                  ((bad / bin_count) * log2(bad / bin_count)))]
-  bm_group[, prop_entropy := (bin_count / sum(bin_count)) * entropy]
-
-  setDF(bm_group)
-  return(bm_group)
-
-}
-
-# drop rows with a missing response, warning about how many were removed
+# Drop rows with a missing response, warning about how many were removed
 drop_na_response <- function(data) {
 
   n_na <- sum(is.na(data$response))
@@ -48,11 +17,284 @@ drop_na_response <- function(data) {
 
 }
 
-check_bins <- function(bins) {
+# Validate the response and return it coded as 0/1.
+#
+# The documented contract is a binary response: 0/1 (or logical), or a
+# two-level factor/character. For a two-level factor the first level is treated
+# as 0 and the second as 1; for character data the two values are sorted and the
+# second one is treated as 1. Anything else is rejected instead of silently
+# producing zero class counts.
+validate_response <- function(response) {
 
-  if (is.na(bins) || bins < 2) {
-    stop("bins must be at least 2", call. = FALSE)
+  if (is.factor(response)) {
+
+    present <- as.character(response[!is.na(response)])
+    levs    <- levels(response)
+    levs    <- levs[levs %in% present]
+
+    if (length(levs) != 2L) {
+      stop("response must be binary; the factor has ", length(levs),
+           " level(s) present", call. = FALSE)
+    }
+
+    return(as.integer(as.character(response) == levs[2L]))
   }
+
+  if (is.character(response)) {
+
+    present <- sort(unique(response[!is.na(response)]))
+
+    if (length(present) != 2L) {
+      stop("response must be binary; the character vector has ",
+           length(present), " unique value(s) present", call. = FALSE)
+    }
+
+    return(as.integer(response == present[2L]))
+  }
+
+  if (is.logical(response)) {
+    return(as.integer(response))
+  }
+
+  if (is.numeric(response)) {
+
+    invalid <- unique(response[!is.na(response) & !(response %in% c(0, 1))])
+
+    if (length(invalid) > 0L) {
+      stop("response must be binary (0/1); found value(s): ",
+           paste(head(invalid, 5L), collapse = ", "), call. = FALSE)
+    }
+
+    return(as.integer(response))
+  }
+
+  stop("response must be numeric, logical, or a two-level factor/character",
+       call. = FALSE)
+
+}
+
+# Extract the response/predictor columns, validate the response and drop rows
+# with a missing response. Returns a data.frame with columns response and
+# predictor.
+prep_binning_data <- function(data, response, predictor) {
+
+  if (is.null(data)) {
+    stop("`data` must be a data.frame", call. = FALSE)
+  }
+
+  data <- as.data.frame(data)
+
+  if (!is.character(response) || length(response) != 1L || is.na(response)) {
+    stop("`response` must be the name of a column in `data`", call. = FALSE)
+  }
+
+  if (!is.character(predictor) || length(predictor) != 1L || is.na(predictor)) {
+    stop("`predictor` must be the name of a column in `data`", call. = FALSE)
+  }
+
+  if (identical(response, predictor)) {
+    stop("`response` and `predictor` must be different columns", call. = FALSE)
+  }
+
+  if (!response %in% names(data)) {
+    stop("response variable '", response, "' not found in data", call. = FALSE)
+  }
+
+  if (!predictor %in% names(data)) {
+    stop("predictor variable '", predictor, "' not found in data",
+         call. = FALSE)
+  }
+
+  prep_data <- data.frame(response  = data[[response]],
+                          predictor = data[[predictor]])
+
+  prep_data$response <- validate_response(prep_data$response)
+  prep_data          <- drop_na_response(prep_data)
+
+  if (nrow(prep_data) == 0L) {
+    stop("no observations with a non-missing response", call. = FALSE)
+  }
+
+  prep_data
+
+}
+
+check_numeric_predictor <- function(prep_data) {
+
+  if (!is.numeric(prep_data$predictor)) {
+    stop("predictor must be a numeric variable for this binning method",
+         call. = FALSE)
+  }
+
+}
+
+# Resolve a column argument that may be supplied either as a bare column name
+# or as a character value (as the addins and programmatic calls do).
+column_name <- function(expr, env, data) {
+
+  if (is.character(expr) && length(expr) == 1L && !is.na(expr) && nzchar(expr)) {
+    return(expr)
+  }
+
+  name <- deparse(expr)
+
+  if (length(name) == 1L && isTRUE(name %in% names(data))) {
+    return(name)
+  }
+
+  value <- tryCatch(eval(expr, env), error = function(e) NULL)
+
+  if (is.character(value) && length(value) == 1L && !is.na(value) &&
+      nzchar(value)) {
+    return(value)
+  }
+
+  name
+
+}
+
+# Keep or remove rows with a missing predictor depending on include_na.
+keep_na_rows <- function(prep_data, include_na) {
+
+  if (include_na) {
+    bm <- prep_data
+  } else {
+    bm <- prep_data[!is.na(prep_data$predictor), , drop = FALSE]
+  }
+
+  if (nrow(bm) == 0L) {
+    stop("no observations with a non-missing predictor", call. = FALSE)
+  }
+
+  bm
+
+}
+
+# Integer bin ID for a numeric predictor. Intervals are [lower, upper) except
+# for the last interval which is unbounded on the right. This avoids relying on
+# max(x) + 1 being larger than max(x) in floating point and keeps empty
+# intervals identifiable instead of silently recycling rows.
+numeric_bin_id <- function(x, lower, upper) {
+
+  n   <- length(lower)
+  out <- rep(NA_integer_, length(x))
+
+  if (n == 0L) {
+    return(out)
+  }
+
+  if (n > 1L) {
+    for (i in seq_len(n - 1L)) {
+      out[which(x >= lower[i] & x < upper[i])] <- i
+    }
+  }
+
+  out[which(x >= lower[n])] <- n
+
+  out
+
+}
+
+# Entropy contribution of each bin using the 0 log 0 = 0 convention. Bins
+# without observations contribute zero.
+entropy_bin <- function(good, bad, n) {
+
+  out <- numeric(length(n))
+  ok  <- !is.na(n) & n > 0
+
+  if (any(ok)) {
+
+    pg <- good[ok] / n[ok]
+    pb <- bad[ok] / n[ok]
+    e  <- numeric(length(pg))
+
+    i <- pg > 0
+    e[i] <- e[i] - pg[i] * log2(pg[i])
+
+    j <- pb > 0
+    e[j] <- e[j] - pb[j] * log2(pb[j])
+
+    out[ok] <- e
+
+  }
+
+  out
+
+}
+
+# Summarise a response by bin ID. `ids` holds every requested bin, so empty
+# intervals are kept with zero counts instead of being dropped and recycled.
+summarise_bins <- function(response, bin, ids) {
+
+  agg <- data.table(bin = bin, response = response)[
+    , list(bin_count = .N,
+           good      = sum(response == 1L),
+           bad       = sum(response == 0L)),
+    by = list(bin)
+  ]
+
+  m <- match(as.character(ids), as.character(agg$bin))
+
+  out <- data.frame(
+    bin       = ids,
+    bin_count = as.integer(ifelse(is.na(m), 0L, agg$bin_count[m])),
+    good      = as.integer(ifelse(is.na(m), 0L, agg$good[m])),
+    bad       = as.integer(ifelse(is.na(m), 0L, agg$bad[m]))
+  )
+
+  out$bin_cum_count  <- cumsum(out$bin_count)
+  out$good_cum_count <- cumsum(out$good)
+  out$bad_cum_count  <- cumsum(out$bad)
+  out$bin_prop       <- out$bin_count / sum(out$bin_count)
+  out$good_rate      <- out$good / out$bin_count
+  out$bad_rate       <- out$bad / out$bin_count
+
+  sum_good <- sum(out$good)
+  sum_bad  <- sum(out$bad)
+
+  out$good_dist <- if (sum_good > 0) out$good / sum_good else NA_real_
+  out$bad_dist  <- if (sum_bad > 0) out$bad / sum_bad else NA_real_
+  out$woe       <- log(out$bad_dist / out$good_dist)
+  out$dist_diff <- out$bad_dist - out$good_dist
+  out$iv        <- out$dist_diff * out$woe
+  out$entropy   <- entropy_bin(out$good, out$bad, out$bin_count)
+  out$prop_entropy <- out$bin_prop * out$entropy
+
+  # an empty interval has no rates, distributions or WoE, and contributes
+  # nothing to IV or entropy
+  empty <- out$bin_count == 0L
+
+  out$good_rate[empty]      <- NA_real_
+  out$bad_rate[empty]       <- NA_real_
+  out$good_dist[empty]      <- 0
+  out$bad_dist[empty]       <- 0
+  out$woe[empty]            <- NA_real_
+  out$dist_diff[empty]      <- 0
+  out$iv[empty]             <- 0
+  out$entropy[empty]        <- 0
+  out$prop_entropy[empty]   <- 0
+
+  out
+
+}
+
+check_bins <- function(bins) validate_bins(bins, 2L)
+
+validate_bins <- function(bins, minimum = 2L) {
+
+  if (length(bins) != 1L || !is.numeric(bins) || is.na(bins)) {
+    stop("bins must be a single number", call. = FALSE)
+  }
+
+  if (bins != as.integer(bins)) {
+    stop("bins must be a whole number", call. = FALSE)
+  }
+
+  if (bins < minimum) {
+    stop(paste0("bins must be at least ", minimum), call. = FALSE)
+  }
+
+  as.integer(bins)
 
 }
 
@@ -65,33 +307,59 @@ f_bin <- function(u_freq) {
 
 }
 
-create_intervals <- function(sym_sign, fbin2) {
+# Format interval boundaries for display. Distinct values that print
+# identically (for example 1 and 1 + 1e-15) are formatted with full precision so
+# that distinct bins never share a label or a dummy variable name. Repeated
+# boundaries are left alone.
+format_boundaries <- function(x) {
 
-  result <- data.frame(sym_sign, fbin2)
-  result$cut_point <- paste(result$sym_sign, result$fbin2)
-  result['cut_point']
+  short <- as.character(x)
+  full  <- vapply(x, function(value) {
+    format(value, digits = 17, trim = TRUE)
+  }, character(1))
+
+  out <- short
+
+  for (value in unique(short)) {
+    idx <- which(short == value)
+    if (length(unique(full[idx])) > 1L) {
+      out[idx] <- full[idx]
+    }
+  }
+
+  out
 
 }
 
-freq_bin_create <- function(bm, bin_rep) {
+create_intervals <- function(sym_sign, fbin2) {
 
-  data <- bm[order(bm$predictor), ]
-  data$bin <- bin_rep
-  bin_create(data)
+  values            <- format_boundaries(fbin2)
+  result            <- data.frame(sym_sign, fbin2)
+  result$cut_point  <- paste(result$sym_sign, values)
+  result['cut_point']
 
 }
 
 plot_bins <- function(x) {
 
   plot_data <- x$bins
-  xseq <- nrow(plot_data)
+  positions <- seq_len(nrow(plot_data))
+
+  if (!is.null(plot_data$cut_point)) {
+    labels <- as.character(plot_data$cut_point)
+  } else if (!is.null(plot_data$lower_cut)) {
+    labels <- paste0(plot_data$lower_cut, "-", plot_data$upper_cut)
+    labels[is.na(plot_data$lower_cut) & is.na(plot_data$upper_cut)] <- "NA"
+  } else {
+    labels <- as.character(positions)
+  }
 
   p <-
     ggplot(data = plot_data) +
-    geom_line(aes(x = bin, y = woe), color = "blue") +
-    geom_point(aes(x = bin, y = woe), color = "red") +
+    geom_line(aes(x = positions, y = woe), color = "blue") +
+    geom_point(aes(x = positions, y = woe), color = "red") +
     xlab("Bins") + ylab("WoE") + ggtitle("WoE Trend") +
-    scale_x_continuous(breaks = seq(xseq))
+    scale_x_continuous(breaks = positions, labels = labels)
 
   return(p)
 
@@ -121,26 +389,32 @@ check_suggests <- function(pkg) {
 }
 
 #' @importFrom stats quantile
-#' @importFrom utils head tail
 winsor <- function(x, min_val = NULL, max_val = NULL, probs = c(0.05, 0.95),
                    na.rm = TRUE, type = 7) {
 
-  if (is.null(min_val)) {
-    y <- quantile(x, probs = probs, type = type, na.rm = na.rm)
-    x[x > y[2]] <- y[2]
-    x[x < y[1]] <- y[1]
-  } else {
-    if (is.null(max_val)) {
-      stop("Argument max_val is missing.", call. = FALSE)
+  if (is.null(min_val) || is.null(max_val)) {
+
+    # nothing to estimate from when every value is missing
+    if (all(is.na(x))) {
+      return(x)
     }
-    z <- sort(x)
-    min_replace <- max(head(z, min_val))
-    max_replace <- min(tail(z, max_val))
-    x[x < min_replace] <- min_replace
-    x[x > max_replace] <- max_replace
+
   }
 
-  return(x)
+  if (is.null(min_val)) {
+    min_val <- unname(quantile(x, probs = probs[1L], type = type, na.rm = na.rm))
+  }
+
+  if (is.null(max_val)) {
+    max_val <- unname(quantile(x, probs = probs[2L], type = type, na.rm = na.rm))
+  }
+
+  if (is.na(min_val) || is.na(max_val) || min_val > max_val) {
+    stop("`min_val` must be less than or equal to `max_val`", call. = FALSE)
+  }
+
+  pmin(pmax(x, min_val), max_val)
+
 }
 
 try_pkg <- function(pkg) {

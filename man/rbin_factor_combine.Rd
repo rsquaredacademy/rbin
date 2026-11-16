@@ -9,17 +9,23 @@ rbin_factor_combine(data, var, new_var, new_name)
 \arguments{
 \item{data}{A \code{data.frame} or \code{tibble}.}
 
-\item{var}{An object of class \code{factor}.}
+\item{var}{An object of class \code{factor}, or a character variable.}
 
 \item{new_var}{A character vector; it should include the names of the levels to be combined.}
 
 \item{new_name}{Name of the combined level.}
 }
 \value{
-A \code{tibble}.
+A \code{data.frame} with the predictor's levels combined. The
+  predictor keeps its original position among the columns.
 }
 \description{
 Manually combine levels of categorical data.
+}
+\details{
+Levels are matched exactly, not as regular expressions. Only the
+  selected levels are renamed; other levels are left untouched even when
+  their names contain the selected name as a substring.
 }
 \examples{
 upper <- c("secondary", "tertiary")

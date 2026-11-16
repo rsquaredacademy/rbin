@@ -12,3 +12,6 @@
 ^debug\.log$
 ^hex_rbin\.png$
 ^\.github$
+^\.fx1-tmp$
+^docs-dev$
+^\.gitignore$

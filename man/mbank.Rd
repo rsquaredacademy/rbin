@@ -12,11 +12,12 @@ A tibble with 4521 rows and 17 variables:
  \item{marital}{marital status}
  \item{education}{education level of the client}
  \item{default}{has credit in default?}
+ \item{balance}{average yearly balance, in euros}
  \item{housing}{has housing loan?}
  \item{loan}{has personal loan?}
  \item{contact}{contact communication type}
+ \item{day}{last contact day of the month}
  \item{month}{last contact month of year}
- \item{day_of_week}{last contact day of the week}
  \item{duration}{last contact duration, in seconds}
  \item{campaign}{number of contacts performed during this campaign and for this client}
  \item{pdays}{number of days that passed by after the client was last contacted from a previous campaign}

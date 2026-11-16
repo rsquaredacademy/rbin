@@ -3,7 +3,11 @@
 #' Bin continuous data using winsorized method.
 #'
 #' @param data A \code{data.frame} or \code{tibble}.
-#' @param response Response variable.
+#' @param response Response variable; a binary variable coded as 0/1, a logical
+#'   variable, or a two-level factor/character. For a two-level factor the first
+#'   level is treated as 0 and the second as 1; for character data the two
+#'   values are sorted and the second is treated as 1. Rows with a missing
+#'   response are dropped with a warning.
 #' @param predictor Predictor variable.
 #' @param bins Number of bins.
 #' @param winsor_rate A value from 0.0 to 0.5.
@@ -16,7 +20,10 @@
 #' @param print_plot logical; if \code{TRUE}, prints the plot else returns a plot object.
 #' @param ... further arguments passed to or from other methods.
 #'
-#' @return A \code{tibble}.
+#' @return A list of class \code{rbin_winsorize} with the following elements:
+#'   \code{bins}, a \code{data.frame} with one row per interval (including
+#'   empty intervals) and a final row for missing values when present;
+#'   \code{method}; \code{vars}; \code{lower_cut}; and \code{upper_cut}.
 #'
 #' @examples
 #' bins <- rbin_winsorize(mbank, y, age, 10, winsor_rate = 0.05)
@@ -40,70 +47,16 @@ rbin_winsorize.default <- function(data = NULL, response = NULL, predictor = NUL
                                    min_val = NULL, max_val = NULL, type = 7,
                                    remove_na = TRUE) {
 
-  data <- as.data.frame(data)
-
-  check_bins(bins)
-
-  resp <- deparse(substitute(response))
-  pred <- deparse(substitute(predictor))
-
-  probs_min <- 0 + winsor_rate
-  probs_max <- 1 - winsor_rate
-
-  var_names <- names(data[, c(resp, pred), drop = FALSE])
-  prep_data <- data[, c(resp, pred), drop = FALSE]
-  colnames(prep_data) <- c("response", "predictor")
-  prep_data <- drop_na_response(prep_data)
-
-  if (include_na) {
-    bm_data <- prep_data
-  } else {
-    bm_data <- na.omit(prep_data)
-  }
-
-  bm_data$predictor2 <- winsor(
-    x       = bm_data$predictor,
-    min_val = min_val,
-    max_val = max_val,
-    probs   = c(probs_min, probs_max),
-    na.rm   = remove_na,
-    type    = type)
-
-  bm <- bm_data[c('response', 'predictor2')]
-  colnames(bm) <- c("response", "predictor")
-
-  bm$bin    <- NA
-  byd       <- bm$predictor
-  l_freq    <- el_freq(byd, bins)
-  u_freq    <- eu_freq(byd, bins)
-
-  for (i in seq_len(bins)) {
-    bm$bin[bm$predictor >= l_freq[i] & bm$predictor < u_freq[i]] <- i
-  }
-
-  k         <- bin_create(bm)
-  sym_sign  <- c(rep("<", (bins - 1)), ">=")
-  fbin2     <- f_bin(u_freq)
-  intervals <- create_intervals(sym_sign, fbin2)
-
-  if (include_na) {
-
-    na_present <- nrow(k) > bins
-
-    if (na_present) {
-      intervals <- rbind(intervals, cut_point = 'NA')
-    }
-
-  }
-
-  result <- list(bins = cbind(intervals, k),
-                 method = "Winsorize",
-                 vars = var_names,
-                 lower_cut = l_freq,
-                 upper_cut = u_freq)
-
-  class(result) <- c("rbin_winsorize")
-  return(result)
+  rbin_winsorize_impl(data        = data,
+                      response    = deparse(substitute(response)),
+                      predictor   = deparse(substitute(predictor)),
+                      bins        = bins,
+                      include_na  = include_na,
+                      winsor_rate = winsor_rate,
+                      min_val     = min_val,
+                      max_val     = max_val,
+                      type        = type,
+                      remove_na   = remove_na)
 
 }
 

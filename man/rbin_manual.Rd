@@ -18,7 +18,11 @@ rbin_manual(
 \arguments{
 \item{data}{A \code{data.frame} or \code{tibble}.}
 
-\item{response}{Response variable.}
+\item{response}{Response variable; a binary variable coded as 0/1, a logical
+variable, or a two-level factor/character. For a two-level factor the first
+level is treated as 0 and the second as 1; for character data the two
+values are sorted and the second is treated as 1. Rows with a missing
+response are dropped with a warning.}
 
 \item{predictor}{Predictor variable.}
 
@@ -33,7 +37,10 @@ rbin_manual(
 \item{...}{further arguments passed to or from other methods.}
 }
 \value{
-A \code{tibble}.
+A list of class \code{rbin_manual} with the following elements:
+  \code{bins}, a \code{data.frame} with one row per interval (including
+  empty intervals) and a final row for missing values when present;
+  \code{method}; \code{vars}; \code{lower_cut}; and \code{upper_cut}.
 }
 \description{
 Bin continuous data manually.

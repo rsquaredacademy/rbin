@@ -46,13 +46,14 @@ test_that("rbin_create puts winsorized tails in the outer bins", {
 test_that("equal frequency binning works with small n and many bins", {
   d9 <- data.frame(y = rep(0:1, length.out = 9), x = 1:9)
   b9 <- rbin_equal_freq(d9, y, x, 6)
-  expect_equal(b9$bins$bin_count, c(1L, 1L, 1L, 1L, 1L, 4L))
   expect_equal(sum(b9$bins$bin_count), nrow(d9))
+  expect_lte(max(b9$bins$bin_count) - min(b9$bins$bin_count), 1L)
 
   d10 <- data.frame(y = rep(0:1, length.out = 10), x = 1:10)
   b10 <- rbin_equal_freq(d10, y, x, 6)
-  expect_equal(b10$bins$bin_count, c(1L, 1L, 1L, 1L, 1L, 5L))
+  expect_equal(b10$bins$bin_count, c(2L, 2L, 2L, 2L, 1L, 1L))
   expect_equal(sum(b10$bins$bin_count), nrow(d10))
+  expect_lte(max(b10$bins$bin_count) - min(b10$bins$bin_count), 1L)
 
   d3 <- data.frame(y = rep(0:1, length.out = 3), x = 1:3)
   expect_error(rbin_equal_freq(d3, y, x, 6), "number of observations")

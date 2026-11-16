@@ -7,7 +7,9 @@
 rbinFactorAddin(data = NULL)
 }
 \arguments{
-\item{data}{A \code{data.frame} or \code{tibble}.}
+\item{data}{A \code{data.frame} or \code{tibble}, or the name of one. When
+\code{NULL} (the default), the current editor selection is used as the
+initial data name.}
 }
 \description{
 Manually combine categorical variables using weight of evidence.
