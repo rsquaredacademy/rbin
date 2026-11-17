@@ -16,7 +16,8 @@ rbin_create(data, predictor, bins)
 
 - predictor:
 
-  Variable for which dummy variables must be created.
+  Bare column name, character name, or variable holding a character name
+  in `data`. The numeric variable for which dummies must be created.
 
 - bins:
 

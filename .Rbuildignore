@@ -15,5 +15,6 @@
 ^\.fx1-tmp$
 ^\.fx2-tmp$
 ^\.fx3-tmp$
+^\.fx4-tmp$
 ^docs-dev$
 ^\.gitignore$

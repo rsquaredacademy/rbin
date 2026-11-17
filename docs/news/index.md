@@ -9,6 +9,12 @@ frequency groups and factor counts.
 
 ### Shared binning and response handling
 
+- All numeric binning functions and
+  [`rbin_create()`](https://rbin.rsquaredacademy.com/reference/rbin_create.md)
+  accept bare column names, strings and variables holding names,
+  including long non-syntactic names, consistently with
+  [`rbin_factor()`](https://rbin.rsquaredacademy.com/reference/rbin_factor.md)
+  (rx2h-L2 / rx2d-L1).
 - Empty intervals retain zero counts, undefined rates/WoE and zero
   IV/entropy; summaries join by bin ID and retain a separate final
   missing group (H01).
@@ -28,6 +34,15 @@ frequency groups and factor counts.
 
 ### Numeric binning and dummy variables
 
+- Quantile binning rejects computed NA/NaN cut points, including
+  interpolation between negative and positive infinity, while valid
+  infinite cuts remain supported. Numeric assignment rejects unmatched
+  non-missing values rather than putting them into a missing bin
+  (rx2h-H1).
+- Equal-frequency dummy names format all boundaries together, preserving
+  the precision of the final `>=` threshold (rx2h-L1).
+- Manual display bounds stay ordered when cuts lie outside the observed
+  predictor range (rx2h-L3).
 - [`rbin_equal_length()`](https://rbin.rsquaredacademy.com/reference/rbin_equal_length.md)
   handles empty intervals and computes finite internal edges even when
   the finite range overflows; equal-width and winsorized methods reject
@@ -63,6 +78,10 @@ frequency groups and factor counts.
 
 ### Factor binning and dummy variables
 
+- Printed factor summaries and plot ticks label genuine missing values
+  as `(missing)` when a literal `"NA"` category is also present,
+  preserving the usual display and stored typed labels otherwise
+  (rx2d-L2).
 - [`rbin_factor()`](https://rbin.rsquaredacademy.com/reference/rbin_factor.md)
   groups on integer IDs, preserving distinct numeric and temporal
   categories whose display text collides, and preserving explicit NA

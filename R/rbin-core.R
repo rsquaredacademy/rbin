@@ -81,8 +81,8 @@ rbin_manual_impl <- function(data, response, predictor, cut_points = NULL,
 
   bm     <- keep_na_rows(prep_data, include_na)
   byd    <- bm$predictor
-  l_freq <- c(min_finite(byd), cut_points)
-  u_freq <- c(cut_points, max_finite(byd) + 1)
+  l_freq <- c(min(min_finite(byd), cut_points[1L]), cut_points)
+  u_freq <- c(cut_points, max(max_finite(byd) + 1, tail(cut_points, 1L)))
 
   build_numeric_bins(bm, l_freq, u_freq, "Manual", "rbin_manual",
                      c(response, predictor))

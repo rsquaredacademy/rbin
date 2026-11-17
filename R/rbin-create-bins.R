@@ -3,7 +3,8 @@
 #' Create dummy variables from bins.
 #'
 #' @param data A \code{data.frame} or \code{tibble}.
-#' @param predictor Variable for which dummy variables must be created.
+#' @param predictor Bare column name, character name, or variable holding a character
+#'   name in \code{data}. The numeric variable for which dummies must be created.
 #' @param bins An object of class \code{rbin_manual}, \code{rbin_quantiles},
 #'   \code{rbin_equal_length}, \code{rbin_winsorize} or \code{rbin_equal_freq}.
 #'
@@ -87,11 +88,13 @@ bin_ranges <- function(bins) {
       return(NULL)
     }
 
+    cuts <- format_boundaries(c(head(upper, -1L), tail(lower, 1L)))
+
     return(list(lower  = lower,
                 upper  = upper,
                 labels = if (length(lower) == 1L) "all" else
-                  c(paste("<", format_boundaries(upper[-length(upper)])),
-                    paste(">=", format_boundaries(tail(lower, 1L))))))
+                  c(paste("<", head(cuts, -1L)),
+                    paste(">=", tail(cuts, 1L)))))
 
   }
 

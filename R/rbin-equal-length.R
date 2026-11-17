@@ -3,12 +3,14 @@
 #' Bin continuous data using the equal length binning method.
 #'
 #' @param data A \code{data.frame} or \code{tibble}.
-#' @param response Response variable; a binary variable coded as 0/1, a logical
+#' @param response Bare column name, character name, or variable holding a character
+#'   name in \code{data}. A binary variable coded as 0/1, a logical
 #'   variable, or a two-level factor/character. For a two-level factor the first
 #'   level is treated as 0 and the second as 1; for character data the two
 #'   values are sorted and the second is treated as 1. Rows with a missing
 #'   response are dropped with a warning.
-#' @param predictor Numeric predictor variable; non-missing values must be finite.
+#' @param predictor Bare column name, character name, or variable holding a character
+#'   name in \code{data}. A numeric predictor; non-missing values must be finite.
 #' @param bins Number of bins.
 #' @param include_na logical; if \code{TRUE}, a separate bin is created for missing values.
 #' @param x An object of class \code{rbin_equal_length}.
@@ -37,8 +39,8 @@ rbin_equal_length <- function(data = NULL, response = NULL, predictor = NULL, bi
 rbin_equal_length.default <- function(data = NULL, response = NULL, predictor = NULL, bins = 10, include_na = TRUE) {
 
   rbin_equal_length_impl(data       = data,
-                         response   = deparse(substitute(response)),
-                         predictor  = deparse(substitute(predictor)),
+                         response   = column_name(substitute(response), parent.frame(), data),
+                         predictor  = column_name(substitute(predictor), parent.frame(), data),
                          bins       = bins,
                          include_na = include_na)
 

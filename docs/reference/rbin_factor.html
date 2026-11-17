@@ -61,7 +61,8 @@
 
 
 <dt id="arg-response">response<a class="anchor" aria-label="anchor" href="#arg-response"></a></dt>
-<dd><p>Response variable; a binary variable coded as 0/1, a logical
+<dd><p>Bare column name, character name, or variable holding a character
+name in <code>data</code>. A binary variable coded as 0/1, a logical
 variable, or a two-level factor/character. For a two-level factor the first
 level is treated as 0 and the second as 1; for character data the two
 values are sorted and the second is treated as 1. Rows with a missing
@@ -69,7 +70,8 @@ response are dropped with a warning.</p></dd>
 
 
 <dt id="arg-predictor">predictor<a class="anchor" aria-label="anchor" href="#arg-predictor"></a></dt>
-<dd><p>Bare or character name of a categorical column in <code>data</code>.
+<dd><p>Bare column name, character name, or variable holding a character
+name in <code>data</code>. A categorical predictor variable.
 Factor (including ordered), character, numeric, logical, <code>Date</code> and
 <code>POSIXct</code> columns are supported. Distinct values form distinct groups.</p></dd>
 
@@ -104,7 +106,10 @@ Factor (including ordered), character, numeric, logical, <code>Date</code> and
   the ordered class are preserved; an explicit <code>NA</code> level is a valid
   category, distinct from a missing factor code. It precedes the final
   missing-code group and is retained when <code>include_na = FALSE</code>.
-  Numeric <code>NaN</code> and <code>NA</code> share a missing-value group.</p>
+  Numeric <code>NaN</code> and <code>NA</code> share a missing-value group.
+  If a literal <code>"NA"</code> category is present, the genuine missing group
+  displays as <code>"(missing)"</code> in printed summaries and plots. Stored
+  typed labels, explicit <code>NA</code> levels and ordered classes are preserved.</p>
     </div>
 
     <div class="section level2">

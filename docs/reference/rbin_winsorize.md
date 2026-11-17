@@ -30,15 +30,17 @@ plot(x, print_plot = TRUE, ...)
 
 - response:
 
-  Response variable; a binary variable coded as 0/1, a logical variable,
-  or a two-level factor/character. For a two-level factor the first
-  level is treated as 0 and the second as 1; for character data the two
-  values are sorted and the second is treated as 1. Rows with a missing
+  Bare column name, character name, or variable holding a character name
+  in `data`. A binary variable coded as 0/1, a logical variable, or a
+  two-level factor/character. For a two-level factor the first level is
+  treated as 0 and the second as 1; for character data the two values
+  are sorted and the second is treated as 1. Rows with a missing
   response are dropped with a warning.
 
 - predictor:
 
-  Numeric predictor variable; non-missing values must be finite.
+  Bare column name, character name, or variable holding a character name
+  in `data`. A numeric predictor; non-missing values must be finite.
 
 - bins:
 

@@ -44,12 +44,14 @@ rbin_factor_combine <- function(data, var, new_var, new_name) {
 #' Weight of evidence and information value for categorical data.
 #'
 #' @param data A \code{data.frame} or \code{tibble}.
-#' @param response Response variable; a binary variable coded as 0/1, a logical
+#' @param response Bare column name, character name, or variable holding a character
+#'   name in \code{data}. A binary variable coded as 0/1, a logical
 #'   variable, or a two-level factor/character. For a two-level factor the first
 #'   level is treated as 0 and the second as 1; for character data the two
 #'   values are sorted and the second is treated as 1. Rows with a missing
 #'   response are dropped with a warning.
-#' @param predictor Bare or character name of a categorical column in \code{data}.
+#' @param predictor Bare column name, character name, or variable holding a character
+#'   name in \code{data}. A categorical predictor variable.
 #'   Factor (including ordered), character, numeric, logical, \code{Date} and
 #'   \code{POSIXct} columns are supported. Distinct values form distinct groups.
 #' @param include_na logical; if \code{TRUE}, a separate bin is created for missing values.
@@ -68,6 +70,9 @@ rbin_factor_combine <- function(data, var, new_var, new_name) {
 #'   category, distinct from a missing factor code. It precedes the final
 #'   missing-code group and is retained when \code{include_na = FALSE}.
 #'   Numeric \code{NaN} and \code{NA} share a missing-value group.
+#'   If a literal \code{"NA"} category is present, the genuine missing group
+#'   displays as \code{"(missing)"} in printed summaries and plots. Stored
+#'   typed labels, explicit \code{NA} levels and ordered classes are preserved.
 #'
 #' @examples
 #' bins <- rbin_factor(mbank, y, education)
@@ -97,7 +102,22 @@ print.rbin_factor <- function(x, ...) {
 
   rbin_print_custom(x)
   cat("\n\n")
-  print(x$bins[c('level', 'bin_count', 'good', 'bad', 'woe', 'iv', 'entropy')])
+  bins <- x$bins[c('level', 'bin_count', 'good', 'bad', 'woe', 'iv', 'entropy')]
+  if (any(as.character(bins$level) == "NA", na.rm = TRUE) &&
+      any(is.na(bins$level))) {
+    bins$level <- factor_display_labels(bins$level)
+  }
+  print(bins)
+}
+
+# Keep typed summary labels intact, including explicit NA factor levels.
+factor_display_labels <- function(level) {
+  labels <- as.character(level)
+  if (any(labels == "NA", na.rm = TRUE)) {
+    labels[is.na(level)] <- "(missing)"
+  }
+  labels[is.na(labels)] <- "NA"
+  labels
 }
 
 #' @import ggplot2
@@ -108,8 +128,7 @@ plot.rbin_factor <- function(x, print_plot = TRUE,...) {
 
   xseq <- nrow(x$bins)
 	xaxis_breaks <- seq_len(xseq)
-	xaxis_labels <- as.character(x$bins$level)
-	xaxis_labels[is.na(xaxis_labels)] <- "NA"
+	xaxis_labels <- factor_display_labels(x$bins$level)
 
 	p <-
 	  ggplot(x$bins) +
@@ -131,8 +150,9 @@ plot.rbin_factor <- function(x, print_plot = TRUE,...) {
 #' Create dummy variables for categorical data.
 #'
 #' @param data A \code{data.frame} or \code{tibble}.
-#' @param predictor Variable for which dummy variables must be created. It can
-#'   be a factor or a character variable; character variables are converted to
+#' @param predictor Bare column name, character name, or variable holding a character
+#'   name in \code{data}. It can be a factor or a character variable;
+#'   character variables are converted to
 #'   a factor first, so the levels are sorted.
 #'
 #' @return A \code{data.frame} with the original columns preserved and one

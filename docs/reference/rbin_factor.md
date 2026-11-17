@@ -19,17 +19,19 @@ plot(x, print_plot = TRUE, ...)
 
 - response:
 
-  Response variable; a binary variable coded as 0/1, a logical variable,
-  or a two-level factor/character. For a two-level factor the first
-  level is treated as 0 and the second as 1; for character data the two
-  values are sorted and the second is treated as 1. Rows with a missing
+  Bare column name, character name, or variable holding a character name
+  in `data`. A binary variable coded as 0/1, a logical variable, or a
+  two-level factor/character. For a two-level factor the first level is
+  treated as 0 and the second as 1; for character data the two values
+  are sorted and the second is treated as 1. Rows with a missing
   response are dropped with a warning.
 
 - predictor:
 
-  Bare or character name of a categorical column in `data`. Factor
-  (including ordered), character, numeric, logical, `Date` and `POSIXct`
-  columns are supported. Distinct values form distinct groups.
+  Bare column name, character name, or variable holding a character name
+  in `data`. A categorical predictor variable. Factor (including
+  ordered), character, numeric, logical, `Date` and `POSIXct` columns
+  are supported. Distinct values form distinct groups.
 
 - include_na:
 
@@ -61,7 +63,10 @@ counts follow first appearance, with missing values last. Factor levels
 and the ordered class are preserved; an explicit `NA` level is a valid
 category, distinct from a missing factor code. It precedes the final
 missing-code group and is retained when `include_na = FALSE`. Numeric
-`NaN` and `NA` share a missing-value group.
+`NaN` and `NA` share a missing-value group. If a literal `"NA"` category
+is present, the genuine missing group displays as `"(missing)"` in
+printed summaries and plots. Stored typed labels, explicit `NA` levels
+and ordered classes are preserved.
 
 ## Examples
 

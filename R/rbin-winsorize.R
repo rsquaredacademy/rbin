@@ -3,12 +3,14 @@
 #' Bin continuous data using winsorized method.
 #'
 #' @param data A \code{data.frame} or \code{tibble}.
-#' @param response Response variable; a binary variable coded as 0/1, a logical
+#' @param response Bare column name, character name, or variable holding a character
+#'   name in \code{data}. A binary variable coded as 0/1, a logical
 #'   variable, or a two-level factor/character. For a two-level factor the first
 #'   level is treated as 0 and the second as 1; for character data the two
 #'   values are sorted and the second is treated as 1. Rows with a missing
 #'   response are dropped with a warning.
-#' @param predictor Numeric predictor variable; non-missing values must be finite.
+#' @param predictor Bare column name, character name, or variable holding a character
+#'   name in \code{data}. A numeric predictor; non-missing values must be finite.
 #' @param bins Number of bins.
 #' @param winsor_rate A value from 0.0 to 0.5.
 #' @param min_val the low border, all values being lower than this will be replaced by this value. The default is set to the 5 percent quantile of predictor.
@@ -50,8 +52,8 @@ rbin_winsorize.default <- function(data = NULL, response = NULL, predictor = NUL
                                    remove_na = TRUE) {
 
   rbin_winsorize_impl(data        = data,
-                      response    = deparse(substitute(response)),
-                      predictor   = deparse(substitute(predictor)),
+                      response    = column_name(substitute(response), parent.frame(), data),
+                      predictor   = column_name(substitute(predictor), parent.frame(), data),
                       bins        = bins,
                       include_na  = include_na,
                       winsor_rate = winsor_rate,

@@ -141,17 +141,17 @@ non-missing training summary.
 `bins`\
 `#> Binning Summary`\
 `#> ------------------------------------`\
-`#> Method               Equal Frequency `\
-`#> Response             y `\
-`#> Predictor            age `\
-`#> Bins                 10 `\
-`#> Count                4521 `\
-`#> Goods                517 `\
-`#> Bads                 4004 `\
-`#> Entropy              0.5 `\
-`#> Information Value    0.11 `\
-`#> `\
-`#> `\
+`#> Method               Equal Frequency`\
+`#> Response             y`\
+`#> Predictor            age`\
+`#> Bins                 10`\
+`#> Count                4521`\
+`#> Goods                517`\
+`#> Bads                 4004`\
+`#> Entropy              0.5`\
+`#> Information Value    0.11`\
+`#>`\
+`#>`\
 `#>    lower_cut upper_cut bin_count good bad  good_rate         woe           iv`\
 `#> 1       -Inf        30       521   85 436 0.16314779 -0.41201528 2.287466e-02`\
 `#> 2         30        32       386   45 341 0.11658031 -0.02178628 4.086635e-05`\
@@ -175,9 +175,9 @@ non-missing training summary.
 `#> 9  0.4895008`\
 `#> 10 0.7330960`\
 [`colSums`](https://rdrr.io/r/base/colSums.html)`(`[`rbin_create`](https://rbin.rsquaredacademy.com/reference/rbin_create.md)`(``mbank``, ``age``, ``bins``)``[``-`[`seq_along`](https://rdrr.io/r/base/seq.html)`(``mbank``)``]``)`\
-`#>  age_<_30  age_<_32  age_<_35  age_<_37  age_<_40  age_<_43  age_<_47  age_<_52 `\
-`#>       521       386       582       374       497       396       461       474 `\
-`#>  age_<_57 age_>=_57 `\
+`#>  age_<_30  age_<_32  age_<_35  age_<_37  age_<_40  age_<_43  age_<_47  age_<_52`\
+`#>       521       386       582       374       497       396       461       474`\
+`#>  age_<_57 age_>=_57`\
 `#>       441       389`\
 \
 `# plot`\

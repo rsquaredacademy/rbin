@@ -3,12 +3,14 @@
 #' Bin continuous data manually.
 #'
 #' @param data A \code{data.frame} or \code{tibble}.
-#' @param response Response variable; a binary variable coded as 0/1, a logical
+#' @param response Bare column name, character name, or variable holding a character
+#'   name in \code{data}. A binary variable coded as 0/1, a logical
 #'   variable, or a two-level factor/character. For a two-level factor the first
 #'   level is treated as 0 and the second as 1; for character data the two
 #'   values are sorted and the second is treated as 1. Rows with a missing
 #'   response are dropped with a warning.
-#' @param predictor Predictor variable.
+#' @param predictor Bare column name, character name, or variable holding a character
+#'   name in \code{data}. A numeric predictor variable.
 #' @param cut_points Cut points for binning.
 #' @param include_na logical; if \code{TRUE}, a separate bin is created for missing values.
 #' @param x An object of class \code{rbin_manual}.
@@ -42,8 +44,8 @@ rbin_manual <- function(data = NULL, response = NULL, predictor = NULL, cut_poin
 rbin_manual.default <- function(data = NULL, response = NULL, predictor = NULL, cut_points = NULL, include_na = TRUE) {
 
   rbin_manual_impl(data       = data,
-                   response   = deparse(substitute(response)),
-                   predictor  = deparse(substitute(predictor)),
+                   response   = column_name(substitute(response), parent.frame(), data),
+                   predictor  = column_name(substitute(predictor), parent.frame(), data),
                    cut_points = cut_points,
                    include_na = include_na)
 

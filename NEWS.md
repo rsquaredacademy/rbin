@@ -6,6 +6,9 @@ assignment, dropped missing responses, tie-aware frequency groups and factor cou
 
 ## Shared binning and response handling
 
+* All numeric binning functions and `rbin_create()` accept bare column names,
+  strings and variables holding names, including long non-syntactic names,
+  consistently with `rbin_factor()` (rx2h-L2 / rx2d-L1).
 * Empty intervals retain zero counts, undefined rates/WoE and zero IV/entropy;
   summaries join by bin ID and retain a separate final missing group (H01).
 * Pure groups have entropy zero, including printed totals (H06).
@@ -22,6 +25,14 @@ assignment, dropped missing responses, tie-aware frequency groups and factor cou
 
 ## Numeric binning and dummy variables
 
+* Quantile binning rejects computed NA/NaN cut points, including interpolation
+  between negative and positive infinity, while valid infinite cuts remain
+  supported. Numeric assignment rejects unmatched non-missing values rather
+  than putting them into a missing bin (rx2h-H1).
+* Equal-frequency dummy names format all boundaries together, preserving the
+  precision of the final `>=` threshold (rx2h-L1).
+* Manual display bounds stay ordered when cuts lie outside the observed
+  predictor range (rx2h-L3).
 * `rbin_equal_length()` handles empty intervals and computes finite internal
   edges even when the finite range overflows; equal-width and winsorized
   methods reject infinite predictors (H01, A2-H05).
@@ -47,6 +58,9 @@ assignment, dropped missing responses, tie-aware frequency groups and factor cou
 
 ## Factor binning and dummy variables
 
+* Printed factor summaries and plot ticks label genuine missing values as
+  `(missing)` when a literal `"NA"` category is also present, preserving the
+  usual display and stored typed labels otherwise (rx2d-L2).
 * `rbin_factor()` groups on integer IDs, preserving distinct numeric and temporal
   categories whose display text collides, and preserving explicit NA factor
   levels separately from missing codes. NaN and NA numeric predictors share one

@@ -9,7 +9,8 @@ rbin_create(data, predictor, bins)
 \arguments{
 \item{data}{A \code{data.frame} or \code{tibble}.}
 
-\item{predictor}{Variable for which dummy variables must be created.}
+\item{predictor}{Bare column name, character name, or variable holding a character
+name in \code{data}. The numeric variable for which dummies must be created.}
 
 \item{bins}{An object of class \code{rbin_manual}, \code{rbin_quantiles},
 \code{rbin_equal_length}, \code{rbin_winsorize} or \code{rbin_equal_freq}.}

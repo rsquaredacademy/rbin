@@ -44,7 +44,8 @@
 <p>This release combines the unreleased 0.2.2 and 0.2.3 fixes and both fresh audits. Results change from CRAN 0.2.1 for missing-value placement, winsorized assignment, dropped missing responses, tie-aware frequency groups and factor counts.</p>
 <div class="section level3">
 <h3 id="shared-binning-and-response-handling-0-3-0">Shared binning and response handling<a class="anchor" aria-label="anchor" href="#shared-binning-and-response-handling-0-3-0"></a></h3>
-<ul><li>Empty intervals retain zero counts, undefined rates/WoE and zero IV/entropy; summaries join by bin ID and retain a separate final missing group (H01).</li>
+<ul><li>All numeric binning functions and <code><a href="../reference/rbin_create.html">rbin_create()</a></code> accept bare column names, strings and variables holding names, including long non-syntactic names, consistently with <code><a href="../reference/rbin_factor.html">rbin_factor()</a></code> (rx2h-L2 / rx2d-L1).</li>
+<li>Empty intervals retain zero counts, undefined rates/WoE and zero IV/entropy; summaries join by bin ID and retain a separate final missing group (H01).</li>
 <li>Pure groups have entropy zero, including printed totals (H06).</li>
 <li>Responses must be 0/1, logical, or binary factor/character; factors use their first level as 0 and second as 1. Invalid responses error; missing responses are dropped with a warning. All methods accept data.table input (H12, H13, H14).</li>
 <li>Declared binary factor responses keep their coding when only one class is observed. Explicit NA response levels are treated as missing, while extra unused levels remain supported when two classes are observed (A2-M04, Hydrogen M3).</li>
@@ -53,7 +54,10 @@
 </ul></div>
 <div class="section level3">
 <h3 id="numeric-binning-and-dummy-variables-0-3-0">Numeric binning and dummy variables<a class="anchor" aria-label="anchor" href="#numeric-binning-and-dummy-variables-0-3-0"></a></h3>
-<ul><li>
+<ul><li>Quantile binning rejects computed NA/NaN cut points, including interpolation between negative and positive infinity, while valid infinite cuts remain supported. Numeric assignment rejects unmatched non-missing values rather than putting them into a missing bin (rx2h-H1).</li>
+<li>Equal-frequency dummy names format all boundaries together, preserving the precision of the final <code>&gt;=</code> threshold (rx2h-L1).</li>
+<li>Manual display bounds stay ordered when cuts lie outside the observed predictor range (rx2h-L3).</li>
+<li>
 <code><a href="../reference/rbin_equal_length.html">rbin_equal_length()</a></code> handles empty intervals and computes finite internal edges even when the finite range overflows; equal-width and winsorized methods reject infinite predictors (H01, A2-H05).</li>
 <li>
 <code><a href="../reference/rbin_quantiles.html">rbin_quantiles()</a></code> constructs probabilities directly as integer fractions, preserving exact cut-point membership and derived statistics (A2-H06).</li>
@@ -71,7 +75,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="factor-binning-and-dummy-variables-0-3-0">Factor binning and dummy variables<a class="anchor" aria-label="anchor" href="#factor-binning-and-dummy-variables-0-3-0"></a></h3>
-<ul><li>
+<ul><li>Printed factor summaries and plot ticks label genuine missing values as <code>(missing)</code> when a literal <code>"NA"</code> category is also present, preserving the usual display and stored typed labels otherwise (rx2d-L2).</li>
+<li>
 <code><a href="../reference/rbin_factor.html">rbin_factor()</a></code> groups on integer IDs, preserving distinct numeric and temporal categories whose display text collides, and preserving explicit NA factor levels separately from missing codes. NaN and NA numeric predictors share one missing bin; all retained observations contribute to counts and statistics (A2-H03, A2-H04, Hydrogen H1, Hydrogen H2, Hydrogen H3).</li>
 <li>
 <code><a href="../reference/rbin_factor.html">rbin_factor()</a></code> preserves ordered classes and explicit NA level metadata; <code>include_na = FALSE</code> removes missing codes while retaining explicit NA levels (Hydrogen M4, Hydrogen M5).</li>

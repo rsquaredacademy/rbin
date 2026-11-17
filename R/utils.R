@@ -181,10 +181,19 @@ keep_na_rows <- function(prep_data, include_na) {
 # intervals identifiable instead of silently recycling rows.
 numeric_bin_id <- function(x, lower, upper) {
 
+  if (anyNA(lower) || anyNA(upper)) {
+    stop("computed cut points contain NA or NaN; cannot form numeric bins",
+         call. = FALSE)
+  }
+
   n   <- length(lower)
   out <- rep(NA_integer_, length(x))
 
   if (n == 0L) {
+    if (any(!is.na(x))) {
+      stop("non-missing predictor values fall outside the bin intervals",
+           call. = FALSE)
+    }
     return(out)
   }
 
@@ -195,6 +204,11 @@ numeric_bin_id <- function(x, lower, upper) {
   }
 
   out[which(x >= lower[n])] <- n
+
+  if (any(!is.na(x) & is.na(out))) {
+    stop("non-missing predictor values fall outside the bin intervals",
+         call. = FALSE)
+  }
 
   out
 

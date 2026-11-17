@@ -16,9 +16,9 @@ rbin_factor_create(data, predictor)
 
 - predictor:
 
-  Variable for which dummy variables must be created. It can be a factor
-  or a character variable; character variables are converted to a factor
-  first, so the levels are sorted.
+  Bare column name, character name, or variable holding a character name
+  in `data`. It can be a factor or a character variable; character
+  variables are converted to a factor first, so the levels are sorted.
 
 ## Value
 
