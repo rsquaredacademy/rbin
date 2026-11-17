@@ -8,7 +8,7 @@
 #'   level is treated as 0 and the second as 1; for character data the two
 #'   values are sorted and the second is treated as 1. Rows with a missing
 #'   response are dropped with a warning.
-#' @param predictor Predictor variable.
+#' @param predictor Numeric predictor variable; non-missing values must be finite.
 #' @param bins Number of bins.
 #' @param winsor_rate A value from 0.0 to 0.5.
 #' @param min_val the low border, all values being lower than this will be replaced by this value. The default is set to the 5 percent quantile of predictor.
@@ -23,7 +23,9 @@
 #' @return A list of class \code{rbin_winsorize} with the following elements:
 #'   \code{bins}, a \code{data.frame} with one row per interval (including
 #'   empty intervals) and a final row for missing values when present;
-#'   \code{method}; \code{vars}; \code{lower_cut}; and \code{upper_cut}.
+#'   \code{method}; \code{vars}; \code{lower_cut}; \code{upper_cut}; and
+#'   \code{clamp}, the fitted minimum and maximum used when scoring new data
+#'   (absent if all predictor values are missing).
 #'
 #' @examples
 #' bins <- rbin_winsorize(mbank, y, age, 10, winsor_rate = 0.05)

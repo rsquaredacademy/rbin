@@ -13,6 +13,13 @@
 #'
 #' @details Missing predictor values produce missing indicators; the separate
 #'   missing-value bin is not turned into a dummy column.
+#'   Winsorized objects apply their fitted clamp before assigning intervals.
+#'   Older saved winsorized objects without clamp metadata must be fitted again.
+#'   Equal-frequency objects can be scored only when no tied value crosses a
+#'   group boundary; otherwise an error requests an interval binning method.
+#'   For scoreable rank groups, gaps are assigned to the preceding group, with
+#'   boundaries at the next group's minimum. Dummy names describe these actual
+#'   scoring intervals, which extend beyond the training range.
 #'
 #' @examples
 #' k <- rbin_manual(mbank, y, age, c(29, 39, 56))
@@ -46,6 +53,14 @@ rbin_create <- function(data, predictor, bins) {
     return(data)
   }
 
+  if (inherits(bins, "rbin_winsorize")) {
+    if (is.null(bins$clamp)) {
+      stop("winsorized bins lack fitted clamp metadata; fit the bins again",
+           call. = FALSE)
+    }
+    x <- pmin(pmax(x, bins$clamp[1L]), bins$clamp[2L])
+  }
+
   bin_id <- numeric_bin_id(x, ranges$lower, ranges$upper)
 
   result <- lapply(seq_along(ranges$lower), function(i) as.integer(bin_id == i))
@@ -67,9 +82,15 @@ bin_ranges <- function(bins) {
 
     keep  <- !is.na(bins$bins$bin)
     lower <- bins$bins$lower_cut[keep]
+    observed_upper <- bins$bins$upper_cut[keep]
 
     if (length(lower) == 0L) {
       return(NULL)
+    }
+
+    if (length(lower) > 1L && any(head(observed_upper, -1L) >= lower[-1L])) {
+      stop("cannot score equal-frequency bins with ties across bin boundaries; ",
+           "use an interval binning method", call. = FALSE)
     }
 
     upper <- c(lower[-1L], Inf)
@@ -79,7 +100,9 @@ bin_ranges <- function(bins) {
 
     return(list(lower  = lower,
                 upper  = upper,
-                labels = paste0("<=", format_boundaries(bins$bins$upper_cut[keep]))))
+                labels = if (length(lower) == 1L) "all" else
+                  c(paste("<", format_boundaries(upper[-length(upper)])),
+                    paste(">=", format_boundaries(tail(lower, 1L))))))
 
   }
 

@@ -18,7 +18,9 @@ level is treated as 0 and the second as 1; for character data the two
 values are sorted and the second is treated as 1. Rows with a missing
 response are dropped with a warning.}
 
-\item{predictor}{Predictor variable.}
+\item{predictor}{Bare or character name of a categorical column in \code{data}.
+Factor (including ordered), character, numeric, logical, \code{Date} and
+\code{POSIXct} columns are supported. Distinct values form distinct groups.}
 
 \item{include_na}{logical; if \code{TRUE}, a separate bin is created for missing values.}
 
@@ -35,6 +37,15 @@ A list of class \code{rbin_factor} with the following elements:
 }
 \description{
 Weight of evidence and information value for categorical data.
+}
+\details{
+Both \code{response} and \code{predictor} accept bare column names,
+  character names, or variables holding character names. Groups and cumulative
+  counts follow first appearance, with missing values last. Factor levels and
+  the ordered class are preserved; an explicit \code{NA} level is a valid
+  category, distinct from a missing factor code. It precedes the final
+  missing-code group and is retained when \code{include_na = FALSE}.
+  Numeric \code{NaN} and \code{NA} share a missing-value group.
 }
 \examples{
 bins <- rbin_factor(mbank, y, education)

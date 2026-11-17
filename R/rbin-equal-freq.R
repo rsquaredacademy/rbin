@@ -22,6 +22,9 @@
 #' @details Groups differ in size by at most one observation. When missing
 #'   predictor values are present they form a separate final group, and the
 #'   equal frequency groups are built from the non-missing values only.
+#'   Ties are split by stable input order to maintain balanced group sizes.
+#'   Such groups can be summarized, but \code{rbin_create()} rejects them when
+#'   ties cross boundaries because value thresholds cannot reproduce the groups.
 #'
 #' @examples
 #' bins <- rbin_equal_freq(mbank, y, age, 10)

@@ -1,84 +1,107 @@
-# rbin 0.2.3
+# rbin 0.3.0
 
-This is a patch release that fixes the correctness findings of the 0.2.2
-pre-CRAN audit (H01--H16, M01--M05, L01--L02).
+This release combines the unreleased 0.2.2 and 0.2.3 fixes and both fresh
+audits. Results change from CRAN 0.2.1 for missing-value placement, winsorized
+assignment, dropped missing responses, balanced rank groups and factor counts.
 
-## Bug fixes
+## Shared binning and response handling
 
-* (`H01`) Bins summaries are now joined to the interval definitions by bin ID,
-  so empty intervals are kept with zero counts instead of being dropped and
-  recycled across rows. Counts, IV and entropy no longer inflate, empty
-  intervals no longer duplicate rows, and a present missing-value group is
-  detected with `anyNA()` rather than by comparing row counts.
-* (`H01`) `rbin_equal_length()` no longer fails with
-  `arguments imply differing number of rows` when an interval is empty.
-* (`H02`) `rbin_equal_freq()` now distributes the remainder across bins, so
-  group sizes differ by at most one (99 observations in 10 bins gives nine
-  groups of ten and one of nine; ten observations in six bins gives
-  2, 2, 2, 2, 1, 1). More bins than observations is still rejected with a
-  clear error.
-* (`H03`, `H10`) `rbin_create()` builds every dummy column from the bin
-  definitions, using numeric bin IDs internally. The columns are no longer
-  permuted when labels sort differently as text, a scoring subset that is
-  missing whole bins still receives the full set of columns, and distinct bins
-  whose boundaries format identically get distinct labels and names.
-* (`H04`) `rbin_winsorize()` now treats `min_val`/`max_val` as values to clamp
-  to, as documented, instead of as numbers of rows. A default quantile is only
-  computed for an endpoint that was not supplied, and `min_val > max_val` is an
-  error.
-* (`H05`) `rbin_factor_combine()` combines exact level names instead of
-  running `gsub()`, so other levels are untouched, selected levels are mapped
-  once, and regular-expression characters in level names are safe.
-* (`H06`) Bins whose observations all belong to one class now have entropy 0
-  (using the `0 log 0 = 0` convention) instead of `NaN`, including the printed
-  total entropy.
-* (`H07`, `H08`, `H09`) `rbin_factor_create()` preserves all original columns,
-  accepts character predictors (converted to a factor first), and builds
-  indicators from factor codes so an explicit `NA` level gets a real indicator
-  column. Generated names never overwrite existing columns.
-* (`H11`) The last numeric interval is unbounded on the right, so large finite
-  maxima (for example `2e16`, where `2e16 + 1 == 2e16`) are binned instead of
-  being treated as missing.
-* (`H12`) The response must now be binary: 0/1, logical, or a two-level
-  factor/character. A two-level factor uses its first level as 0 and its second
-  as 1; character values are sorted and the second is used as 1. Other
-  responses are rejected with an error instead of silently returning zero class
-  counts. The contract is documented on every method.
-* (`H13`, `H14`) `rbinAddin()` and `rbinFactorAddin()` now use the same core
-  workers as the exported functions. Missing responses are dropped with the
-  same warning, and `data.table` input works in both addins.
-* (`H15`) Numeric WoE plots place every row at an explicit position and label
-  the axis from the interval labels, so the missing-value bin is plotted
-  instead of being removed as a missing coordinate.
-* (`H16`) Both addins can be launched with their default `data = NULL`
-  argument: the Data Name field starts empty and asks for valid input instead
-  of failing with `object 'mydata' not found`. A data.frame supplied to the
-  addin is used directly, so `rbinAddin(data = data.frame(...))` works.
+* Empty intervals retain zero counts, undefined rates/WoE and zero IV/entropy;
+  summaries join by bin ID and retain a separate final missing group (H01).
+* Pure groups have entropy zero, including printed totals (H06).
+* Responses must be 0/1, logical, or binary factor/character; factors use their
+  first level as 0 and second as 1. Invalid responses error; missing responses
+  are dropped with a warning. All methods accept data.table input (H12, H13, H14).
+* Declared binary factor responses keep their coding when only one class is
+  observed. Explicit NA response levels are treated as missing, while extra
+  unused levels remain supported when two classes are observed (A2-M04, Hydrogen M3).
+* Final numeric intervals have no upper bound, including when adding one to a
+  large finite maximum has no effect (H11).
+* Bin counts must be whole numbers; interval methods require at least two bins,
+  and rank binning permits one bin (M03).
+
+## Numeric binning and dummy variables
+
+* `rbin_equal_length()` handles empty intervals and computes finite internal
+  edges even when the finite range overflows; equal-width and winsorized
+  methods reject infinite predictors (H01, A2-H05).
+* `rbin_quantiles()` constructs probabilities directly as integer fractions,
+  preserving exact cut-point membership and derived statistics (A2-H06).
+* `rbin_winsorize()` treats supplied endpoints as clamp values, estimates only
+  unspecified endpoints, rejects reversed limits, and handles missing predictors
+  with `include_na = FALSE` (H04).
+* `rbin_equal_freq()` balances sizes to differ by at most one, rejects more bins
+  than observations, and keeps missing predictors in a separate final group (H02).
+* `rbin_create()` preserves bin order, keeps columns for absent bins, makes
+  colliding boundary labels distinct, and assigns values outside the training
+  range to the outer intervals (H03, H10).
+* `rbin_create()` rejects rank groups when ties cross boundaries, because value
+  thresholds cannot reproduce those groups. Scoreable rank groups use names
+  describing the actual scoring thresholds, including gaps (A2-H01, A2-L01).
+* `rbin_create()` applies stored winsor clamp endpoints before scoring, including
+  collapsed fitted ranges and limits outside the training range. Older saved
+  winsorized objects without clamp metadata must be fitted again (A2-H02).
+* Numeric WoE plots include the missing-predictor group (H15).
+
+## Factor binning and dummy variables
+
+* `rbin_factor()` groups on integer IDs, preserving distinct numeric and temporal
+  categories whose display text collides, and preserving explicit NA factor
+  levels separately from missing codes. NaN and NA numeric predictors share one
+  missing bin; all retained observations contribute to counts and statistics
+  (A2-H03, A2-H04, Hydrogen H1, Hydrogen H2, Hydrogen H3).
+* `rbin_factor()` preserves ordered classes and explicit NA level metadata;
+  `include_na = FALSE` removes missing codes while retaining explicit NA levels
+  (Hydrogen M4, Hydrogen M5).
+* `rbin_factor()` accepts bare, character and indirect column names, including
+  long non-syntactic names, and labels missing plot ticks as NA (Hydrogen M2,
+  Hydrogen M6).
+* `rbin_factor_combine()` matches exact names without regex or substring effects
+  and preserves ordered factors, explicit NA levels and unselected missing
+  codes. Selecting NA consistently combines both kinds of NA with the new level
+  (H05, A2-M01, Hydrogen H4, Hydrogen H5, Hydrogen M5).
+* `rbin_factor_create()` preserves original columns, accepts character predictors,
+  creates indicators from factor codes (including explicit NA levels), and makes
+  generated names unique. Zero-level inputs return unchanged (H07, H08, H09,
+  A2-M02, Hydrogen M1).
+
+## Addins
+
+* Both addins use the shared binning workers, drop missing responses with a
+  warning, and accept data.table input (H13, H14).
+* Both addins accept their default NULL argument and supplied data.frame
+  expressions (H16).
+* An explicitly changed, unresolved Data Name now validates instead of silently
+  using the originally supplied frame (A2-M03).
 
 ## Documentation and metadata
 
-* (`M01`) The maintainer email is now
-  `aravindhebbali@rsquaredacademy.com`.
-* (`M02`) `data.table (>= 1.9.4)` is declared, the first version exporting the
-  `setDF()` and `setorder()` functions used at load time.
-* (`M03`) NEWS now states the implemented behaviour precisely: equal-frequency
-  binning rejects more bins than observations, supports a single bin, and the
-  missing-response and data.table fixes apply to the addins as well.
-* (`M04`) `cran-comments.md` lists only checks that were actually run.
-* (`M05`) The `mbank` documentation describes all 17 columns, including
-  `balance` and `day`; the nonexistent `day_of_week` description is removed.
-* (`L01`) Rd return values now describe the actual S3 list/table structures
-  and classes (`rbin_manual`, `rbin_quantiles`, `rbin_winsorize`, and
-  `rbin_equal_freq` for equal-frequency plots).
-* (`L02`) The reference DOI now points to the book
-  (`10.1002/9781119201731`) rather than its bibliography record.
+* Maintainer email updated to aravindhebbali@rsquaredacademy.com (M01).
+* Declare data.table >= 1.9.4 and testthat >= 3.1.7, the first version providing
+  the mocking API used by the regression tests (M02, A2-M05).
+* Submission comments describe only checks actually run (M04).
+* Document all 17 mbank columns, correct S3 return structures/classes and the
+  book DOI 10.1002/9781119201731 (M05, L01, L02).
+* Regenerate README, vignette and website output, including reference examples,
+  data documentation and NEWS (A2-M06).
+* Manual cut-point documentation now distinguishes the integer +1 recipe from
+  continuous open upper bounds (A2-L02).
+* Factor documentation describes column-name arguments, supported predictor
+  classes, group order and missing-value policies (Hydrogen L1, Hydrogen L2).
+* Attaching the package no longer contacts CRAN for updates.
 
-## Other changes
+# rbin 0.2.1
 
-* Empty intervals are reported with zero counts and without rates or WoE;
-  they contribute nothing to total IV or entropy.
-* Equal-frequency binning now places missing predictor values in a separate
-  final group built from the non-missing values, in line with the other
-  methods.
-* `bins` must be a whole number.
-* The package no longer contacts CRAN for updates when it is attached.
+This is a patch release for minor bug fixes.
+
+# rbin 0.2.0
+
+This is a minor release for bug fixes and internal changes.
+
+# rbin 0.1.2
+
+* This is a patch release to fix CRAN note.
+
+# rbin 0.1.0
+
+* Added a `NEWS.md` file to track changes to the package.

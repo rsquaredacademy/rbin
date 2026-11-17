@@ -1,5 +1,5 @@
-This is a patch release that fixes the correctness findings of the internal
-pre-release audit of 0.2.2:
+This is rbin 0.3.0, incorporating both unreleased fix rounds and the fresh
+whole-package and factor audits. CRAN currently has 0.2.1:
 
 * bins with no observations no longer duplicate rows, inflate counts, IV or
   entropy, and the missing-value bin is labelled correctly;
@@ -8,7 +8,10 @@ pre-release audit of 0.2.2:
   combination, entropy of pure bins, large finite maxima and the binary
   response contract behave as documented;
 * both RStudio addins use the same core code as the exported functions and
-  accept `data.table` input and their default `data = NULL` argument.
+  accept `data.table` input and their default `data = NULL` argument;
+* factor category keys, explicit NA levels, missing codes and NaN counts are
+  preserved, quantile/equal-width boundaries are corrected, winsorized scoring
+  applies the fitted clamp, and ambiguous tied rank scoring errors explicitly.
 
 Metadata and documentation were updated as well (maintainer email, minimum
 `data.table` version, reference DOI, `mbank` columns and return values).

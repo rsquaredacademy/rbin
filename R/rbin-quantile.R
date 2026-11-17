@@ -82,9 +82,6 @@ qu_freq <- function(byd, bins) {
 
 cutpoints <- function(byd, bins) {
 
-  bin_prob   <- 1 / bins
-  bq         <- stats::quantile(byd, seq(0, 1, bin_prob), na.rm = TRUE)
-  bin_len    <- bins + 1
-  bq[c(-1, -bin_len)]
+  stats::quantile(byd, seq_len(bins - 1L) / bins, na.rm = TRUE)
 
 }

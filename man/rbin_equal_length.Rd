@@ -24,7 +24,7 @@ level is treated as 0 and the second as 1; for character data the two
 values are sorted and the second is treated as 1. Rows with a missing
 response are dropped with a warning.}
 
-\item{predictor}{Predictor variable.}
+\item{predictor}{Numeric predictor variable; non-missing values must be finite.}
 
 \item{bins}{Number of bins.}
 

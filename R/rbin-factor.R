@@ -3,8 +3,9 @@
 #' Manually combine levels of categorical data.
 #'
 #' @param data A \code{data.frame} or \code{tibble}.
-#' @param var An object of class \code{factor}, or a character variable.
-#' @param new_var A character vector; it should include the names of the levels to be combined.
+#' @param var Bare or character name of a factor or character column in \code{data}.
+#' @param new_var A character vector containing the names of levels to combine.
+#'   An \code{NA} selects both an explicit \code{NA} level and missing factor codes.
 #' @param new_name Name of the combined level.
 #'
 #' @return A \code{data.frame} with the predictor's levels combined. The
@@ -13,6 +14,9 @@
 #' @details Levels are matched exactly, not as regular expressions. Only the
 #'   selected levels are renamed; other levels are left untouched even when
 #'   their names contain the selected name as a substring.
+#'   Unselected explicit \code{NA} levels and missing codes are preserved, as is
+#'   the ordered class. A combined level takes the position of its first selected
+#'   level; a new level for missing codes alone is appended at the end.
 #'
 #' @examples
 #' upper <- c("secondary", "tertiary")
@@ -45,7 +49,9 @@ rbin_factor_combine <- function(data, var, new_var, new_name) {
 #'   level is treated as 0 and the second as 1; for character data the two
 #'   values are sorted and the second is treated as 1. Rows with a missing
 #'   response are dropped with a warning.
-#' @param predictor Predictor variable.
+#' @param predictor Bare or character name of a categorical column in \code{data}.
+#'   Factor (including ordered), character, numeric, logical, \code{Date} and
+#'   \code{POSIXct} columns are supported. Distinct values form distinct groups.
 #' @param include_na logical; if \code{TRUE}, a separate bin is created for missing values.
 #' @param x An object of class \code{rbin_factor}.
 #' @param print_plot logical; if \code{TRUE}, prints the plot else returns a plot object.
@@ -54,6 +60,14 @@ rbin_factor_combine <- function(data, var, new_var, new_name) {
 #' @return A list of class \code{rbin_factor} with the following elements:
 #'   \code{bins}, a \code{data.frame} with one row per observed level (plus a
 #'   final row for missing values when present); \code{method}; and \code{vars}.
+#'
+#' @details Both \code{response} and \code{predictor} accept bare column names,
+#'   character names, or variables holding character names. Groups and cumulative
+#'   counts follow first appearance, with missing values last. Factor levels and
+#'   the ordered class are preserved; an explicit \code{NA} level is a valid
+#'   category, distinct from a missing factor code. It precedes the final
+#'   missing-code group and is retained when \code{include_na = FALSE}.
+#'   Numeric \code{NaN} and \code{NA} share a missing-value group.
 #'
 #' @examples
 #' bins <- rbin_factor(mbank, y, education)
@@ -71,8 +85,8 @@ rbin_factor <- function(data = NULL, response = NULL, predictor = NULL, include_
 rbin_factor.default <- function(data = NULL, response = NULL, predictor = NULL, include_na = TRUE) {
 
   rbin_factor_impl(data       = data,
-                   response   = deparse(substitute(response)),
-                   predictor  = deparse(substitute(predictor)),
+                   response   = column_name(substitute(response), parent.frame(), data),
+                   predictor  = column_name(substitute(predictor), parent.frame(), data),
                    include_na = include_na)
 
 }
@@ -95,6 +109,7 @@ plot.rbin_factor <- function(x, print_plot = TRUE,...) {
   xseq <- nrow(x$bins)
 	xaxis_breaks <- seq_len(xseq)
 	xaxis_labels <- as.character(x$bins$level)
+	xaxis_labels[is.na(xaxis_labels)] <- "NA"
 
 	p <-
 	  ggplot(x$bins) +
@@ -162,6 +177,8 @@ rbin_factor_create <- function(data, predictor) {
 
   levels_x <- levels(x)
   codes    <- as.integer(x)
+
+  if (length(levels_x) == 0L) return(data)
 
   new_columns <- lapply(seq_along(levels_x), function(i) as.integer(codes == i))
   names(new_columns) <- paste0(variable, "_", levels_x)
