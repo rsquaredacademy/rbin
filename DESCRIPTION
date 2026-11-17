@@ -26,6 +26,7 @@ Suggests:
     rstudioapi,
     shiny,
     testthat (>= 3.1.7),
+    tibble,
     vdiffr
 VignetteBuilder: knitr
 Encoding: UTF-8
