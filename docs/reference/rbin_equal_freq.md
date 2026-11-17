@@ -19,7 +19,11 @@ plot(x, print_plot = TRUE, ...)
 
 - response:
 
-  Response variable.
+  Response variable; a binary variable coded as 0/1, a logical variable,
+  or a two-level factor/character. For a two-level factor the first
+  level is treated as 0 and the second as 1; for character data the two
+  values are sorted and the second is treated as 1. Rows with a missing
+  response are dropped with a warning.
 
 - predictor:
 
@@ -31,7 +35,7 @@ plot(x, print_plot = TRUE, ...)
 
 - x:
 
-  An object of class `rbin_quantiles`.
+  An object of class `rbin_equal_freq`.
 
 - print_plot:
 
@@ -43,7 +47,20 @@ plot(x, print_plot = TRUE, ...)
 
 ## Value
 
-A `tibble`.
+A list of class `rbin_equal_freq` with the following elements: `bins`, a
+`data.frame` with one row per group (plus a final row for missing values
+when present); `method`; `vars`; `lower_cut`; and `upper_cut`.
+
+## Details
+
+Groups differ in size by at most one observation. When missing predictor
+values are present they form a separate final group, and the equal
+frequency groups are built from the non-missing values only. Ties are
+split by stable input order to maintain balanced group sizes. Such
+groups can be summarized, but
+[`rbin_create()`](https://rbin.rsquaredacademy.com/reference/rbin_create.md)
+rejects them when ties cross boundaries because value thresholds cannot
+reproduce the groups.
 
 ## Examples
 
@@ -64,7 +81,7 @@ bins
 #> 
 #> 
 #>    lower_cut upper_cut bin_count good bad  good_rate         woe           iv
-#> 1         18        29       452   77 375 0.17035398 -0.46388566 2.564352e-02
+#> 1         18        29       453   77 376 0.16997792 -0.46122254 2.538111e-02
 #> 2         29        31       452   53 399 0.11725664 -0.02833676 8.116094e-05
 #> 3         31        34       452   44 408 0.09734513  0.18007127 3.023706e-03
 #> 4         34        36       452   45 407 0.09955752  0.15514443 2.266308e-03
@@ -73,9 +90,9 @@ bins
 #> 7         42        46       452   43 409 0.09513274  0.20550877 3.899674e-03
 #> 8         46        51       452   34 418 0.07522124  0.46211464 1.785222e-02
 #> 9         51        56       452   50 402 0.11061947  0.03742282 1.380079e-04
-#> 10        56        84       453   87 366 0.19205298 -0.61028105 4.691227e-02
+#> 10        56        84       452   87 365 0.19247788 -0.61301703 4.727568e-02
 #>      entropy
-#> 1  0.6585139
+#> 1  0.6576543
 #> 2  0.5214234
 #> 3  0.4605229
 #> 4  0.4675914
@@ -84,7 +101,7 @@ bins
 #> 7  0.4533741
 #> 8  0.3851129
 #> 9  0.5017816
-#> 10 0.7057464
+#> 10 0.7066263
 
 # plot
 plot(bins)

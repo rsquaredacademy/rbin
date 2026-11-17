@@ -67,7 +67,7 @@ bins
 plot(bins)
 ```
 
-<img src="tools/README-manual-1.png" width="100%" />
+<img src="tools/README-manual-1.png" alt="" width="100%" />
 
 ### Combine Factor Levels
 
@@ -105,7 +105,7 @@ bins
 plot(bins)
 ```
 
-<img src="tools/README-factor-1.png" width="100%" />
+<img src="tools/README-factor-1.png" alt="" width="100%" />
 
 ### Quantile Binning
 
@@ -141,7 +141,7 @@ bins
 plot(bins)
 ```
 
-<img src="tools/README-quantile-1.png" width="100%" />
+<img src="tools/README-quantile-1.png" alt="" width="100%" />
 
 ### Winsorized Binning
 
@@ -177,7 +177,7 @@ bins
 plot(bins)
 ```
 
-<img src="tools/README-winsorize-1.png" width="100%" />
+<img src="tools/README-winsorize-1.png" alt="" width="100%" />
 
 ### Equal Length Binning
 
@@ -213,7 +213,7 @@ bins
 plot(bins)
 ```
 
-<img src="tools/README-equal_length-1.png" width="100%" />
+<img src="tools/README-equal_length-1.png" alt="" width="100%" />
 
 ## Alternatives
 
@@ -235,4 +235,7 @@ Please note that the rbin project is released with a [Contributor Code
 of Conduct](https://rbin.rsquaredacademy.com/CODE_OF_CONDUCT.html). By
 contributing to this project, you agree to abide by its terms.
 
-<div data-rsa-signup data-site="rbin.rsquaredacademy.com" data-privacy-url="https://www.rsquaredacademy.com/privacy-policy.html"></div>
+<div data-rsa-signup="" data-site="rbin.rsquaredacademy.com"
+data-privacy-url="https://www.rsquaredacademy.com/privacy-policy.html">
+
+</div>

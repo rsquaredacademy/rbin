@@ -1,3 +1,4 @@
 # License
 
-YEAR: 2018 COPYRIGHT HOLDER: Aravind Hebbali
+YEAR: 2018\
+COPYRIGHT HOLDER: Aravind Hebbali\

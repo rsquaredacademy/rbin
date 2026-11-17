@@ -25,7 +25,11 @@ plot(x, print_plot = TRUE, ...)
 
 - response:
 
-  Response variable.
+  Response variable; a binary variable coded as 0/1, a logical variable,
+  or a two-level factor/character. For a two-level factor the first
+  level is treated as 0 and the second as 1; for character data the two
+  values are sorted and the second is treated as 1. Rows with a missing
+  response are dropped with a warning.
 
 - predictor:
 
@@ -53,16 +57,18 @@ plot(x, print_plot = TRUE, ...)
 
 ## Value
 
-A `tibble`.
+A list of class `rbin_manual` with the following elements: `bins`, a
+`data.frame` with one row per interval (including empty intervals) and a
+final row for missing values when present; `method`; `vars`;
+`lower_cut`; and `upper_cut`.
 
 ## Details
 
-Specify the upper open interval for each bin. \`rbin\` follows the left
-closed and right open interval. If you want to create_bins 10 bins, the
-app will show you only 9 input boxes. The interval for the 10th bin is
-automatically computed. For example, if you want the first bin to have
-all the values between the minimum and including 36, then you will enter
-the value 37.
+Cut points are open upper bounds: intervals are left closed and right
+open, `[lower, upper)`. Supply nine cut points for ten bins; the last
+bin has no upper bound. For an integer predictor, a cut at 37 includes
+integers through 36. For continuous data, that cut includes every value
+below 37, including 36.5; choose the continuous boundary directly.
 
 ## Examples
 

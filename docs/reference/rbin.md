@@ -18,4 +18,8 @@ Useful links:
 
 ## Author
 
-**Maintainer**: Aravind Hebbali <hebbali.aravind@gmail.com>
+**Maintainer**: Aravind Hebbali <aravindhebbali@rsquaredacademy.com>
+
+Authors:
+
+- Aravind Hebbali <aravindhebbali@rsquaredacademy.com>

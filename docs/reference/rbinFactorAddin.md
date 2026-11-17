@@ -12,7 +12,9 @@ rbinFactorAddin(data = NULL)
 
 - data:
 
-  A `data.frame` or `tibble`.
+  A `data.frame` or `tibble`, or the name of one. When `NULL` (the
+  default), the current editor selection is used as the initial data
+  name.
 
 ## Examples
 

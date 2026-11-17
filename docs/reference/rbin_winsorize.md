@@ -30,11 +30,15 @@ plot(x, print_plot = TRUE, ...)
 
 - response:
 
-  Response variable.
+  Response variable; a binary variable coded as 0/1, a logical variable,
+  or a two-level factor/character. For a two-level factor the first
+  level is treated as 0 and the second as 1; for character data the two
+  values are sorted and the second is treated as 1. Rows with a missing
+  response are dropped with a warning.
 
 - predictor:
 
-  Predictor variable.
+  Numeric predictor variable; non-missing values must be finite.
 
 - bins:
 
@@ -83,7 +87,11 @@ plot(x, print_plot = TRUE, ...)
 
 ## Value
 
-A `tibble`.
+A list of class `rbin_winsorize` with the following elements: `bins`, a
+`data.frame` with one row per interval (including empty intervals) and a
+final row for missing values when present; `method`; `vars`;
+`lower_cut`; `upper_cut`; and `clamp`, the fitted minimum and maximum
+used when scoring new data (absent if all predictor values are missing).
 
 ## Examples
 

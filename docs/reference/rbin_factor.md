@@ -19,11 +19,17 @@ plot(x, print_plot = TRUE, ...)
 
 - response:
 
-  Response variable.
+  Response variable; a binary variable coded as 0/1, a logical variable,
+  or a two-level factor/character. For a two-level factor the first
+  level is treated as 0 and the second as 1; for character data the two
+  values are sorted and the second is treated as 1. Rows with a missing
+  response are dropped with a warning.
 
 - predictor:
 
-  Predictor variable.
+  Bare or character name of a categorical column in `data`. Factor
+  (including ordered), character, numeric, logical, `Date` and `POSIXct`
+  columns are supported. Distinct values form distinct groups.
 
 - include_na:
 
@@ -40,6 +46,22 @@ plot(x, print_plot = TRUE, ...)
 - ...:
 
   further arguments passed to or from other methods.
+
+## Value
+
+A list of class `rbin_factor` with the following elements: `bins`, a
+`data.frame` with one row per observed level (plus a final row for
+missing values when present); `method`; and `vars`.
+
+## Details
+
+Both `response` and `predictor` accept bare column names, character
+names, or variables holding character names. Groups and cumulative
+counts follow first appearance, with missing values last. Factor levels
+and the ordered class are preserved; an explicit `NA` level is a valid
+category, distinct from a missing factor code. It precedes the final
+missing-code group and is retained when `include_na = FALSE`. Numeric
+`NaN` and `NA` share a missing-value group.
 
 ## Examples
 
