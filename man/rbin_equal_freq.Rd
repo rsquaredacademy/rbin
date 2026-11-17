@@ -12,13 +12,15 @@ rbin_equal_freq(data = NULL, response = NULL, predictor = NULL, bins = 10)
 \arguments{
 \item{data}{A \code{data.frame} or \code{tibble}.}
 
-\item{response}{Response variable; a binary variable coded as 0/1, a logical
+\item{response}{Bare column name, character name, or variable holding a character
+name in \code{data}. A binary variable coded as 0/1, a logical
 variable, or a two-level factor/character. For a two-level factor the first
 level is treated as 0 and the second as 1; for character data the two
 values are sorted and the second is treated as 1. Rows with a missing
 response are dropped with a warning.}
 
-\item{predictor}{Predictor variable.}
+\item{predictor}{Bare column name, character name, or variable holding a character
+name in \code{data}. A numeric predictor variable.}
 
 \item{bins}{Number of bins.}
 
@@ -38,9 +40,24 @@ A list of class \code{rbin_equal_freq} with the following elements:
 Bin continuous data using the equal frequency binning method.
 }
 \details{
-Groups differ in size by at most one observation. When missing
-  predictor values are present they form a separate final group, and the
-  equal frequency groups are built from the non-missing values only.
+Groups have approximately equal sizes and never split tied values.
+  For each \code{k = 1, ..., bins - 1}, take the smallest observed value
+  whose cumulative count reaches \code{k * n / bins}, where \code{n} is
+  the number of non-missing predictors (the type-1 empirical quantile).
+  All observations equal to that value stay in the lower group. The next
+  distinct observed value is the scoring cut. Repeated cuts and cuts beyond
+  the maximum are omitted; a message reports the requested and actual
+  numbers of non-missing bins when fewer bins result. No bin is empty.
+  Without ties, group sizes differ by at most one observation.
+
+  Both the top-level and table \code{lower_cut}/\code{upper_cut} fields
+  contain the actual left-closed, right-open scoring intervals. The first
+  and last intervals extend to negative and positive infinity; gaps go to
+  the preceding group. \code{rbin_create()} reproduces the non-missing
+  training counts using these intervals.
+  Missing predictor values form a separate final group, and the equal
+  frequency groups are built from non-missing values only. As with other
+  numeric methods, missing predictors produce missing dummy indicators.
 }
 \examples{
 bins <- rbin_equal_freq(mbank, y, age, 10)

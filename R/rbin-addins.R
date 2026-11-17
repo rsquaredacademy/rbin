@@ -468,10 +468,6 @@ addin_data_reactive <- function(input, data_obj, default_name) {
 
     out <- tryCatch(get(name, envir = globalenv()), error = function(e) NULL)
 
-    if (is.null(out) && !is.null(data_obj)) {
-      out <- data_obj
-    }
-
     shiny::validate(
       shiny::need(inherits(out, "data.frame"),
                   paste0("Data '", name, "' not found."))

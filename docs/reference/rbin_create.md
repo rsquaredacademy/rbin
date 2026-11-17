@@ -16,16 +16,30 @@ rbin_create(data, predictor, bins)
 
 - predictor:
 
-  Variable for which dummy variables must be created.
+  Bare column name, character name, or variable holding a character name
+  in `data`. The numeric variable for which dummies must be created.
 
 - bins:
 
-  An object of class `rbin_manual` or `rbin_quantiles` or
-  `rbin_equal_length` or `rbin_winsorized`.
+  An object of class `rbin_manual`, `rbin_quantiles`,
+  `rbin_equal_length`, `rbin_winsorize` or `rbin_equal_freq`.
 
 ## Value
 
-`data` with dummy variables.
+`data` with one indicator column per bin, appended in bin order. Every
+bin defined when the bins were created is represented, even when the
+data passed here has no observation in that bin.
+
+## Details
+
+Missing predictor values produce missing indicators; the separate
+missing-value bin is not turned into a dummy column. Winsorized objects
+apply their fitted clamp before assigning intervals. Older saved
+winsorized objects without clamp metadata must be fitted again.
+Equal-frequency bins keep ties together and use their stored value
+intervals for scoring. Gaps go to the preceding group, with boundaries
+at the next group's minimum. Dummy names describe these scoring
+intervals, which extend beyond the training range.
 
 ## Examples
 

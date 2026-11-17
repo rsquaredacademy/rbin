@@ -12,13 +12,17 @@ rbin_factor(data = NULL, response = NULL, predictor = NULL, include_na = TRUE)
 \arguments{
 \item{data}{A \code{data.frame} or \code{tibble}.}
 
-\item{response}{Response variable; a binary variable coded as 0/1, a logical
+\item{response}{Bare column name, character name, or variable holding a character
+name in \code{data}. A binary variable coded as 0/1, a logical
 variable, or a two-level factor/character. For a two-level factor the first
 level is treated as 0 and the second as 1; for character data the two
 values are sorted and the second is treated as 1. Rows with a missing
 response are dropped with a warning.}
 
-\item{predictor}{Predictor variable.}
+\item{predictor}{Bare column name, character name, or variable holding a character
+name in \code{data}. A categorical predictor variable.
+Factor (including ordered), character, numeric, logical, \code{Date} and
+\code{POSIXct} columns are supported. Distinct values form distinct groups.}
 
 \item{include_na}{logical; if \code{TRUE}, a separate bin is created for missing values.}
 
@@ -35,6 +39,19 @@ A list of class \code{rbin_factor} with the following elements:
 }
 \description{
 Weight of evidence and information value for categorical data.
+}
+\details{
+Both \code{response} and \code{predictor} accept bare column names,
+  character names, or variables holding character names. Groups and cumulative
+  counts follow first appearance, with missing values last. Factor levels and
+  the ordered class are preserved; an explicit \code{NA} level is a valid
+  category, distinct from a missing factor code. It precedes the final
+  missing-code group and is retained when \code{include_na = FALSE}.
+  Numeric \code{NaN} and \code{NA} share a missing-value group.
+  If a literal \code{"NA"} category or an explicit \code{NA} level is present,
+  the genuine missing group displays as \code{"(missing)"} in printed
+  summaries and plots. Stored
+  typed labels, explicit \code{NA} levels and ordered classes are preserved.
 }
 \examples{
 bins <- rbin_factor(mbank, y, education)

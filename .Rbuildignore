@@ -13,5 +13,9 @@
 ^hex_rbin\.png$
 ^\.github$
 ^\.fx1-tmp$
+^\.fx2-tmp$
+^\.fx3-tmp$
+^\.fx4-tmp$
+^\.fx5-tmp$
 ^docs-dev$
 ^\.gitignore$

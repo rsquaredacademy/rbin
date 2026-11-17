@@ -3,7 +3,8 @@
 #' Create dummy variables from bins.
 #'
 #' @param data A \code{data.frame} or \code{tibble}.
-#' @param predictor Variable for which dummy variables must be created.
+#' @param predictor Bare column name, character name, or variable holding a character
+#'   name in \code{data}. The numeric variable for which dummies must be created.
 #' @param bins An object of class \code{rbin_manual}, \code{rbin_quantiles},
 #'   \code{rbin_equal_length}, \code{rbin_winsorize} or \code{rbin_equal_freq}.
 #'
@@ -13,6 +14,12 @@
 #'
 #' @details Missing predictor values produce missing indicators; the separate
 #'   missing-value bin is not turned into a dummy column.
+#'   Winsorized objects apply their fitted clamp before assigning intervals.
+#'   Older saved winsorized objects without clamp metadata must be fitted again.
+#'   Equal-frequency bins keep ties together and use their stored value
+#'   intervals for scoring. Gaps go to the preceding group, with boundaries
+#'   at the next group's minimum. Dummy names describe these scoring intervals,
+#'   which extend beyond the training range.
 #'
 #' @examples
 #' k <- rbin_manual(mbank, y, age, c(29, 39, 56))
@@ -46,6 +53,14 @@ rbin_create <- function(data, predictor, bins) {
     return(data)
   }
 
+  if (inherits(bins, "rbin_winsorize")) {
+    if (is.null(bins$clamp)) {
+      stop("winsorized bins lack fitted clamp metadata; fit the bins again",
+           call. = FALSE)
+    }
+    x <- pmin(pmax(x, bins$clamp[1L]), bins$clamp[2L])
+  }
+
   bin_id <- numeric_bin_id(x, ranges$lower, ranges$upper)
 
   result <- lapply(seq_along(ranges$lower), function(i) as.integer(bin_id == i))
@@ -67,19 +82,19 @@ bin_ranges <- function(bins) {
 
     keep  <- !is.na(bins$bins$bin)
     lower <- bins$bins$lower_cut[keep]
+    upper <- bins$bins$upper_cut[keep]
 
     if (length(lower) == 0L) {
       return(NULL)
     }
 
-    upper <- c(lower[-1L], Inf)
-
-    # values below the training range still belong to the first group
-    lower[1L] <- -Inf
+    cuts <- format_boundaries(c(head(upper, -1L), tail(lower, 1L)))
 
     return(list(lower  = lower,
                 upper  = upper,
-                labels = paste0("<=", format_boundaries(bins$bins$upper_cut[keep]))))
+                labels = if (length(lower) == 1L) "all" else
+                  c(paste("<", head(cuts, -1L)),
+                    paste(">=", tail(cuts, 1L)))))
 
   }
 

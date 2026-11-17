@@ -36,6 +36,10 @@ A tibble with 4521 rows and 17 variables:
 
   has credit in default?
 
+- balance:
+
+  average yearly balance, in euros
+
 - housing:
 
   has housing loan?
@@ -48,13 +52,13 @@ A tibble with 4521 rows and 17 variables:
 
   contact communication type
 
+- day:
+
+  last contact day of the month
+
 - month:
 
   last contact month of year
-
-- day_of_week:
-
-  last contact day of the week
 
 - duration:
 
@@ -71,7 +75,7 @@ A tibble with 4521 rows and 17 variables:
 
 - previous:
 
-  number of contacts performed before this campaign and for this clien
+  number of contacts performed before this campaign and for this client
 
 - poutcome:
 

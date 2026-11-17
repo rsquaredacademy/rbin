@@ -16,12 +16,12 @@ rbin_factor_combine(data, var, new_var, new_name)
 
 - var:
 
-  An object of class `factor`.
+  Bare or character name of a factor or character column in `data`.
 
 - new_var:
 
-  A character vector; it should include the names of the levels to be
-  combined.
+  A character vector containing the names of levels to combine. An `NA`
+  selects both an explicit `NA` level and missing factor codes.
 
 - new_name:
 
@@ -29,7 +29,17 @@ rbin_factor_combine(data, var, new_var, new_name)
 
 ## Value
 
-A `tibble`.
+A `data.frame` with the predictor's levels combined. The predictor keeps
+its original position among the columns.
+
+## Details
+
+Levels are matched exactly, not as regular expressions. Only the
+selected levels are renamed; other levels are left untouched even when
+their names contain the selected name as a substring. Unselected
+explicit `NA` levels and missing codes are preserved, as is the ordered
+class. A combined level takes the position of its first selected level;
+a new level for missing codes alone is appended at the end.
 
 ## Examples
 

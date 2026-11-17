@@ -3,12 +3,16 @@
 #' Bin continuous data using quantiles.
 #'
 #' @param data A \code{data.frame} or \code{tibble}.
-#' @param response Response variable; a binary variable coded as 0/1, a logical
+#' @param response Bare column name, character name, or variable holding a character
+#'   name in \code{data}. A binary variable coded as 0/1, a logical
 #'   variable, or a two-level factor/character. For a two-level factor the first
 #'   level is treated as 0 and the second as 1; for character data the two
 #'   values are sorted and the second is treated as 1. Rows with a missing
 #'   response are dropped with a warning.
-#' @param predictor Predictor variable.
+#' @param predictor Bare column name, character name, or variable holding a character
+#'   name in \code{data}. A numeric predictor variable.
+#'   Infinite values are supported when the computed cut points are numbers;
+#'   interpolation producing \code{NA} or \code{NaN} cut points errors.
 #' @param bins Number of bins.
 #' @param include_na logical; if \code{TRUE}, a separate bin is created for missing values.
 #' @param x An object of class \code{rbin_quantiles}.
@@ -32,8 +36,8 @@
 rbin_quantiles <- function(data = NULL, response = NULL, predictor = NULL, bins = 10, include_na = TRUE) {
 
   rbin_quantiles_impl(data       = data,
-                      response   = deparse(substitute(response)),
-                      predictor  = deparse(substitute(predictor)),
+                      response   = column_name(substitute(response), parent.frame(), data),
+                      predictor  = column_name(substitute(predictor), parent.frame(), data),
                       bins       = bins,
                       include_na = include_na)
 
@@ -82,9 +86,11 @@ qu_freq <- function(byd, bins) {
 
 cutpoints <- function(byd, bins) {
 
-  bin_prob   <- 1 / bins
-  bq         <- stats::quantile(byd, seq(0, 1, bin_prob), na.rm = TRUE)
-  bin_len    <- bins + 1
-  bq[c(-1, -bin_len)]
+  cuts <- stats::quantile(byd, seq_len(bins - 1L) / bins, na.rm = TRUE)
+  if (anyNA(cuts)) {
+    stop("computed cut points contain NA or NaN; cannot form numeric bins",
+         call. = FALSE)
+  }
+  cuts
 
 }

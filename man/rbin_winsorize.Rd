@@ -23,13 +23,15 @@ rbin_winsorize(
 \arguments{
 \item{data}{A \code{data.frame} or \code{tibble}.}
 
-\item{response}{Response variable; a binary variable coded as 0/1, a logical
+\item{response}{Bare column name, character name, or variable holding a character
+name in \code{data}. A binary variable coded as 0/1, a logical
 variable, or a two-level factor/character. For a two-level factor the first
 level is treated as 0 and the second as 1; for character data the two
 values are sorted and the second is treated as 1. Rows with a missing
 response are dropped with a warning.}
 
-\item{predictor}{Predictor variable.}
+\item{predictor}{Bare column name, character name, or variable holding a character
+name in \code{data}. A numeric predictor; non-missing values must be finite.}
 
 \item{bins}{Number of bins.}
 
@@ -55,7 +57,9 @@ response are dropped with a warning.}
 A list of class \code{rbin_winsorize} with the following elements:
   \code{bins}, a \code{data.frame} with one row per interval (including
   empty intervals) and a final row for missing values when present;
-  \code{method}; \code{vars}; \code{lower_cut}; and \code{upper_cut}.
+  \code{method}; \code{vars}; \code{lower_cut}; \code{upper_cut}; and
+  \code{clamp}, the fitted minimum and maximum used when scoring new data
+  (absent if all predictor values are missing).
 }
 \description{
 Bin continuous data using winsorized method.

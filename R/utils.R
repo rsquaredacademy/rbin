@@ -28,16 +28,21 @@ validate_response <- function(response) {
 
   if (is.factor(response)) {
 
-    present <- as.character(response[!is.na(response)])
+    values  <- as.character(response)
     levs    <- levels(response)
-    levs    <- levs[levs %in% present]
+    levs    <- levs[!is.na(levs)]
+    # A declared binary factor keeps its coding in a one-class subset. For
+    # factors with extra unused levels, retain the two observed classes.
+    if (length(levs) != 2L) {
+      levs <- levs[levs %in% values[!is.na(values)]]
+    }
 
     if (length(levs) != 2L) {
       stop("response must be binary; the factor has ", length(levs),
            " level(s) present", call. = FALSE)
     }
 
-    return(as.integer(as.character(response) == levs[2L]))
+    return(as.integer(values == levs[2L]))
   }
 
   if (is.character(response)) {
@@ -136,7 +141,7 @@ column_name <- function(expr, env, data) {
     return(expr)
   }
 
-  name <- deparse(expr)
+  name <- if (is.symbol(expr)) as.character(expr) else deparse(expr)
 
   if (length(name) == 1L && isTRUE(name %in% names(data))) {
     return(name)
@@ -176,10 +181,19 @@ keep_na_rows <- function(prep_data, include_na) {
 # intervals identifiable instead of silently recycling rows.
 numeric_bin_id <- function(x, lower, upper) {
 
+  if (anyNA(lower) || anyNA(upper)) {
+    stop("computed cut points contain NA or NaN; cannot form numeric bins",
+         call. = FALSE)
+  }
+
   n   <- length(lower)
   out <- rep(NA_integer_, length(x))
 
   if (n == 0L) {
+    if (any(!is.na(x))) {
+      stop("non-missing predictor values fall outside the bin intervals",
+           call. = FALSE)
+    }
     return(out)
   }
 
@@ -190,6 +204,11 @@ numeric_bin_id <- function(x, lower, upper) {
   }
 
   out[which(x >= lower[n])] <- n
+
+  if (any(!is.na(x) & is.na(out))) {
+    stop("non-missing predictor values fall outside the bin intervals",
+         call. = FALSE)
+  }
 
   out
 
@@ -233,7 +252,7 @@ summarise_bins <- function(response, bin, ids) {
     by = list(bin)
   ]
 
-  m <- match(as.character(ids), as.character(agg$bin))
+  m <- match(ids, agg$bin)
 
   out <- data.frame(
     bin       = ids,
@@ -286,7 +305,7 @@ validate_bins <- function(bins, minimum = 2L) {
     stop("bins must be a single number", call. = FALSE)
   }
 
-  if (bins != as.integer(bins)) {
+  if (!is.finite(bins) || bins > .Machine$integer.max || bins != trunc(bins)) {
     stop("bins must be a whole number", call. = FALSE)
   }
 
@@ -413,7 +432,9 @@ winsor <- function(x, min_val = NULL, max_val = NULL, probs = c(0.05, 0.95),
     stop("`min_val` must be less than or equal to `max_val`", call. = FALSE)
   }
 
-  pmin(pmax(x, min_val), max_val)
+  out <- pmin(pmax(x, min_val), max_val)
+  attr(out, "clamp") <- c(min = min_val, max = max_val)
+  out
 
 }
 

@@ -81,8 +81,8 @@ rbin_manual_impl <- function(data, response, predictor, cut_points = NULL,
 
   bm     <- keep_na_rows(prep_data, include_na)
   byd    <- bm$predictor
-  l_freq <- c(min_finite(byd), cut_points)
-  u_freq <- c(cut_points, max_finite(byd) + 1)
+  l_freq <- c(min(min_finite(byd), cut_points[1L]), cut_points)
+  u_freq <- c(cut_points, max(max_finite(byd) + 1, tail(cut_points, 1L)))
 
   build_numeric_bins(bm, l_freq, u_freq, "Manual", "rbin_manual",
                      c(response, predictor))
@@ -153,6 +153,11 @@ rbin_winsorize_impl <- function(data, response, predictor, bins = 10,
   bins      <- check_bins(bins)
   bm_data   <- keep_na_rows(prep_data, include_na)
 
+  if (any(!is.finite(bm_data$predictor) & !is.na(bm_data$predictor))) {
+    stop("predictor must contain only finite or missing values for winsorization",
+         call. = FALSE)
+  }
+
   probs_min <- 0 + winsor_rate
   probs_max <- 1 - winsor_rate
 
@@ -181,26 +186,10 @@ rbin_winsorize_impl <- function(data, response, predictor, bins = 10,
   l_freq <- el_freq(byd, bins)
   u_freq <- eu_freq(byd, bins)
 
-  build_numeric_bins(bm, l_freq, u_freq, "Winsorize", "rbin_winsorize",
-                     c(response, predictor))
-
-}
-
-equal_freq_sizes <- function(n, bins) {
-
-  if (bins > n) {
-    stop("bins must not exceed the number of observations", call. = FALSE)
-  }
-
-  base <- n %/% bins
-  rem  <- n %% bins
-  sizes <- rep(as.integer(base), bins)
-
-  if (rem > 0L) {
-    sizes[seq_len(rem)] <- sizes[seq_len(rem)] + 1L
-  }
-
-  sizes
+  result <- build_numeric_bins(bm, l_freq, u_freq, "Winsorize", "rbin_winsorize",
+                                c(response, predictor))
+  result$clamp <- attr(bm_data$predictor2, "clamp")
+  result
 
 }
 
@@ -218,13 +207,28 @@ rbin_equal_freq_impl <- function(data, response, predictor, bins = 10) {
     stop("predictor has no non-missing values", call. = FALSE)
   }
 
-  sizes <- equal_freq_sizes(length(idx), bins)
+  if (bins > length(idx)) {
+    stop("bins must not exceed the number of observations", call. = FALSE)
+  }
 
-  bin      <- rep(NA_integer_, nrow(bm))
-  ord      <- idx[order(x[idx])]
-  bin[ord] <- rep(seq_len(bins), sizes)
+  sorted_x <- sort(x[idx])
+  values   <- unique(sorted_x)
+  # The type-1 empirical quantile and all its ties belong to the lower
+  # group. Use the next distinct value as the left-closed scoring cut.
+  targets  <- ceiling(seq_len(bins - 1L) * as.double(length(idx)) / bins)
+  next_id  <- unique(match(sorted_x[targets], values) + 1L)
+  cuts     <- values[next_id[next_id <= length(values)]]
+  lower    <- c(-Inf, cuts)
+  upper    <- c(cuts, Inf)
+  actual   <- length(lower)
 
-  ids      <- seq_len(bins)
+  if (actual < bins) {
+    message("Requested ", bins, " equal-frequency bins; returning ", actual,
+            " non-missing bin(s) because tied values are kept together.")
+  }
+
+  bin      <- numeric_bin_id(x, lower, upper)
+  ids      <- seq_len(actual)
   na_group <- anyNA(bin)
 
   if (na_group) {
@@ -233,13 +237,9 @@ rbin_equal_freq_impl <- function(data, response, predictor, bins = 10) {
 
   k <- summarise_bins(bm$response, bin, ids)
 
-  sorted_x <- x[ord]
-  lower    <- cumsum(sizes) - sizes + 1L
-  upper    <- cumsum(sizes)
-
   intervals <- data.frame(
-    lower_cut = c(sorted_x[lower], if (na_group) NA_real_),
-    upper_cut = c(sorted_x[upper], if (na_group) NA_real_)
+    lower_cut = c(lower, if (na_group) NA_real_),
+    upper_cut = c(upper, if (na_group) NA_real_)
   )
 
   result <- list(bins      = cbind(intervals, k),
@@ -260,19 +260,24 @@ rbin_factor_impl <- function(data, response, predictor, include_na = TRUE) {
   bm        <- keep_na_rows(prep_data, include_na)
   x         <- bm$predictor
 
-  ids <- unique(x)
-
-  if (is.factor(ids)) {
-    values <- as.character(ids)
-    if (anyNA(values)) {
-      values <- c(values[!is.na(values)], NA)
-    }
-    ids <- factor(values, levels = levels(ids))
-  } else if (anyNA(ids)) {
-    ids <- c(ids[!is.na(ids)], NA)
+  # Group on integer IDs, never on formatted category labels. Factor codes
+  # distinguish an explicit NA level from a genuinely missing observation.
+  key <- if (is.factor(x)) as.integer(x) else x
+  missing <- is.na(key)
+  if (!is.factor(x)) key[missing] <- NA
+  ids <- unique(key[!missing])
+  if (is.factor(x)) {
+    explicit_na <- which(is.na(levels(x)))
+    ids <- c(ids[!ids %in% explicit_na], ids[ids %in% explicit_na])
   }
+  if (any(missing)) ids <- c(ids, NA)
+  group <- match(key, ids)
+  labels <- x[match(ids, key)]
+  # All numeric NA/NaN observations belong to the one missing-value bin.
+  if (!is.factor(labels) && any(missing)) labels[length(labels)] <- NA
 
-  k <- summarise_bins(bm$response, x, ids)
+  k <- summarise_bins(bm$response, group, seq_along(ids))
+  k$bin <- labels
   names(k)[names(k) == "bin"] <- "level"
 
   result <- list(bins = k, method = "Custom", vars = c(response, predictor))
@@ -315,14 +320,21 @@ rbin_factor_combine_impl <- function(data, var, new_var, new_name) {
 
   selected <- as.character(new_var)
 
-  current_lev <- levels(mydata)
-  current_lev[current_lev %in% selected] <- new_name
-  current_lev <- unique(current_lev)
+  mapped <- levels(mydata)
+  mapped[mapped %in% selected] <- new_name
+  codes <- as.integer(mydata)
+  new_levels <- unique(mapped)
+  new_codes <- match(mapped, new_levels)[codes]
 
-  values            <- as.character(mydata)
-  values[values %in% selected] <- new_name
+  # Selecting NA explicitly combines missing codes as well as an NA level.
+  # Unselected missing codes and explicit NA levels remain distinct.
+  if (anyNA(selected) && anyNA(codes)) {
+    if (!new_name %in% new_levels) new_levels <- c(new_levels, new_name)
+    new_codes[is.na(codes)] <- match(new_name, new_levels)
+  }
 
-  data[[var]] <- factor(values, levels = current_lev)
+  data[[var]] <- structure(as.integer(new_codes), levels = new_levels,
+                           class = class(mydata))
 
   data
 

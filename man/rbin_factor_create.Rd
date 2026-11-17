@@ -9,8 +9,9 @@ rbin_factor_create(data, predictor)
 \arguments{
 \item{data}{A \code{data.frame} or \code{tibble}.}
 
-\item{predictor}{Variable for which dummy variables must be created. It can
-be a factor or a character variable; character variables are converted to
+\item{predictor}{Bare column name, character name, or variable holding a character
+name in \code{data}. It can be a factor or a character variable;
+character variables are converted to
 a factor first, so the levels are sorted.}
 }
 \value{
