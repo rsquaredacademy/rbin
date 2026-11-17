@@ -48,8 +48,9 @@ Both \code{response} and \code{predictor} accept bare column names,
   category, distinct from a missing factor code. It precedes the final
   missing-code group and is retained when \code{include_na = FALSE}.
   Numeric \code{NaN} and \code{NA} share a missing-value group.
-  If a literal \code{"NA"} category is present, the genuine missing group
-  displays as \code{"(missing)"} in printed summaries and plots. Stored
+  If a literal \code{"NA"} category or an explicit \code{NA} level is present,
+  the genuine missing group displays as \code{"(missing)"} in printed
+  summaries and plots. Stored
   typed labels, explicit \code{NA} levels and ordered classes are preserved.
 }
 \examples{

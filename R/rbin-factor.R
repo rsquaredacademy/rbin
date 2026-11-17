@@ -70,8 +70,9 @@ rbin_factor_combine <- function(data, var, new_var, new_name) {
 #'   category, distinct from a missing factor code. It precedes the final
 #'   missing-code group and is retained when \code{include_na = FALSE}.
 #'   Numeric \code{NaN} and \code{NA} share a missing-value group.
-#'   If a literal \code{"NA"} category is present, the genuine missing group
-#'   displays as \code{"(missing)"} in printed summaries and plots. Stored
+#'   If a literal \code{"NA"} category or an explicit \code{NA} level is present,
+#'   the genuine missing group displays as \code{"(missing)"} in printed
+#'   summaries and plots. Stored
 #'   typed labels, explicit \code{NA} levels and ordered classes are preserved.
 #'
 #' @examples
@@ -103,18 +104,19 @@ print.rbin_factor <- function(x, ...) {
   rbin_print_custom(x)
   cat("\n\n")
   bins <- x$bins[c('level', 'bin_count', 'good', 'bad', 'woe', 'iv', 'entropy')]
-  if (any(as.character(bins$level) == "NA", na.rm = TRUE) &&
-      any(is.na(bins$level))) {
-    bins$level <- factor_display_labels(bins$level)
-  }
+  bins$level <- factor_display_labels(bins$level, preserve_type = TRUE)
   print(bins)
 }
 
 # Keep typed summary labels intact, including explicit NA factor levels.
-factor_display_labels <- function(level) {
+factor_display_labels <- function(level, preserve_type = FALSE) {
   labels <- as.character(level)
-  if (any(labels == "NA", na.rm = TRUE)) {
-    labels[is.na(level)] <- "(missing)"
+  missing <- is.na(level)
+  na_category <- !missing & (is.na(labels) | labels == "NA")
+  disambiguate <- any(missing) && any(na_category)
+  if (preserve_type && !disambiguate) return(level)
+  if (disambiguate) {
+    labels[missing] <- "(missing)"
   }
   labels[is.na(labels)] <- "NA"
   labels

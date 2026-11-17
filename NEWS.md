@@ -58,6 +58,8 @@ assignment, dropped missing responses, tie-aware frequency groups and factor cou
 
 ## Factor binning and dummy variables
 
+* Genuine missing values also display as `(missing)` when an explicit NA factor
+  level is present, in both printed summaries and plot ticks (rx3-L1).
 * Printed factor summaries and plot ticks label genuine missing values as
   `(missing)` when a literal `"NA"` category is also present, preserving the
   usual display and stored typed labels otherwise (rx2d-L2).
