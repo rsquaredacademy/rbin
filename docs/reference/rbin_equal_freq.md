@@ -53,14 +53,25 @@ when present); `method`; `vars`; `lower_cut`; and `upper_cut`.
 
 ## Details
 
-Groups differ in size by at most one observation. When missing predictor
-values are present they form a separate final group, and the equal
-frequency groups are built from the non-missing values only. Ties are
-split by stable input order to maintain balanced group sizes. Such
-groups can be summarized, but
+Groups have approximately equal sizes and never split tied values. For
+each `k = 1, ..., bins - 1`, take the smallest observed value whose
+cumulative count reaches `k * n / bins`, where `n` is the number of
+non-missing predictors (the type-1 empirical quantile). All observations
+equal to that value stay in the lower group. The next distinct observed
+value is the scoring cut. Repeated cuts and cuts beyond the maximum are
+omitted; a message reports the requested and actual numbers of
+non-missing bins when fewer bins result. No bin is empty. Without ties,
+group sizes differ by at most one observation.
+
+Both the top-level and table `lower_cut`/`upper_cut` fields contain the
+actual left-closed, right-open scoring intervals. The first and last
+intervals extend to negative and positive infinity; gaps go to the
+preceding group.
 [`rbin_create()`](https://rbin.rsquaredacademy.com/reference/rbin_create.md)
-rejects them when ties cross boundaries because value thresholds cannot
-reproduce the groups.
+reproduces the non-missing training counts using these intervals.
+Missing predictor values form a separate final group, and the equal
+frequency groups are built from non-missing values only. As with other
+numeric methods, missing predictors produce missing dummy indicators.
 
 ## Examples
 
@@ -81,27 +92,27 @@ bins
 #> 
 #> 
 #>    lower_cut upper_cut bin_count good bad  good_rate         woe           iv
-#> 1         18        29       453   77 376 0.16997792 -0.46122254 2.538111e-02
-#> 2         29        31       452   53 399 0.11725664 -0.02833676 8.116094e-05
-#> 3         31        34       452   44 408 0.09734513  0.18007127 3.023706e-03
-#> 4         34        36       452   45 407 0.09955752  0.15514443 2.266308e-03
-#> 5         36        39       452   47 405 0.10398230  0.10673320 1.092922e-03
-#> 6         39        42       452   37 415 0.08185841  0.37035434 1.188083e-02
-#> 7         42        46       452   43 409 0.09513274  0.20550877 3.899674e-03
-#> 8         46        51       452   34 418 0.07522124  0.46211464 1.785222e-02
-#> 9         51        56       452   50 402 0.11061947  0.03742282 1.380079e-04
-#> 10        56        84       452   87 365 0.19247788 -0.61301703 4.727568e-02
+#> 1       -Inf        30       521   85 436 0.16314779 -0.41201528 2.287466e-02
+#> 2         30        32       386   45 341 0.11658031 -0.02178628 4.086635e-05
+#> 3         32        35       582   57 525 0.09793814  0.17334073 3.617176e-03
+#> 4         35        37       374   38 336 0.10160428  0.13251873 1.380198e-03
+#> 5         37        40       497   44 453 0.08853119  0.28469623 7.980172e-03
+#> 6         40        43       396   37 359 0.09343434  0.22539821 4.078267e-03
+#> 7         43        47       461   43 418 0.09327549  0.22727505 4.823562e-03
+#> 8         47        52       474   41 433 0.08649789  0.31015940 8.944433e-03
+#> 9         52        57       441   47 394 0.10657596  0.07919704 5.933844e-04
+#> 10        57       Inf       389   80 309 0.20565553 -0.69569162 5.396205e-02
 #>      entropy
-#> 1  0.6576543
-#> 2  0.5214234
-#> 3  0.4605229
-#> 4  0.4675914
-#> 5  0.4814936
-#> 6  0.4086938
-#> 7  0.4533741
-#> 8  0.3851129
-#> 9  0.5017816
-#> 10 0.7066263
+#> 1  0.6417872
+#> 2  0.5194505
+#> 3  0.4624254
+#> 4  0.4740605
+#> 5  0.4315480
+#> 6  0.4478305
+#> 7  0.4473095
+#> 8  0.4246709
+#> 9  0.4895008
+#> 10 0.7330960
 
 # plot
 plot(bins)

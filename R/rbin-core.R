@@ -193,24 +193,6 @@ rbin_winsorize_impl <- function(data, response, predictor, bins = 10,
 
 }
 
-equal_freq_sizes <- function(n, bins) {
-
-  if (bins > n) {
-    stop("bins must not exceed the number of observations", call. = FALSE)
-  }
-
-  base <- n %/% bins
-  rem  <- n %% bins
-  sizes <- rep(as.integer(base), bins)
-
-  if (rem > 0L) {
-    sizes[seq_len(rem)] <- sizes[seq_len(rem)] + 1L
-  }
-
-  sizes
-
-}
-
 rbin_equal_freq_impl <- function(data, response, predictor, bins = 10) {
 
   prep_data <- prep_binning_data(data, response, predictor)
@@ -225,13 +207,28 @@ rbin_equal_freq_impl <- function(data, response, predictor, bins = 10) {
     stop("predictor has no non-missing values", call. = FALSE)
   }
 
-  sizes <- equal_freq_sizes(length(idx), bins)
+  if (bins > length(idx)) {
+    stop("bins must not exceed the number of observations", call. = FALSE)
+  }
 
-  bin      <- rep(NA_integer_, nrow(bm))
-  ord      <- idx[order(x[idx])]
-  bin[ord] <- rep(seq_len(bins), sizes)
+  sorted_x <- sort(x[idx])
+  values   <- unique(sorted_x)
+  # The type-1 empirical quantile and all its ties belong to the lower
+  # group. Use the next distinct value as the left-closed scoring cut.
+  targets  <- ceiling(seq_len(bins - 1L) * as.double(length(idx)) / bins)
+  next_id  <- unique(match(sorted_x[targets], values) + 1L)
+  cuts     <- values[next_id[next_id <= length(values)]]
+  lower    <- c(-Inf, cuts)
+  upper    <- c(cuts, Inf)
+  actual   <- length(lower)
 
-  ids      <- seq_len(bins)
+  if (actual < bins) {
+    message("Requested ", bins, " equal-frequency bins; returning ", actual,
+            " non-missing bin(s) because tied values are kept together.")
+  }
+
+  bin      <- numeric_bin_id(x, lower, upper)
+  ids      <- seq_len(actual)
   na_group <- anyNA(bin)
 
   if (na_group) {
@@ -240,13 +237,9 @@ rbin_equal_freq_impl <- function(data, response, predictor, bins = 10) {
 
   k <- summarise_bins(bm$response, bin, ids)
 
-  sorted_x <- x[ord]
-  lower    <- cumsum(sizes) - sizes + 1L
-  upper    <- cumsum(sizes)
-
   intervals <- data.frame(
-    lower_cut = c(sorted_x[lower], if (na_group) NA_real_),
-    upper_cut = c(sorted_x[upper], if (na_group) NA_real_)
+    lower_cut = c(lower, if (na_group) NA_real_),
+    upper_cut = c(upper, if (na_group) NA_real_)
   )
 
   result <- list(bins      = cbind(intervals, k),

@@ -51,7 +51,7 @@ test_that("equal frequency binning works with small n and many bins", {
 
   d10 <- data.frame(y = rep(0:1, length.out = 10), x = 1:10)
   b10 <- rbin_equal_freq(d10, y, x, 6)
-  expect_equal(b10$bins$bin_count, c(2L, 2L, 2L, 2L, 1L, 1L))
+  expect_equal(b10$bins$bin_count, c(2L, 2L, 1L, 2L, 2L, 1L))
   expect_equal(sum(b10$bins$bin_count), nrow(d10))
   expect_lte(max(b10$bins$bin_count) - min(b10$bins$bin_count), 1L)
 

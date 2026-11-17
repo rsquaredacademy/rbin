@@ -38,12 +38,24 @@ A list of class \code{rbin_equal_freq} with the following elements:
 Bin continuous data using the equal frequency binning method.
 }
 \details{
-Groups differ in size by at most one observation. When missing
-  predictor values are present they form a separate final group, and the
-  equal frequency groups are built from the non-missing values only.
-  Ties are split by stable input order to maintain balanced group sizes.
-  Such groups can be summarized, but \code{rbin_create()} rejects them when
-  ties cross boundaries because value thresholds cannot reproduce the groups.
+Groups have approximately equal sizes and never split tied values.
+  For each \code{k = 1, ..., bins - 1}, take the smallest observed value
+  whose cumulative count reaches \code{k * n / bins}, where \code{n} is
+  the number of non-missing predictors (the type-1 empirical quantile).
+  All observations equal to that value stay in the lower group. The next
+  distinct observed value is the scoring cut. Repeated cuts and cuts beyond
+  the maximum are omitted; a message reports the requested and actual
+  numbers of non-missing bins when fewer bins result. No bin is empty.
+  Without ties, group sizes differ by at most one observation.
+
+  Both the top-level and table \code{lower_cut}/\code{upper_cut} fields
+  contain the actual left-closed, right-open scoring intervals. The first
+  and last intervals extend to negative and positive infinity; gaps go to
+  the preceding group. \code{rbin_create()} reproduces the non-missing
+  training counts using these intervals.
+  Missing predictor values form a separate final group, and the equal
+  frequency groups are built from non-missing values only. As with other
+  numeric methods, missing predictors produce missing dummy indicators.
 }
 \examples{
 bins <- rbin_equal_freq(mbank, y, age, 10)

@@ -14,10 +14,13 @@ counts <- function(b) unname(as.matrix(b$bins[c("bin_count", "good", "bad")]))
 
 d <- data.frame(y = rep(0:1, 3), x = rep(5, 6))
 b <- rbin_equal_freq(d, y, x, 3)
-verify("A2-H01 learned counts", b$bins$bin_count, c(2, 2, 2))
-verify("A2-H01 scoring", grepl("ties across bin boundaries", error_text(rbin_create(d, x, b))), TRUE)
+verify("A2-H01 learned counts", b$bins$bin_count, 6)
+verify("A2-H01 scoring", colSums(rbin_create(d, x, b)[-(1:2)]), 6)
 b <- rbin_equal_freq(mbank, y, age, 10)
-verify("A2-H01 mbank scoring", grepl("ties across bin boundaries", error_text(rbin_create(mbank, age, b))), TRUE)
+verify("A2-H01 mbank counts", b$bins$bin_count,
+       c(521, 386, 582, 374, 497, 396, 461, 474, 441, 389))
+verify("A2-H01 mbank scoring", colSums(rbin_create(mbank, age, b)[-seq_along(mbank)]),
+       b$bins$bin_count)
 
 d <- data.frame(y = rep(0:1, 5), x = 1:10)
 b <- rbin_winsorize(d, y, x, 2, winsor_rate = .5)
@@ -84,8 +87,8 @@ for (value in c("no", "yes")) {
 verify("A2-M05", grepl("testthat (>= 3.1.7)", read.dcf("DESCRIPTION")[1, "Suggests"], fixed = TRUE), TRUE)
 verify("A2-M05 callable API", is.function(getExportedValue("testthat", "with_mocked_bindings")), TRUE)
 b <- rbin_equal_freq(mbank, y, age, 10)
-verify("A2-M06 first/last counts", b$bins$bin_count[c(1, 10)], c(453, 452))
-verify("A2-M06 first row bad/rate/WoE/IV", unlist(b$bins[1, c("bad", "good_rate", "woe", "iv")]), c(376, 77/453, -0.4612225444, 0.0253811118))
+verify("A2-M06 first/last counts", b$bins$bin_count[c(1, 10)], c(521, 389))
+verify("A2-M06 first row bad/rate/WoE/IV", unlist(b$bins[1, c("bad", "good_rate", "woe", "iv")]), c(436, 85/521, -0.412015279067964, 0.022874655321817))
 
 d <- data.frame(y = rep(0:1, 2), x = c(1, 2, 9, 10))
 z <- rbin_create(data.frame(x = c(2, 3, 8, 9)), x, rbin_equal_freq(d, y, x, 2))

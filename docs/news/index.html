@@ -41,7 +41,7 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.3.0" id="rbin-030">rbin 0.3.0<a class="anchor" aria-label="anchor" href="#rbin-030"></a></h2>
-<p>This release combines the unreleased 0.2.2 and 0.2.3 fixes and both fresh audits. Results change from CRAN 0.2.1 for missing-value placement, winsorized assignment, dropped missing responses, balanced rank groups and factor counts.</p>
+<p>This release combines the unreleased 0.2.2 and 0.2.3 fixes and both fresh audits. Results change from CRAN 0.2.1 for missing-value placement, winsorized assignment, dropped missing responses, tie-aware frequency groups and factor counts.</p>
 <div class="section level3">
 <h3 id="shared-binning-and-response-handling-0-3-0">Shared binning and response handling<a class="anchor" aria-label="anchor" href="#shared-binning-and-response-handling-0-3-0"></a></h3>
 <ul><li>Empty intervals retain zero counts, undefined rates/WoE and zero IV/entropy; summaries join by bin ID and retain a separate final missing group (H01).</li>
@@ -49,7 +49,7 @@
 <li>Responses must be 0/1, logical, or binary factor/character; factors use their first level as 0 and second as 1. Invalid responses error; missing responses are dropped with a warning. All methods accept data.table input (H12, H13, H14).</li>
 <li>Declared binary factor responses keep their coding when only one class is observed. Explicit NA response levels are treated as missing, while extra unused levels remain supported when two classes are observed (A2-M04, Hydrogen M3).</li>
 <li>Final numeric intervals have no upper bound, including when adding one to a large finite maximum has no effect (H11).</li>
-<li>Bin counts must be whole numbers; interval methods require at least two bins, and rank binning permits one bin (M03).</li>
+<li>Bin counts must be whole numbers; interval methods require at least two bins, and equal-frequency binning permits one bin (M03).</li>
 </ul></div>
 <div class="section level3">
 <h3 id="numeric-binning-and-dummy-variables-0-3-0">Numeric binning and dummy variables<a class="anchor" aria-label="anchor" href="#numeric-binning-and-dummy-variables-0-3-0"></a></h3>
@@ -60,11 +60,11 @@
 <li>
 <code><a href="../reference/rbin_winsorize.html">rbin_winsorize()</a></code> treats supplied endpoints as clamp values, estimates only unspecified endpoints, rejects reversed limits, and handles missing predictors with <code>include_na = FALSE</code> (H04).</li>
 <li>
-<code><a href="../reference/rbin_equal_freq.html">rbin_equal_freq()</a></code> balances sizes to differ by at most one, rejects more bins than observations, and keeps missing predictors in a separate final group (H02).</li>
+<code><a href="../reference/rbin_equal_freq.html">rbin_equal_freq()</a></code> now keeps tied values together using empirical quantiles, returning fewer non-empty bins with a message when cuts coincide. Counts can differ from 0.2.1, and <code><a href="../reference/rbin_create.html">rbin_create()</a></code> dummies match the non-missing training summary. Untied sizes differ by at most one; more bins than observations still error and missing predictors retain a separate final group (H02, A2-H01).</li>
 <li>
 <code><a href="../reference/rbin_create.html">rbin_create()</a></code> preserves bin order, keeps columns for absent bins, makes colliding boundary labels distinct, and assigns values outside the training range to the outer intervals (H03, H10).</li>
 <li>
-<code><a href="../reference/rbin_create.html">rbin_create()</a></code> rejects rank groups when ties cross boundaries, because value thresholds cannot reproduce those groups. Scoreable rank groups use names describing the actual scoring thresholds, including gaps (A2-H01, A2-L01).</li>
+<code><a href="../reference/rbin_create.html">rbin_create()</a></code> uses equal-frequency dummy names describing the actual scoring thresholds, including gaps (A2-L01).</li>
 <li>
 <code><a href="../reference/rbin_create.html">rbin_create()</a></code> applies stored winsor clamp endpoints before scoring, including collapsed fitted ranges and limits outside the training range. Older saved winsorized objects without clamp metadata must be fitted again (A2-H02).</li>
 <li>Numeric WoE plots include the missing-predictor group (H15).</li>

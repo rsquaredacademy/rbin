@@ -92,6 +92,7 @@ model building process.</p>
 <li>equal length binning method</li>
 <li>winsorized binning method</li>
 <li>quantile binning method</li>
+<li>tie-aware equal frequency binning method</li>
 <li>combine levels of categorical data</li>
 <li>create dummy variables based on binning method</li>
 <li>calculates weight of evidence (WOE), entropy and information value
@@ -28654,11 +28655,77 @@ quantiles.</p>
 </div>
 </div>
 <div class="section level2">
+<h2 id="equal-frequency-binning">Equal Frequency Binning<a class="anchor" aria-label="anchor" href="#equal-frequency-binning"></a>
+</h2>
+<p>Equal-frequency binning creates approximately equal groups without
+splitting tied values. For each target <code>k * n / bins</code> among
+non-missing predictors, the smallest value whose cumulative count
+reaches that target, including all its ties, stays in the lower group.
+The next distinct observed value starts the next group. Repeated cuts
+and cuts beyond the maximum are omitted, with a message giving the
+requested and actual number of non-missing bins.</p>
+<p>The stored intervals are left closed and right open, with unbounded
+outer intervals. Gaps belong to the preceding group. Missing predictors
+retain a separate final summary group and produce missing dummy
+indicators.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">bins</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rbin_equal_freq.html">rbin_equal_freq</a></span><span class="op">(</span><span class="va">mbank</span>, <span class="va">y</span>, <span class="va">age</span>, <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="va">bins</span></span>
+<span><span class="co">#&gt; Binning Summary</span></span>
+<span><span class="co">#&gt; ------------------------------------</span></span>
+<span><span class="co">#&gt; Method               Equal Frequency </span></span>
+<span><span class="co">#&gt; Response             y </span></span>
+<span><span class="co">#&gt; Predictor            age </span></span>
+<span><span class="co">#&gt; Bins                 10 </span></span>
+<span><span class="co">#&gt; Count                4521 </span></span>
+<span><span class="co">#&gt; Goods                517 </span></span>
+<span><span class="co">#&gt; Bads                 4004 </span></span>
+<span><span class="co">#&gt; Entropy              0.5 </span></span>
+<span><span class="co">#&gt; Information Value    0.11 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;    lower_cut upper_cut bin_count good bad  good_rate         woe           iv</span></span>
+<span><span class="co">#&gt; 1       -Inf        30       521   85 436 0.16314779 -0.41201528 2.287466e-02</span></span>
+<span><span class="co">#&gt; 2         30        32       386   45 341 0.11658031 -0.02178628 4.086635e-05</span></span>
+<span><span class="co">#&gt; 3         32        35       582   57 525 0.09793814  0.17334073 3.617176e-03</span></span>
+<span><span class="co">#&gt; 4         35        37       374   38 336 0.10160428  0.13251873 1.380198e-03</span></span>
+<span><span class="co">#&gt; 5         37        40       497   44 453 0.08853119  0.28469623 7.980172e-03</span></span>
+<span><span class="co">#&gt; 6         40        43       396   37 359 0.09343434  0.22539821 4.078267e-03</span></span>
+<span><span class="co">#&gt; 7         43        47       461   43 418 0.09327549  0.22727505 4.823562e-03</span></span>
+<span><span class="co">#&gt; 8         47        52       474   41 433 0.08649789  0.31015940 8.944433e-03</span></span>
+<span><span class="co">#&gt; 9         52        57       441   47 394 0.10657596  0.07919704 5.933844e-04</span></span>
+<span><span class="co">#&gt; 10        57       Inf       389   80 309 0.20565553 -0.69569162 5.396205e-02</span></span>
+<span><span class="co">#&gt;      entropy</span></span>
+<span><span class="co">#&gt; 1  0.6417872</span></span>
+<span><span class="co">#&gt; 2  0.5194505</span></span>
+<span><span class="co">#&gt; 3  0.4624254</span></span>
+<span><span class="co">#&gt; 4  0.4740605</span></span>
+<span><span class="co">#&gt; 5  0.4315480</span></span>
+<span><span class="co">#&gt; 6  0.4478305</span></span>
+<span><span class="co">#&gt; 7  0.4473095</span></span>
+<span><span class="co">#&gt; 8  0.4246709</span></span>
+<span><span class="co">#&gt; 9  0.4895008</span></span>
+<span><span class="co">#&gt; 10 0.7330960</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="fu"><a href="../reference/rbin_create.html">rbin_create</a></span><span class="op">(</span><span class="va">mbank</span>, <span class="va">age</span>, <span class="va">bins</span><span class="op">)</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">mbank</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  age_&lt;_30  age_&lt;_32  age_&lt;_35  age_&lt;_37  age_&lt;_40  age_&lt;_43  age_&lt;_47  age_&lt;_52 </span></span>
+<span><span class="co">#&gt;       521       386       582       374       497       396       461       474 </span></span>
+<span><span class="co">#&gt;  age_&lt;_57 age_&gt;=_57 </span></span>
+<span><span class="co">#&gt;       441       389</span></span></code></pre></div>
+<div class="section level4">
+<h4 id="plot-3">Plot<a class="anchor" aria-label="anchor" href="#plot-3"></a>
+</h4>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">bins</span><span class="op">)</span></span></code></pre></div>
+<p><img src="introduction_files/figure-html/equal_freq_plot-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
+</div>
+</div>
+<div class="section level2">
 <h2 id="equal-length-binning">Equal Length Binning<a class="anchor" aria-label="anchor" href="#equal-length-binning"></a>
 </h2>
 <p>Equal length binning creates bins of equal widths. It is different
-from equal frequency binning which creates bins of equal size.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+from equal frequency binning which creates bins of approximately equal
+size while keeping ties together.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bins</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rbin_equal_length.html">rbin_equal_length</a></span><span class="op">(</span><span class="va">mbank</span>, <span class="va">y</span>, <span class="va">age</span>, <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="va">bins</span></span>
 <span><span class="co">#&gt; Binning Summary</span></span>
@@ -28686,9 +28753,9 @@ from equal frequency binning which creates bins of equal size.</p>
 <span><span class="co">#&gt; 9     &lt; 77.4        25   13   12 -2.12704897 0.0471100183 0.9988455</span></span>
 <span><span class="co">#&gt; 10   &gt;= 77.4        15    4   11 -1.03540535 0.0051663529 0.8366407</span></span></code></pre></div>
 <div class="section level4">
-<h4 id="plot-3">Plot<a class="anchor" aria-label="anchor" href="#plot-3"></a>
+<h4 id="plot-4">Plot<a class="anchor" aria-label="anchor" href="#plot-4"></a>
 </h4>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">bins</span><span class="op">)</span></span></code></pre></div>
 <p><img src="introduction_files/figure-html/equal_length_plot-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
@@ -28703,7 +28770,7 @@ is often used to remove outliers during the data pre-processing stage.
 For Winsorized binning, the Winsorized statistics are computed first.
 After the minimum and maximum have been found, the split points are
 calculated the same way as in equal length binning.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bins</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rbin_winsorize.html">rbin_winsorize</a></span><span class="op">(</span><span class="va">mbank</span>, <span class="va">y</span>, <span class="va">age</span>, <span class="fl">10</span>, winsor_rate <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
 <span><span class="va">bins</span></span>
 <span><span class="co">#&gt; Binning Summary</span></span>
@@ -28731,9 +28798,9 @@ calculated the same way as in equal length binning.</p>
 <span><span class="co">#&gt; 9     &lt; 55.8       244   25 219  0.1231896 0.0007809490 0.4767424</span></span>
 <span><span class="co">#&gt; 10   &gt;= 55.8       470   89 381 -0.5928433 0.0456442813 0.7001343</span></span></code></pre></div>
 <div class="section level4">
-<h4 id="plot-4">Plot<a class="anchor" aria-label="anchor" href="#plot-4"></a>
+<h4 id="plot-5">Plot<a class="anchor" aria-label="anchor" href="#plot-5"></a>
 </h4>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">bins</span><span class="op">)</span></span></code></pre></div>
 <p><img src="introduction_files/figure-html/winsorize_plot-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>

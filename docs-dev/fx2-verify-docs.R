@@ -23,6 +23,28 @@ for (name in names(fixtures)) {
   stopifnot(all(expected %in% actual_md))
   cat(name, ": every printed summary line matches HTML and Markdown\n")
 }
+# The tie-aware example also appears in the README and introductory article.
+expected <- trimws(capture.output(print(fixtures$rbin_equal_freq)))
+expected <- expected[nzchar(expected)]
+stopifnot(identical(fixtures$rbin_equal_freq$bins$bin_count,
+                   c(521L, 386L, 582L, 374L, 497L, 396L, 461L, 474L, 441L, 389L)))
+for (path in c("README.md", "docs/articles/introduction.md")) {
+  # pkgdown's article Markdown wraps output in backticks and uses NBSPs.
+  actual <- chartr("\u00a0", " ", readLines(path, encoding = "UTF-8"))
+  actual <- gsub("`", "", actual, fixed = TRUE)
+  actual <- sub("\\\\$", "", actual)
+  actual <- trimws(sub("^#> ?", "", actual))
+  if (!all(expected %in% actual)) print(expected[!expected %in% actual])
+  stopifnot(all(expected %in% actual))
+}
+for (path in c("docs/index.html", "docs/articles/introduction.html")) {
+  html <- xml2::read_html(path)
+  actual <- trimws(sub("^#> ?", "", xml2::xml_text(xml2::xml_find_all(html,
+    "//span[contains(concat(' ', normalize-space(@class), ' '), ' r-out ') or contains(concat(' ', normalize-space(@class), ' '), ' co ')]"))))
+  if (!all(expected %in% actual)) print(expected[!expected %in% actual])
+  stopifnot(all(expected %in% actual))
+}
+cat("Tie-aware equal-frequency summaries match README and article outputs.\n")
 for (path in c("docs/reference/mbank.html", "docs/reference/mbank.md")) {
   content <- paste(readLines(path), collapse = " ")
   stopifnot(!grepl("day_of_week", content, fixed = TRUE),

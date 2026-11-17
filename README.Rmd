@@ -82,6 +82,22 @@ bins
 plot(bins)
 ```
 
+### Equal Frequency Binning
+
+Equal-frequency bins keep tied values together. Each empirical quantile and
+all values tied with it stay in the lower group; the next distinct value starts
+the next group. Sizes are approximate, and a message reports fewer bins when
+ties collapse cuts. Dummy counts match the non-missing training summary.
+
+```{r equal_freq}
+bins <- rbin_equal_freq(mbank, y, age, 10)
+bins
+colSums(rbin_create(mbank, age, bins)[-seq_along(mbank)])
+
+# plot
+plot(bins)
+```
+
 ### Winsorized Binning
 
 ```{r winsorize}

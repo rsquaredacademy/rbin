@@ -4,8 +4,8 @@
 
 This release combines the unreleased 0.2.2 and 0.2.3 fixes and both
 fresh audits. Results change from CRAN 0.2.1 for missing-value
-placement, winsorized assignment, dropped missing responses, balanced
-rank groups and factor counts.
+placement, winsorized assignment, dropped missing responses, tie-aware
+frequency groups and factor counts.
 
 ### Shared binning and response handling
 
@@ -24,7 +24,7 @@ rank groups and factor counts.
 - Final numeric intervals have no upper bound, including when adding one
   to a large finite maximum has no effect (H11).
 - Bin counts must be whole numbers; interval methods require at least
-  two bins, and rank binning permits one bin (M03).
+  two bins, and equal-frequency binning permits one bin (M03).
 
 ### Numeric binning and dummy variables
 
@@ -40,18 +40,20 @@ rank groups and factor counts.
   endpoints, rejects reversed limits, and handles missing predictors
   with `include_na = FALSE` (H04).
 - [`rbin_equal_freq()`](https://rbin.rsquaredacademy.com/reference/rbin_equal_freq.md)
-  balances sizes to differ by at most one, rejects more bins than
-  observations, and keeps missing predictors in a separate final group
-  (H02).
+  now keeps tied values together using empirical quantiles, returning
+  fewer non-empty bins with a message when cuts coincide. Counts can
+  differ from 0.2.1, and
+  [`rbin_create()`](https://rbin.rsquaredacademy.com/reference/rbin_create.md)
+  dummies match the non-missing training summary. Untied sizes differ by
+  at most one; more bins than observations still error and missing
+  predictors retain a separate final group (H02, A2-H01).
 - [`rbin_create()`](https://rbin.rsquaredacademy.com/reference/rbin_create.md)
   preserves bin order, keeps columns for absent bins, makes colliding
   boundary labels distinct, and assigns values outside the training
   range to the outer intervals (H03, H10).
 - [`rbin_create()`](https://rbin.rsquaredacademy.com/reference/rbin_create.md)
-  rejects rank groups when ties cross boundaries, because value
-  thresholds cannot reproduce those groups. Scoreable rank groups use
-  names describing the actual scoring thresholds, including gaps
-  (A2-H01, A2-L01).
+  uses equal-frequency dummy names describing the actual scoring
+  thresholds, including gaps (A2-L01).
 - [`rbin_create()`](https://rbin.rsquaredacademy.com/reference/rbin_create.md)
   applies stored winsor clamp endpoints before scoring, including
   collapsed fitted ranges and limits outside the training range. Older
