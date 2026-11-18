@@ -25,6 +25,9 @@ assignment, dropped missing responses, tie-aware frequency groups and factor cou
 
 ## Numeric binning and dummy variables
 
+* Equal-width and winsorized cuts multiply the span before division, keeping
+  observations on exact mathematical boundaries in the left-closed bin.
+  Large integer spans no longer emit integer overflow warnings (fx6 H1, M6).
 * Quantile binning rejects computed NA/NaN cut points, including interpolation
   between negative and positive infinity, while valid infinite cuts remain
   supported. Numeric assignment rejects unmatched non-missing values rather

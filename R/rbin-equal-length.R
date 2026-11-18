@@ -86,17 +86,23 @@ eu_freq <- function(byd, bins) {
 
 equal_width_cuts <- function(x, bins) {
 
-  lo <- min(x, na.rm = TRUE)
-  hi <- max(x, na.rm = TRUE)
+  lo <- as.double(min(x, na.rm = TRUE))
+  hi <- as.double(max(x, na.rm = TRUE))
   if (!is.finite(lo) || !is.finite(hi)) {
     stop("equal-width binning requires finite predictor values", call. = FALSE)
   }
-  p <- seq_len(bins - 1L) / bins
+  i <- seq_len(bins - 1L)
+  p <- i / bins
   span <- hi - lo
-  # Keep ordinary arithmetic when the range is representable; convex
-  # combinations avoid overflow when finite endpoints span more than DBL_MAX.
-  cuts <- if (is.finite(span)) lo + (span / bins) * seq_len(bins - 1L) else
+  # Multiply before dividing so exactly representable mathematical cuts keep
+  # their left-closed membership. Fall back to scaled/convex arithmetic only
+  # when the product or the span overflows.
+  cuts <- if (is.finite(span)) {
+    numerator <- span * i
+    lo + if (all(is.finite(numerator))) numerator / bins else span * p
+  } else {
     (1 - p) * lo + p * hi
+  }
   if (any(!is.finite(cuts)) || is.unsorted(cuts)) {
     stop("could not construct finite ordered equal-width boundaries", call. = FALSE)
   }
