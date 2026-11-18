@@ -1,0 +1,98 @@
+
+rbin_equal_length cut 7
+[1] "29"
+
+bins 7:8
+  bin_count good bad        woe         iv entropy
+7         1    0   1        Inf        Inf       0
+8         2    1   1 -0.4054651 0.06757752       1
+
+dummy bin for x=29
+x_<_33.1428571428571
+                   8
+
+rbin_winsorize cut 7
+[1] "29"
+
+bins 7:8
+  bin_count good bad        woe         iv entropy
+7         1    0   1        Inf        Inf       0
+8         2    1   1 -0.4054651 0.06757752       1
+
+dummy bin for x=29
+x_<_33.1428571428571
+                   8
+
+mbank previous bins 29:30
+[1] 0 3
+
+rbin_manual actual bit64::integer64
+ERROR: unsupported predictor class 'integer64'; use as.numeric() when values are within +/-2^53
+
+rbin_quantiles actual bit64::integer64
+ERROR: unsupported predictor class 'integer64'; use as.numeric() when values are within +/-2^53
+
+rbin_equal_freq actual bit64::integer64
+ERROR: unsupported predictor class 'integer64'; use as.numeric() when values are within +/-2^53
+
+rbin_equal_length actual bit64::integer64
+ERROR: unsupported predictor class 'integer64'; use as.numeric() when values are within +/-2^53
+
+rbin_winsorize actual bit64::integer64
+ERROR: unsupported predictor class 'integer64'; use as.numeric() when values are within +/-2^53
+
+rbin_factor actual bit64::integer64
+ERROR: unsupported predictor class 'integer64'; use as.numeric() when values are within +/-2^53
+
+rbin_create scores actual integer64 against a plain fit
+ERROR: unsupported predictor class 'integer64'; use as.numeric() when values are within +/-2^53
+Loading required package: shiny
+
+factor addin HTML options
+[1] "<option value=\"level_1\" selected>NA</option>\n<option value=\"level_2\" selected>(NA level)</option>"
+
+factor addin selecting the explicit NA option
+   level bin_count good bad
+1     NA         1    0   1
+2 Merged         3    2   1
+
+character response C
+  good bad woe
+1    2   1   0
+2    2   1   0
+
+character response English_United States.utf8
+  good bad woe
+1    2   1   0
+2    2   1   0
+[1] "C"
+
+winsor_rate 0.6
+ERROR: `winsor_rate` must be a single number in [0, 0.5]
+
+winsor_rate NA
+ERROR: `winsor_rate` must be a single number in [0, 0.5]
+
+winsor_rate -0.1
+ERROR: `winsor_rate` must be a single number in [0, 0.5]
+
+winsor_rate .6 with min_val
+ERROR: `winsor_rate` must be a single number in [0, 0.5]
+
+remove_na FALSE with missing predictor
+ERROR: `remove_na = FALSE` requires a predictor without missing values; use remove_na = TRUE
+
+wrong bins: factor fit
+ERROR: `bins` must be a numeric rbin fit object from rbin_manual(), rbin_quantiles(), rbin_equal_freq(), rbin_equal_length() or rbin_winsorize()
+
+wrong bins: list
+ERROR: `bins` must be a numeric rbin fit object from rbin_manual(), rbin_quantiles(), rbin_equal_freq(), rbin_equal_length() or rbin_winsorize()
+
+heavy ties: correct summary and dummies
+Requested 4 equal-frequency bins; returning 2 non-missing bin(s) because tied values are kept together.
+$count
+[1] 6 2
+
+$dummy
+ x_<_2 x_>=_2
+     6      2
