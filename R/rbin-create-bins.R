@@ -43,6 +43,7 @@ rbin_create <- function(data, predictor, bins) {
 
   x <- data[[pred]]
 
+  check_predictor_class(x)
   if (!is.numeric(x)) {
     stop("predictor must be a numeric variable", call. = FALSE)
   }

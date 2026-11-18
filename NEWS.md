@@ -25,6 +25,9 @@ assignment, dropped missing responses, tie-aware frequency groups and factor cou
 
 ## Numeric binning and dummy variables
 
+* Fitters and `rbin_create()` reject `integer64` and other unsupported numeric
+  classes before arithmetic, with conversion guidance for values within
+  +/-2^53 (fx6 H2).
 * Equal-width and winsorized cuts multiply the span before division, keeping
   observations on exact mathematical boundaries in the left-closed bin.
   Large integer spans no longer emit integer overflow warnings (fx6 H1, M6).

@@ -113,6 +113,7 @@ prep_binning_data <- function(data, response, predictor) {
   prep_data <- data.frame(response  = data[[response]],
                           predictor = data[[predictor]])
 
+  check_predictor_class(prep_data$predictor, categorical = TRUE)
   prep_data$response <- validate_response(prep_data$response)
   prep_data          <- drop_na_response(prep_data)
 
@@ -124,7 +125,20 @@ prep_binning_data <- function(data, response, predictor) {
 
 }
 
+check_predictor_class <- function(x, categorical = FALSE) {
+
+  allowed_category <- categorical && inherits(x, c("factor", "Date", "POSIXt"))
+  if (is.object(x) && typeof(x) %in% c("integer", "double") && !allowed_category) {
+    stop("unsupported predictor class '", paste(class(x), collapse = "/"),
+         "'; use as.numeric() when values are within +/-2^53",
+         call. = FALSE)
+  }
+
+}
+
 check_numeric_predictor <- function(prep_data) {
+
+  check_predictor_class(prep_data$predictor)
 
   if (!is.numeric(prep_data$predictor)) {
     stop("predictor must be a numeric variable for this binning method",
