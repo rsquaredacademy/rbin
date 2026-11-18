@@ -28,6 +28,9 @@ assignment, dropped missing responses, tie-aware frequency groups and factor cou
 
 ## Numeric binning and dummy variables
 
+* Winsorized binning validates `winsor_rate` as a single number in [0, 0.5],
+  including when clamp endpoints are supplied. `remove_na = FALSE` gives a
+  clear error for retained missing predictors (fx6 opus M2 / astra M8).
 * Fitters and `rbin_create()` reject `integer64` and other unsupported numeric
   classes before arithmetic, with conversion guidance for values within
   +/-2^53 (fx6 H2).

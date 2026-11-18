@@ -17,7 +17,9 @@
 #' @param min_val the low border, all values being lower than this will be replaced by this value. The default is set to the 5 percent quantile of predictor.
 #' @param max_val the high border, all values being larger than this will be replaced by this value. The default is set to the 95 percent quantile of predictor.
 #' @param include_na logical; if \code{TRUE}, a separate bin is created for missing values.
-#' @param remove_na logical; if \code{TRUE} NAs will removed while calculating quantiles
+#' @param remove_na logical; if \code{TRUE}, missing values are removed while
+#'   calculating quantiles. If \code{FALSE}, retained predictor values must not
+#'   be missing; use \code{TRUE} to retain a separate missing-value bin.
 #' @param type an integer between 1 and 9 selecting one of the nine quantile algorithms detailed in \code{quantile()} to be used.
 #' @param x An object of class \code{rbin_winsorize}.
 #' @param print_plot logical; if \code{TRUE}, prints the plot else returns a plot object.
