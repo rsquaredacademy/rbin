@@ -6,9 +6,9 @@ assignment, dropped missing responses, tie-aware frequency groups and factor cou
 
 ## Shared binning and response handling
 
-* Character responses use C-locale sorting (uppercase before lowercase), with
-  the second value as the event on every machine. Use a factor to choose the
-  event level explicitly (fx6 opus M1).
+* Character responses are sorted in byte (C-locale) order: uppercase before
+  lowercase, ASCII before accented characters; use a factor to choose the event
+  level. The second value is the event on every machine (fx6 opus M1).
 * All numeric binning functions and `rbin_create()` accept bare column names,
   strings and variables holding names, including long non-syntactic names,
   consistently with `rbin_factor()` (rx2h-L2 / rx2d-L1).
@@ -34,7 +34,7 @@ assignment, dropped missing responses, tie-aware frequency groups and factor cou
   including when clamp endpoints are supplied. `remove_na = FALSE` gives a
   clear error for retained missing predictors (fx6 opus M2 / astra M8).
 * Fitters and `rbin_create()` reject `integer64` and other unsupported numeric
-  classes before arithmetic, with conversion guidance for values within
+  classes before arithmetic, with conversion guidance for integer64 values within
   +/-2^53 (fx6 H2).
 * Equal-width and winsorized cuts multiply the span before division, keeping
   observations on exact mathematical boundaries in the left-closed bin.

@@ -431,3 +431,30 @@ performed. No subagents were used.
   counts the missing row, print methods invisibly return a table subset, and
   a single-class response prints IV NA without explanation. These cosmetic/
   S3-contract changes remain deferred.
+
+## Fix round 7
+
+The rx6 re-check identified a stale-selection path in the factor addin and
+three compatibility/documentation regressions. Selection IDs now resolve only
+against a snapshot of the selected predictor, data name, data and levels; a
+changed predictor or data requires categories to be selected again, including
+changes to a globally named data frame between clicks. The addin
+also clears the selection when the predictor or data name changes. Numeric
+methods give the categorical-predictor diagnostic for factors and temporal
+classes, while integer64 retains its conversion warning. AsIs is stripped and
+plain difftime is accepted for numeric fitting and scoring; factor binning again
+accepts classed predictors except integer64. The response descriptions and NEWS
+now explain both case and accented-character effects of byte ordering.
+
+The fx7 regression tests were also run against an archived 5c45ae8 baseline:
+the stale-selection, class-compatibility and documentation expectations fail
+there. On a disposable copy of the fixed worktree, the complete test suite and
+addins/predictor-class regression sweep passed: 2,788 expectations, zero
+failures, zero errors and zero warnings. A second `devtools::document()` run
+left the tracked diff unchanged. The root AUDIT files were excluded from the
+commit and test copy.
+
+A clean `git archive HEAD` was built and checked in a separate disposable
+directory with `R CMD check --as-cran --no-manual`: zero errors, zero warnings
+and the sole NOTE identifying the changed maintainer email. The tests ran in
+disposable copies, leaving the worktree snapshots intact.

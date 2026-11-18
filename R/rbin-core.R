@@ -69,6 +69,9 @@ rbin_manual_impl <- function(data, response, predictor, cut_points = NULL,
 
   prep_data <- prep_binning_data(data, response, predictor)
   check_numeric_predictor(prep_data)
+  if (inherits(prep_data$predictor, "difftime")) {
+    prep_data$predictor <- as.numeric(prep_data$predictor)
+  }
 
   if (is.null(cut_points) || !is.numeric(cut_points) ||
       length(cut_points) < 1L || anyNA(cut_points)) {
@@ -94,6 +97,9 @@ rbin_equal_length_impl <- function(data, response, predictor, bins = 10,
 
   prep_data <- prep_binning_data(data, response, predictor)
   check_numeric_predictor(prep_data)
+  if (inherits(prep_data$predictor, "difftime")) {
+    prep_data$predictor <- as.numeric(prep_data$predictor)
+  }
   bins      <- check_bins(bins)
   bm        <- keep_na_rows(prep_data, include_na)
   byd       <- bm$predictor
@@ -121,6 +127,9 @@ rbin_quantiles_impl <- function(data, response, predictor, bins = 10,
 
   prep_data <- prep_binning_data(data, response, predictor)
   check_numeric_predictor(prep_data)
+  if (inherits(prep_data$predictor, "difftime")) {
+    prep_data$predictor <- as.numeric(prep_data$predictor)
+  }
   bins      <- check_bins(bins)
   bm        <- keep_na_rows(prep_data, include_na)
   byd       <- bm$predictor
@@ -156,6 +165,9 @@ rbin_winsorize_impl <- function(data, response, predictor, bins = 10,
 
   prep_data <- prep_binning_data(data, response, predictor)
   check_numeric_predictor(prep_data)
+  if (inherits(prep_data$predictor, "difftime")) {
+    prep_data$predictor <- as.numeric(prep_data$predictor)
+  }
   bins      <- check_bins(bins)
   bm_data   <- keep_na_rows(prep_data, include_na)
 
@@ -208,6 +220,9 @@ rbin_equal_freq_impl <- function(data, response, predictor, bins = 10) {
 
   prep_data <- prep_binning_data(data, response, predictor)
   check_numeric_predictor(prep_data)
+  if (inherits(prep_data$predictor, "difftime")) {
+    prep_data$predictor <- as.numeric(prep_data$predictor)
+  }
   bins      <- validate_bins(bins, 1L)
 
   bm  <- prep_data

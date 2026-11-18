@@ -22,8 +22,9 @@ rbin_manual(
 name in \code{data}. A binary variable coded as 0/1, a logical
 variable, or a two-level factor/character. For a two-level factor the first
 level is treated as 0 and the second as 1.
-A character response is sorted in C-locale order (uppercase before lowercase)
-and the second value is the event; use a factor to choose the event level explicitly.
+A character response is sorted in byte (C-locale) order: uppercase before
+lowercase, ASCII before accented characters; use a factor to choose the event level.
+The second value is the event.
 Rows with a missing response are dropped with a warning.}
 
 \item{predictor}{Bare column name, character name, or variable holding a character

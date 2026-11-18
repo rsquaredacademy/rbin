@@ -113,6 +113,7 @@ prep_binning_data <- function(data, response, predictor) {
   prep_data <- data.frame(response  = data[[response]],
                           predictor = data[[predictor]])
 
+  prep_data$predictor <- strip_asis(prep_data$predictor)
   check_predictor_class(prep_data$predictor, categorical = TRUE)
   prep_data$response <- validate_response(prep_data$response)
   prep_data          <- drop_na_response(prep_data)
@@ -125,13 +126,28 @@ prep_binning_data <- function(data, response, predictor) {
 
 }
 
+strip_asis <- function(x) {
+  if (inherits(x, "AsIs")) class(x) <- setdiff(class(x), "AsIs")
+  x
+}
+
 check_predictor_class <- function(x, categorical = FALSE) {
 
-  allowed_category <- categorical && inherits(x, c("factor", "Date", "POSIXt"))
-  if (is.object(x) && typeof(x) %in% c("integer", "double") && !allowed_category) {
+  if (inherits(x, "integer64")) {
     stop("unsupported predictor class '", paste(class(x), collapse = "/"),
          "'; use as.numeric() when values are within +/-2^53",
          call. = FALSE)
+  }
+
+  if (!categorical && (is.factor(x) || inherits(x, c("Date", "POSIXt")))) {
+    stop("predictor must be a numeric variable for this binning method; use rbin_factor() for categorical predictors",
+         call. = FALSE)
+  }
+
+  if (!categorical && is.object(x) &&
+      typeof(x) %in% c("integer", "double") && !inherits(x, "difftime")) {
+    stop("unsupported predictor class '", paste(class(x), collapse = "/"),
+         "'", call. = FALSE)
   }
 
 }
@@ -140,8 +156,8 @@ check_numeric_predictor <- function(prep_data) {
 
   check_predictor_class(prep_data$predictor)
 
-  if (!is.numeric(prep_data$predictor)) {
-    stop("predictor must be a numeric variable for this binning method",
+  if (!is.numeric(prep_data$predictor) && !inherits(prep_data$predictor, "difftime")) {
+    stop("predictor must be a numeric variable for this binning method; use rbin_factor() for categorical predictors",
          call. = FALSE)
   }
 
