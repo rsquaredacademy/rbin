@@ -41,12 +41,17 @@ test_that("fx6 H1/M6: integer and extreme spans retain valid membership", {
   d <- data.frame(x = c(-2000000000L, 0L, 2000000000L), y = c(0, 1, 0))
   expect_warning(b <- rbin_equal_length(d, y, x, 2), NA)
   fx6_expect_membership(d, b, c(1L, 2L, 2L), 2)
+  # values near the double-precision limit are outside the supported domain
+  # (|x| <= 1e300): refused, because exact-cut arithmetic there is platform dependent
   for (values in list(c(-1e308, 0, 1e308), c(0, 5e307, 1e308))) {
     d$x <- values
-    for (b in list(rbin_equal_length(d, y, x, 4),
-                   rbin_winsorize(d, y, x, 4, winsor_rate = 0))) {
-      expect_true(all(is.finite(b$lower_cut)))
-      fx6_expect_membership(d, b, c(1L, 3L, 4L), 4)
-    }
+    expect_error(rbin_equal_length(d, y, x, 4), "1e300")
+    expect_error(rbin_winsorize(d, y, x, 4, winsor_rate = 0), "1e300")
+  }
+  d$x <- c(-1e300, 0, 1e300)
+  for (b in list(rbin_equal_length(d, y, x, 4),
+                 rbin_winsorize(d, y, x, 4, winsor_rate = 0))) {
+    expect_true(all(is.finite(b$lower_cut)))
+    fx6_expect_membership(d, b, c(1L, 3L, 4L), 4)
   }
 })

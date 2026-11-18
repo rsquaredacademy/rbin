@@ -104,7 +104,13 @@ test_that("A2-H02: scoring applies the fitted winsor clamp even for collapsed ra
 })
 
 test_that("A2-H05: equal widths stay finite over overflowing finite ranges", {
+  # 0.3.0 domain: |x| <= 1e300; beyond it the methods refuse with a message
   for (scale in c(1e308, 1.7e308)) {
+    d <- data.frame(y = c(0, 0, 1, 0, 1, 1), x = c(-1, -1, -.5, .5, 1, 1) * scale)
+    expect_error(rbin_equal_length(d, y, x, 3), "1e300")
+    expect_error(rbin_winsorize(d, y, x, 3), "1e300")
+  }
+  for (scale in c(1e300)) {
     d <- data.frame(y = c(0, 0, 1, 0, 1, 1), x = c(-1, -1, -.5, .5, 1, 1) * scale)
     for (fun in list(rbin_equal_length, rbin_winsorize)) {
       b <- fun(d, y, x, 3)

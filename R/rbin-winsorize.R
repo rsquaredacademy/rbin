@@ -12,7 +12,8 @@
 #'   The second value is the event.
 #'   Rows with a missing response are dropped with a warning.
 #' @param predictor Bare column name, character name, or variable holding a character
-#'   name in \code{data}. A numeric predictor; non-missing values must be finite.
+#'   name in \code{data}. A numeric predictor; non-missing values must be finite
+#'   with absolute value up to 1e300.
 #' @param bins Number of bins.
 #' @param winsor_rate A value from 0.0 to 0.5.
 #' @param min_val the low border, all values being lower than this will be replaced by this value. The default is set to the 5 percent quantile of predictor.

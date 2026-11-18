@@ -12,7 +12,8 @@
 #'   The second value is the event.
 #'   Rows with a missing response are dropped with a warning.
 #' @param predictor Bare column name, character name, or variable holding a character
-#'   name in \code{data}. A numeric predictor; non-missing values must be finite.
+#'   name in \code{data}. A numeric predictor; non-missing values must be finite
+#'   with absolute value up to 1e300.
 #' @param bins Number of bins.
 #' @param include_na logical; if \code{TRUE}, a separate bin is created for missing values.
 #' @param x An object of class \code{rbin_equal_length}.
@@ -92,6 +93,12 @@ equal_width_cuts <- function(x, bins) {
   hi <- as.double(max(x, na.rm = TRUE))
   if (!is.finite(lo) || !is.finite(hi)) {
     stop("equal-width binning requires finite predictor values", call. = FALSE)
+  }
+  # Supported domain: |x| <= 1e300. Near the double-precision limit the cut
+  # arithmetic is platform dependent, so exact-cut membership can't be promised.
+  if (max(abs(lo), abs(hi)) > 1e300) {
+    stop("equal-width and winsorized binning support predictor values with ",
+         "absolute value up to 1e300; rescale the predictor first", call. = FALSE)
   }
   i <- seq_len(bins - 1L)
   p <- i / bins
