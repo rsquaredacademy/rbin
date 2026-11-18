@@ -48,6 +48,11 @@ test_that("fx6 H1/M6: integer and extreme spans retain valid membership", {
     expect_error(rbin_equal_length(d, y, x, 4), "1e300")
     expect_error(rbin_winsorize(d, y, x, 4, winsor_rate = 0), "1e300")
   }
+  d$x <- c(0, 5e299, 1e300)
+  for (b in list(rbin_equal_length(d, y, x, 4),
+                 rbin_winsorize(d, y, x, 4, winsor_rate = 0))) {
+    fx6_expect_membership(d, b, c(1L, 3L, 4L), 4)
+  }
   d$x <- c(-1e300, 0, 1e300)
   for (b in list(rbin_equal_length(d, y, x, 4),
                  rbin_winsorize(d, y, x, 4, winsor_rate = 0))) {

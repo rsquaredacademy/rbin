@@ -28,7 +28,7 @@ assignment, dropped missing responses, tie-aware frequency groups and factor cou
 
 ## Numeric binning and dummy variables
 
-* `rbin_equal_length()` and `rbin_winsorize()` support predictor values with absolute value up to 1e300 and refuse larger values with a message (near the double-precision limit, exact-cut membership would depend on the platform).
+* `rbin_equal_length()` and `rbin_winsorize()` compute cut points only from values with absolute value up to 1e300 (for `rbin_winsorize()`, the values after winsorizing) and otherwise stop with a message, because near the double-precision limit exact-cut membership would depend on the platform. `rbin_create()` still scores any finite value into the first or last bin.
 * Predictor classes: `I()` (AsIs) columns are binned as their numbers; `integer64` and `difftime` predictors are refused by the numeric methods and `rbin_create()` with a message on how to convert them (difftime units can differ between fitting and scoring data); factor, Date and POSIXct predictors point to `rbin_factor()` / `rbin_factor_create()`. `rbin_factor()` accepts classed predictors except `integer64`.
 
 * `rbin_create()` rejects incompatible `bins` objects with a class diagnostic,

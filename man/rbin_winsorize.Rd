@@ -33,8 +33,9 @@ The second value is the event.
 Rows with a missing response are dropped with a warning.}
 
 \item{predictor}{Bare column name, character name, or variable holding a character
-name in \code{data}. A numeric predictor; non-missing values must be finite
-with absolute value up to 1e300.}
+name in \code{data}. A numeric predictor; non-missing values must be finite.
+The values used to compute the cut points (after winsorizing) must have
+absolute value up to 1e300.}
 
 \item{bins}{Number of bins.}
 
