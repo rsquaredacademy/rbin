@@ -20,11 +20,14 @@ Metadata and documentation were updated as well (maintainer email, minimum
 
 ## Test environments
 
-* local Windows 11 x64, R 4.6.1 (2026-06-24 ucrt), clean `git archive` build
-  followed by `R CMD check --as-cran` on the tarball
+* local: Windows 11 x64, R 4.6.1 (ucrt)
+* Linux (Ubuntu): R 4.6.2 and R-devel (4.7.0)
+* win-builder: R-devel and R-release
+* GitHub Actions: ubuntu-latest (devel, release, oldrel-1), windows-latest
+  (release), macos-latest (release)
 
-No win-builder, R-hub or macOS results are claimed for this revision; no such
-submission was made before this check.
+The checks were run on a tarball built from a clean `git archive` copy of the
+release commit.
 
 ## R CMD check results
 
