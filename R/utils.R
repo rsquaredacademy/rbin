@@ -21,7 +21,7 @@ drop_na_response <- function(data) {
 #
 # The documented contract is a binary response: 0/1 (or logical), or a
 # two-level factor/character. For a two-level factor the first level is treated
-# as 0 and the second as 1; for character data the two values are sorted and the
+# as 0 and the second as 1; character values are sorted in C-locale order and the
 # second one is treated as 1. Anything else is rejected instead of silently
 # producing zero class counts.
 validate_response <- function(response) {
@@ -47,7 +47,7 @@ validate_response <- function(response) {
 
   if (is.character(response)) {
 
-    present <- sort(unique(response[!is.na(response)]))
+    present <- sort(unique(response[!is.na(response)]), method = "radix")
 
     if (length(present) != 2L) {
       stop("response must be binary; the character vector has ",
@@ -113,6 +113,8 @@ prep_binning_data <- function(data, response, predictor) {
   prep_data <- data.frame(response  = data[[response]],
                           predictor = data[[predictor]])
 
+  prep_data$predictor <- strip_asis(prep_data$predictor)
+  check_predictor_class(prep_data$predictor, categorical = TRUE)
   prep_data$response <- validate_response(prep_data$response)
   prep_data          <- drop_na_response(prep_data)
 
@@ -124,10 +126,47 @@ prep_binning_data <- function(data, response, predictor) {
 
 }
 
+strip_asis <- function(x) {
+  if (inherits(x, "AsIs")) class(x) <- setdiff(class(x), "AsIs")
+  x
+}
+
+check_predictor_class <- function(x, categorical = FALSE, scorer = FALSE) {
+
+  if (inherits(x, "integer64")) {
+    stop("unsupported predictor class '", paste(class(x), collapse = "/"),
+         "'; use as.numeric() when values are within +/-2^53",
+         call. = FALSE)
+  }
+
+  if (!categorical && (is.factor(x) || inherits(x, c("Date", "POSIXt")))) {
+    stop("predictor must be a numeric variable for this binning method; use ",
+         if (scorer) "rbin_factor_create()" else "rbin_factor()",
+         " for categorical predictors", call. = FALSE)
+  }
+
+  # difftime carries units that change with the data (secs/mins/hours/days),
+  # so unitless cut points can't be applied safely at scoring time
+  if (!categorical && inherits(x, "difftime")) {
+    stop("difftime predictors are not supported by the numeric binning methods; ",
+         "convert with as.numeric(x, units = \"days\") (or another fixed unit) first",
+         call. = FALSE)
+  }
+
+  if (!categorical && is.object(x) &&
+      typeof(x) %in% c("integer", "double") && !inherits(x, "difftime")) {
+    stop("unsupported predictor class '", paste(class(x), collapse = "/"),
+         "'", call. = FALSE)
+  }
+
+}
+
 check_numeric_predictor <- function(prep_data) {
 
-  if (!is.numeric(prep_data$predictor)) {
-    stop("predictor must be a numeric variable for this binning method",
+  check_predictor_class(prep_data$predictor)
+
+  if (!is.numeric(prep_data$predictor) && !inherits(prep_data$predictor, "difftime")) {
+    stop("predictor must be a numeric variable for this binning method; use rbin_factor() for categorical predictors",
          call. = FALSE)
   }
 

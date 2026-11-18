@@ -29,6 +29,12 @@
 #'
 rbin_create <- function(data, predictor, bins) {
 
+  if (!inherits(bins, c("rbin_manual", "rbin_quantiles", "rbin_equal_freq",
+                        "rbin_equal_length", "rbin_winsorize"))) {
+    stop("`bins` must be a numeric rbin fit object from rbin_manual(), rbin_quantiles(), rbin_equal_freq(), rbin_equal_length() or rbin_winsorize()",
+         call. = FALSE)
+  }
+
   data <- as.data.frame(data)
 
   pred <- column_name(substitute(predictor), parent.frame(), data)
@@ -41,11 +47,14 @@ rbin_create <- function(data, predictor, bins) {
     stop("predictor variable '", pred, "' not found in data", call. = FALSE)
   }
 
-  x <- data[[pred]]
+  x <- strip_asis(data[[pred]])
 
-  if (!is.numeric(x)) {
+  check_predictor_class(x, scorer = TRUE)
+  if (!is.numeric(x) && !inherits(x, "difftime")) {
     stop("predictor must be a numeric variable", call. = FALSE)
   }
+
+  if (inherits(x, "difftime")) x <- as.numeric(x)
 
   ranges <- bin_ranges(bins)
 

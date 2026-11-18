@@ -6,6 +6,9 @@ assignment, dropped missing responses, tie-aware frequency groups and factor cou
 
 ## Shared binning and response handling
 
+* Character responses are sorted in byte (C-locale) order: uppercase before
+  lowercase, ASCII before accented characters; use a factor to choose the event
+  level. The second value is the event on every machine (fx6 opus M1).
 * All numeric binning functions and `rbin_create()` accept bare column names,
   strings and variables holding names, including long non-syntactic names,
   consistently with `rbin_factor()` (rx2h-L2 / rx2d-L1).
@@ -25,6 +28,20 @@ assignment, dropped missing responses, tie-aware frequency groups and factor cou
 
 ## Numeric binning and dummy variables
 
+* `rbin_equal_length()` and `rbin_winsorize()` compute cut points only from values with absolute value up to 1e300 (for `rbin_winsorize()`, the values after winsorizing) and otherwise stop with a message, because near the double-precision limit exact-cut membership would depend on the platform. `rbin_create()` still scores any finite value into the first or last bin.
+* Predictor classes: `I()` (AsIs) columns are binned as their numbers; `integer64` and `difftime` predictors are refused by the numeric methods and `rbin_create()` with a message on how to convert them (difftime units can differ between fitting and scoring data); factor, Date and POSIXct predictors point to `rbin_factor()` / `rbin_factor_create()`. `rbin_factor()` accepts classed predictors except `integer64`.
+
+* `rbin_create()` rejects incompatible `bins` objects with a class diagnostic,
+  while valid all-missing fits still produce no indicators (fx6 astra M7).
+* Winsorized binning validates `winsor_rate` as a single number in [0, 0.5],
+  including when clamp endpoints are supplied. `remove_na = FALSE` gives a
+  clear error for retained missing predictors (fx6 opus M2 / astra M8).
+* Fitters and `rbin_create()` reject `integer64` and other unsupported numeric
+  classes before arithmetic, with conversion guidance for integer64 values within
+  +/-2^53 (fx6 H2).
+* Equal-width and winsorized cuts multiply the span before division, keeping
+  observations on exact mathematical boundaries in the left-closed bin.
+  Large integer spans no longer emit integer overflow warnings (fx6 H1, M6).
 * Quantile binning rejects computed NA/NaN cut points, including interpolation
   between negative and positive infinity, while valid infinite cuts remain
   supported. Numeric assignment rejects unmatched non-missing values rather
@@ -85,6 +102,8 @@ assignment, dropped missing responses, tie-aware frequency groups and factor cou
 
 ## Addins
 
+* Factor addin options use distinct IDs for literal `"NA"` and explicit NA
+  levels; selecting the NA level combines the intended rows (fx6 H3).
 * Both addins use the shared binning workers, drop missing responses with a
   warning, and accept data.table input (H13, H14).
 * Both addins accept their default NULL argument and supplied data.frame

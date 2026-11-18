@@ -26,12 +26,16 @@ rbin_winsorize(
 \item{response}{Bare column name, character name, or variable holding a character
 name in \code{data}. A binary variable coded as 0/1, a logical
 variable, or a two-level factor/character. For a two-level factor the first
-level is treated as 0 and the second as 1; for character data the two
-values are sorted and the second is treated as 1. Rows with a missing
-response are dropped with a warning.}
+level is treated as 0 and the second as 1.
+A character response is sorted in byte (C-locale) order: uppercase before
+lowercase, ASCII before accented characters; use a factor to choose the event level.
+The second value is the event.
+Rows with a missing response are dropped with a warning.}
 
 \item{predictor}{Bare column name, character name, or variable holding a character
-name in \code{data}. A numeric predictor; non-missing values must be finite.}
+name in \code{data}. A numeric predictor; non-missing values must be finite.
+The values used to compute the cut points (after winsorizing) must have
+absolute value up to 1e300.}
 
 \item{bins}{Number of bins.}
 
@@ -45,7 +49,9 @@ name in \code{data}. A numeric predictor; non-missing values must be finite.}
 
 \item{type}{an integer between 1 and 9 selecting one of the nine quantile algorithms detailed in \code{quantile()} to be used.}
 
-\item{remove_na}{logical; if \code{TRUE} NAs will removed while calculating quantiles}
+\item{remove_na}{logical; if \code{TRUE}, missing values are removed while
+calculating quantiles. If \code{FALSE}, retained predictor values must not
+be missing; use \code{TRUE} to retain a separate missing-value bin.}
 
 \item{x}{An object of class \code{rbin_winsorize}.}
 

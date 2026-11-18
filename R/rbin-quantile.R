@@ -6,9 +6,11 @@
 #' @param response Bare column name, character name, or variable holding a character
 #'   name in \code{data}. A binary variable coded as 0/1, a logical
 #'   variable, or a two-level factor/character. For a two-level factor the first
-#'   level is treated as 0 and the second as 1; for character data the two
-#'   values are sorted and the second is treated as 1. Rows with a missing
-#'   response are dropped with a warning.
+#'   level is treated as 0 and the second as 1.
+#'   A character response is sorted in byte (C-locale) order: uppercase before
+#'   lowercase, ASCII before accented characters; use a factor to choose the event level.
+#'   The second value is the event.
+#'   Rows with a missing response are dropped with a warning.
 #' @param predictor Bare column name, character name, or variable holding a character
 #'   name in \code{data}. A numeric predictor variable.
 #'   Infinite values are supported when the computed cut points are numbers;

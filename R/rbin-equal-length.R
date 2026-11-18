@@ -6,11 +6,14 @@
 #' @param response Bare column name, character name, or variable holding a character
 #'   name in \code{data}. A binary variable coded as 0/1, a logical
 #'   variable, or a two-level factor/character. For a two-level factor the first
-#'   level is treated as 0 and the second as 1; for character data the two
-#'   values are sorted and the second is treated as 1. Rows with a missing
-#'   response are dropped with a warning.
+#'   level is treated as 0 and the second as 1.
+#'   A character response is sorted in byte (C-locale) order: uppercase before
+#'   lowercase, ASCII before accented characters; use a factor to choose the event level.
+#'   The second value is the event.
+#'   Rows with a missing response are dropped with a warning.
 #' @param predictor Bare column name, character name, or variable holding a character
-#'   name in \code{data}. A numeric predictor; non-missing values must be finite.
+#'   name in \code{data}. A numeric predictor; non-missing values must be finite
+#'   with absolute value up to 1e300.
 #' @param bins Number of bins.
 #' @param include_na logical; if \code{TRUE}, a separate bin is created for missing values.
 #' @param x An object of class \code{rbin_equal_length}.
@@ -86,17 +89,29 @@ eu_freq <- function(byd, bins) {
 
 equal_width_cuts <- function(x, bins) {
 
-  lo <- min(x, na.rm = TRUE)
-  hi <- max(x, na.rm = TRUE)
+  lo <- as.double(min(x, na.rm = TRUE))
+  hi <- as.double(max(x, na.rm = TRUE))
   if (!is.finite(lo) || !is.finite(hi)) {
     stop("equal-width binning requires finite predictor values", call. = FALSE)
   }
-  p <- seq_len(bins - 1L) / bins
+  # Supported domain: |x| <= 1e300. Near the double-precision limit the cut
+  # arithmetic is platform dependent, so exact-cut membership can't be promised.
+  if (max(abs(lo), abs(hi)) > 1e300) {
+    stop("equal-width and winsorized binning support predictor values with ",
+         "absolute value up to 1e300; rescale the predictor first", call. = FALSE)
+  }
+  i <- seq_len(bins - 1L)
+  p <- i / bins
   span <- hi - lo
-  # Keep ordinary arithmetic when the range is representable; convex
-  # combinations avoid overflow when finite endpoints span more than DBL_MAX.
-  cuts <- if (is.finite(span)) lo + (span / bins) * seq_len(bins - 1L) else
+  # Multiply before dividing so exactly representable mathematical cuts keep
+  # their left-closed membership. Fall back to scaled/convex arithmetic only
+  # when the product or the span overflows.
+  cuts <- if (is.finite(span)) {
+    numerator <- span * i
+    lo + if (all(is.finite(numerator))) numerator / bins else span * p
+  } else {
     (1 - p) * lo + p * hi
+  }
   if (any(!is.finite(cuts)) || is.unsorted(cuts)) {
     stop("could not construct finite ordered equal-width boundaries", call. = FALSE)
   }

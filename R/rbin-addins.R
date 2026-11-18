@@ -357,28 +357,55 @@ rbinFactorAddin <- function(data = NULL) {
 
     })
 
+    selection_snapshot <- shiny::reactiveVal(NULL)
+
+    shiny::observeEvent(list(input$pred_var, input$mydata), {
+      shiny::updateSelectInput(session, "sel_cat", choices = NULL, selected = character(0))
+    }, ignoreInit = TRUE)
+
     shiny::observeEvent(input$select_vars, {
+
+      current_data <- addin_resolve_data(input, data_obj, default_name)
+      levs <- levels(as.factor(current_data[[input$pred_var]]))
+      selection_snapshot(list(predictor = input$pred_var, data_name = input$mydata,
+                              data = current_data, levels = levs))
+      ids <- paste0("level_", seq_along(levs))
+      labels <- levs
+      labels[is.na(labels)] <- "(NA level)"
 
       shiny::updateSelectInput(
         session,
         inputId = "sel_cat",
-        choices = levels(as.factor(data1()[[input$pred_var]])),
-        selected = levels(as.factor(data1()[[input$pred_var]]))
+        choices = stats::setNames(ids, labels),
+        selected = ids
       )
 
     })
 
     selected_levs <- shiny::reactive({
-      out <- as.factor(input$sel_cat)
-      return(out)
+      input$create_bins
+      snapshot <- selection_snapshot()
+      current_data <- tryCatch(addin_resolve_data(input, data_obj, default_name),
+                               error = function(e) NULL)
+      shiny::validate(shiny::need(!is.null(snapshot) &&
+        identical(input$pred_var, snapshot$predictor) &&
+        identical(input$mydata, snapshot$data_name) &&
+        identical(current_data, snapshot$data),
+        "Select categories again."))
+      levs <- snapshot$levels
+      index <- match(input$sel_cat, paste0("level_", seq_along(levs)))
+      shiny::validate(shiny::need(!anyNA(index), "Select categories again."))
+      levs[index]
     })
 
     new_comb <- shiny::eventReactive(input$create_bins, {
 
       shiny::req(input$pred_var, input$new_lev)
 
-      shiny_rbin_factor_combine(data1(), as.character(input$pred_var),
-                                as.character(selected_levs()), as.character(input$new_lev))
+      selected <- selected_levs()
+      shiny_rbin_factor_combine(addin_resolve_data(input, data_obj, default_name),
+                                as.character(input$pred_var),
+                                as.character(selected), as.character(input$new_lev))
     })
 
     woe_man <- shiny::eventReactive(input$create_bins, {
@@ -447,7 +474,11 @@ addin_initial_data <- function(data, name) {
 # instead of an "object not found" error.
 addin_data_reactive <- function(input, data_obj, default_name) {
 
-  shiny::reactive({
+  shiny::reactive(addin_resolve_data(input, data_obj, default_name))
+
+}
+
+addin_resolve_data <- function(input, data_obj, default_name) {
 
     name <- input$mydata
 
@@ -474,8 +505,6 @@ addin_data_reactive <- function(input, data_obj, default_name) {
     )
 
     as.data.frame(out)
-
-  })
 
 }
 
