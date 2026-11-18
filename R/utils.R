@@ -21,7 +21,7 @@ drop_na_response <- function(data) {
 #
 # The documented contract is a binary response: 0/1 (or logical), or a
 # two-level factor/character. For a two-level factor the first level is treated
-# as 0 and the second as 1; for character data the two values are sorted and the
+# as 0 and the second as 1; character values are sorted in C-locale order and the
 # second one is treated as 1. Anything else is rejected instead of silently
 # producing zero class counts.
 validate_response <- function(response) {
@@ -47,7 +47,7 @@ validate_response <- function(response) {
 
   if (is.character(response)) {
 
-    present <- sort(unique(response[!is.na(response)]))
+    present <- sort(unique(response[!is.na(response)]), method = "radix")
 
     if (length(present) != 2L) {
       stop("response must be binary; the character vector has ",

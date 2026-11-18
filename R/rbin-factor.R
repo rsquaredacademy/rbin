@@ -47,9 +47,10 @@ rbin_factor_combine <- function(data, var, new_var, new_name) {
 #' @param response Bare column name, character name, or variable holding a character
 #'   name in \code{data}. A binary variable coded as 0/1, a logical
 #'   variable, or a two-level factor/character. For a two-level factor the first
-#'   level is treated as 0 and the second as 1; for character data the two
-#'   values are sorted and the second is treated as 1. Rows with a missing
-#'   response are dropped with a warning.
+#'   level is treated as 0 and the second as 1.
+#'   A character response is sorted in C-locale order (uppercase before lowercase)
+#'   and the second value is the event; use a factor to choose the event level explicitly.
+#'   Rows with a missing response are dropped with a warning.
 #' @param predictor Bare column name, character name, or variable holding a character
 #'   name in \code{data}. A categorical predictor variable.
 #'   Factor (including ordered), character, numeric, logical, \code{Date} and

@@ -6,6 +6,9 @@ assignment, dropped missing responses, tie-aware frequency groups and factor cou
 
 ## Shared binning and response handling
 
+* Character responses use C-locale sorting (uppercase before lowercase), with
+  the second value as the event on every machine. Use a factor to choose the
+  event level explicitly (fx6 opus M1).
 * All numeric binning functions and `rbin_create()` accept bare column names,
   strings and variables holding names, including long non-syntactic names,
   consistently with `rbin_factor()` (rx2h-L2 / rx2d-L1).
