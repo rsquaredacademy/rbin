@@ -1,0 +1,13 @@
+class(d$age_z): matrix/array 
+dim(d$age_z): 4521 x 1 
+
+--- rbin_quantiles(d, y, age_z, 5) ---
+ERROR: predictor must be a numeric variable for this binning method; use rbin_factor() for categorical predictors 
+
+--- rbin_factor(d, y, age_z) ---
+ERROR: replacement has 1 row, data has 0 
+
+--- rbin_create(d, age_z, k) ---
+OK: class data.frame 
+columns: 23 
+

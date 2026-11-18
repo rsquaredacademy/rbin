@@ -1,0 +1,15 @@
+class(d$age_z): matrix/array 
+dim(d$age_z): 4521 x 1 
+
+--- rbin_quantiles(d, y, age_z, 5) ---
+OK: class rbin_quantiles 
+bins rows: 5  columns: 18 
+
+--- rbin_factor(d, y, age_z) ---
+OK: class rbin_factor 
+bins rows: 67  columns: 17 
+
+--- rbin_create(d, age_z, k) ---
+OK: class data.frame 
+columns: 23 
+

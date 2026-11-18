@@ -36,8 +36,6 @@ importFrom(data.table,
 importFrom(stats,quantile)
 importFrom(utils,
   head,
-  install.packages,
-  menu,
   packageVersion,
   tail
 )

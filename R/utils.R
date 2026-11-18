@@ -110,8 +110,10 @@ prep_binning_data <- function(data, response, predictor) {
          call. = FALSE)
   }
 
-  prep_data <- data.frame(response  = data[[response]],
-                          predictor = data[[predictor]])
+  prep_data <- data.frame(
+    response  = data[[response]],
+    predictor = as_predictor_vector(data[[predictor]], predictor)
+  )
 
   prep_data$predictor <- strip_asis(prep_data$predictor)
   check_predictor_class(prep_data$predictor, categorical = TRUE)
@@ -129,6 +131,54 @@ prep_binning_data <- function(data, response, predictor) {
 strip_asis <- function(x) {
   if (inherits(x, "AsIs")) class(x) <- setdiff(class(x), "AsIs")
   x
+}
+
+# A one-column matrix (for example from scale(mbank["age"])) is treated as its
+# underlying vector, keeping the numeric or character type. A matrix with more
+# than one column cannot be mapped to a single predictor.
+as_predictor_vector <- function(x, predictor) {
+
+  if (is.matrix(x)) {
+
+    if (ncol(x) != 1L) {
+      stop("predictor '", predictor, "' is a matrix with ", ncol(x),
+           " columns; supply a vector or a one-column matrix", call. = FALSE)
+    }
+
+    x <- as.vector(x)
+
+  }
+
+  x
+
+}
+
+# Scalar arguments shared by the fitters: a single TRUE/FALSE or a single
+# finite number (or NULL for the winsorized limits).
+validate_include_na <- function(include_na) {
+
+  if (!is.logical(include_na) || length(include_na) != 1L ||
+      is.na(include_na)) {
+    stop("`include_na` must be a single TRUE or FALSE", call. = FALSE)
+  }
+
+  include_na
+
+}
+
+validate_limit <- function(value, name) {
+
+  if (is.null(value)) {
+    return(NULL)
+  }
+
+  if (!is.numeric(value) || is.object(value) || length(value) != 1L ||
+      is.na(value) || !is.finite(value)) {
+    stop("`", name, "` must be a single finite number or NULL", call. = FALSE)
+  }
+
+  as.numeric(value)
+
 }
 
 check_predictor_class <- function(x, categorical = FALSE, scorer = FALSE) {
@@ -424,27 +474,7 @@ plot_bins <- function(x) {
 }
 
 
-check_suggests <- function(pkg) {
-
-  pkg_flag <- tryCatch(utils::packageVersion(pkg), error = function(e) NA)
-
-  if (is.na(pkg_flag)) {
-
-    msg <- message(paste0('\n', pkg, ' must be installed for this functionality.'))
-
-    if (interactive()) {
-      message(msg, "\nWould you like to install it?")
-      if (utils::menu(c("Yes", "No")) == 1) {
-        utils::install.packages(pkg)
-      } else {
-        stop(msg, call. = FALSE)
-      }
-    } else {
-      stop(msg, call. = FALSE)
-    }
-  }
-
-}
+check_bins <- function(bins) validate_bins(bins, 2L)
 
 #' @importFrom stats quantile
 winsor <- function(x, min_val = NULL, max_val = NULL, probs = c(0.05, 0.95),
