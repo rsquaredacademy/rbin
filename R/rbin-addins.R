@@ -357,20 +357,31 @@ rbinFactorAddin <- function(data = NULL) {
 
     })
 
+    category_levels <- shiny::reactive({
+      levels(as.factor(data1()[[input$pred_var]]))
+    })
+
     shiny::observeEvent(input$select_vars, {
+
+      levs <- category_levels()
+      ids <- paste0("level_", seq_along(levs))
+      labels <- levs
+      labels[is.na(labels)] <- "(NA level)"
 
       shiny::updateSelectInput(
         session,
         inputId = "sel_cat",
-        choices = levels(as.factor(data1()[[input$pred_var]])),
-        selected = levels(as.factor(data1()[[input$pred_var]]))
+        choices = stats::setNames(ids, labels),
+        selected = ids
       )
 
     })
 
     selected_levs <- shiny::reactive({
-      out <- as.factor(input$sel_cat)
-      return(out)
+      levs <- category_levels()
+      index <- match(input$sel_cat, paste0("level_", seq_along(levs)))
+      shiny::validate(shiny::need(!anyNA(index), "Select categories again."))
+      levs[index]
     })
 
     new_comb <- shiny::eventReactive(input$create_bins, {

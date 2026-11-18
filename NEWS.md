@@ -91,6 +91,8 @@ assignment, dropped missing responses, tie-aware frequency groups and factor cou
 
 ## Addins
 
+* Factor addin options use distinct IDs for literal `"NA"` and explicit NA
+  levels; selecting the NA level combines the intended rows (fx6 H3).
 * Both addins use the shared binning workers, drop missing responses with a
   warning, and accept data.table input (H13, H14).
 * Both addins accept their default NULL argument and supplied data.frame

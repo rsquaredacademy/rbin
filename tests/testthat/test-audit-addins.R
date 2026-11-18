@@ -67,7 +67,7 @@ test_that("H13: factor addin drops missing responses like the core methods", {
 
   shiny::testServer(gadget$server, {
     session$setInputs(mydata = "dd", resp_var = "y", pred_var = "g",
-                      sel_cat = "a", new_lev = "a")
+                      sel_cat = "level_1", new_lev = "a")
     warnings <- testthat::capture_warnings(
       session$setInputs(create_bins = 1)
     )
@@ -119,7 +119,7 @@ test_that("H14: both addins accept data.table input", {
 
   shiny::testServer(gadget2$server, {
     session$setInputs(mydata = "dd2", resp_var = "y", pred_var = "g",
-                      sel_cat = "a", new_lev = "a")
+                      sel_cat = "level_1", new_lev = "a")
     session$setInputs(create_bins = 1)
 
     b <- woe_man()
