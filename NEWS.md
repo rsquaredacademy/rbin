@@ -28,6 +28,8 @@ assignment, dropped missing responses, tie-aware frequency groups and factor cou
 
 ## Numeric binning and dummy variables
 
+* `rbin_create()` rejects incompatible `bins` objects with a class diagnostic,
+  while valid all-missing fits still produce no indicators (fx6 astra M7).
 * Winsorized binning validates `winsor_rate` as a single number in [0, 0.5],
   including when clamp endpoints are supplied. `remove_na = FALSE` gives a
   clear error for retained missing predictors (fx6 opus M2 / astra M8).

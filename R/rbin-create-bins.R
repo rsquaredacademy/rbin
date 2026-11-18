@@ -29,6 +29,12 @@
 #'
 rbin_create <- function(data, predictor, bins) {
 
+  if (!inherits(bins, c("rbin_manual", "rbin_quantiles", "rbin_equal_freq",
+                        "rbin_equal_length", "rbin_winsorize"))) {
+    stop("`bins` must be a numeric rbin fit object from rbin_manual(), rbin_quantiles(), rbin_equal_freq(), rbin_equal_length() or rbin_winsorize()",
+         call. = FALSE)
+  }
+
   data <- as.data.frame(data)
 
   pred <- column_name(substitute(predictor), parent.frame(), data)
