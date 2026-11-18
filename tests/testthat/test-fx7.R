@@ -62,7 +62,10 @@ test_that("fx7: AsIs and difftime predictors retain supported behavior", {
                   function() rbin_equal_length(d, y, x, 2),
                   function() rbin_winsorize(d, y, x, 2))
   reference <- lapply(fitters, function(f) f()$bins$bin_count)
-  for (x in list(I(as.double(1:8)), as.difftime(1:8, units = "days"))) {
+  # difftime: numeric methods refuse it since rx7 (units can differ at scoring); rbin_factor still accepts it
+  d$x <- as.difftime(1:8, units = "days")
+  expect_equal(rbin_factor(d, y, x)$bins$bin_count, rep(1L, 8))
+  for (x in list(I(as.double(1:8)))) {
     d$x <- x
     for (i in seq_along(fitters)) expect_equal(fitters[[i]]()$bins$bin_count, reference[[i]])
     expect_equal(rbin_factor(d, y, x)$bins$bin_count, rep(1L, 8))

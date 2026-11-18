@@ -131,7 +131,7 @@ strip_asis <- function(x) {
   x
 }
 
-check_predictor_class <- function(x, categorical = FALSE) {
+check_predictor_class <- function(x, categorical = FALSE, scorer = FALSE) {
 
   if (inherits(x, "integer64")) {
     stop("unsupported predictor class '", paste(class(x), collapse = "/"),
@@ -140,7 +140,16 @@ check_predictor_class <- function(x, categorical = FALSE) {
   }
 
   if (!categorical && (is.factor(x) || inherits(x, c("Date", "POSIXt")))) {
-    stop("predictor must be a numeric variable for this binning method; use rbin_factor() for categorical predictors",
+    stop("predictor must be a numeric variable for this binning method; use ",
+         if (scorer) "rbin_factor_create()" else "rbin_factor()",
+         " for categorical predictors", call. = FALSE)
+  }
+
+  # difftime carries units that change with the data (secs/mins/hours/days),
+  # so unitless cut points can't be applied safely at scoring time
+  if (!categorical && inherits(x, "difftime")) {
+    stop("difftime predictors are not supported by the numeric binning methods; ",
+         "convert with as.numeric(x, units = \"days\") (or another fixed unit) first",
          call. = FALSE)
   }
 

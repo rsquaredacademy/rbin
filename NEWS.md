@@ -28,6 +28,8 @@ assignment, dropped missing responses, tie-aware frequency groups and factor cou
 
 ## Numeric binning and dummy variables
 
+* Predictor classes: `I()` (AsIs) columns are binned as their numbers; `integer64` and `difftime` predictors are refused by the numeric methods and `rbin_create()` with a message on how to convert them (difftime units can differ between fitting and scoring data); factor, Date and POSIXct predictors point to `rbin_factor()` / `rbin_factor_create()`. `rbin_factor()` accepts classed predictors except `integer64`.
+
 * `rbin_create()` rejects incompatible `bins` objects with a class diagnostic,
   while valid all-missing fits still produce no indicators (fx6 astra M7).
 * Winsorized binning validates `winsor_rate` as a single number in [0, 0.5],
