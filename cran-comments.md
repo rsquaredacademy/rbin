@@ -3,7 +3,8 @@ whole-package and factor audits. CRAN currently has 0.2.1:
 
 * bins with no observations no longer duplicate rows, inflate counts, IV or
   entropy, and the missing-value bin is labelled correctly;
-* equal-frequency groups are balanced (sizes differ by at most one);
+* equal-frequency groups keep tied values together and have approximately
+  equal sizes; without ties, sizes differ by at most one;
 * numeric and categorical dummy variables, winsorization borders, factor level
   combination, entropy of pure bins, large finite maxima and the binary
   response contract behave as documented;
@@ -11,7 +12,8 @@ whole-package and factor audits. CRAN currently has 0.2.1:
   accept `data.table` input and their default `data = NULL` argument;
 * factor category keys, explicit NA levels, missing codes and NaN counts are
   preserved, quantile/equal-width boundaries are corrected, winsorized scoring
-  applies the fitted clamp, and ambiguous tied rank scoring errors explicitly.
+  applies the fitted clamp, and heavy ties that yield fewer equal-frequency
+  bins produce a message reporting the requested and actual bin counts.
 
 Metadata and documentation were updated as well (maintainer email, minimum
 `data.table` version, reference DOI, `mbank` columns and return values).
