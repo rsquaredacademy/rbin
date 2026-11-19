@@ -196,16 +196,30 @@ test_that("#80: manual addin treats blank cut points as missing and needs two bi
   dd <- data.frame(y = rep(0:1, 3), x = 1:6)
   gadget <- capture_gadget(rbinAddin(dd))
 
+  # Set the box before the click: testServer flushes outputs when n_bins is
+  # set, so clicking in the same call would run compute_bins() while the box is
+  # still NULL (which the old code also handled) instead of blank/NA.
   shiny::testServer(gadget$server, {
     session$setInputs(mydata = "dd", resp_var = "y", pred_var = "x",
-                      n_bins = 2, create_bins = 1)
+                      n_bins = 2)
     session$setInputs(`n_bins_ 1` = NA_real_)
+    session$setInputs(create_bins = 1)
+    expect_error(compute_bins(), "Enter a value for every cut point")
+  })
+
+  # One filled box and one blank box must also be rejected.
+  shiny::testServer(gadget$server, {
+    session$setInputs(mydata = "dd", resp_var = "y", pred_var = "x",
+                      n_bins = 3)
+    session$setInputs(`n_bins_ 1` = 2, `n_bins_ 2` = NA_real_)
+    session$setInputs(create_bins = 1)
     expect_error(compute_bins(), "Enter a value for every cut point")
   })
 
   shiny::testServer(gadget$server, {
     session$setInputs(mydata = "dd", resp_var = "y", pred_var = "x",
-                      n_bins = 1, create_bins = 1)
+                      n_bins = 1)
+    session$setInputs(create_bins = 1)
     expect_error(compute_bins(), class = "shiny.silent.error")
   })
 })

@@ -34,23 +34,34 @@ test_that("#79: one-column matrix predictors give the same bins as vectors", {
                rbin_factor(d, y, age_z_vec)$bins)
 })
 
-test_that("#79: rbin_create scores a one-column matrix predictor", {
+test_that("#79: rbin_create scores a one-column matrix predictor like the vector", {
   d <- as.data.frame(mbank)
-  d$age_z     <- scale(mbank["age"])
-  d$age_z_vec <- as.vector(scale(mbank$age))
+  d$pred_matrix <- scale(mbank["age"])
+  d$pred_vector <- as.vector(scale(mbank$age))
 
-  k <- rbin_quantiles(d, y, age_z_vec, 5)
+  expect_true(is.matrix(d$pred_matrix))
+  expect_equal(dim(d$pred_matrix), c(nrow(d), 1L))
 
-  d_matrix <- d
-  d_matrix$pred <- scale(mbank["age"])
-  d_vector <- d
-  d_vector$pred <- as.vector(scale(mbank$age))
+  # Fit on the vector and on the one-column matrix (#79): the fitted bins must
+  # be identical before scoring is compared.
+  k <- rbin_quantiles(d, y, pred_vector, 5)
+  expect_equal(rbin_quantiles(d, y, pred_matrix, 5)$bins, k$bins)
 
-  out_matrix <- rbin_create(d_matrix, pred, k)
-  out_vector <- rbin_create(d_vector, pred, k)
+  # Score the same values from a matrix column and a vector column. Both data
+  # sets use the same predictor column name so the dummy columns line up.
+  data_matrix <- d
+  data_matrix$pred <- d$pred_matrix
+  data_vector <- d
+  data_vector$pred <- d$pred_vector
 
-  dummy_cols <- setdiff(names(out_matrix), names(d_matrix))
+  out_matrix <- rbin_create(data_matrix, pred, k)
+  out_vector <- rbin_create(data_vector, pred, k)
+
+  dummy_cols <- setdiff(names(out_matrix), names(data_matrix))
+  expect_length(dummy_cols, 5L)
   expect_equal(out_matrix[dummy_cols], out_vector[dummy_cols])
+  expect_equal(as.matrix(out_matrix[dummy_cols]),
+               as.matrix(out_vector[dummy_cols]))
 })
 
 test_that("#79: a multi-column matrix predictor errors and names the predictor", {
