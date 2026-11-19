@@ -9,15 +9,29 @@ rbin_create(data, predictor, bins)
 \arguments{
 \item{data}{A \code{data.frame} or \code{tibble}.}
 
-\item{predictor}{Variable for which dummy variables must be created.}
+\item{predictor}{Bare column name, character name, or variable holding a character
+name in \code{data}. The numeric variable for which dummies must be created.}
 
-\item{bins}{An object of class \code{rbin_manual} or \code{rbin_quantiles} or \code{rbin_equal_length} or \code{rbin_winsorized}.}
+\item{bins}{An object of class \code{rbin_manual}, \code{rbin_quantiles},
+\code{rbin_equal_length}, \code{rbin_winsorize} or \code{rbin_equal_freq}.}
 }
 \value{
-\code{data} with dummy variables.
+\code{data} with one indicator column per bin, appended in bin
+  order. Every bin defined when the bins were created is represented, even
+  when the data passed here has no observation in that bin.
 }
 \description{
 Create dummy variables from bins.
+}
+\details{
+Missing predictor values produce missing indicators; the separate
+  missing-value bin is not turned into a dummy column.
+  Winsorized objects apply their fitted clamp before assigning intervals.
+  Older saved winsorized objects without clamp metadata must be fitted again.
+  Equal-frequency bins keep ties together and use their stored value
+  intervals for scoring. Gaps go to the preceding group, with boundaries
+  at the next group's minimum. Dummy names describe these scoring intervals,
+  which extend beyond the training range.
 }
 \examples{
 k <- rbin_manual(mbank, y, age, c(29, 39, 56))

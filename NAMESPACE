@@ -29,15 +29,15 @@ export(rbin_manual)
 export(rbin_quantiles)
 export(rbin_winsorize)
 import(ggplot2)
-importFrom(data.table,":=")
-importFrom(data.table,.N)
-importFrom(data.table,data.table)
-importFrom(data.table,setDF)
-importFrom(data.table,setorder)
-importFrom(stats,na.omit)
+importFrom(data.table,
+  .N,
+  data.table
+)
 importFrom(stats,quantile)
-importFrom(utils,head)
-importFrom(utils,install.packages)
-importFrom(utils,menu)
-importFrom(utils,packageVersion)
-importFrom(utils,tail)
+importFrom(utils,
+  head,
+  install.packages,
+  menu,
+  packageVersion,
+  tail
+)

@@ -18,9 +18,17 @@ rbin_manual(
 \arguments{
 \item{data}{A \code{data.frame} or \code{tibble}.}
 
-\item{response}{Response variable.}
+\item{response}{Bare column name, character name, or variable holding a character
+name in \code{data}. A binary variable coded as 0/1, a logical
+variable, or a two-level factor/character. For a two-level factor the first
+level is treated as 0 and the second as 1.
+A character response is sorted in byte (C-locale) order: uppercase before
+lowercase, ASCII before accented characters; use a factor to choose the event level.
+The second value is the event.
+Rows with a missing response are dropped with a warning.}
 
-\item{predictor}{Predictor variable.}
+\item{predictor}{Bare column name, character name, or variable holding a character
+name in \code{data}. A numeric predictor variable.}
 
 \item{cut_points}{Cut points for binning.}
 
@@ -33,17 +41,20 @@ rbin_manual(
 \item{...}{further arguments passed to or from other methods.}
 }
 \value{
-A \code{tibble}.
+A list of class \code{rbin_manual} with the following elements:
+  \code{bins}, a \code{data.frame} with one row per interval (including
+  empty intervals) and a final row for missing values when present;
+  \code{method}; \code{vars}; \code{lower_cut}; and \code{upper_cut}.
 }
 \description{
 Bin continuous data manually.
 }
 \details{
-Specify the upper open interval for each bin. `rbin`
-  follows the left closed and right open interval. If you want to create_bins
-  10 bins, the app will show you only 9 input boxes. The interval for the 10th bin
-  is automatically computed. For example, if you want the first bin to have all the
-  values between the minimum and including 36, then you will enter the value 37.
+Cut points are open upper bounds: intervals are left closed and
+  right open, \code{[lower, upper)}. Supply nine cut points for ten bins;
+  the last bin has no upper bound. For an integer predictor, a cut at 37
+  includes integers through 36. For continuous data, that cut includes every
+  value below 37, including 36.5; choose the continuous boundary directly.
 }
 \examples{
 bins <- rbin_manual(mbank, y, age, c(29, 31, 34, 36, 39, 42, 46, 51, 56))

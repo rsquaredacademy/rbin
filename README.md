@@ -67,7 +67,7 @@ bins
 plot(bins)
 ```
 
-<img src="tools/README-manual-1.png" width="100%" />
+<img src="tools/README-manual-1.png" alt="" width="100%" />
 
 ### Combine Factor Levels
 
@@ -105,7 +105,7 @@ bins
 plot(bins)
 ```
 
-<img src="tools/README-factor-1.png" width="100%" />
+<img src="tools/README-factor-1.png" alt="" width="100%" />
 
 ### Quantile Binning
 
@@ -141,7 +141,65 @@ bins
 plot(bins)
 ```
 
-<img src="tools/README-quantile-1.png" width="100%" />
+<img src="tools/README-quantile-1.png" alt="" width="100%" />
+
+### Equal Frequency Binning
+
+Equal-frequency bins keep tied values together. Each empirical quantile
+and all values tied with it stay in the lower group; the next distinct
+value starts the next group. Sizes are approximate, and a message
+reports fewer bins when ties collapse cuts. Dummy counts match the
+non-missing training summary.
+
+``` r
+bins <- rbin_equal_freq(mbank, y, age, 10)
+bins
+#> Binning Summary
+#> ------------------------------------
+#> Method               Equal Frequency
+#> Response             y
+#> Predictor            age
+#> Bins                 10
+#> Count                4521
+#> Goods                517
+#> Bads                 4004
+#> Entropy              0.5
+#> Information Value    0.11
+#>
+#>
+#>    lower_cut upper_cut bin_count good bad  good_rate         woe           iv
+#> 1       -Inf        30       521   85 436 0.16314779 -0.41201528 2.287466e-02
+#> 2         30        32       386   45 341 0.11658031 -0.02178628 4.086635e-05
+#> 3         32        35       582   57 525 0.09793814  0.17334073 3.617176e-03
+#> 4         35        37       374   38 336 0.10160428  0.13251873 1.380198e-03
+#> 5         37        40       497   44 453 0.08853119  0.28469623 7.980172e-03
+#> 6         40        43       396   37 359 0.09343434  0.22539821 4.078267e-03
+#> 7         43        47       461   43 418 0.09327549  0.22727505 4.823562e-03
+#> 8         47        52       474   41 433 0.08649789  0.31015940 8.944433e-03
+#> 9         52        57       441   47 394 0.10657596  0.07919704 5.933844e-04
+#> 10        57       Inf       389   80 309 0.20565553 -0.69569162 5.396205e-02
+#>      entropy
+#> 1  0.6417872
+#> 2  0.5194505
+#> 3  0.4624254
+#> 4  0.4740605
+#> 5  0.4315480
+#> 6  0.4478305
+#> 7  0.4473095
+#> 8  0.4246709
+#> 9  0.4895008
+#> 10 0.7330960
+colSums(rbin_create(mbank, age, bins)[-seq_along(mbank)])
+#>  age_<_30  age_<_32  age_<_35  age_<_37  age_<_40  age_<_43  age_<_47  age_<_52
+#>       521       386       582       374       497       396       461       474
+#>  age_<_57 age_>=_57
+#>       441       389
+
+# plot
+plot(bins)
+```
+
+<img src="tools/README-equal_freq-1.png" alt="" width="100%" />
 
 ### Winsorized Binning
 
@@ -177,7 +235,7 @@ bins
 plot(bins)
 ```
 
-<img src="tools/README-winsorize-1.png" width="100%" />
+<img src="tools/README-winsorize-1.png" alt="" width="100%" />
 
 ### Equal Length Binning
 
@@ -213,7 +271,7 @@ bins
 plot(bins)
 ```
 
-<img src="tools/README-equal_length-1.png" width="100%" />
+<img src="tools/README-equal_length-1.png" alt="" width="100%" />
 
 ## Alternatives
 
@@ -225,7 +283,7 @@ plot(bins)
 ## Getting Help
 
 If you encounter a bug, please file a minimal reproducible example using
-[reprex](https://reprex.tidyverse.org/index.html) on github. For
+[reprex](https://reprex.tidyverse.org/index.html) on GitHub. For
 questions and clarifications, use
 [StackOverflow](https://stackoverflow.com/).
 
@@ -234,3 +292,8 @@ questions and clarifications, use
 Please note that the rbin project is released with a [Contributor Code
 of Conduct](https://rbin.rsquaredacademy.com/CODE_OF_CONDUCT.html). By
 contributing to this project, you agree to abide by its terms.
+
+<div data-rsa-signup="" data-site="rbin.rsquaredacademy.com"
+data-privacy-url="https://www.rsquaredacademy.com/privacy-policy.html">
+
+</div>

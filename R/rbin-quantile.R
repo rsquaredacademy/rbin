@@ -3,15 +3,28 @@
 #' Bin continuous data using quantiles.
 #'
 #' @param data A \code{data.frame} or \code{tibble}.
-#' @param response Response variable.
-#' @param predictor Predictor variable.
+#' @param response Bare column name, character name, or variable holding a character
+#'   name in \code{data}. A binary variable coded as 0/1, a logical
+#'   variable, or a two-level factor/character. For a two-level factor the first
+#'   level is treated as 0 and the second as 1.
+#'   A character response is sorted in byte (C-locale) order: uppercase before
+#'   lowercase, ASCII before accented characters; use a factor to choose the event level.
+#'   The second value is the event.
+#'   Rows with a missing response are dropped with a warning.
+#' @param predictor Bare column name, character name, or variable holding a character
+#'   name in \code{data}. A numeric predictor variable.
+#'   Infinite values are supported when the computed cut points are numbers;
+#'   interpolation producing \code{NA} or \code{NaN} cut points errors.
 #' @param bins Number of bins.
 #' @param include_na logical; if \code{TRUE}, a separate bin is created for missing values.
 #' @param x An object of class \code{rbin_quantiles}.
 #' @param print_plot logical; if \code{TRUE}, prints the plot else returns a plot object.
 #' @param ... further arguments passed to or from other methods.
 #'
-#' @return A \code{tibble}.
+#' @return A list of class \code{rbin_quantiles} with the following elements:
+#'   \code{bins}, a \code{data.frame} with one row per interval (including
+#'   empty intervals) and a final row for missing values when present;
+#'   \code{method}; \code{vars}; \code{lower_cut}; and \code{upper_cut}.
 #'
 #' @examples
 #' bins <- rbin_quantiles(mbank, y, age, 10)
@@ -22,58 +35,13 @@
 #'
 #' @export
 #'
-rbin_quantiles <- function(data = NULL, response = NULL, predictor = NULL, bins = 10, include_na = TRUE) UseMethod("rbin_quantiles")
-
-#' @export
-#'
 rbin_quantiles <- function(data = NULL, response = NULL, predictor = NULL, bins = 10, include_na = TRUE) {
 
-  resp <- deparse(substitute(response))
-  pred <- deparse(substitute(predictor))
-
-  var_names <- names(data[, c(resp, pred)])
-  prep_data <- data[, c(resp, pred)]
-
-  if (include_na) {
-    bm <- prep_data
-  } else {
-    bm <- na.omit(prep_data)
-  }
-
-  colnames(bm) <- c("response", "predictor")
-
-  bm$bin    <- NA
-  byd       <- bm$predictor
-  l_freq    <- ql_freq(byd, bins)
-  u_freq    <- qu_freq(byd, bins)
-
-  for (i in seq_len(bins)) {
-    bm$bin[bm$predictor >= l_freq[i] & bm$predictor < u_freq[i]] <- i
-  }
-
-  k         <- bin_create(bm)
-  sym_sign  <- c(rep("<", (bins - 1)), ">=")
-  fbin2     <- f_bin(u_freq)
-  intervals <- create_intervals(sym_sign, fbin2)
-
-  if (include_na) {
-
-    na_present <- nrow(k) > bins
-
-    if (na_present) {
-      intervals <- rbind(intervals, cut_point = 'NA')
-    }
-
-  }
-
-  result    <- list(bins      = cbind(intervals, k),
-                    method    = "Quantile",
-                    vars      = var_names,
-                    lower_cut = l_freq,
-                    upper_cut = u_freq)
-
-  class(result) <- c("rbin_quantiles")
-  return(result)
+  rbin_quantiles_impl(data       = data,
+                      response   = column_name(substitute(response), parent.frame(), data),
+                      predictor  = column_name(substitute(predictor), parent.frame(), data),
+                      bins       = bins,
+                      include_na = include_na)
 
 }
 
@@ -120,9 +88,11 @@ qu_freq <- function(byd, bins) {
 
 cutpoints <- function(byd, bins) {
 
-  bin_prob   <- 1 / bins
-  bq         <- stats::quantile(byd, seq(0, 1, bin_prob), na.rm = TRUE)
-  bin_len    <- bins + 1
-  bq[c(-1, -bin_len)]
+  cuts <- stats::quantile(byd, seq_len(bins - 1L) / bins, na.rm = TRUE)
+  if (anyNA(cuts)) {
+    stop("computed cut points contain NA or NaN; cannot form numeric bins",
+         call. = FALSE)
+  }
+  cuts
 
 }

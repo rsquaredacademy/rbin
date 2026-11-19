@@ -12,9 +12,19 @@ rbin_factor(data = NULL, response = NULL, predictor = NULL, include_na = TRUE)
 \arguments{
 \item{data}{A \code{data.frame} or \code{tibble}.}
 
-\item{response}{Response variable.}
+\item{response}{Bare column name, character name, or variable holding a character
+name in \code{data}. A binary variable coded as 0/1, a logical
+variable, or a two-level factor/character. For a two-level factor the first
+level is treated as 0 and the second as 1.
+A character response is sorted in byte (C-locale) order: uppercase before
+lowercase, ASCII before accented characters; use a factor to choose the event level.
+The second value is the event.
+Rows with a missing response are dropped with a warning.}
 
-\item{predictor}{Predictor variable.}
+\item{predictor}{Bare column name, character name, or variable holding a character
+name in \code{data}. A categorical predictor variable.
+Factor (including ordered), character, numeric, logical, \code{Date} and
+\code{POSIXct} columns are supported. Distinct values form distinct groups.}
 
 \item{include_na}{logical; if \code{TRUE}, a separate bin is created for missing values.}
 
@@ -24,8 +34,26 @@ rbin_factor(data = NULL, response = NULL, predictor = NULL, include_na = TRUE)
 
 \item{...}{further arguments passed to or from other methods.}
 }
+\value{
+A list of class \code{rbin_factor} with the following elements:
+  \code{bins}, a \code{data.frame} with one row per observed level (plus a
+  final row for missing values when present); \code{method}; and \code{vars}.
+}
 \description{
 Weight of evidence and information value for categorical data.
+}
+\details{
+Both \code{response} and \code{predictor} accept bare column names,
+  character names, or variables holding character names. Groups and cumulative
+  counts follow first appearance, with missing values last. Factor levels and
+  the ordered class are preserved; an explicit \code{NA} level is a valid
+  category, distinct from a missing factor code. It precedes the final
+  missing-code group and is retained when \code{include_na = FALSE}.
+  Numeric \code{NaN} and \code{NA} share a missing-value group.
+  If a literal \code{"NA"} category or an explicit \code{NA} level is present,
+  the genuine missing group displays as \code{"(missing)"} in printed
+  summaries and plots. Stored
+  typed labels, explicit \code{NA} levels and ordered classes are preserved.
 }
 \examples{
 bins <- rbin_factor(mbank, y, education)

@@ -9,13 +9,24 @@ rbin_factor_create(data, predictor)
 \arguments{
 \item{data}{A \code{data.frame} or \code{tibble}.}
 
-\item{predictor}{Variable for which dummy variables must be created.}
+\item{predictor}{Bare column name, character name, or variable holding a character
+name in \code{data}. It can be a factor or a character variable;
+character variables are converted to
+a factor first, so the levels are sorted.}
 }
 \value{
-A \code{tibble} with dummy variables.
+A \code{data.frame} with the original columns preserved and one
+  indicator column per level, appended at the end.
 }
 \description{
 Create dummy variables for categorical data.
+}
+\details{
+Indicator columns are derived from the factor codes, so a factor
+  with an explicit \code{NA} level gets a real indicator column (for example
+  \code{g_NA}) and not a column of missings. A missing factor code that is
+  not a level produces missing indicators. Generated names never overwrite
+  existing columns: a collision is made unique by appending a suffix.
 }
 \examples{
 upper <- c("secondary", "tertiary")

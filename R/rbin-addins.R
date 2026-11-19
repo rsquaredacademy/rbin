@@ -2,7 +2,9 @@
 #'
 #' Manually bin continuous data using weight of evidence.
 #'
-#' @param data A \code{data.frame} or \code{tibble}.
+#' @param data A \code{data.frame} or \code{tibble}, or the name of one. When
+#'   \code{NULL} (the default), the current editor selection is used as the
+#'   initial data name.
 #'
 #' @examples
 #' \dontrun{
@@ -33,26 +35,11 @@ rbinAddin <- function(data = NULL) {
     }
   }
 
-  context <- rstudioapi::getActiveDocumentContext()
-  text <- context$selection[[1]]$text
-  default_data <- text
+  initial <- addin_initial_data(data, deparse(substitute(data)))
 
-  if (is.null(data)) {
-    if (nzchar(default_data)) {
-      data <- default_data
-    }
-  }
-
-  if (any(class(data) %in% c("data.frame","tibble","tbl_df"))) {
-    mydata <- deparse(substitute(data))
-  } else if (is.character(data)) {
-    result <- tryCatch(eval(parse(text = data)), error = function(e) "error")
-    if (any(class(result) %in% c("data.frame","tibble","tbl_df"))) {
-      mydata <- data
-    } else {
-      return(NULL)
-    }
-  }
+  data_obj     <- initial$data
+  data_name    <- initial$name
+  default_name <- data_name
 
   ui <- miniUI::miniPage(
     miniUI::gadgetTitleBar("Variable Binning"),
@@ -65,7 +52,7 @@ rbinAddin <- function(data = NULL) {
                                                shiny::br(),
                                                shiny::fluidRow(
                                                  shiny::column(12, align = 'center',
-                                                               shiny::textInput("mydata", "Data Name", value = mydata)
+                                                               shiny::textInput("mydata", "Data Name", value = data_name)
                                                  )
                                                )
 
@@ -136,10 +123,7 @@ rbinAddin <- function(data = NULL) {
 
   server <- function(input, output, session) {
 
-    data1 <- shiny::reactive({
-      out <- get(input$mydata)
-      return(out)
-    })
+    data1 <- addin_data_reactive(input, data_obj, default_name)
 
     shiny::observe({
 
@@ -187,7 +171,17 @@ rbinAddin <- function(data = NULL) {
     })
 
     compute_bins <- shiny::eventReactive(input$create_bins, {
-      shiny_rbin_manual(data1(), input$resp_var, input$pred_var, bins_values())
+
+      shiny::req(input$resp_var, input$pred_var)
+
+      cut_points <- bins_values()
+
+      shiny::validate(
+        shiny::need(length(cut_points) == as.integer(input$n_bins) - 1,
+                    "Enter a value for every cut point.")
+      )
+
+      shiny_rbin_manual(data1(), input$resp_var, input$pred_var, cut_points)
     })
 
     down_bins <- shiny::reactive({
@@ -202,17 +196,13 @@ rbinAddin <- function(data = NULL) {
       graphics::plot(compute_bins())
     })
 
-    create_woe <- shiny::reactive({
-      rbin_create(data1(), input$pred_var, compute_bins())
-    })
-
     shiny::observeEvent(input$done, {
       shiny::stopApp()
     })
 
   }
 
-  shiny::runGadget(ui, server, viewer = shiny::browserViewer())
+  launch_gadget(ui, server)
 
 }
 
@@ -220,7 +210,9 @@ rbinAddin <- function(data = NULL) {
 #'
 #' Manually combine categorical variables using weight of evidence.
 #'
-#' @param data A \code{data.frame} or \code{tibble}.
+#' @param data A \code{data.frame} or \code{tibble}, or the name of one. When
+#'   \code{NULL} (the default), the current editor selection is used as the
+#'   initial data name.
 #'
 #' @examples
 #' \dontrun{
@@ -251,26 +243,11 @@ rbinFactorAddin <- function(data = NULL) {
     }
   }
 
-  context <- rstudioapi::getActiveDocumentContext()
-  text <- context$selection[[1]]$text
-  default_data <- text
+  initial <- addin_initial_data(data, deparse(substitute(data)))
 
-  if (is.null(data)) {
-    if(nzchar(default_data)) {
-      data <- default_data
-    }
-  }
-
-  if (any(class(data) %in% c("data.frame","tibble","tbl_df"))) {
-    mydata <- deparse(substitute(data))
-  } else if (is.character(data)) {
-    result <- tryCatch(eval(parse(text = data)), error = function(e) "error")
-    if (any(class(result) %in% c("data.frame","tibble","tbl_df"))) {
-      mydata <- data
-    } else {
-      return(NULL)
-    }
-  }
+  data_obj     <- initial$data
+  data_name    <- initial$name
+  default_name <- data_name
 
   ui <- miniUI::miniPage(
     miniUI::gadgetTitleBar("Custom Binning"),
@@ -284,7 +261,7 @@ rbinFactorAddin <- function(data = NULL) {
 
                                                shiny::fluidRow(
                                                  shiny::column(12, align = 'center',
-                                                               shiny::textInput("mydata", "Data Name", value = mydata)
+                                                               shiny::textInput("mydata", "Data Name", value = data_name)
                                                  )
                                                )
                                              )
@@ -360,10 +337,7 @@ rbinFactorAddin <- function(data = NULL) {
 
   server <- function(input, output, session) {
 
-    data1 <- shiny::reactive({
-      out <- get(input$mydata)
-      return(out)
-    })
+    data1 <- addin_data_reactive(input, data_obj, default_name)
 
     shiny::observe({
 
@@ -383,25 +357,55 @@ rbinFactorAddin <- function(data = NULL) {
 
     })
 
+    selection_snapshot <- shiny::reactiveVal(NULL)
+
+    shiny::observeEvent(list(input$pred_var, input$mydata), {
+      shiny::updateSelectInput(session, "sel_cat", choices = NULL, selected = character(0))
+    }, ignoreInit = TRUE)
+
     shiny::observeEvent(input$select_vars, {
+
+      current_data <- addin_resolve_data(input, data_obj, default_name)
+      levs <- levels(as.factor(current_data[[input$pred_var]]))
+      selection_snapshot(list(predictor = input$pred_var, data_name = input$mydata,
+                              data = current_data, levels = levs))
+      ids <- paste0("level_", seq_along(levs))
+      labels <- levs
+      labels[is.na(labels)] <- "(NA level)"
 
       shiny::updateSelectInput(
         session,
         inputId = "sel_cat",
-        choices = levels(as.factor(data1()[[input$pred_var]])),
-        selected = levels(as.factor(data1()[[input$pred_var]]))
+        choices = stats::setNames(ids, labels),
+        selected = ids
       )
 
     })
 
     selected_levs <- shiny::reactive({
-      out <- as.factor(input$sel_cat)
-      return(out)
+      input$create_bins
+      snapshot <- selection_snapshot()
+      current_data <- tryCatch(addin_resolve_data(input, data_obj, default_name),
+                               error = function(e) NULL)
+      shiny::validate(shiny::need(!is.null(snapshot) &&
+        identical(input$pred_var, snapshot$predictor) &&
+        identical(input$mydata, snapshot$data_name) &&
+        identical(current_data, snapshot$data),
+        "Select categories again."))
+      levs <- snapshot$levels
+      index <- match(input$sel_cat, paste0("level_", seq_along(levs)))
+      shiny::validate(shiny::need(!anyNA(index), "Select categories again."))
+      levs[index]
     })
 
     new_comb <- shiny::eventReactive(input$create_bins, {
-      shiny_rbin_factor_combine(data1(), as.character(input$pred_var),
-                                as.character(selected_levs()), as.character(input$new_lev))
+
+      shiny::req(input$pred_var, input$new_lev)
+
+      selected <- selected_levs()
+      shiny_rbin_factor_combine(addin_resolve_data(input, data_obj, default_name),
+                                as.character(input$pred_var),
+                                as.character(selected), as.character(input$new_lev))
     })
 
     woe_man <- shiny::eventReactive(input$create_bins, {
@@ -431,7 +435,76 @@ rbinFactorAddin <- function(data = NULL) {
 
   }
 
-  shiny::runGadget(ui, server, viewer = shiny::browserViewer())
+  launch_gadget(ui, server)
+
+}
+
+# Normalise the `data` argument of an addin. A data.frame is used directly (its
+# expression is only used as a display name); a string is treated as the name
+# of a data frame to look up later. With neither, the editor selection is used.
+addin_initial_data <- function(data, name) {
+
+  data_obj  <- NULL
+  data_name <- ""
+
+  if (inherits(data, "data.frame")) {
+    data_obj  <- as.data.frame(data)
+    data_name <- if (identical(name, "NULL")) "" else name
+  } else if (is.character(data) && length(data) == 1L && nzchar(data)) {
+    data_name <- data
+  } else if (!is.null(data)) {
+    stop("`data` must be a data.frame or the name of one", call. = FALSE)
+  }
+
+  if (is.null(data_obj) && !nzchar(data_name)) {
+    text <- tryCatch(get_addin_context()$selection[[1]]$text,
+                     error = function(e) "")
+    if (length(text) == 1L && nzchar(text)) {
+      data_name <- text
+    }
+  }
+
+  list(data = data_obj, name = data_name)
+
+}
+
+# Reactive that resolves the Data Name field. A data.frame supplied when the
+# addin was launched is used directly; any other name is looked up in the global
+# environment. Missing or unresolved input is reported with req()/validate()
+# instead of an "object not found" error.
+addin_data_reactive <- function(input, data_obj, default_name) {
+
+  shiny::reactive(addin_resolve_data(input, data_obj, default_name))
+
+}
+
+addin_resolve_data <- function(input, data_obj, default_name) {
+
+    name <- input$mydata
+
+    if (is.null(name) || !nzchar(trimws(name))) {
+      if (!is.null(data_obj)) {
+        return(data_obj)
+      }
+      shiny::validate(
+        shiny::need(FALSE, "Enter the name of a data frame in the Data tab.")
+      )
+    }
+
+    name <- trimws(name)
+
+    if (!is.null(data_obj) && identical(name, default_name)) {
+      return(data_obj)
+    }
+
+    out <- tryCatch(get(name, envir = globalenv()), error = function(e) NULL)
+
+    shiny::validate(
+      shiny::need(inherits(out, "data.frame"),
+                  paste0("Data '", name, "' not found."))
+    )
+
+    as.data.frame(out)
 
 }
 

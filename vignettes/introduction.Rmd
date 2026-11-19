@@ -31,6 +31,7 @@ rbin has the following features:
 - equal length binning method
 - winsorized binning method
 - quantile binning method
+- tie-aware equal frequency binning method
 - combine levels of categorical data
 - create dummy variables based on binning method
 - calculates weight of evidence (WOE), entropy and information value (IV)
@@ -124,10 +125,35 @@ bins
 plot(bins)
 ```
 
+## Equal Frequency Binning
+
+Equal-frequency binning creates approximately equal groups without splitting
+tied values. For each target `k * n / bins` among non-missing predictors, the
+smallest value whose cumulative count reaches that target, including all its
+ties, stays in the lower group. The next distinct observed value starts the
+next group. Repeated cuts and cuts beyond the maximum are omitted, with a
+message giving the requested and actual number of non-missing bins.
+
+The stored intervals are left closed and right open, with unbounded outer
+intervals. Gaps belong to the preceding group. Missing predictors retain a
+separate final summary group and produce missing dummy indicators.
+
+```{r equal_freq}
+bins <- rbin_equal_freq(mbank, y, age, 10)
+bins
+colSums(rbin_create(mbank, age, bins)[-seq_along(mbank)])
+```
+
+#### Plot
+
+```{r equal_freq_plot, fig.width=7, fig.height=5, fig.align='center'}
+plot(bins)
+```
+
 ## Equal Length Binning
 
 Equal length binning creates bins of equal widths. It is different from equal frequency binning which
-creates bins of equal size. 
+creates bins of approximately equal size while keeping ties together.
 
 ```{r equal_length}
 bins <- rbin_equal_length(mbank, y, age, 10)

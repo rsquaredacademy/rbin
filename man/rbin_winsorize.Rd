@@ -23,9 +23,19 @@ rbin_winsorize(
 \arguments{
 \item{data}{A \code{data.frame} or \code{tibble}.}
 
-\item{response}{Response variable.}
+\item{response}{Bare column name, character name, or variable holding a character
+name in \code{data}. A binary variable coded as 0/1, a logical
+variable, or a two-level factor/character. For a two-level factor the first
+level is treated as 0 and the second as 1.
+A character response is sorted in byte (C-locale) order: uppercase before
+lowercase, ASCII before accented characters; use a factor to choose the event level.
+The second value is the event.
+Rows with a missing response are dropped with a warning.}
 
-\item{predictor}{Predictor variable.}
+\item{predictor}{Bare column name, character name, or variable holding a character
+name in \code{data}. A numeric predictor; non-missing values must be finite.
+The values used to compute the cut points (after winsorizing) must have
+absolute value up to 1e300.}
 
 \item{bins}{Number of bins.}
 
@@ -39,7 +49,9 @@ rbin_winsorize(
 
 \item{type}{an integer between 1 and 9 selecting one of the nine quantile algorithms detailed in \code{quantile()} to be used.}
 
-\item{remove_na}{logical; if \code{TRUE} NAs will removed while calculating quantiles}
+\item{remove_na}{logical; if \code{TRUE}, missing values are removed while
+calculating quantiles. If \code{FALSE}, retained predictor values must not
+be missing; use \code{TRUE} to retain a separate missing-value bin.}
 
 \item{x}{An object of class \code{rbin_winsorize}.}
 
@@ -48,7 +60,12 @@ rbin_winsorize(
 \item{...}{further arguments passed to or from other methods.}
 }
 \value{
-A \code{tibble}.
+A list of class \code{rbin_winsorize} with the following elements:
+  \code{bins}, a \code{data.frame} with one row per interval (including
+  empty intervals) and a final row for missing values when present;
+  \code{method}; \code{vars}; \code{lower_cut}; \code{upper_cut}; and
+  \code{clamp}, the fitted minimum and maximum used when scoring new data
+  (absent if all predictor values are missing).
 }
 \description{
 Bin continuous data using winsorized method.

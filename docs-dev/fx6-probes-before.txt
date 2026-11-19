@@ -1,0 +1,125 @@
+
+rbin_equal_length cut 7
+[1] "29.000000000000004"
+
+bins 7:8
+  bin_count good bad        woe         iv entropy
+7         2    1   1 -0.4054651 0.06757752       1
+8         1    0   1        Inf        Inf       0
+
+dummy bin for x=29
+x_<_29
+     7
+
+rbin_winsorize cut 7
+[1] "29.000000000000004"
+
+bins 7:8
+  bin_count good bad        woe         iv entropy
+7         2    1   1 -0.4054651 0.06757752       1
+8         1    0   1        Inf        Inf       0
+
+dummy bin for x=29
+x_<_29
+     7
+
+mbank previous bins 29:30
+[1] 3 0
+
+rbin_manual actual bit64::integer64
+$count
+[1] 4 4
+
+$dummy
+ x_<_5 x_>=_5
+     0      8
+
+
+rbin_quantiles actual bit64::integer64
+$count
+[1] 3 5
+
+$dummy
+ x_<_4 x_>=_4
+     0      8
+
+
+rbin_equal_freq actual bit64::integer64
+ERROR: computed cut points contain NA or NaN; cannot form numeric bins
+
+rbin_equal_length actual bit64::integer64
+$count
+[1] 3 5
+
+$dummy
+ x_<_4 x_>=_4
+     0      8
+
+
+rbin_winsorize actual bit64::integer64
+ERROR: only type==0 ('qtile') supported
+
+rbin_factor actual bit64::integer64
+[1] 1 1 1 1 1 1 1 1
+Warning messages:
+
+rbin_create scores actual integer64 against a plain fit
+1: In as.integer64.double(e2) : NAs produced by integer64 overflow
+2: In as.integer64.double(e2) : NAs produced by integer64 overflow
+3: In as.integer64.double(val) : NAs produced by integer64 overflow
+4: In as.integer64.double(e2) : NAs produced by integer64 overflow
+Warning message:
+ERROR: non-missing predictor values fall outside the bin intervals
+In as.integer64.double(e2) : NAs produced by integer64 overflow
+Loading required package: shiny
+
+factor addin HTML options
+[1] "<option value=\"NA\" selected>NA</option>\n<option value=\"NA\" selected>NA</option>"
+
+factor addin selecting the explicit NA option
+   level bin_count good bad
+1 Merged         1    0   1
+2   <NA>         2    2   0
+3   <NA>         1    0   1
+
+character response C
+  good bad woe
+1    2   1   0
+2    2   1   0
+
+character response English_United States.utf8
+  good bad woe
+1    1   2   0
+2    1   2   0
+[1] "C"
+
+winsor_rate 0.6
+ERROR: `min_val` must be less than or equal to `max_val`
+
+winsor_rate NA
+ERROR: `min_val` must be less than or equal to `max_val`
+
+winsor_rate -0.1
+ERROR: 'probs' outside [0,1]
+
+winsor_rate .6 with min_val
+min max
+1.0 2.2
+
+remove_na FALSE with missing predictor
+ERROR: missing values and NaN's not allowed if 'na.rm' is FALSE
+
+wrong bins: factor fit
+[1] 2
+
+wrong bins: list
+[1] 2
+
+heavy ties: correct summary and dummies
+Requested 4 equal-frequency bins; returning 2 non-missing bin(s) because tied values are kept together.
+$count
+[1] 6 2
+
+$dummy
+ x_<_2 x_>=_2
+     6      2

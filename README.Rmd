@@ -82,6 +82,22 @@ bins
 plot(bins)
 ```
 
+### Equal Frequency Binning
+
+Equal-frequency bins keep tied values together. Each empirical quantile and
+all values tied with it stay in the lower group; the next distinct value starts
+the next group. Sizes are approximate, and a message reports fewer bins when
+ties collapse cuts. Dummy counts match the non-missing training summary.
+
+```{r equal_freq}
+bins <- rbin_equal_freq(mbank, y, age, 10)
+bins
+colSums(rbin_create(mbank, age, bins)[-seq_along(mbank)])
+
+# plot
+plot(bins)
+```
+
 ### Winsorized Binning
 
 ```{r winsorize}
@@ -112,9 +128,11 @@ plot(bins)
 ## Getting Help
 
 If you encounter a bug, please file a minimal reproducible example using 
-[reprex](https://reprex.tidyverse.org/index.html) on github. For questions 
+[reprex](https://reprex.tidyverse.org/index.html) on GitHub. For questions 
 and clarifications, use [StackOverflow](https://stackoverflow.com/).
 
 ## Code of Conduct
 
 Please note that the rbin project is released with a [Contributor Code of Conduct](https://rbin.rsquaredacademy.com/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+
+<div data-rsa-signup data-site="rbin.rsquaredacademy.com" data-privacy-url="https://www.rsquaredacademy.com/privacy-policy.html"></div>
