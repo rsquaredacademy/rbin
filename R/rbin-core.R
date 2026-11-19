@@ -67,6 +67,7 @@ max_finite <- function(x) {
 rbin_manual_impl <- function(data, response, predictor, cut_points = NULL,
                              include_na = TRUE) {
 
+  include_na <- validate_include_na(include_na)
   prep_data <- prep_binning_data(data, response, predictor)
   check_numeric_predictor(prep_data)
   if (inherits(prep_data$predictor, "difftime")) {
@@ -95,6 +96,7 @@ rbin_manual_impl <- function(data, response, predictor, cut_points = NULL,
 rbin_equal_length_impl <- function(data, response, predictor, bins = 10,
                                    include_na = TRUE) {
 
+  include_na <- validate_include_na(include_na)
   prep_data <- prep_binning_data(data, response, predictor)
   check_numeric_predictor(prep_data)
   if (inherits(prep_data$predictor, "difftime")) {
@@ -125,6 +127,7 @@ rbin_equal_length_impl <- function(data, response, predictor, bins = 10,
 rbin_quantiles_impl <- function(data, response, predictor, bins = 10,
                                 include_na = TRUE) {
 
+  include_na <- validate_include_na(include_na)
   prep_data <- prep_binning_data(data, response, predictor)
   check_numeric_predictor(prep_data)
   if (inherits(prep_data$predictor, "difftime")) {
@@ -162,6 +165,10 @@ rbin_winsorize_impl <- function(data, response, predictor, bins = 10,
       !is.finite(winsor_rate) || winsor_rate < 0 || winsor_rate > 0.5) {
     stop("`winsor_rate` must be a single number in [0, 0.5]", call. = FALSE)
   }
+
+  include_na <- validate_include_na(include_na)
+  min_val    <- validate_limit(min_val, "min_val")
+  max_val    <- validate_limit(max_val, "max_val")
 
   prep_data <- prep_binning_data(data, response, predictor)
   check_numeric_predictor(prep_data)
@@ -282,6 +289,7 @@ rbin_equal_freq_impl <- function(data, response, predictor, bins = 10) {
 
 rbin_factor_impl <- function(data, response, predictor, include_na = TRUE) {
 
+  include_na <- validate_include_na(include_na)
   prep_data <- prep_binning_data(data, response, predictor)
   bm        <- keep_na_rows(prep_data, include_na)
   x         <- bm$predictor

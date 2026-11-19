@@ -1,3 +1,17 @@
+# rbin (development version)
+
+* Numeric binning methods and `rbin_create()` treat a one-column matrix
+  predictor, such as `scale(mbank["age"])`, as its underlying vector, keeping
+  the numeric or character type. Matrices with more than one column are
+  rejected with a message naming the predictor (#79).
+* `include_na` must be a single `TRUE` or `FALSE`, and winsorized `min_val` /
+  `max_val` must each be a single finite number or `NULL`; invalid values stop
+  with a message naming the argument (#80).
+* The RStudio addins report missing `shiny`, `miniUI` or `rstudioapi`
+  regardless of `interactive()`. Manual binning treats blank cut-point boxes as
+  missing (showing "Enter a value for every cut point"), requires at least two
+  bins, and no longer offers an interactive install prompt (#80).
+
 # rbin 0.3.0
 
 This release combines the unreleased 0.2.2 and 0.2.3 fixes and both fresh

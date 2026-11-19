@@ -47,7 +47,7 @@ rbin_create <- function(data, predictor, bins) {
     stop("predictor variable '", pred, "' not found in data", call. = FALSE)
   }
 
-  x <- strip_asis(data[[pred]])
+  x <- strip_asis(as_predictor_vector(data[[pred]], pred))
 
   check_predictor_class(x, scorer = TRUE)
   if (!is.numeric(x) && !inherits(x, "difftime")) {

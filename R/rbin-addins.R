@@ -20,19 +20,9 @@ rbinAddin <- function(data = NULL) {
   is_installed <- sapply(pkg_deps, try_pkg)
   to_install <- pkg_deps[is.na(is_installed)]
 
-  if (length(to_install) > 0) {
-    if (interactive()) {
-      message('The following package(s) must be installed:', '\n')
-      for (i in seq_len(length(to_install))) {
-        cat(paste('-', to_install[i], '\n'))
-      }
-      message('\n', 'Would you like to install?')
-      if (menu(c("Yes", "No")) == 1) {
-        install.packages(to_install)
-      } else {
-        stop('Sorry! The addin cannot be launched without installing the required packages.', call. = FALSE)
-      }
-    }
+  if (length(to_install) > 0L) {
+    stop("The following package(s) must be installed to use this addin: ",
+         paste(to_install, collapse = ", "), call. = FALSE)
   }
 
   initial <- addin_initial_data(data, deparse(substitute(data)))
@@ -173,8 +163,10 @@ rbinAddin <- function(data = NULL) {
     compute_bins <- shiny::eventReactive(input$create_bins, {
 
       shiny::req(input$resp_var, input$pred_var)
+      shiny::req(!is.na(input$n_bins) && input$n_bins >= 2)
 
       cut_points <- bins_values()
+      cut_points <- cut_points[!is.na(cut_points)]
 
       shiny::validate(
         shiny::need(length(cut_points) == as.integer(input$n_bins) - 1,
@@ -228,19 +220,9 @@ rbinFactorAddin <- function(data = NULL) {
   is_installed <- sapply(pkg_deps, try_pkg)
   to_install <- pkg_deps[is.na(is_installed)]
 
-  if (length(to_install) > 0) {
-    if (interactive()) {
-      message('The following package(s) must be installed:', '\n')
-      for (i in seq_len(length(to_install))) {
-        cat(paste('-', to_install[i], '\n'))
-      }
-      message('\n', 'Would you like to install?')
-      if (menu(c("Yes", "No")) == 1) {
-        install.packages(to_install)
-      } else {
-        stop('Sorry! The addin cannot be launched without installing the required packages.', call. = FALSE)
-      }
-    }
+  if (length(to_install) > 0L) {
+    stop("The following package(s) must be installed to use this addin: ",
+         paste(to_install, collapse = ", "), call. = FALSE)
   }
 
   initial <- addin_initial_data(data, deparse(substitute(data)))
