@@ -1,4 +1,11 @@
-# Custom binning
+# `Custom binning`
+
+# `Custom binning`
+
+Source:
+[`R/rbin-addins.R`](https://github.com/rsquaredacademy/rbin/blob/HEAD/R/rbin-addins.R)
+
+`rbinFactorAddin.Rd`
 
 Manually combine categorical variables using weight of evidence.
 

@@ -1,4 +1,11 @@
-# Create dummy variables
+# `Create dummy variables`
+
+# `Create dummy variables`
+
+Source:
+[`R/rbin-factor.R`](https://github.com/rsquaredacademy/rbin/blob/HEAD/R/rbin-factor.R)
+
+`rbin_factor_create.Rd`
 
 Create dummy variables for categorical data.
 

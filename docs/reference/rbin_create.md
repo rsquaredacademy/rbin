@@ -1,4 +1,11 @@
-# Create dummy variables
+# `Create dummy variables`
+
+# `Create dummy variables`
+
+Source:
+[`R/rbin-create-bins.R`](https://github.com/rsquaredacademy/rbin/blob/HEAD/R/rbin-create-bins.R)
+
+`rbin_create.Rd`
 
 Create dummy variables from bins.
 

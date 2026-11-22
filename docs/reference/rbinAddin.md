@@ -1,4 +1,11 @@
-# Bin continuous data
+# `Bin continuous data`
+
+# `Bin continuous data`
+
+Source:
+[`R/rbin-addins.R`](https://github.com/rsquaredacademy/rbin/blob/HEAD/R/rbin-addins.R)
+
+`rbinAddin.Rd`
 
 Manually bin continuous data using weight of evidence.
 

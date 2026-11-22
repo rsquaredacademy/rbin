@@ -1,4 +1,11 @@
-# Factor binning
+# `Factor binning`
+
+# `Factor binning`
+
+Source:
+[`R/rbin-factor.R`](https://github.com/rsquaredacademy/rbin/blob/HEAD/R/rbin-factor.R)
+
+`rbin_factor.Rd`
 
 Weight of evidence and information value for categorical data.
 
@@ -22,9 +29,11 @@ plot(x, print_plot = TRUE, ...)
   Bare column name, character name, or variable holding a character name
   in `data`. A binary variable coded as 0/1, a logical variable, or a
   two-level factor/character. For a two-level factor the first level is
-  treated as 0 and the second as 1; for character data the two values
-  are sorted and the second is treated as 1. Rows with a missing
-  response are dropped with a warning.
+  treated as 0 and the second as 1. A character response is sorted in
+  byte (C-locale) order: uppercase before lowercase, ASCII before
+  accented characters; use a factor to choose the event level. The
+  second value is the event. Rows with a missing response are dropped
+  with a warning.
 
 - predictor:
 
@@ -64,9 +73,9 @@ and the ordered class are preserved; an explicit `NA` level is a valid
 category, distinct from a missing factor code. It precedes the final
 missing-code group and is retained when `include_na = FALSE`. Numeric
 `NaN` and `NA` share a missing-value group. If a literal `"NA"` category
-is present, the genuine missing group displays as `"(missing)"` in
-printed summaries and plots. Stored typed labels, explicit `NA` levels
-and ordered classes are preserved.
+or an explicit `NA` level is present, the genuine missing group displays
+as `"(missing)"` in printed summaries and plots. Stored typed labels,
+explicit `NA` levels and ordered classes are preserved.
 
 ## Examples
 
