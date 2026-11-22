@@ -1,4 +1,11 @@
-# Combine levels
+# `Combine levels`
+
+# `Combine levels`
+
+Source:
+[`R/rbin-factor.R`](https://github.com/rsquaredacademy/rbin/blob/HEAD/R/rbin-factor.R)
+
+`rbin_factor_combine.Rd`
 
 Manually combine levels of categorical data.
 

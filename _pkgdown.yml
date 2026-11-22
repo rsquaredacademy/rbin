@@ -1,6 +1,16 @@
 url: https://rbin.rsquaredacademy.com
+development:
+  mode: auto
+
 template:
+  package: rsatemplate
   bootstrap: 5
+  params:
+    site_url: https://rbin.rsquaredacademy.com
+    hero_description: Tools for Binning Data
+    course_topic: binning and feature engineering
+    course_url: https://app.rsquaredacademy.com
+    dev_repo: rsquaredacademy/rbin
 
 authors:
   Aravind Hebbali:

@@ -1,4 +1,11 @@
-# `rbin` package
+# `rbin`` package`
+
+# `rbin`` package`
+
+Source:
+[`R/rbin.R`](https://github.com/rsquaredacademy/rbin/blob/HEAD/R/rbin.R)
+
+`rbin.Rd`
 
 Tools for binning data.
 

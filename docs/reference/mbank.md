@@ -1,4 +1,11 @@
-# Bank marketing data set
+# `Bank marketing data set`
+
+# `Bank marketing data set`
+
+Source:
+[`R/rbin-data-bank-marketing.R`](https://github.com/rsquaredacademy/rbin/blob/HEAD/R/rbin-data-bank-marketing.R)
+
+`mbank.Rd`
 
 The data is related with direct marketing campaigns of a Portuguese
 banking institution. The marketing campaigns were based on phone calls.

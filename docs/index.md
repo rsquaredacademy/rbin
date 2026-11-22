@@ -1,5 +1,7 @@
 # rbin
 
+# rbin
+
 > Tools for binning data
 
 ## Installation

@@ -1,5 +1,14 @@
 # Introduction to rbin
 
+# Introduction to rbin
+
+2026-11-22
+
+Source:
+[`vignettes/introduction.Rmd`](https://github.com/rsquaredacademy/rbin/blob/HEAD/vignettes/introduction.Rmd)
+
+`introduction.Rmd`
+
 ## Introduction
 
 Binning is the process of transforming numerical or continuous data into
